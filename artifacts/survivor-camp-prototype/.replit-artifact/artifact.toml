@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Survivor Island · Camp Prototype"
+description = "Isolated, mobile-first playable 3D tropical camp exploration prototype. Procedural assets, third-person avatar, touch controls and provisional map geography; no original game integration or public publishing."
+version = "1.0.0"
+id = "artifacts/survivor-camp-prototype"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20229
+
+[services.development]
+run = "pnpm --filter @workspace/survivor-camp-prototype run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/survivor-camp-prototype", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/survivor-camp-prototype/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20229"
+BASE_PATH = "/"

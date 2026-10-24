@@ -1,0 +1,1 @@
+- [Prototype boundaries](prototype-boundaries.md) — iPhone-only workflow, strict isolation from the original game, and unapproved map geography.
