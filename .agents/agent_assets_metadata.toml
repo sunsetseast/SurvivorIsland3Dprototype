@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "uuu6jVrvU6m_UuJYM5zDz"
+uri = "file://generated-artifacts/camp-overhaul/world-comparison.jpg"
+type = "image"
+title = "Actual gameplay: before and after"
+description = "Original camp versus the rebuilt camp, plus browser walkthrough captures of the shelter, jungle path, beach, and well. Camera viewpoints differ; these are rendered gameplay captures, not concept images."
+logical_id = "4f6353ff-8d96-4d42-aba1-520640f1437b"
+content_hash = "sha256:47a77f35259fa8027a4e0024ec43ee05a49cb4fc7172a3c138f03983f83b9319"
+size = 323833
+mtime_ms = 1792882929072
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:74cf17e2-3c1f-46bb-a9f4-f0288d22e3d4/4f6353ff-8d96-4d42-aba1-520640f1437b/9a8fd533-8e3e-419b-a3ef-5e3d9d9eb192"
+storage_version_token = "1792882942897621"
+content_type = "image/jpeg"

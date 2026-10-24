@@ -1,1 +1,3 @@
 - [Prototype boundaries](prototype-boundaries.md) — iPhone-only workflow, strict isolation from the original game, and unapproved map geography.
+- [World art direction](world-art-direction.md) — premium quality means a cohesive playable environment, not UI polish or more generic primitives.
+- [WebGL verification](webgl-verification.md) — the default screenshot browser lacks WebGL here; use a capable browser and disclose real-device limits.

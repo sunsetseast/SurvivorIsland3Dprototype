@@ -15,7 +15,15 @@ const keyMap = [
 
 function App() {
   useEffect(() => {
-    const clearInput = () => { input.joyX = 0; input.joyY = 0; input.run = false; };
+    const clearInput = () => {
+      input.joyX = 0; input.joyY = 0; input.run = false;
+      // Browser tab switches can swallow keyup, leaving a development key held.
+      for (const binding of keyMap) for (const code of binding.keys) {
+        const key = code.startsWith('Key') ? code.slice(3).toLowerCase()
+          : code.startsWith('Shift') ? 'Shift' : code;
+        window.dispatchEvent(new KeyboardEvent('keyup', { code, key, bubbles: true }));
+      }
+    };
     window.addEventListener('blur', clearInput);
     document.addEventListener('visibilitychange', clearInput);
     const d = {
@@ -24,6 +32,9 @@ function App() {
       get location() { return dbg.location; },
       get moving() { return dbg.moving; },
       get running() { return dbg.running; },
+      get speed() { return dbg.speed; },
+      get cameraDistance() { return dbg.cameraDistance; },
+      get cameraBlocked() { return dbg.cameraBlocked; },
       reset: () => { dbg.resetRequested = true; },
     };
     (window as unknown as { __CAMP_DEBUG__: unknown }).__CAMP_DEBUG__ = Object.freeze(d);
