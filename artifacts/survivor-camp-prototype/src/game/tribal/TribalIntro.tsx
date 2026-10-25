@@ -19,7 +19,7 @@ import {
   stageAt,
   tribalIntro,
 } from "./intro";
-import { tribalHeight } from "./layout";
+import { TRIBAL, tribalHeight } from "./layout";
 
 const time = () => tribalIntro.time;
 function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
@@ -78,10 +78,12 @@ export function TribalIntro({
   const jeff = useMemo<StagedPerson>(
     () => ({
       id: -1,
-      x: 12.5,
-      y: 0.5,
-      z: 6.3,
-      facing: -2.25,
+      // Keep the actor tied to the ceremony anchor rather than a second
+      // unrelated hard-coded position. Stand just behind the stone dais.
+      x: TRIBAL.host.position[0] + 1.0,
+      y: TRIBAL.host.position[1],
+      z: TRIBAL.host.position[2] + 1.45,
+      facing: TRIBAL.host.facing,
       animation: "idle",
       distance: 0,
       speed: 0,

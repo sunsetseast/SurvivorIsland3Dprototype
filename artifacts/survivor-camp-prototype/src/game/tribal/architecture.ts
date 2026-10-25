@@ -595,6 +595,31 @@ export function buildSanctuary() {
   torch(-28, 12.2, 2.7);
   torch(-22, 6.1, 2.5);
 
+  // Survivor ceremony dressing: personal torch stations form an intimate crescent.
+  // Kept behind the reserved seating to avoid obstructing the walkable council floor.
+  for (const seat of TRIBAL.seats) {
+    const [sx, , sz] = seat.position;
+    const x = sx, z = sz - 1.65;
+    const h = tribalHeight(x, z);
+    beam([x, h + .12, z], [x, h + 2.15, z], .085, "wood", false);
+    add(new T.CylinderGeometry(.2, .11, .35, 8), "dark", [x, h + 2.16, z], [1, 1, 1], [0, 0, 0], false);
+    ring([x, h + 1.93, z], .18, .035, "gold", [Math.PI / 2, 0, 0]);
+    flames.push({ x, y: h + 2.25, z, size: .28 });
+  }
+  // Distinctive Survivor snuffing ritual: a contestant presents their torch
+  // at a dedicated low stone receiver beside the host, not in the walkway.
+  box("stone", [14.8, .38, 7.45], [1.25, .72, 1.25], [0, .18, 0], false);
+  add(new T.CylinderGeometry(.22, .3, .34, 10), "ash", [14.8, .86, 7.45], [1, 1, 1], [0, 0, 0], false);
+  ring([14.8, 1.05, 7.45], .32, .07, "gold", [Math.PI / 2, 0, 0]);
+  // Ceremony-specific voter's wayfinding: low amber braziers near the path,
+  // leaving the center unobstructed for contestant processions.
+  for (const [x, z] of [[-17.5, 5.2], [-25.8, 10.8], [-29.9, 15.2]] as const) {
+    const h = tribalHeight(x, z);
+    box("stone", [x, h + .2, z], [.65, .4, .65], [0, .3, 0], false);
+    add(new T.CylinderGeometry(.3, .19, .22, 8), "ash", [x, h + .53, z], [1, 1, 1], [0, 0, 0], false);
+    flames.push({ x, y: h + .62, z, size: .34 });
+  }
+
   // Host terrace: low worn plinth, individual chair joinery, urn and a hand-held snuffer.
   for (let i = 0; i < 5; i++)
     box("stone", [8.2 + i * 1.45, 0.14, 5], [1.4, 0.25, 4.2], [0, 0, 0], false);
