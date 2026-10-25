@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 import { Scene } from '@/game/Scene';
 import { Hud } from '@/game/Hud';
 import { dbg, input } from '@/game/state';
+import { TribalOverlay } from '@/game/tribal/TribalIntro';
 import { camp } from '@/game/CampRuntime';
+
+const TribalScene = lazy(() => import('@/game/tribal/TribalScene').then(m => ({ default: m.TribalScene })));
 
 const keyMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -15,6 +18,11 @@ const keyMap = [
 ];
 
 function App() {
+  const [mode, setMode] = useState<'menu' | 'camp' | 'tribal'>('menu');
+  const enter = (next: 'menu' | 'camp' | 'tribal') => {
+    input.joyX = input.joyY = 0; input.run = false; input.pitch = .34;
+    dbg.resetRequested = false; dbg.teleportRequested = null; setMode(next);
+  };
   useEffect(() => {
     const clearInput = () => {
       input.joyX = 0; input.joyY = 0; input.run = false;
@@ -28,6 +36,7 @@ function App() {
     window.addEventListener('blur', clearInput);
     document.addEventListener('visibilitychange', clearInput);
     const d = {
+      get tribalFrames() { return dbg.tribalFrames; },
       get position() { return { x: dbg.x, y: dbg.y, z: dbg.z }; },
       get camera() { return { x: dbg.cx, y: dbg.cy, z: dbg.cz, yaw: input.yaw, pitch: input.pitch }; },
       get location() { return dbg.location; },
@@ -51,11 +60,22 @@ function App() {
   return (
     <KeyboardControls map={keyMap}>
       <div style={{ position: 'fixed', inset: 0 }}>
-        <Canvas shadows dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: 'high-performance' }}
-          camera={{ fov: 55, near: 0.2, far: 200, position: [0, 6, 0] }} style={{ pointerEvents: 'none' }}>
-          <Scene />
-        </Canvas>
-        <Hud />
+        {mode !== 'menu' && <Canvas key={`canvas-${mode}`} shadows dpr={[1, 1.5]} gl={{ antialias: true, powerPreference: 'high-performance' }}
+          camera={{ fov: 55, near: 0.2, far: 200, position: mode === 'tribal' ? [0, 38, 9] : [0, 6, 0] }} style={{ pointerEvents: 'none' }}>
+          <Suspense fallback={null}>{mode === 'tribal' ? <TribalScene /> : <Scene />}</Suspense>
+        </Canvas>}
+        {mode !== 'menu' && (mode === 'tribal' ? <TribalOverlay onMenu={() => enter('menu')} /> : <Hud onMenu={() => enter('menu')} />)}
+        {mode === 'menu' && <main className="sanctuary-menu">
+          <div className="sanctuary-menu-inner">
+            <p className="sanctuary-eyebrow">SURVIVOR ISLAND · 3D PROTOTYPE</p>
+            <h1>Fire. Stone.<br /><em>Survival.</em></h1>
+            <p className="sanctuary-intro">Beyond the jungle, the torches are burning.<br />Explore the forgotten island sanctuary.</p>
+            <button data-testid="explore-tribal" className="sanctuary-primary" onClick={() => enter('tribal')}>Explore Tribal Council <span>→</span></button>
+            <button data-testid="explore-island" className="sanctuary-secondary" onClick={() => enter('camp')}>Return to the Island Camp</button>
+            <p className="sanctuary-footnote">Walk freely · Drag to look · Landscape recommended</p>
+          </div>
+          <div className="sanctuary-menu-mark" aria-hidden="true"><i /><i /><i /></div>
+        </main>}
       </div>
     </KeyboardControls>
   );

@@ -479,3 +479,24 @@ body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none
 @media (max-height: 500px) { .conversation-panel { padding-top: 10px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }.conversation-heading h2 { font-size: 18px; }.spoken-line { font-size: 13px; margin: 5px 0 6px; }.dialogue-choices { max-height: 101px; gap: 5px; }.dialogue-choices button { font-size: 11px; }.social-eyebrow { font-size: 8px; } }
 @media (pointer: coarse) { .social-hud kbd { display: none; } }
 @media (max-width: 550px) { .talk-prompt { bottom: 145px; min-width: 260px; max-width: calc(100% - 30px); }.approach-card { bottom: 145px; min-width: 0; width: calc(100% - 30px); max-width: none; gap: 8px; padding: 10px; }.approach-card strong { font-size: 12px; }.approach-actions { gap: 5px; }.approach-actions button { padding: 0 10px; }.conversation-panel { border-radius: 18px 18px 0 0; }.dialogue-choices { grid-template-columns: 1fr; max-height: 220px; } }
+
+.sanctuary-menu { position:fixed; inset:0; overflow:auto; color:#f7eddb; background:radial-gradient(ellipse at 76% 80%,#4c321e 0,transparent 43%),radial-gradient(ellipse at 65% 25%,#243d42 0,transparent 55%),#07131c; display:flex; align-items:center; padding:max(24px,env(safe-area-inset-top)) max(28px,env(safe-area-inset-left)); }
+.sanctuary-menu-inner { position:relative; z-index:1; width:min(550px,80%); margin-left:7vw; }
+.sanctuary-eyebrow { color:#d3ad6d; font-size:11px; letter-spacing:.24em; margin-bottom:20px; }
+.sanctuary-menu h1 { font-family:Georgia,serif; font-weight:400; font-size:clamp(42px,7vw,88px); line-height:.98; letter-spacing:-.04em; margin:0 0 22px; }
+.sanctuary-menu h1 em { color:#daa566; font-weight:400; }
+.sanctuary-intro { color:#b7bdba; font-size:14px; line-height:1.7; margin-bottom:26px; }
+.sanctuary-primary,.sanctuary-secondary { display:block; width:min(340px,100%); border-radius:4px; min-height:48px; font-size:14px; cursor:pointer; text-align:left; padding:12px 18px; }
+.sanctuary-primary { background:#d5aa6a; color:#172025; border:1px solid #edcd98; font-weight:700; }
+.sanctuary-primary span { float:right; font-size:19px; }
+.sanctuary-secondary { color:#d5d4c8; background:transparent; border:1px solid #58605a; margin-top:10px; }
+.sanctuary-footnote { color:#9caaa9; font-size:10px; letter-spacing:.05em; margin-top:20px; }
+.sanctuary-menu-mark { position:absolute; left:65%; top:14%; width:32vw; height:32vw; border:1.7vw solid #8c78522b; border-radius:50%; transform:rotate(-24deg); box-shadow:0 0 80px #94753e16,inset 0 0 80px #94753e16; }
+.sanctuary-menu-mark i { position:absolute; top:85%; left:35%; width:1.2vw; height:18vw; background:#8c78522b; transform-origin:top; }
+.sanctuary-menu-mark i:first-child { transform:rotate(28deg); }.sanctuary-menu-mark i:last-child {transform:rotate(-28deg);left:60%;}
+@media(max-height:500px) { .sanctuary-menu-inner { margin-left:5vw; }.sanctuary-eyebrow{margin-bottom:10px;font-size:9px}.sanctuary-menu h1{font-size:46px;margin-bottom:10px}.sanctuary-intro{margin-bottom:14px;font-size:12px}.sanctuary-primary,.sanctuary-secondary{min-height:40px;padding:9px 15px;font-size:12px}.sanctuary-footnote{margin-top:10px}.sanctuary-menu-mark{left:61%;top:8%;} }
+
+.tribal-intro-overlay{position:absolute;inset:0;color:#f8ead3;pointer-events:none}.tribal-letterbox{position:absolute;left:0;right:0;height:6%;background:#03090c;pointer-events:none}.tribal-letterbox.top{top:0}.tribal-letterbox.bottom{bottom:0}.tribal-intro-actions{position:absolute;right:max(16px,env(safe-area-inset-right));top:max(12px,env(safe-area-inset-top));display:flex;gap:8px;pointer-events:auto}.tribal-intro-actions button{padding:8px 14px;font-size:10px}.tribal-intro-caption{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);text-align:center;width:min(460px,85%);text-shadow:0 2px 10px #000}.tribal-intro-caption span{color:#e1ba76;font-size:10px;letter-spacing:.32em}.tribal-intro-caption p{font:24px Georgia,serif;margin:10px 0}.tribal-intro-caption button{pointer-events:auto;margin:15px auto 0;text-align:center;text-shadow:none}
+@media (max-width: 600px) and (orientation: portrait) {
+  .hud:has([data-testid="button-audio"]) > .flex { top: max(90px, env(safe-area-inset-top)) !important; }
+}

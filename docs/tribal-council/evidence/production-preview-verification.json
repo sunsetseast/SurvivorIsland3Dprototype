@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "092f0be14bdfc15db0b1911189b40a98f8f310e7",
+  "renderer": "Chromium software WebGL; not physical iPhone Safari",
+  "checks": [
+    "Standalone production bundle renders actual Tribal WebGL with no asset server",
+    {
+      "joystickDisplacement": 0.9762967176349164
+    },
+    "RESET returns to beginning of raised nighttime arrival path",
+    {
+      "viewport": [
+        375,
+        812
+      ],
+      "portraitControlsDoNotOverlap": true
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "portraitControlsDoNotOverlap": true
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "portraitControlsDoNotOverlap": true
+    },
+    "Production bundle returns to menu and loads original island camp"
+  ],
+  "errors": [],
+  "requests": []
+}

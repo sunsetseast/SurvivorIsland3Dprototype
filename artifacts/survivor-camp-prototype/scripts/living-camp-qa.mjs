@@ -62,6 +62,7 @@ try {
   const page = await context.newPage();
   page.on("pageerror", (e) => report.errors.push(e.message));
   await page.goto("http://127.0.0.1:5174");
+  await page.getByTestId("explore-island").click();
   await page.waitForFunction(() => !!window.__CAMP_DEBUG__?.location);
   const cdp = await context.newCDPSession(page);
   await page.evaluate(async () => {

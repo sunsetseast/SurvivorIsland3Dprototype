@@ -1,0 +1,29 @@
+$ node --import tsx --test tests/*.test.mjs
+Certified 256 directed spot routes
+Certified 22978 physical travel frames
+{"activities":{"4":["socialize","observe","chores","explore","rest","collect_water","private_chat"],"11":["rest","explore","observe","collect_water","socialize","chores","private_chat"],"13":["socialize","explore","collect_water","observe","chores","rest","private_chat"],"18":["observe","socialize","rest","explore","collect_water","chores","private_chat"]},"exchanges":13,"departures":132}
+✔ production snapshots remain byte-identical to the audited source manifest (3.781875ms)
+✔ every major activity spot has a collision-validated path to every other spot (3556.91595ms)
+✔ four contestants physically traverse all five landmarks with no early arrival or teleport (676.322809ms)
+✔ proximity, responses, exit and interrupted intent recover without a false arrival (15.242987ms)
+✔ approaches walk physically, can be accepted/declined and cancel when the player leaves (102.594147ms)
+✔ private meeting knowledge is owner-scoped; movement never grants a witness destination presence (8.491381ms)
+✔ autonomous providers vary activities and decision times, form and leave real groups (3207.257509ms)
+✔ walking stance feet stay planted and articulated legs solve ground targets (3.167475ms)
+✔ locked geography is never mirrored or rotated (6.436444ms)
+✔ arrival route is physically walkable both ways (56.384478ms)
+✔ vote route is physically walkable both ways (34.955644ms)
+✔ exit route is physically walkable both ways (34.249607ms)
+✔ jury route is physically walkable both ways (15.553356ms)
+✔ each contestant can leave a stump into a broad shared aisle (58.006961ms)
+✔ collision substeps prevent tunnelling through fire, tree trunks, walls and furniture (1.704819ms)
+✔ future anchors have unique stable IDs and finite stage/camera coordinates (0.621136ms)
+✔ opening stages drone, ruin detail, Jeff, arrivals, then seated handoff (135.806361ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19151.190333
