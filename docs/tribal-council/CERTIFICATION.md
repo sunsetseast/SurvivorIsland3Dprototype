@@ -15,8 +15,9 @@ A standalone HTML preview can be built from the checked-out PR head with `pnpm -
 - All four arrival/voting/jury/exit routes traverse both directions through the actual Player controller. Accelerated fixed game frames are used between real GPU captures; movement tests are not device-FPS measurements.
 - Natural intro completion, gated controls, seated handoff, skip/reentry, joystick, actual touch events/release, run/orbit, booth camera obstruction, exact grounding and menu/island transitions pass. 54 browser check records, zero page/console errors.
 - Camp regression WebGL harness passes conversations, response choices, approaches, touch controls, camera recovery, all landmark activities and autonomous updates. Its new result is retained as `evidence/camp-regression.json`; original camp screenshots were preserved.
+- The self-contained production HTML also passes a separate browser check: real WebGL rendering, intro skip/seated handoff, actual joystick displacement (0.98m), arrival RESET, portrait HUD clearance at 375/430 widths, and return to the original camp. It makes zero HTTP asset requests and logs zero errors. See `evidence/production-preview-verification.json` and `production-*.jpg`.
 - Legacy world-check script passes 120 solid-collision checks and all six island topology assertions.
-- 20 genuine WebGL screenshots include all 11 requested subjects, the four requested viewport sizes and six opening/staging frames. See `evidence/`. Cinematic-camera captures are labeled in the harness; they are actual game renders, not generated art.
+- 20 core WebGL screenshots plus 3 production-preview captures include all 11 requested subjects, the four requested viewport sizes and six opening/staging frames. See `evidence/`. Cinematic-camera captures are labeled in the harness; they are actual game renders, not generated art.
 
 ## Performance findings
 
