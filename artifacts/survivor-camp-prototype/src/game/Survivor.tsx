@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { M, V, limb, merge, mk, type Geo } from './geo';
 
-type Motion = { speed: number; running: boolean; distance: number; talking?: boolean };
+type Motion = { speed: number; running: boolean; distance: number; talking?: boolean; seated?: boolean };
 const SKIN = '#c98d62', SKIN_L = '#dba074', HAIR = '#2e1d12', TOP = '#d9573b', SHORTS = '#2f8a8a', ROPE = '#d6c08a', LEATHER = '#8a5a35', WRAP = '#f0e0b8';
 const clamp = (n: number, a: number, b: number) => Math.max(a, Math.min(b, n));
 const sph = (r: number, m: THREE.Matrix4, hex: string, j = 0.04, top?: string, y0 = -1, y1 = 1) => mk(new THREE.SphereGeometry(r, 12, 9), m, hex, j, top, y0, y1);
@@ -116,6 +116,11 @@ export function Survivor({ motion }: { motion: React.MutableRefObject<Motion> })
     if (hips.current) {
       hips.current.position.set(Math.sin(ph) * 0.02 * A, 0.98 + Math.cos(ph * 2) * 0.03 * A * (1 + rn) - mv * 0.02, 0);
       hips.current.rotation.set(0, Math.sin(ph) * 0.14 * A, Math.sin(ph) * 0.04 * A);
+    }
+    if (m.seated) {
+      set(legL, -1.45); set(legR, -1.45); set(knL, 1.52); set(knR, 1.52);
+      set(ankL, -.07); set(ankR, -.07); set(elL, -.7); set(elR, -.7);
+      if (hips.current) hips.current.position.set(0, .62, -.32);
     }
     const lean = 0.03 + rn * 0.22 * mv + mv * 0.04;
     if (spine.current) { spine.current.rotation.set(lean + Math.sin(t * 1.6) * 0.008, -Math.sin(ph) * 0.2 * A, -Math.sin(ph) * 0.04 * A); spine.current.scale.y = 1 + Math.sin(t * 1.6) * 0.006; }

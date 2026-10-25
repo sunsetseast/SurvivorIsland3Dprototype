@@ -11,7 +11,8 @@ const material = new THREE.MeshLambertMaterial({ vertexColors: true });
 export const characterAnimationMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
 const mesh = (g: Geo) => <mesh geometry={g} material={material} castShadow />;
 
-function Contestant({ npc }: { npc: NpcState }) {
+export type StagedPerson = Pick<NpcState, 'id' | 'x' | 'y' | 'z' | 'animation' | 'speed' | 'distance' | 'facing'>;
+export function Contestant({ npc, terrain = groundHeight, time }: { npc: StagedPerson; terrain?: typeof groundHeight; time?: () => number }) {
   const p = useMemo(() => buildContestant(npc.id), [npc.id]);
   useEffect(
     () => () => {
@@ -47,7 +48,7 @@ function Contestant({ npc }: { npc: NpcState }) {
   useFrame((_, rawDt) => {
     const animationStart = performance.now();
     const dt = Math.min(rawDt, 0.05),
-      t = camp.now,
+      t = time ? time() : camp.now,
       s = smooth.current;
     const damp = (a: number, b: number) =>
       a + (b - a) * (1 - Math.exp(-dt * 9));
@@ -73,7 +74,7 @@ function Contestant({ npc }: { npc: NpcState }) {
       const foot = sampleFoot(npc.distance, p.look.height, opposite);
       const z = foot.z * s.move;
       const terrainOffset =
-        (groundHeight(
+        (terrain(
           npc.x + Math.sin(npc.facing) * z * p.look.height,
           npc.z + Math.cos(npc.facing) * z * p.look.height,
         ) -

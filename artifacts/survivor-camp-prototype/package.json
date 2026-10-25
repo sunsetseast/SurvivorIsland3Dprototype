@@ -9,6 +9,8 @@
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "node --import tsx --test tests/*.test.mjs",
+    "preview:standalone": "node scripts/build-standalone.mjs",
+    "qa:tribal": "node scripts/tribal-qa.mjs",
     "qa:living-camp": "node scripts/living-camp-qa.mjs"
   },
   "devDependencies": {

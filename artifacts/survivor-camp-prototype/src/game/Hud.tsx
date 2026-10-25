@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'reac
 import { BOUNDS, LANDMARKS, PATH, baseHeight, shorelineX } from './world';
 import { dbg, input } from './state';
 import { camp } from './CampRuntime';
+import { tribalAudio } from './tribal/audio';
 import { ConversationHud } from './ConversationHud';
 
 const safe = (side: string) => `max(12px, env(safe-area-inset-${side}))`;
@@ -99,7 +100,8 @@ function Minimap() {
 }
 
 const DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-export function Hud() {
+export function Hud({ tribal = false, onMenu }: { tribal?: boolean; onMenu?: () => void }) {
+  const [audio, setAudio] = useState(false);
   const social = useSyncExternalStore(camp.subscribe, camp.getSnapshot);
   const [, tick] = useState(0);
   const [help, setHelp] = useState(false);
@@ -108,7 +110,7 @@ export function Hud() {
   const bearing = ((-input.yaw * 180) / Math.PI % 360 + 360) % 360;
   return (
     <div className="hud absolute inset-0" style={{ pointerEvents: 'none' }}>
-      {!social.conversation && <OrbitZone />}
+      {(tribal || !social.conversation) && <OrbitZone />}
       <div className="absolute" style={{ left: safe('left'), top: safe('top'), zIndex: 4 }}>
         <div className="chip" style={{ padding: '4px 10px', lineHeight: 1.25 }}>
           <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '.12em', color: '#f6c35a' }}>SURVIVOR ISLAND</div>
@@ -123,26 +125,28 @@ export function Hud() {
       </div>
       <div className="absolute flex flex-col items-end gap-1" style={{ right: safe('right'), top: safe('top'), zIndex: 4, pointerEvents: 'auto' }}>
         <div className="flex gap-1">
+          {onMenu && <button data-testid="button-menu" className="btn" style={{ padding: '3px 10px', fontSize: 11 }} onClick={onMenu}>MENU</button>}
+          {tribal && <button data-testid="button-audio" className="btn" style={{ padding: '3px 9px', fontSize: 11 }} onClick={async () => { if (audio) { tribalAudio.stop(); setAudio(false); } else setAudio(await tribalAudio.start()); }}>SOUND {audio ? 'ON' : 'OFF'}</button>}
           <button data-testid="button-reset" className="btn" style={{ padding: '3px 11px', fontSize: 11 }} onClick={() => { dbg.resetRequested = true; }}>RESET</button>
           <button data-testid="button-debug" className={`btn ${dbgOpen ? 'on' : ''}`} style={{ width: 28, fontSize: 10 }} onClick={() => setDbgOpen(d => !d)}>DB</button>
           <button data-testid="button-help" className={`btn ${help ? 'on' : ''}`} style={{ width: 28, fontSize: 13 }} onClick={() => setHelp(h => !h)}>?</button>
         </div>
-        {!social.conversation && <Minimap />}
+        {!tribal && !social.conversation && <Minimap />}
       </div>
       {help && (
         <div data-testid="panel-help" className="chip absolute" style={{ left: '50%', top: '50%', transform: 'translate(-50%,-50%)', padding: '10px 16px', fontSize: 12, lineHeight: 1.45, maxWidth: 340, zIndex: 6, pointerEvents: 'auto' }} onClick={() => setHelp(false)}>
           <b style={{ color: '#f6c35a' }}>How to explore</b>
           <div>Joystick or WASD to walk, hold RUN or Shift to run.</div>
-          <div>Drag the right side to orbit. Follow the trail between the beach, campfire, shelter and well.</div>
-          <div>Walk close to a contestant and tap Talk (or E). Choose a response, then Leave. You can decline an approach with Not now.</div>
+          <div>Drag the right side to orbit. {tribal ? 'Follow the torches to Council. Explore the jury gallery, private voting chamber and exit behind the host.' : 'Follow the trail between the beach, campfire, shelter and well.'}</div>
+          {!tribal && <div>Walk close to a contestant and tap Talk (or E). Choose a response, then Leave. You can decline an approach with Not now.</div>}
           <div style={{ opacity: .7, marginTop: 4 }}>Tap to close.</div>
         </div>
       )}
       <div className="rotate-hint chip absolute" style={{ left: '50%', top: '40%', transform: 'translateX(-50%)', padding: '6px 12px', fontSize: 12, zIndex: 6, animation: 'bob 2s infinite' }}>
         Rotate to landscape for the best view
       </div>
-      {!social.conversation && <div style={{ pointerEvents: 'auto' }}><Joystick /><RunButton /></div>}
-      <ConversationHud />
+      {(tribal || !social.conversation) && <div style={{ pointerEvents: 'auto' }}><Joystick /><RunButton /></div>}
+      {!tribal && <ConversationHud />}
     </div>
   );
 }

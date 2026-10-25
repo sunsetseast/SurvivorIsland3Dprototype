@@ -12,11 +12,12 @@ export type CharacterLook = {
   headWidth: number;
   jaw: number;
   nose: number;
-  hairStyle: "bob" | "long" | "cap" | "hat";
+  hairStyle: "bob" | "long" | "cap" | "hat" | "short";
   beard?: boolean;
   female?: boolean;
 };
 export const LOOKS: Record<number, CharacterLook> = {
+  [-1]: { height: 1.04, width: 1.05, skin: '#c28d6c', highlight: '#dba47c', hair: '#362a24', shirt: '#587f9c', shorts: '#a29171', headWidth: .98, jaw: 1.08, nose: 1.04, hairStyle: 'short' },
   11: {
     height: 0.93,
     width: 1.18,
@@ -354,6 +355,14 @@ export function buildContestant(id: number) {
       );
     }
   }
+  if (id === -1) {
+    for (const side of [-1, 1]) {
+      torso.push(box(side * .09, .49, .139, .12, .16, .025, '#7394aa'));
+      torso.push(box(side * .115, .29, .147, .12, .1, .018, '#496c88'));
+      torso.push(box(side * .115, .345, .153, .13, .025, .02, '#91a6b1'));
+    }
+    for (let y = .16; y < .51; y += .08) torso.push(oval(0,y,.155,.012,.012,.007,'#d9cdb3',6));
+  }
   const hairParts: Geo[] = [];
   if (female) {
     hairParts.push(
@@ -467,7 +476,7 @@ export function buildContestant(id: number) {
             0.01,
           ),
         );
-    } else {
+    } else if (id === 18) {
       hairParts.push(oval(0, 0.379, -0.015, 0.29, 0.019, 0.25, "#6f5737"));
       hairParts.push(
         loft(
