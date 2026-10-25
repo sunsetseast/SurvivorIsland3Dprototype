@@ -1,32 +1,38 @@
-import { ARRIVAL, TRIBAL, tribalHeight } from "./layout";
+import {
+  ARRIVAL,
+  COUNCIL,
+  TRIBAL,
+  occupiedSeats,
+  tribalHeight,
+} from "./layout";
 import type { Point } from "../world";
 export type IntroMode = "intro" | "seated" | "explore";
 export const CAST = [4, 11, 13, 18, 0];
-export const CAST_SEATS = [3, 4, 5, 6, 7].map((i) => TRIBAL.seats[i]!);
+export const CAST_SEATS = occupiedSeats(CAST.length);
 export const INTRO_SHOTS = [
   {
     start: 0,
     end: 6,
     label: "The forgotten sanctuary",
     from: [0, 38, 9],
-    to: [14, 24, 18],
-    target: [-3, 1, -4],
+    to: [12, 20, 15],
+    target: [-2, 5, -12],
   },
   {
     start: 6,
     end: 10,
     label: "Stone remembers",
-    from: [-7, 3.7, -14.8],
-    to: [-3, 4.1, -14.8],
-    target: [-4, 2.7, -18.1],
+    from: [-5, 3.3, -14],
+    to: [-3, 4.1, -13],
+    target: [1, 11, -25],
   },
   {
     start: 10,
     end: 14,
     label: "Jeff Probst · Host",
-    from: [8.7, 2.3, 8.6],
-    to: [9.9, 2.3, 8.2],
-    target: [12.5, 1.8, 6.3],
+    from: [2.7, 2.1, -0.8],
+    to: [3.7, 2.1, 0.8],
+    target: [COUNCIL.host.x, 1.75, COUNCIL.host.z],
   },
   {
     start: 14,
@@ -40,14 +46,20 @@ export const INTRO_SHOTS = [
     start: 24,
     end: 40,
     label: "Take a seat",
-    from: [10, 4.7, -1],
-    to: [6, 3.2, -4],
-    target: [0, 1, -11.5],
+    from: [9, 3.6, 0],
+    to: [5, 2.6, -0.5],
+    target: [0, 1, -6.8],
   },
 ];
 export function stagedRoute(index: number): Point[] {
-  const [x, , z] = CAST_SEATS[index]!.position;
-  return [...ARRIVAL, { x: -11, z: -7 }, { x, z: -7 }, { x, z: z + 1 }];
+  const seat = CAST_SEATS[index]!,
+    [x, , z] = seat.position;
+  return [
+    ...ARRIVAL,
+    { x: -10, z: COUNCIL.aisleZ },
+    { x, z: COUNCIL.aisleZ },
+    { x, z: z + 1.05 },
+  ];
 }
 function length(path: Point[]) {
   return path
@@ -80,7 +92,8 @@ export function stageAt(time: number, index: number) {
   }
   const sit = Math.max(0, Math.min(1, (distance - total) / (2.8 * 1.3)));
   if (distance >= total) {
-    position.z += -0.66 * sit;
+    position.x += Math.sin(seat.facing) * 0.37 * sit;
+    position.z += (Math.cos(seat.facing) * 0.37 - 1.05) * sit;
     facing +=
       Math.atan2(
         Math.sin(seat.facing - facing),
@@ -99,6 +112,7 @@ export function stageAt(time: number, index: number) {
 }
 class Intro {
   time = 0;
+  ceremonyTime = 0;
   private mode: IntroMode = "intro";
   private listeners = new Set<() => void>();
   subscribe = (fn: () => void) => {
@@ -113,10 +127,12 @@ class Intro {
   }
   reset() {
     this.time = 0;
+    this.ceremonyTime = 0;
     this.mode = "intro";
     this.emit();
   }
   step(dt: number) {
+    this.ceremonyTime += Math.min(0.05, Math.max(0, dt));
     if (this.mode !== "intro") return;
     this.time += Math.min(0.05, Math.max(0, dt));
     if (this.time >= INTRO_DURATION) this.skip();
@@ -125,6 +141,9 @@ class Intro {
     this.time = INTRO_DURATION + 1;
     this.mode = "seated";
     this.emit();
+  };
+  sit = () => {
+    this.skip();
   };
   stand = () => {
     this.mode = "explore";

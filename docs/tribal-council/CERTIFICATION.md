@@ -1,3 +1,5 @@
+> Current reconstruction: [Definitive Tribal Council overhaul certification](OVERHAUL-CERTIFICATION.md). The report below is the historical PR #2 baseline.
+
 # Tribal Council certification
 
 Status: implemented and browser-verified draft. Not merged, deployed or published. Physical iPhone Safari performance remains unverified.

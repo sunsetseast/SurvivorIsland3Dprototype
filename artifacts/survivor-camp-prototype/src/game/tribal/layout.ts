@@ -17,7 +17,7 @@ export const ARRIVAL: Point[] = [
   { x: -38, z: -43 },
   { x: -34, z: -37 },
   { x: -36, z: -30 },
-  { x: -29, z: -25 },
+  { x: -30.5, z: -25.5 },
   { x: -25, z: -21 },
   { x: -21, z: -20 },
   { x: -17, z: -16 },
@@ -42,7 +42,10 @@ export const EXIT_PATH: Point[] = [
   { x: 38, z: 25 },
 ];
 export const JURY_PATH: Point[] = [
-  { x: -25, z: -21 },
+  { x: -21, z: -20 },
+  { x: -19.8, z: -19.5 },
+  { x: -19.8, z: -17 },
+  { x: -23, z: -17 },
   { x: -28, z: -15 },
   { x: -27, z: -9 },
   { x: -25, z: -7 },
@@ -50,25 +53,58 @@ export const JURY_PATH: Point[] = [
   { x: -22.25, z: -4 },
 ];
 export const PATHS = [ARRIVAL, VOTING_PATH, EXIT_PATH, JURY_PATH];
+// One source of truth for furniture, actors, lights, collision and cinematic targets.
+export const COUNCIL = {
+  aisleZ: -4.25,
+  fireRadius: 1.7,
+  podium: { x: 5.8, z: 3.25, y: 0.22, yaw: -2.62 },
+  host: { x: 6.37, z: 4.25, y: 0.22 },
+  urn: { x: 4.55, z: 4.1, y: 0.22 },
+  snuff: { x: 8.25, z: 4.7, y: 0.22 },
+};
+export const TOWERS = [
+  { kind: "prang", x: 1, z: -25, height: 23, radius: 4.2 },
+  { kind: "prang", x: -10, z: -23.5, height: 14.5, radius: 2.6 },
+  { kind: "chedi", x: 13, z: -27, height: 17, radius: 3.2 },
+  { kind: "prang", x: -18, z: -33, height: 11, radius: 2.2 },
+] as const;
 export const TRIBAL = {
   id: "forgotten-island-sanctuary",
-  version: 1,
+  version: 2,
   arrival: anchor("contestant-arrival", -38, -43, 0, -2.55),
   entrance: anchor("sanctuary-gateway", -17, -16),
-  host: anchor("host-seat", 11.5, 4.8, 0.5, -2.25),
-  urn: anchor("voting-urn", 9.1, 4.2, 0.5),
-  snuff: anchor("torch-snuff", 13.1, 6.9, 0.5, -2.25),
+  host: anchor(
+    "host-standing",
+    COUNCIL.host.x,
+    COUNCIL.host.z,
+    COUNCIL.host.y,
+    COUNCIL.podium.yaw,
+  ),
+  urn: anchor("voting-urn", COUNCIL.urn.x, COUNCIL.urn.z, COUNCIL.urn.y),
+  snuff: anchor(
+    "torch-snuff",
+    COUNCIL.snuff.x,
+    COUNCIL.snuff.z,
+    COUNCIL.snuff.y,
+    COUNCIL.podium.yaw,
+  ),
   juryEntrance: anchor("jury-entrance", -25, -7),
   votingApproach: anchor("voting-approach", -29, 12),
-  vote: anchor("voting-interaction", -34, 18, 0.35, Math.PI),
+  vote: anchor("voting-interaction", -34, 17.3, 0.35, Math.PI),
   exit: anchor("elimination-exit", 38, 25),
   fire: anchor("council-fire", 0, 0),
   // Owner-locked stagger: alternate forward/back along a broad curved formation.
   seats: Array.from({ length: 12 }, (_, i) => {
-    const x = (i - 5.5) * 1.65,
-      setback = i % 2 ? 2.25 : 0;
-    const z = -9.5 - setback - 1.1 * (1 - (x / 10) ** 2);
-    return anchor(`stump-${i + 1}`, x, z, 0.6, Math.atan2(11.5 - x, 4.8 - z));
+    const x = (i - 5.5) * 1.35,
+      setback = i % 2 ? 0.8 : 0;
+    const z = -5.9 - setback - 0.5 * (1 - (x / 8) ** 2);
+    return anchor(
+      `stump-${i + 1}`,
+      x,
+      z,
+      0.6,
+      Math.atan2(COUNCIL.host.x - x, COUNCIL.host.z - z),
+    );
   }),
   jurors: Array.from({ length: 12 }, (_, i) => {
     const tier = Math.floor(i / 4),
@@ -83,19 +119,17 @@ export const TRIBAL = {
     );
   }),
   cameras: {
-    reveal: { position: [-15, 4.2, -13] as const, target: [1, 2, 0] as const },
-    council: { position: [18, 10, 24] as const, target: [-2, 3, -6] as const },
-    contestants: {
-      position: [4, 3.4, -4] as const,
-      target: [0, 1.1, -12] as const,
-    },
-    jury: { position: [-8, 4, 6] as const, target: [-20, 2, -3] as const },
-    vote: {
-      position: [-31.8, 2.7, 20.5] as const,
-      target: [-34, 1.5, 16.5] as const,
-    },
-    host: { position: [4, 3.4, 13] as const, target: [12, 2, 5] as const },
-    sky: { position: [4, 4, 15] as const, target: [0, 10, -15] as const },
+    reveal: { position: [-15, 3.2, -13], target: [0, 2, -2] },
+    council: { position: [14, 6.5, 16], target: [-1, 6, -9] },
+    contestants: { position: [5, 2.6, 1], target: [0, 1.1, -6.8] },
+    jury: { position: [-8, 4, 6], target: [-20, 2, -3] },
+    vote: { position: [-31.8, 2.2, 20.5], target: [-34, 1.5, 16.5] },
+    host: { position: [1, 2.2, -3], target: [6.2, 1.8, 4] },
+    sky: { position: [4, 3, 8], target: [1, 11, -24] },
+    contestantEye: { position: [1.1, 1.55, -5.75], target: [6.2, 1.7, 4] },
+    hostEye: { position: [6.12, 1.85, 3.83], target: [-0.6, 1.1, -6.8] },
+    fireSide: { position: [-6, 2, 3], target: [3.4, 1.5, -1] },
+    entrance: { position: [-32, 3.5, -28], target: [-24, 1.5, -21] },
   },
 };
 
@@ -108,7 +142,14 @@ export type Solid = {
   yaw?: number;
 };
 export const STRUCTURES: Solid[] = [
-  { id: "backdrop", x: 0, z: -18.6, hx: 14, hz: 1.4 },
+  { id: "backdrop", x: 0, z: -18.6, hx: 14, hz: 0.65 },
+  ...TOWERS.map((t) => ({
+    id: `tower-${t.x}`,
+    x: t.x,
+    z: t.z,
+    hx: t.radius * 1.2,
+    hz: t.radius * 1.2,
+  })),
   { id: "backdrop-east", x: 14.8, z: -13.2, hx: 1.1, hz: 5.8 },
   { id: "arrival-gate-west", x: -19.2, z: -14.5, hx: 0.85, hz: 0.85 },
   { id: "arrival-gate-east", x: -14.8, z: -17.5, hx: 0.85, hz: 0.85 },
@@ -119,11 +160,56 @@ export const STRUCTURES: Solid[] = [
   { id: "writing-table", x: -34, z: 16, hx: 1.55, hz: 0.55 },
   { id: "privacy-wall", x: -24, z: 11.5, hx: 3.3, hz: 0.5 },
   { id: "privacy-wall-west", x: -30, z: 8.1, hx: 0.6, hz: 2.4 },
-  { id: "host-person", x: 12.5, z: 6.3, hx: 0.25, hz: 0.25 },
-  { id: "host-seat", x: 11.5, z: 4.8, hx: 0.55, hz: 0.55 },
-  { id: "urn-pedestal", x: 9.1, z: 4.2, hx: 0.5, hz: 0.5 },
+  {
+    id: "host-person",
+    x: COUNCIL.host.x,
+    z: COUNCIL.host.z,
+    hx: 0.24,
+    hz: 0.24,
+  },
+  {
+    id: "host-podium",
+    x: COUNCIL.podium.x,
+    z: COUNCIL.podium.z,
+    hx: 0.8,
+    hz: 0.46,
+    yaw: COUNCIL.podium.yaw,
+  },
+  {
+    id: "urn-pedestal",
+    x: COUNCIL.urn.x,
+    z: COUNCIL.urn.z,
+    hx: 0.43,
+    hz: 0.43,
+  },
+  {
+    id: "snuff-receiver",
+    x: COUNCIL.snuff.x,
+    z: COUNCIL.snuff.z,
+    hx: 0.4,
+    hz: 0.4,
+  },
   { id: "exit-gate-left", x: 18.1, z: 13, hx: 0.7, hz: 0.7 },
   { id: "exit-gate-right", x: 21.9, z: 9, hx: 0.7, hz: 0.7 },
+  ...ARRIVAL.slice(1, 6).flatMap((a, i) => {
+    const b = ARRIVAL[i + 2]!,
+      dx = b.x - a.x,
+      dz = b.z - a.z,
+      len = Math.hypot(dx, dz),
+      n = Math.ceil(len / 0.7);
+    return Array.from({ length: n }, (_, j) =>
+      [-1, 1]
+        .filter((side) => !(i === 4 && side === 1))
+        .map((side) => ({
+          id: `approach-rail-${i}-${j}-${side}`,
+          x: a.x + (dx * (j + 0.5)) / n - (dz / len) * side * 1.65,
+          z: a.z + (dz * (j + 0.5)) / n + (dx / len) * side * 1.65,
+          hx: len / n / 2 + 0.02,
+          hz: 0.12,
+          yaw: Math.atan2(-dz, dx),
+        })),
+    ).flat();
+  }),
   ...TRIBAL.seats.map((s) => ({
     id: s.id,
     x: s.position[0],
@@ -160,7 +246,7 @@ export function trailDistance(x: number, z: number) {
   return d;
 }
 const clamp = (v: number, lo = 0, hi = 1) => Math.max(lo, Math.min(hi, v));
-export function tribalHeight(x: number, z: number) {
+function terrainHeight(x: number, z: number) {
   // Walkable gallery tiers; 1.6m connecting grades flank the visible stone risers.
   if (x > -24 && x < -13 && z > -8 && z < 3.8) {
     const edge =
@@ -169,14 +255,14 @@ export function tribalHeight(x: number, z: number) {
       edge * (0.75 + clamp((-x - 17) / 2.2, 0, 2) * 0.42) * clamp((-x - 13) / 2)
     );
   }
-  if (x > 6 && x < 16 && z > 1 && z < 9)
+  if (x > 3 && x < 10 && z > 1 && z < 7)
     return (
-      0.5 *
+      0.22 *
       Math.min(
-        clamp((x - 6) / 2),
-        clamp((16 - x) / 2),
-        clamp((z - 1) / 2),
-        clamp((9 - z) / 2),
+        clamp((x - 3) / 1),
+        clamp((10 - x) / 1),
+        clamp((z - 1) / 1),
+        clamp((7 - z) / 1),
       )
     );
   if (x > -38 && x < -30 && z > 14 && z < 22)
@@ -203,6 +289,57 @@ export function tribalHeight(x: number, z: number) {
   );
 }
 
+/** The approach mesh and grounding both sample these exact tread and bridge profiles. */
+export function approachSurface(x: number, z: number) {
+  let best = { distance: Infinity, height: 0, segment: -1, t: 0 };
+  for (let i = 1; i < 6; i++) {
+    const a = ARRIVAL[i]!,
+      b = ARRIVAL[i + 1]!;
+    const dx = b.x - a.x,
+      dz = b.z - a.z,
+      len2 = dx * dx + dz * dz;
+    const t = clamp(((x - a.x) * dx + (z - a.z) * dz) / len2);
+    const d = Math.hypot(x - a.x - dx * t, z - a.z - dz * t);
+    let height: number;
+    if (i === 1) height = 2.2 - t * 0.4;
+    else if (i === 2) height = 1.8 - Math.min(6, Math.floor(t * 6)) * 0.1;
+    else if (i === 3) height = 1.2 - Math.min(6, Math.floor(t * 6)) * 0.1;
+    else if (i === 4)
+      height = 0.6; // Actual bridge deck over the drainage channel.
+    else height = 0.6 * (1 - t);
+    if (d < best.distance) best = { distance: d, height, segment: i, t };
+  }
+  return best;
+}
+export function drainageBed(x: number, z: number) {
+  const a = ARRIVAL[4]!,
+    b = ARRIVAL[5]!,
+    dx = b.x - a.x,
+    dz = b.z - a.z,
+    len = Math.hypot(dx, dz);
+  const px = x - (a.x + b.x) / 2,
+    pz = z - (a.z + b.z) / 2;
+  const along = (px * dx + pz * dz) / len,
+    across = (-px * dz + pz * dx) / len;
+  const weight =
+    clamp((1.5 - Math.abs(along)) / 0.55) * clamp((4 - Math.abs(across)) / 0.8);
+  const base = terrainHeight(x, z);
+  return { height: base - (base + 0.23) * weight, weight, across };
+}
+export function tribalHeight(x: number, z: number) {
+  const a = approachSurface(x, z),
+    base = terrainHeight(x, z);
+  const bed = drainageBed(x, z);
+  if (bed.weight > 0 && Math.abs(bed.across) > 1.65) return bed.height;
+  const blend = clamp((2.7 - a.distance) / 1.2);
+  return base + (a.height - base) * blend;
+}
+export function occupiedSeats(count: number) {
+  const n = Math.max(0, Math.min(12, Math.floor(count)));
+  const start = Math.floor((12 - n) / 2);
+  return TRIBAL.seats.slice(start, start + n);
+}
+
 // Deterministic foliage; the SAME trunk positions feed collision and rendering.
 export const TREES = Array.from({ length: 150 }, (_, i) => {
   const a = i * 2.39996323,
@@ -216,6 +353,7 @@ export const TREES = Array.from({ length: 150 }, (_, i) => {
 }).filter(
   (t) =>
     trailDistance(t.x, t.z) > 3.6 &&
+    !(t.z < -18 && t.z > -38 && Math.abs(t.x) < 21) &&
     !(t.x < -29 && t.x > -39 && t.z > 12 && t.z < 24) &&
     !(t.x < -12 && t.x > -29 && t.z > -10 && t.z < 6),
 );
@@ -230,7 +368,13 @@ export const SOLIDS: Solid[] = [
   })),
 ];
 export function tribalBlocked(x: number, z: number, radius = 0.36) {
-  if (x < -48 || x > 45 || z < -49 || z > 35 || Math.hypot(x, z) < 2.5 + radius)
+  if (
+    x < -48 ||
+    x > 45 ||
+    z < -49 ||
+    z > 35 ||
+    Math.hypot(x, z) < COUNCIL.fireRadius + radius
+  )
     return true;
   return SOLIDS.some((b) => {
     const c = Math.cos(b.yaw || 0),
@@ -261,8 +405,8 @@ export function tribalLocation(x: number, z: number) {
   if (z < -18) return "The Torchlit Approach";
   if (x < -13 && z < 4 && z > -10) return "The Jury Gallery";
   if (x > 21) return "The Last Walk";
-  if (x > 6 && z > 1) return "The Host Terrace";
-  if (z < -8 && x > -12) return "Contestant Stumps";
+  if (x > 3 && x < 11 && z > 1) return "The Host Terrace";
+  if (z < -5 && z > -10 && x > -10 && x < 10) return "Contestant Stumps";
   if (x < -17 && z > 5) return "The Private Passage";
   return "Tribal Council";
 }

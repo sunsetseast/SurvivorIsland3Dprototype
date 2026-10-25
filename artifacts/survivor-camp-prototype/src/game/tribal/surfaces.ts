@@ -2,7 +2,9 @@ import * as T from "three";
 import { rng } from "../world";
 
 /** Authored, seeded microtexture; no downloaded art or per-frame canvas work. */
-export function surface(kind: "stone" | "wood" | "bark" | "earth" | "rings") {
+export function surface(
+  kind: "stone" | "wood" | "bark" | "earth" | "rings" | "brick" | "roof",
+) {
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = 512;
   const c = canvas.getContext("2d")!,
@@ -68,6 +70,18 @@ export function surface(kind: "stone" | "wood" | "bark" | "earth" | "rings") {
       c.stroke();
     }
   }
+  if (kind === "brick" || kind === "roof") {
+    const hh = kind === "brick" ? 32 : 64;
+    for (let y = 0; y < 512; y += hh)
+      for (let x = -128; x < 512; x += 128) {
+        const xx = x + ((y / hh) % 2) * 64;
+        c.fillStyle = `rgba(26,20,16,${0.3 + random() * 0.2})`;
+        c.fillRect(xx, y, 128, 3);
+        c.fillRect(xx, y, 3, hh);
+        c.fillStyle = `rgba(222,193,151,${random() * 0.09})`;
+        c.fillRect(xx + 3, y + 4, 123, hh - 6);
+      }
+  }
   const texture = new T.CanvasTexture(canvas);
   texture.wrapS = texture.wrapT = T.RepeatWrapping;
   texture.colorSpace = T.SRGBColorSpace;
@@ -81,6 +95,8 @@ export function sanctuaryMaterials() {
     bark: surface("bark"),
     earth: surface("earth"),
     rings: surface("rings"),
+    brick: surface("brick"),
+    roof: surface("roof"),
   };
   const stone = (color: string, map = maps.stone) =>
     new T.MeshStandardMaterial({
@@ -93,6 +109,17 @@ export function sanctuaryMaterials() {
     });
   const materials = {
     stone: stone("#969484"),
+    brick: stone("#9f7055", maps.brick),
+    plaster: stone("#b9afa0"),
+    roof: new T.MeshStandardMaterial({
+      color: "#605a52",
+      map: maps.roof,
+      bumpMap: maps.roof,
+      bumpScale: 0.05,
+      roughness: 0.95,
+      vertexColors: true,
+      side: T.DoubleSide,
+    }),
     trim: stone("#b0a28a"),
     dark: stone("#47473e"),
     wood: stone("#8a6240", maps.wood),

@@ -6,9 +6,10 @@ import { Player } from "../Player";
 import { rng } from "../world";
 import { dbg } from "../state";
 import { buildSanctuary, type FlameSource } from "./architecture";
-import { tribalWorld } from "./layout";
+import { COUNCIL, tribalWorld } from "./layout";
 import { TribalIntro } from "./TribalIntro";
-import { CAST_SEATS, tribalIntro } from "./intro";
+import { CAST, CAST_SEATS, tribalIntro } from "./intro";
+import { tribalInteractions } from "./interactions";
 import { tribalAudio } from "./audio";
 
 function NightSky() {
@@ -100,7 +101,7 @@ function LivingFire({ sources }: { sources: FlameSource[] }) {
           source.z + Math.sin(a) * source.size * 0.35,
         );
         const phase = random() * 7;
-        const g = new T.SphereGeometry(1, 9, 9),
+        const g = new T.SphereGeometry(1, 7, 6),
           p = g.getAttribute("position"),
           origins: number[] = [],
           heights: number[] = [],
@@ -212,6 +213,28 @@ function LivingFire({ sources }: { sources: FlameSource[] }) {
   );
 }
 
+function PracticeBallot() {
+  const ballot = useSyncExternalStore(
+    tribalInteractions.subscribe,
+    tribalInteractions.getSnapshot,
+  );
+  return ballot.folded ? (
+    <group
+      name="folded-practice-ballot"
+      position={[-34.1, 1.52, 16.15]}
+      rotation={[0, 0.1, 0]}
+    >
+      <mesh>
+        <boxGeometry args={[0.37, 0.025, 0.5]} />
+        <meshStandardMaterial color="#ddc79b" roughness={1} />
+      </mesh>
+      <mesh position={[0.175, 0.015, 0]} rotation={[0, 0, 0.18]}>
+        <boxGeometry args={[0.025, 0.03, 0.5]} />
+        <meshStandardMaterial color="#b49a70" roughness={1} />
+      </mesh>
+    </group>
+  ) : null;
+}
 export function TribalScene() {
   const mode = useSyncExternalStore(
     tribalIntro.subscribe,
@@ -221,6 +244,12 @@ export function TribalScene() {
     () => ({
       ...tribalWorld,
       resetSpawn: tribalWorld.spawn,
+      controlsLocked: () => !!tribalInteractions.getSnapshot().open,
+      standFrom: {
+        x: CAST_SEATS[4]!.position[0] + Math.sin(CAST_SEATS[4]!.facing) * 0.37,
+        z: CAST_SEATS[4]!.position[2] + Math.cos(CAST_SEATS[4]!.facing) * 0.37,
+        facing: CAST_SEATS[4]!.facing,
+      },
       spawn: {
         x: CAST_SEATS[4]!.position[0],
         z: CAST_SEATS[4]!.position[2] + 1.05,
@@ -230,7 +259,7 @@ export function TribalScene() {
     [],
   );
   const shadowTime = useRef(1);
-  const sanctuary = useMemo(buildSanctuary, []);
+  const sanctuary = useMemo(() => buildSanctuary(CAST.length), []);
   useEffect(
     () => () => {
       sanctuary.dispose();
@@ -255,11 +284,11 @@ export function TribalScene() {
       <color attach="background" args={["#060e1e"]} />
       <fog attach="fog" args={["#0b1921", 45, 115]} />
       <NightSky />
-      <hemisphereLight args={["#819bba", "#363021", 0.52]} />
+      <hemisphereLight args={["#819bba", "#363021", 0.76]} />
       <directionalLight
         position={[18, 35, -25]}
         color="#8aaedc"
-        intensity={1.05}
+        intensity={1.65}
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-left={-45}
@@ -272,7 +301,7 @@ export function TribalScene() {
         shadow-normalBias={0.08}
       />
       <pointLight
-        position={[-4, 4, -13]}
+        position={[-2, 3.5, -8.5]}
         color="#ffb365"
         intensity={26}
         distance={25}
@@ -293,15 +322,12 @@ export function TribalScene() {
         decay={1.3}
       />
       <pointLight
-        position={[12, 3.5, 5]}
+        position={[COUNCIL.host.x, 3.5, COUNCIL.host.z]}
         color="#ffa761"
         intensity={20}
         distance={17}
         decay={1.4}
       />
-      <pointLight position={[-22, 4, 8]} color="#ffc17a" intensity={17} distance={16} decay={1.6} />
-      <pointLight position={[-29, 4, 14]} color="#ffd09b" intensity={13} distance={15} decay={1.5} />
-      <pointLight position={[-32, 5, -28]} color="#b9c6ea" intensity={8} distance={26} decay={1.8} />
       <pointLight
         position={[-30, 3, -29]}
         color="#e99c50"
@@ -312,6 +338,7 @@ export function TribalScene() {
       <primitive object={sanctuary.group} />
       <LivingFire sources={sanctuary.flames} />
       <TribalIntro mode={mode} />
+      <PracticeBallot />
       {mode === "explore" && <Player environment={exploration} />}
     </>
   );

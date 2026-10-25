@@ -10,6 +10,8 @@ import * as T from "three";
 import { Contestant, type StagedPerson } from "../Contestants";
 import { Survivor } from "../Survivor";
 import { Hud } from "../Hud";
+import { TribalInteractions } from "./TribalInteractions";
+import { tribalInteractions } from "./interactions";
 import { input } from "../state";
 import {
   CAST,
@@ -19,9 +21,9 @@ import {
   stageAt,
   tribalIntro,
 } from "./intro";
-import { TRIBAL, tribalHeight } from "./layout";
+import { TRIBAL, COUNCIL, tribalHeight } from "./layout";
 
-const time = () => tribalIntro.time;
+const time = () => tribalIntro.ceremonyTime;
 function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
   const root = useRef<T.Group>(null);
   const npc = useMemo<StagedPerson>(
@@ -79,10 +81,10 @@ export function TribalIntro({
     () => ({
       id: -1,
       // Keep the actor tied to the ceremony anchor rather than a second
-      // unrelated hard-coded position. Stand just behind the stone dais.
-      x: TRIBAL.host.position[0] + 1.0,
+      // unrelated hard-coded position. Stand behind the tabletop with body clearance.
+      x: TRIBAL.host.position[0],
       y: TRIBAL.host.position[1],
-      z: TRIBAL.host.position[2] + 1.45,
+      z: TRIBAL.host.position[2],
       facing: TRIBAL.host.facing,
       animation: "idle",
       distance: 0,
@@ -93,6 +95,7 @@ export function TribalIntro({
   const target = useMemo(() => new T.Vector3(), []);
   useEffect(() => {
     tribalIntro.reset();
+    tribalInteractions.reset();
     return () => {
       input.joyX = input.joyY = 0;
       input.run = false;
@@ -123,8 +126,8 @@ export function TribalIntro({
       target.set(shot.target[0]!, shot.target[1]!, shot.target[2]!);
     } else {
       const [x, , z] = CAST_SEATS[4]!.position;
-      camera.position.set(x + 1.4, 2.1, z - 3.5);
-      target.set(8, 1.8, 3);
+      camera.position.set(x - 0.6, 2.1, z - 0.95);
+      target.set(COUNCIL.host.x, 1.65, COUNCIL.host.z);
     }
     camera.lookAt(target);
   }, -2);
@@ -166,7 +169,13 @@ export function TribalOverlay({ onMenu }: { onMenu: () => void }) {
     );
     return () => clearInterval(timer);
   }, []);
-  if (mode === "explore") return <Hud tribal onMenu={onMenu} />;
+  if (mode === "explore")
+    return (
+      <>
+        <Hud tribal onMenu={onMenu} />
+        <TribalInteractions />
+      </>
+    );
   return (
     <div
       className="tribal-intro-overlay"
