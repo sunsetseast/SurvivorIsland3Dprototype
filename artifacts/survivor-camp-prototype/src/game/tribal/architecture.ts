@@ -597,9 +597,9 @@ export function buildSanctuary() {
 
   // Host terrace: low worn plinth, individual chair joinery, urn and a hand-held snuffer.
   for (let i = 0; i < 5; i++)
-    box("stone", [8.2 + i * 1.45, 0.14, 5], [1.4, 0.25, 4.2], [0, 0, 0], false);
-  const hx = 11.5,
-    hz = 4.8,
+    box("stone", [6.5 + i * 1.15, 0.14, 4.2], [1.1, 0.25, 3.4], [0, 0, 0], false);
+  const hx = 9.5,
+    hz = 4.0,
     hy = 0.5;
   // Standing ceremonial dais: deliberately no host chair or seat-back.
   // Jeff remains at the existing presentation anchor beside the carved podium.
@@ -614,19 +614,19 @@ export function buildSanctuary() {
     box(i % 2 ? "gold" : "trim", [x, hy + 0.58, z], [0.17, 0.46, 0.17], [0, a, 0], false);
   }
   // Keep the host dais visually open: no flanking columns or pillars.
-  add(new T.CylinderGeometry(0.6, 0.72, 1.05, 8), "stone", [9.1, 1.03, 4.2]);
-  add(new T.CylinderGeometry(0.43, 0.29, 0.63, 12), "wood", [9.1, 1.87, 4.2]);
-  add(new T.ConeGeometry(0.49, 0.27, 12), "gold", [9.1, 2.31, 4.2]);
-  carving(9.1, 1.88, 4.64, 0.19);
-  beam([12.8, 1.05, 6.9], [13.6, 1.05, 6.9], 0.035, "gold");
+  add(new T.CylinderGeometry(0.6, 0.72, 1.05, 8), "stone", [7.1, 1.03, 3.4]);
+  add(new T.CylinderGeometry(0.43, 0.29, 0.63, 12), "wood", [7.1, 1.87, 3.4]);
+  add(new T.ConeGeometry(0.49, 0.27, 12), "gold", [7.1, 2.31, 3.4]);
+  carving(7.1, 1.88, 3.84, 0.19);
+  beam([10.8, 1.05, 6.1], [11.6, 1.05, 6.1], 0.035, "gold");
   add(
     new T.ConeGeometry(0.24, 0.34, 10),
     "gold",
-    [13.55, 0.91, 6.9],
+    [11.55, 0.91, 6.1],
     [1, 1, 1],
     [Math.PI, 0, 0],
   );
-  box("stone", [13.1, 0.7, 6.9], [1.3, 0.35, 0.7]);
+  box("stone", [11.1, 0.7, 6.1], [1.3, 0.35, 0.7]);
   column(18.1, 13, 4.7, 0.65);
   column(21.9, 9, 4.7, 0.65);
   beam([18.1, 4.9, 13], [21.9, 4.9, 9], 0.35, "wood");
