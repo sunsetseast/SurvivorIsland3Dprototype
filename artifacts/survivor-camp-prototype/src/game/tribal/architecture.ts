@@ -601,22 +601,22 @@ export function buildSanctuary() {
   const hx = 11.5,
     hz = 4.8,
     hy = 0.5;
-  const chairYaw = 0.89;
-  const chair = (x: number, y: number, z: number): Vec => [
-    hx + x * Math.cos(chairYaw) + z * Math.sin(chairYaw),
-    hy + y,
-    hz + z * Math.cos(chairYaw) - x * Math.sin(chairYaw),
-  ];
-  box("wood", chair(0, 0.56, 0), [1.15, 0.21, 1.1], [0, chairYaw, 0]);
-  for (const x of [-0.46, 0.46])
-    for (const z of [-0.42, 0.42])
-      beam(chair(x, 0, z), chair(x, z > 0 ? 1.85 : 0.55, z), 0.095);
-  for (let i = 0; i < 3; i++)
-    beam(
-      chair(-0.49, 1 + i * 0.3, 0.42),
-      chair(0.49, 1 + i * 0.3, 0.42),
-      0.085,
-    );
+  // Standing ceremonial dais: deliberately no host chair or seat-back.
+  // Jeff remains at the existing presentation anchor beside the carved podium.
+  for (let level = 0; level < 4; level++) {
+    add(new T.CylinderGeometry(0.76 - level * 0.045, 0.84 - level * 0.045, 0.22, 12),
+      level % 2 ? "trim" : "stone", [hx, hy + 0.17 + level * 0.22, hz]);
+  }
+  add(new T.CylinderGeometry(0.79, 0.72, 0.18, 12), "gold", [hx, hy + 1.14, hz]);
+  for (let i = 0; i < 8; i++) {
+    const a = i * Math.PI / 4;
+    const x = hx + Math.sin(a) * 0.7, z = hz + Math.cos(a) * 0.7;
+    box(i % 2 ? "gold" : "trim", [x, hy + 0.58, z], [0.17, 0.46, 0.17], [0, a, 0], false);
+  }
+  for (const side of [-1, 1]) {
+    column(hx + side * 2.2, hz - 1.6, 3.8, 0.35);
+    torch(hx + side * 2.55, hz - 1.7, 2.9);
+  }
   add(new T.CylinderGeometry(0.6, 0.72, 1.05, 8), "stone", [9.1, 1.03, 4.2]);
   add(new T.CylinderGeometry(0.43, 0.29, 0.63, 12), "wood", [9.1, 1.87, 4.2]);
   add(new T.ConeGeometry(0.49, 0.27, 12), "gold", [9.1, 2.31, 4.2]);
@@ -637,6 +637,109 @@ export function buildSanctuary() {
   torch(11, 9, 2.5);
   for (const [i, p] of EXIT_PATH.entries())
     if (i > 1 && i < 5) torch(p.x + 1.7, p.z - 1.5, 2.4);
+
+  // Ayutthaya / Sukhothai-inspired original ruin language: ringed chedis,
+  // lotus-like tiering, respectful elephant guardian silhouettes and naga balustrades.
+  // These are physical 3D assets, not background billboards.
+  function chedi(x: number, z: number, height: number, radius: number, background = false) {
+    const base = tribalHeight(x, z);
+    for (let i = 0; i < 3; i++)
+      add(new T.CylinderGeometry(radius * (1.05 - i * .12), radius * (1.24 - i * .12), .38, 12),
+        i % 2 ? "trim" : "dark", [x, base + .2 + i * .38, z], [1,1,1], [0,0,0], !background);
+    add(new T.CylinderGeometry(radius * .62, radius * .9, height * .32, 12), "stone",
+      [x, base + 1.1 + height * .16, z], [1,1,1], [0,0,0], !background);
+    for (let j = 0; j < 3; j++) {
+      const y = base + 1.3 + height * (.32 + j * .13);
+      add(new T.CylinderGeometry(radius * (.65-j*.12), radius * (.85-j*.13), .21, 12), "trim", [x,y,z], [1,1,1], [0,0,0], !background);
+    }
+    add(new T.ConeGeometry(radius * .56, height * .39, 12), "stone",
+      [x, base + height * .76, z], [1,1,1], [0,0,0], !background);
+    add(new T.ConeGeometry(radius * .12, height * .17, 10), "gold",
+      [x, base + height * 1.045, z], [1,1,1], [0,0,0], false);
+  }
+  function elephant(x: number, z: number, size: number, yaw = 0) {
+    const y = tribalHeight(x,z);
+    const toWorld = (u: number,v: number,w: number): Vec => [x+(u*Math.cos(yaw)+w*Math.sin(yaw))*size,y+v*size,z+(w*Math.cos(yaw)-u*Math.sin(yaw))*size];
+    box("dark",toWorld(0,.18,0),[2.8*size,.36*size,2.5*size]);
+    add(new T.SphereGeometry(.68,12,9),"stone",toWorld(0,1.5,0),[1.45*size,.84*size,.92*size]);
+    for(const u of [-.7,.7]) for(const w of [-.48,.48])
+      add(new T.CylinderGeometry(.24,.3,1.18,9),"stone",toWorld(u,.75,w),[size,size,size]);
+    add(new T.SphereGeometry(.57,12,9),"stone",toWorld(0,1.6,-.88),[1.12*size,1.1*size,1.05*size]);
+    for(const side of [-1,1]) {
+      add(new T.SphereGeometry(.4,10,8),"trim",toWorld(side*.58,1.65,-.88),[.31*size,.8*size,.8*size]);
+      beam(toWorld(side*.3,1.25,-1.32),toWorld(side*.36,.85,-1.55),.075*size,"gold",false,.015*size);
+    }
+    curve([toWorld(0,1.35,-1.33),toWorld(0,.8,-1.8),toWorld(0,.35,-1.65)],.19*size,"stone",false);
+  }
+  // Hero chedis stay behind the seating and off player routes. The foreground
+  // can retain its existing tree density and collision proxies.
+  chedi(0,-32,16,3.4,true);
+  chedi(-15,-31,10,2.1,true);
+  chedi(19,-30,11.5,2.4,true);
+  for(const p of [[-14,-24],[15,-24]] as const) elephant(p[0],p[1],.76);
+  // Pagoda canopy over the secluded voting chamber, retaining the dogleg entrance.
+  // The original chamber walls and writing table remain walkable and private.
+  for(let i=0;i<3;i++) {
+    const y=5.1+i*1.18;
+    add(new T.ConeGeometry(5.55-i*.9,1.65,8), i===1?"dark":"trim",[-34,y,18], [1,1,1],[0,Math.PI/8,0],false);
+    add(new T.CylinderGeometry(4.3-i*.78,4.7-i*.8,.17,8),"gold",[-34,y-.61,18],[1,1,1],[0,Math.PI/8,0],false);
+  }
+  add(new T.ConeGeometry(.65,2.7,10),"gold",[-34,9.1,18],[1,1,1],[0,0,0],false);
+  for(const x of [-37,-31])for(const z of [15,21])
+    add(new T.CylinderGeometry(.16,.22,1.25,8),"trim",[x,4.5,z]);
+  // Continuous stone marker paving and regularly spaced torches for voting.
+  for(let i=1;i<7;i++) {
+    const a=PATHS[1]![i-1]!, b=PATHS[1]![i]!;
+    const dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz),count=Math.max(1,Math.ceil(len/.85));
+    const nx=-dz/len,nz=dx/len;
+    for(let j=0;j<count;j++) {
+      const t=(j+.5)/count,x=a.x+dx*t,z=a.z+dz*t;
+      box(j%4===0?"trim":"stone",[x,tribalHeight(x,z)+.055,z],
+        [Math.min(1.38,len/count+.06),.095,1.25],[0,Math.atan2(-dz,dx),0],false);
+    }
+    for(const side of [-1,1]) {
+      const x=(a.x+b.x)/2+nx*1.9*side,z=(a.z+b.z)/2+nz*1.9*side;
+      if(trailDistance(x,z)>1.3) torch(x,z,2.55);
+    }
+  }
+  // Raised ceremonial jury silhouette and illuminated architectural framing.
+  for(const z of [-8.1,2.05]) {
+    column(-23.8,z,5.7,.47);
+    torch(-24.7,z,3.3);
+  }
+  for(let j=0;j<9;j++) box(j%2?"trim":"gold",[-19.3,5.6,-7.5+j*1.12],[.55,.28,.54], [0,0,0],false);
+  beam([-23.8,5.6,-8.1],[-23.8,5.6,2.05],.19,"gold",false);
+  // Naga ceremonial approach at the upper-left entry, with readable step rhythm.
+  // Keep collision geometry outside the 1.8m walking corridor.
+  const climbA=ARRIVAL[2]!,climbB=ARRIVAL[4]!;
+  const ddx=climbB.x-climbA.x,ddz=climbB.z-climbA.z,ll=Math.hypot(ddx,ddz);
+  const nx=-ddz/ll,nz=ddx/ll;
+  for(let i=0;i<14;i++) {
+    const t=(i+.5)/14,x=climbA.x+ddx*t,z=climbA.z+ddz*t;
+    box(i%3?"stone":"trim",[x,tribalHeight(x,z)+.055,z],[ll/14+.07,.1,2.35],[0,Math.atan2(-ddz,ddx),0],false);
+  }
+  for(const side of [-1,1]) {
+    const pts: Vec[]=[];
+    for(let i=0;i<=12;i++) {
+      const t=i/12,x=climbA.x+ddx*t+nx*side*1.9,z=climbA.z+ddz*t+nz*side*1.9;
+      pts.push([x,tribalHeight(x,z)+.55+Math.sin(t*Math.PI)*.22,z]);
+    }
+    curve(pts,.21,"trim",false);
+    for(let i=0;i<=12;i+=2) beam([pts[i]![0],tribalHeight(pts[i]![0],pts[i]![2]),pts[i]![2]],pts[i]!, .13,"stone",false);
+    const head=pts[12]!;
+    add(new T.SphereGeometry(.48,12,9),"gold",[head[0],head[1]+.25,head[2]],[1,1.5,1], [0,0,0],false);
+    for(let k=0;k<3;k++) add(new T.ConeGeometry(.16,.55,6),"trim",
+      [head[0]+nx*side*(k-1)*.27,head[1]+.77,head[2]+nz*side*(k-1)*.27], [1,1,1],[0,0,0],false);
+  }
+  // A low stone bridge crosses a shallow ruined channel without blocking the approach.
+  const bridgeA=ARRIVAL[4]!,bridgeB=ARRIVAL[5]!;
+  const bx=(bridgeA.x+bridgeB.x)/2,bz=(bridgeA.z+bridgeB.z)/2;
+  box("trim",[bx,tribalHeight(bx,bz)+.04,bz],[5.9,.16,3.05],[0,Math.atan2(-(bridgeB.z-bridgeA.z),bridgeB.x-bridgeA.x),0],false);
+  for(const side of [-1,1]) {
+    const t=(side+1)/2;
+    rock([bx+side*2.1,tribalHeight(bx,bz)-.27,bz+side*.4],[1,.43,1.3],"dark",false);
+    if(t) torch(bx-2.2,bz+2.2,2.7);
+  }
 
   // Buttress jungle trees, sweeping roots, layered palm/fern leaves and draped vines.
   const leaf = (

@@ -299,6 +299,9 @@ export function TribalScene() {
         distance={17}
         decay={1.4}
       />
+      <pointLight position={[-22, 4, 8]} color="#ffc17a" intensity={17} distance={16} decay={1.6} />
+      <pointLight position={[-29, 4, 14]} color="#ffd09b" intensity={13} distance={15} decay={1.5} />
+      <pointLight position={[-32, 5, -28]} color="#b9c6ea" intensity={8} distance={26} decay={1.8} />
       <pointLight
         position={[-30, 3, -29]}
         color="#e99c50"
