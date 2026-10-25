@@ -26,7 +26,7 @@ export const INTRO_SHOTS = [
     label: "Jeff Probst · Host",
     from: [8.7, 2.3, 8.6],
     to: [9.9, 2.3, 8.2],
-    target: [12.5, 1.8, 6.3],
+    target: [10.5, 1.8, 5.5],
   },
   {
     start: 14,
@@ -42,7 +42,7 @@ export const INTRO_SHOTS = [
     label: "Take a seat",
     from: [10, 4.7, -1],
     to: [6, 3.2, -4],
-    target: [0, 1, -11.5],
+    target: [0, 1, -8.5],
   },
 ];
 export function stagedRoute(index: number): Point[] {
