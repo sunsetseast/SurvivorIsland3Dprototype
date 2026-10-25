@@ -55,9 +55,9 @@ export const TRIBAL = {
   version: 1,
   arrival: anchor("contestant-arrival", -38, -43, 0, -2.55),
   entrance: anchor("sanctuary-gateway", -17, -16),
-  host: anchor("host-seat", 11.5, 4.8, 0.5, -2.25),
-  urn: anchor("voting-urn", 9.1, 4.2, 0.5),
-  snuff: anchor("torch-snuff", 13.1, 6.9, 0.5, -2.25),
+  host: anchor("host-seat", 9.5, 4.0, 0.5, -2.25),
+  urn: anchor("voting-urn", 7.1, 3.4, 0.5),
+  snuff: anchor("torch-snuff", 11.1, 6.1, 0.5, -2.25),
   juryEntrance: anchor("jury-entrance", -25, -7),
   votingApproach: anchor("voting-approach", -29, 12),
   vote: anchor("voting-interaction", -34, 18, 0.35, Math.PI),
@@ -65,10 +65,10 @@ export const TRIBAL = {
   fire: anchor("council-fire", 0, 0),
   // Owner-locked stagger: alternate forward/back along a broad curved formation.
   seats: Array.from({ length: 12 }, (_, i) => {
-    const x = (i - 5.5) * 1.65,
-      setback = i % 2 ? 2.25 : 0;
-    const z = -9.5 - setback - 1.1 * (1 - (x / 10) ** 2);
-    return anchor(`stump-${i + 1}`, x, z, 0.6, Math.atan2(11.5 - x, 4.8 - z));
+    const x = (i - 5.5) * 1.5,
+      setback = i % 2 ? 1.6 : 0;
+    const z = -7.3 - setback - 0.6 * (1 - (x / 10) ** 2);
+    return anchor(`stump-${i + 1}`, x, z, 0.6, Math.atan2(9.5 - x, 4.0 - z));
   }),
   jurors: Array.from({ length: 12 }, (_, i) => {
     const tier = Math.floor(i / 4),
@@ -87,14 +87,14 @@ export const TRIBAL = {
     council: { position: [18, 10, 24] as const, target: [-2, 3, -6] as const },
     contestants: {
       position: [4, 3.4, -4] as const,
-      target: [0, 1.1, -12] as const,
+      target: [0, 1.1, -8] as const,
     },
     jury: { position: [-8, 4, 6] as const, target: [-20, 2, -3] as const },
     vote: {
       position: [-31.8, 2.7, 20.5] as const,
       target: [-34, 1.5, 16.5] as const,
     },
-    host: { position: [4, 3.4, 13] as const, target: [12, 2, 5] as const },
+    host: { position: [4, 3.4, 13] as const, target: [10, 2, 4] as const },
     sky: { position: [4, 4, 15] as const, target: [0, 10, -15] as const },
   },
 };
@@ -119,9 +119,9 @@ export const STRUCTURES: Solid[] = [
   { id: "writing-table", x: -34, z: 16, hx: 1.55, hz: 0.55 },
   { id: "privacy-wall", x: -24, z: 11.5, hx: 3.3, hz: 0.5 },
   { id: "privacy-wall-west", x: -30, z: 8.1, hx: 0.6, hz: 2.4 },
-  { id: "host-person", x: 12.5, z: 6.3, hx: 0.25, hz: 0.25 },
-  { id: "host-seat", x: 11.5, z: 4.8, hx: 0.55, hz: 0.55 },
-  { id: "urn-pedestal", x: 9.1, z: 4.2, hx: 0.5, hz: 0.5 },
+  { id: "host-person", x: 10.5, z: 5.5, hx: 0.25, hz: 0.25 },
+  { id: "host-seat", x: 9.5, z: 4.0, hx: 0.55, hz: 0.55 },
+  { id: "urn-pedestal", x: 7.1, z: 3.4, hx: 0.5, hz: 0.5 },
   { id: "exit-gate-left", x: 18.1, z: 13, hx: 0.7, hz: 0.7 },
   { id: "exit-gate-right", x: 21.9, z: 9, hx: 0.7, hz: 0.7 },
   ...TRIBAL.seats.map((s) => ({
