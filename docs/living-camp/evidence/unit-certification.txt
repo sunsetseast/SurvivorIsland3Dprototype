@@ -1,0 +1,19 @@
+Certified 256 directed spot routes
+Certified 22978 physical travel frames
+{"activities":{"4":["socialize","observe","chores","explore","rest","collect_water","private_chat"],"11":["rest","explore","observe","collect_water","socialize","chores","private_chat"],"13":["socialize","explore","collect_water","observe","chores","rest","private_chat"],"18":["observe","socialize","rest","explore","collect_water","chores","private_chat"]},"exchanges":13,"departures":132}
+✔ production snapshots remain byte-identical to the audited source manifest (2.490901ms)
+✔ every major activity spot has a collision-validated path to every other spot (1621.246096ms)
+✔ four contestants physically traverse all five landmarks with no early arrival or teleport (317.00094ms)
+✔ proximity, responses, exit and interrupted intent recover without a false arrival (13.150832ms)
+✔ approaches walk physically, can be accepted/declined and cancel when the player leaves (62.904201ms)
+✔ private meeting knowledge is owner-scoped; movement never grants a witness destination presence (3.598929ms)
+✔ autonomous providers vary activities and decision times, form and leave real groups (1575.503431ms)
+✔ walking stance feet stay planted and articulated legs solve ground targets (1.535893ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9996.142031

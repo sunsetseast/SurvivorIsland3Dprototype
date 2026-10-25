@@ -5,12 +5,14 @@ import * as THREE from 'three';
 import { groundHeight, locationAt, movePlayer, SPAWN } from './world';
 import { Survivor } from './Survivor';
 import { dbg, input } from './state';
+import { camp } from './CampRuntime';
+import { distance as physicalDistance } from './navigation';
 
 /** Locomotion and camera are independent from the art/rig and simulation. */
 export function Player() {
   const root = useRef<THREE.Group>(null);
   const heading = useRef<THREE.Group>(null);
-  const motion = useRef({ speed: 0, running: false, distance: 0 });
+  const motion = useRef({ speed: 0, running: false, distance: 0, talking: false });
   const state = useRef({
     pos: { ...SPAWN }, face: Math.PI, velocity: 0, initialized: false,
     fpsTime: 0, fpsFrames: 0, obstacleTime: 10,
@@ -37,6 +39,7 @@ export function Player() {
     const keys = getKeys();
     let ix = input.joyX + Number(!!keys.right) - Number(!!keys.left);
     let iy = input.joyY + Number(!!keys.forward) - Number(!!keys.back);
+    if (camp.conversation) { ix = 0; iy = 0; input.joyX = input.joyY = 0; input.run = false; }
     const magnitude = Math.hypot(ix, iy);
     if (magnitude > 1) { ix /= magnitude; iy /= magnitude; }
     const pressure = magnitude < 0.12 ? 0 : Math.min(1, magnitude);
@@ -49,8 +52,10 @@ export function Player() {
     if (pressure > 0 && s.velocity > 0.02) {
       const len = Math.hypot(wx, wz) || 1;
       const next = movePlayer(s.pos, wx / len * s.velocity * dt, wz / len * s.velocity * dt);
-      traveled = Math.hypot(next.x - s.pos.x, next.z - s.pos.z);
-      s.pos = next;
+      if (!camp.npcs.some(n => physicalDistance(next, n) < .78)) {
+        traveled = Math.hypot(next.x - s.pos.x, next.z - s.pos.z);
+        s.pos = next;
+      }
       if (traveled > 0.0001) {
         const angle = Math.atan2(wx, wz);
         s.face += Math.atan2(Math.sin(angle - s.face), Math.cos(angle - s.face)) * (1 - Math.exp(-dt * 15));
@@ -62,6 +67,13 @@ export function Player() {
     motion.current.running = wantsRun && actualSpeed > 3.6;
     motion.current.distance += traveled;
     const y = groundHeight(s.pos.x, s.pos.z);
+    camp.step(dt, { ...s.pos, y, moving: actualSpeed > .12 });
+    motion.current.talking = !!camp.conversation;
+    if (camp.conversation) {
+      const npc = camp.npc(camp.conversation.actorId)!;
+      const face = Math.atan2(npc.x - s.pos.x, npc.z - s.pos.z);
+      s.face += Math.atan2(Math.sin(face - s.face), Math.cos(face - s.face)) * (1 - Math.exp(-dt * 8));
+    }
     root.current?.position.set(s.pos.x, y, s.pos.z);
     if (heading.current) heading.current.rotation.y = s.face;
 
@@ -81,6 +93,16 @@ export function Player() {
       t.target.y + Math.sin(pitch) * distance,
       t.target.z + cy * Math.cos(pitch) * distance,
     );
+    if (camp.conversation) {
+      const npc = camp.npc(camp.conversation.actorId)!;
+      // A gently blended two-shot. The SAME wall/terrain envelope below remains
+      // authoritative, including when a conversation begins on the shelter deck.
+      t.target.set((s.pos.x + npc.x) / 2, (y + npc.y) / 2 + 1.25, (s.pos.z + npc.z) / 2);
+      const dx = npc.x - s.pos.x, dz = npc.z - s.pos.z, len = Math.hypot(dx, dz) || 1;
+      const side = Math.cos(input.yaw) * dx - Math.sin(input.yaw) * dz >= 0 ? 1 : -1;
+      t.desired.set(t.target.x + dz / len * 4.5 * side - dx / len * .5,
+        t.target.y + 1.25, t.target.z - dx / len * 4.5 * side - dz / len * .5);
+    }
     if (!s.initialized) { t.camera.copy(t.desired); s.initialized = true; }
     t.camera.lerp(t.desired, 1 - Math.exp(-dt * 9));
     t.direction.subVectors(t.camera, t.target);
@@ -106,6 +128,8 @@ export function Player() {
     camera.position.copy(t.target).addScaledVector(t.direction, safeDistance);
     camera.position.y = Math.max(camera.position.y, groundHeight(camera.position.x, camera.position.z) + 0.3);
     t.probe.copy(t.target); t.probe.y += 0.35;
+    // Compose faces in the upper half, above the landscape dialogue deck.
+    if (camp.conversation) t.probe.y -= 1.25;
     camera.lookAt(t.probe);
     // Keep smoothing state on the safe side of a wall; recover outward gently.
     t.camera.copy(camera.position);

@@ -1,15 +1,21 @@
-# Survivor Island — isolated playable camp
+# Survivor Island — living 3D camp
 
-This is a separate browser exploration prototype, not an integration with the
-Survivor simulation. It does not read or write original saves, access GitHub at
-runtime, modify Survivor Island 25, or publish itself.
+This is the existing 3D camp with Sandra, Parvati, Russell and Boston Rob,
+autonomous activities and physically grounded conversations. Production identity,
+personality, presence and owner-scoped memory modules are reused through pinned
+source snapshots. Camp decisions and limited dialogue are an explicit demo provider,
+not the complete Survivor season/conversation engine. It does not read or write
+original saves, access GitHub at runtime, modify Survivor Island 25, or publish itself.
 
 ## Play
 
 Open this artifact's Replit preview in Safari and rotate the iPhone to landscape.
 Drag the left joystick to walk, hold RUN with another finger, and drag the right
 side to turn the camera. Desktop: WASD/arrows, Shift, mouse drag on the right.
-Reset returns to the campfire clearing. The help button explains controls.
+Walk close to a stationary contestant and tap Talk (desktop: E). Choose a
+response, then Leave (Escape). NPCs sometimes walk over to ask for a word; Talk
+or Not now accepts or declines. Reset returns the player to the clearing.
+The help button explains controls.
 Follow the dirt path north to the shelter ramp, west to the beach, or south
 through the jungle loop to the western well. The contoured shoreline and
 terrain edges are movement limits; they are not original-game geography.
@@ -41,11 +47,29 @@ provide the art; `geo.ts`, `flora.ts`, and `props.ts` build original meshes.
 `Player.tsx` owns terrain-following locomotion and obstruction-aware camera;
 `Survivor.tsx` owns the articulated character and distance-driven gait.
 `state.ts` is transient input and debug state; `Hud.tsx` handles multitouch.
-There are no simulation adapters, NPCs, conversations, challenges, council,
-multiplayer, auth, or save persistence. Later integration should be an explicit
-adapter with approval, never implicit writes to original state.
+`CampRuntime.ts` owns physical NPC travel, spatial witnesses, groups, interruption
+and approach lifecycle. `navigation.ts` builds collision-validated routes from the
+actual world; `Contestants.tsx`, `contestantArt.ts` and `characterMotion.ts` own
+original character meshes and articulated displacement-driven animation.
+`simulation/contracts.ts` is the integration port. `DemoProvider.ts` owns temporary
+activity selection and limited authored dialogue, reusing production personality
+and SocialMemory rather than a competing relationship/alliance engine.
+`ConversationHud.tsx` supplies touch/keyboard dialogue over the running 3D view.
+There are still no challenges, council, multiplayer, auth or save persistence.
+See [architecture](../../docs/living-camp/ARCHITECTURE.md) and the
+[certification report](../../docs/living-camp/CERTIFICATION.md).
 
 ## Verification
+
+- `pnpm --filter @workspace/survivor-camp-prototype test` runs deterministic
+  navigation, physical presence, privacy, approaches, autonomous behavior and foot IK tests.
+- `pnpm --filter @workspace/survivor-camp-prototype qa:living-camp` launches local
+  Vite and Playwright, drives the actual game, captures WebGL evidence and records
+  renderer statistics. Install a Playwright Chromium browser first. Optional
+  `CAMP_CHROMIUM` selects a compatible Chrome/headless-shell executable.
+  `CAMP_RESTRICTED_HOST=1` works around hosts that disallow network-interface enumeration.
+  This uses accelerated fixed game frames between captures; it is not device FPS.
+- Committed captures and raw measurements: `docs/living-camp/evidence/`.
 
 - `pnpm --filter @workspace/survivor-camp-prototype run typecheck`
 - `node artifacts/survivor-camp-prototype/scripts/world-check.mjs` checks

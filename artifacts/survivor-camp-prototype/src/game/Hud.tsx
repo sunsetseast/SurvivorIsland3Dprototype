@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { BOUNDS, LANDMARKS, PATH, baseHeight, shorelineX } from './world';
 import { dbg, input } from './state';
+import { camp } from './CampRuntime';
+import { ConversationHud } from './ConversationHud';
 
 const safe = (side: string) => `max(12px, env(safe-area-inset-${side}))`;
 const JOY = 112, KNOB = 46;
@@ -98,6 +100,7 @@ function Minimap() {
 
 const DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 export function Hud() {
+  const social = useSyncExternalStore(camp.subscribe, camp.getSnapshot);
   const [, tick] = useState(0);
   const [help, setHelp] = useState(false);
   const [dbgOpen, setDbgOpen] = useState(false);
@@ -105,10 +108,10 @@ export function Hud() {
   const bearing = ((-input.yaw * 180) / Math.PI % 360 + 360) % 360;
   return (
     <div className="hud absolute inset-0" style={{ pointerEvents: 'none' }}>
-      <OrbitZone />
+      {!social.conversation && <OrbitZone />}
       <div className="absolute" style={{ left: safe('left'), top: safe('top'), zIndex: 4 }}>
         <div className="chip" style={{ padding: '4px 10px', lineHeight: 1.25 }}>
-          <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '.12em', color: '#f6c35a' }}>CASTAWAY COAST</div>
+          <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '.12em', color: '#f6c35a' }}>SURVIVOR ISLAND</div>
           <div data-testid="text-location" style={{ fontSize: 13, fontWeight: 700 }}>{dbg.location}</div>
           <div style={{ fontSize: 10, opacity: .8 }}>{DIRS[Math.round(bearing / 45) % 8]} {Math.round(bearing)}°</div>
           {dbgOpen && (
@@ -124,20 +127,22 @@ export function Hud() {
           <button data-testid="button-debug" className={`btn ${dbgOpen ? 'on' : ''}`} style={{ width: 28, fontSize: 10 }} onClick={() => setDbgOpen(d => !d)}>DB</button>
           <button data-testid="button-help" className={`btn ${help ? 'on' : ''}`} style={{ width: 28, fontSize: 13 }} onClick={() => setHelp(h => !h)}>?</button>
         </div>
-        <Minimap />
+        {!social.conversation && <Minimap />}
       </div>
       {help && (
         <div data-testid="panel-help" className="chip absolute" style={{ left: '50%', top: '50%', transform: 'translate(-50%,-50%)', padding: '10px 16px', fontSize: 12, lineHeight: 1.45, maxWidth: 340, zIndex: 6, pointerEvents: 'auto' }} onClick={() => setHelp(false)}>
           <b style={{ color: '#f6c35a' }}>How to explore</b>
           <div>Joystick or WASD to walk, hold RUN or Shift to run.</div>
           <div>Drag the right side to orbit. Follow the trail between the beach, campfire, shelter and well.</div>
+          <div>Walk close to a contestant and tap Talk (or E). Choose a response, then Leave. You can decline an approach with Not now.</div>
           <div style={{ opacity: .7, marginTop: 4 }}>Tap to close.</div>
         </div>
       )}
       <div className="rotate-hint chip absolute" style={{ left: '50%', top: '40%', transform: 'translateX(-50%)', padding: '6px 12px', fontSize: 12, zIndex: 6, animation: 'bob 2s infinite' }}>
         Rotate to landscape for the best view
       </div>
-      <div style={{ pointerEvents: 'auto' }}><Joystick /><RunButton /></div>
+      {!social.conversation && <div style={{ pointerEvents: 'auto' }}><Joystick /><RunButton /></div>}
+      <ConversationHud />
     </div>
   );
 }

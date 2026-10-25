@@ -5,6 +5,7 @@ import { BeachProps, CampProps, Fire, Logs, Signs, Trough, Well } from './Camp';
 import { Shelter } from './Shelter';
 import { Ocean, Sky, SUN_DIR, Terrain } from './Terrain';
 import { Player } from './Player';
+import { Contestants } from './Contestants';
 
 const TARGET: [number, number, number] = [-6, 0, -30];
 
@@ -33,6 +34,7 @@ export function Scene() {
       <Shelter />
       <Signs />
       <Player />
+      <Contestants />
     </>
   );
 }

@@ -452,3 +452,30 @@ body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none
 .rotate-hint { display: none; }
 @media (orientation: portrait) { .rotate-hint { display: block; } }
 @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-3px) } }
+
+/* Social play: a clear two-shot above a compact, touch-sized conversation deck. */
+.social-hud { position: absolute; inset: 0; pointer-events: none; font-family: var(--app-font-sans, sans-serif); color: #fff4dd; }
+.social-hud button { min-height: 44px; touch-action: manipulation; cursor: pointer; }
+.social-hud button:focus-visible { outline: 2px solid #f8c97c; outline-offset: 3px; }
+.social-eyebrow { display: block; font-size: 9px; letter-spacing: .19em; font-weight: 800; color: #d9b980; line-height: 1.6; }
+.talk-prompt, .approach-card { position: absolute; left: 50%; bottom: max(22px, env(safe-area-inset-bottom)); transform: translateX(-50%); pointer-events: auto; z-index: 8; border: 1px solid #e5be7959; background: linear-gradient(145deg, #26352af2, #12221ef2); box-shadow: 0 5px 28px #0005; border-radius: 14px; }
+.talk-prompt { display: flex; align-items: center; gap: 14px; padding: 9px 16px; text-align: left; max-width: calc(100% - 280px); min-width: 270px; }
+.talk-prompt strong { display: block; font-size: 15px; }.talk-prompt small { display: block; color: #ccc9b4; font-size: 10px; margin-top: 2px; }
+.talk-icon { border: 1px solid #c7b5846b; border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; font-size: 22px; line-height: 1; color: #f2cf8d; }
+.talk-action { margin-left: auto; font-size: 12px; font-weight: 700; color: #f2cf8d; white-space: nowrap; }
+.social-hud kbd { margin-left: 6px; padding: 2px 4px; border: 1px solid #dccb9b50; border-radius: 4px; font-size: 9px; }
+.approach-card { display: flex; align-items: center; gap: 18px; padding: 12px 18px; max-width: calc(100% - 280px); min-width: 410px; }
+.approach-card strong { display: block; font-size: 13px; }.approach-actions { display: flex; gap: 8px; }
+.approach-actions button { background: #e2bd7a; color: #1d3027; border-radius: 8px; padding: 0 15px; font-size: 12px; font-weight: 750; white-space: nowrap; }
+.approach-actions .quiet-button { background: #ffffff0a; color: #e6dcc3; border: 1px solid #ffffff28; }
+.camp-toast { position: absolute; top: max(24px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); background: #17271ce8; padding: 9px 16px; border-radius: 20px; font-size: 12px; z-index: 8; }
+.conversation-panel { pointer-events: auto; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: min(760px, 100%); padding: 15px max(22px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left)); background: linear-gradient(150deg, #203329f8, #101f1dfc); border: 1px solid #cab07b59; border-bottom: 0; border-radius: 22px 22px 0 0; z-index: 12; box-shadow: 0 -10px 60px #0005; }
+.conversation-heading { display: flex; justify-content: space-between; align-items: center; }.conversation-heading h2 { font-size: 22px; font-weight: 750; margin: 0; line-height: 1.2; letter-spacing: -.025em; }
+.leave-conversation { border: 1px solid #e1d9bf40; padding: 0 13px; border-radius: 9px; font-size: 12px; color: #e7d9b5; background: #ffffff08; }
+.leave-conversation span { padding-left: 12px; }.spoken-line { font-size: 15px; line-height: 1.5; margin: 10px 0 12px; max-width: 670px; color: #f2ead6; }
+.dialogue-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; max-height: 150px; overflow-y: auto; overscroll-behavior: contain; padding: 3px; scrollbar-width: thin; scrollbar-color: #bfa66b60 transparent; }
+.dialogue-choices button { display: flex; text-align: left; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; color: #e9dfc7; background: #ffffff08; border: 1px solid #d7c69828; border-radius: 9px; font-size: 12px; line-height: 1.3; }
+.dialogue-choices button:hover { background: #e8c38018; border-color: #e8c38080; }.dialogue-choices button span { color: #d4ae6d; font-size: 20px; }
+@media (max-height: 500px) { .conversation-panel { padding-top: 10px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }.conversation-heading h2 { font-size: 18px; }.spoken-line { font-size: 13px; margin: 5px 0 6px; }.dialogue-choices { max-height: 101px; gap: 5px; }.dialogue-choices button { font-size: 11px; }.social-eyebrow { font-size: 8px; } }
+@media (pointer: coarse) { .social-hud kbd { display: none; } }
+@media (max-width: 550px) { .talk-prompt { bottom: 145px; min-width: 260px; max-width: calc(100% - 30px); }.approach-card { bottom: 145px; min-width: 0; width: calc(100% - 30px); max-width: none; gap: 8px; padding: 10px; }.approach-card strong { font-size: 12px; }.approach-actions { gap: 5px; }.approach-actions button { padding: 0 10px; }.conversation-panel { border-radius: 18px 18px 0 0; }.dialogue-choices { grid-template-columns: 1fr; max-height: 220px; } }
