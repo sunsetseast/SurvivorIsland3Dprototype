@@ -4,6 +4,7 @@ import { KeyboardControls } from '@react-three/drei';
 import { Scene } from '@/game/Scene';
 import { Hud } from '@/game/Hud';
 import { dbg, input } from '@/game/state';
+import { camp } from '@/game/CampRuntime';
 
 const keyMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -35,6 +36,10 @@ function App() {
       get speed() { return dbg.speed; },
       get cameraDistance() { return dbg.cameraDistance; },
       get cameraBlocked() { return dbg.cameraBlocked; },
+      get camp() { return { now: camp.now, metrics: { ...camp.metrics }, mode: camp.provider.mode,
+        npcs: camp.npcs.map(n => ({ id: n.id, x: n.x, y: n.y, z: n.z, place: n.place, destination: n.destination && { ...n.destination }, traveling: n.traveling, activity: n.activity, animation: n.animation, groupId: n.groupId, approach: n.approach })),
+        groups: camp.groups.map(g => ({ ...g, participantIds: [...g.participantIds] })),
+      }; },
       reset: () => { dbg.resetRequested = true; },
     };
     (window as unknown as { __CAMP_DEBUG__: unknown }).__CAMP_DEBUG__ = Object.freeze(d);

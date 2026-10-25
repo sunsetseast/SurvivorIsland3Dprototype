@@ -1,0 +1,14 @@
+{
+  "repository": "sunsetseast/SurvivorIsland2025",
+  "commit": "cf894e578d77fce1e588d793dfc8d14f61ec7628",
+  "policy": "Verbatim read-only source snapshots. Do not edit vendored files; regenerate from a reviewed source revision.",
+  "files": {
+    "core/LocationKeys.js": "30eb5292019099436b5b0f960a6515edd3936c5852180da09da0346632d97350",
+    "locations/CampPresence.js": "9bcf5376b80937701385176c8ddf5d905088cf30c8b4879bb6937f2c5659b569",
+    "locations/LocationUtils.js": "2710c39e6b6bf5cb504c4133056cee975160ce89cb98bc3b2c1d123c59f28f8e",
+    "systems/CampBehaviorProfile.js": "817a3377e6f4ecf9d66cf716230ae66cda2240ddb430c1f83c3cf66ccf5dce48",
+    "systems/CampKnowledge.js": "1b835b137b1b68f1e865fa8949390ed13718e7bdea10bf8fa9b0b7356582adb9",
+    "systems/ConversationCharacter.js": "125cbaffdecc7fa859df5bc343e5c2c2f88c2fa8044e21a1d3bb6cf124b2ca25",
+    "systems/SocialMemorySystem.js": "17ebeb3feed2bde97e72fcbfa5cf2faeb48cfaddffe5b4049ed2e1d0ade60a2d"
+  }
+}

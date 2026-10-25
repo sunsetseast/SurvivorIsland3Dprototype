@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { M, V, limb, merge, mk, type Geo } from './geo';
 
-type Motion = { speed: number; running: boolean; distance: number };
+type Motion = { speed: number; running: boolean; distance: number; talking?: boolean };
 const SKIN = '#c98d62', SKIN_L = '#dba074', HAIR = '#2e1d12', TOP = '#d9573b', SHORTS = '#2f8a8a', ROPE = '#d6c08a', LEATHER = '#8a5a35', WRAP = '#f0e0b8';
 const clamp = (n: number, a: number, b: number) => Math.max(a, Math.min(b, n));
 const sph = (r: number, m: THREE.Matrix4, hex: string, j = 0.04, top?: string, y0 = -1, y1 = 1) => mk(new THREE.SphereGeometry(r, 12, 9), m, hex, j, top, y0, y1);
@@ -109,9 +109,10 @@ export function Survivor({ motion }: { motion: React.MutableRefObject<Motion> })
     set(knL, kn(cosL) * A * 1.4); set(knR, kn(cosR) * A * 1.4);
     set(ankL, sinL * A * 0.35 - kn(cosL) * 0.15); set(ankR, sinR * A * 0.35 - kn(cosR) * 0.15);
     const idle = Math.sin(t * 1.3) * 0.02;
-    set(armL, sinL * A * 0.9 + idle * (1 - mv), 0, 0.07 + idle); set(armR, sinR * A * 0.9 - idle * (1 - mv), 0, -0.07 - idle);
+    const gesture = m.talking ? Math.max(0, Math.sin(t * 1.2)) * Math.max(0, Math.sin(t * .5)) * .2 : 0;
+    set(armL, sinL * A * 0.9 + idle * (1 - mv) - gesture, 0, 0.07 + idle + gesture * .4); set(armR, sinR * A * 0.9 - idle * (1 - mv), 0, -0.07 - idle);
     const bend = -(0.22 + 0.9 * rn) * (0.45 + 0.55 * mv) - 0.05;
-    set(elL, bend - Math.max(0, sinL) * 0.12 * mv); set(elR, bend - Math.max(0, sinR) * 0.12 * mv);
+    set(elL, bend - Math.max(0, sinL) * 0.12 * mv - gesture * 2); set(elR, bend - Math.max(0, sinR) * 0.12 * mv);
     if (hips.current) {
       hips.current.position.set(Math.sin(ph) * 0.02 * A, 0.98 + Math.cos(ph * 2) * 0.03 * A * (1 + rn) - mv * 0.02, 0);
       hips.current.rotation.set(0, Math.sin(ph) * 0.14 * A, Math.sin(ph) * 0.04 * A);
