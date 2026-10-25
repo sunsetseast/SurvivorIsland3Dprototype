@@ -3,6 +3,10 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { rng } from "../world";
 import {
   ARRIVAL,
+  COUNCIL,
+  drainageBed,
+  approachSurface,
+  occupiedSeats,
   EXIT_PATH,
   PATHS,
   SOLIDS,
@@ -12,13 +16,14 @@ import {
   trailDistance,
   tribalHeight,
 } from "./layout";
+import { buildThaiArchitecture } from "./thaiArchitecture";
 import { sanctuaryMaterials, type MaterialKey } from "./surfaces";
 
 type Vec = [number, number, number];
 export type FlameSource = { x: number; y: number; z: number; size: number };
 
 /** Static geometry is merged by surface and camera-blocking role (not hundreds of React meshes). */
-export function buildSanctuary() {
+export function buildSanctuary(attendeeCount = 5) {
   const { materials, dispose } = sanctuaryMaterials(),
     group = new T.Group(),
     random = rng(11739);
@@ -62,7 +67,11 @@ export function buildSanctuary() {
     const spatial = key === "leaf" || key === "bark" || key === "moss";
     const cell = spatial
       ? `${Math.floor(positions.getX(0) / 16)},${Math.floor(positions.getZ(0) / 16)}`
-      : "all";
+      : positions.getX(0) < -28 && positions.getZ(0) > 10
+        ? "pavilion"
+        : positions.getX(0) < -24 && positions.getZ(0) < -19
+          ? "approach"
+          : "council";
     const id = `${key}:${Number(block)}:${cell}`;
     if (!buckets.has(id)) buckets.set(id, []);
     buckets.get(id)!.push(geo);
@@ -75,7 +84,7 @@ export function buildSanctuary() {
     block = true,
   ) {
     let g: T.BufferGeometry;
-    if (key === "stone" || key === "trim" || key === "dark") {
+    if (["stone", "trim", "dark", "brick", "plaster"].includes(key)) {
       const shape = new T.Shape();
       shape.moveTo(-0.46, -0.5);
       shape.lineTo(0.45, -0.5);
@@ -237,15 +246,25 @@ export function buildSanctuary() {
   const ground = new T.PlaneGeometry(110, 110, 126, 126);
   ground.rotateX(-Math.PI / 2);
   const gp = ground.getAttribute("position");
-  for (let i = 0; i < gp.count; i++)
-    gp.setY(i, tribalHeight(gp.getX(i), gp.getZ(i)) - 0.025);
+  for (let i = 0; i < gp.count; i++) {
+    const x = gp.getX(i),
+      z = gp.getZ(i),
+      a = approachSurface(x, z);
+    const bed = drainageBed(x, z);
+    gp.setY(
+      i,
+      bed.weight > 0
+        ? bed.height - 0.025
+        : tribalHeight(x, z) - (a.distance < 1.5 ? 0.3 : 0.025),
+    );
+  }
   ground.computeVertexNormals();
   const guv = ground.getAttribute("uv");
   for (let i = 0; i < guv.count; i++)
     guv.setXY(i, guv.getX(i) * 14, guv.getY(i) * 14);
   add(ground, "ground", [0, 0, 0], [1, 1, 1], [0, 0, 0], false);
   // Broken radial flagstones, intentionally NOT a square-grid texture.
-  for (let r = 3.15; r < 16.5; r += 1.65) {
+  for (let r = 2.6; r < 14; r += 1.45) {
     const count = Math.floor(r * 3.2);
     for (let i = 0; i < count; i++) {
       const a = (i / count) * Math.PI * 2 + r * 0.17,
@@ -253,8 +272,8 @@ export function buildSanctuary() {
         z = Math.cos(a) * r;
       if (
         (x < -12 && z < 3) ||
-        (z < -8 && Math.abs(x) < 11) ||
-        (x > 7 && z > 1)
+        (z < -5.2 && Math.abs(x) < 9) ||
+        (x > 3 && z > 1)
       )
         continue;
       add(
@@ -268,7 +287,7 @@ export function buildSanctuary() {
       );
     }
   }
-  for (const path of PATHS)
+  for (const path of PATHS.filter((p) => p !== ARRIVAL))
     for (let i = 1; i < path.length; i++) {
       const a = path[i - 1]!,
         b = path[i]!,
@@ -290,71 +309,14 @@ export function buildSanctuary() {
         }
     }
 
-  // Monumental terraced sanctuary rear. Large silhouettes, then carved relief, then weathering.
-  for (let level = 0; level < 5; level++) {
-    box(
-      level % 2 ? "dark" : "stone",
-      [0, 0.26 + level * 0.48, -21 - level * 0.45],
-      [29 - level * 2.2, 0.5, 5.2],
-    );
-    box(
-      "trim",
-      [0, 0.52 + level * 0.48, -18.45 - level * 0.45],
-      [29.2 - level * 2.2, 0.12, 0.32],
-    );
-  }
-  for (const x of [-12, -7.6, 7.6, 12])
-    column(x, -18.4, Math.abs(x) > 10 ? 6.3 : 8.3, 0.85);
-  // Three stone ribs frame an enormous open split halo. The sky remains visible through it.
-  for (const [x, y, radius] of [
-    [0, 7.2, 4.7],
-    [-7.7, 5, 2.4],
-    [7.7, 5, 2.4],
-  ]) {
-    ring([x!, y!, -19], radius!, 0.5, "stone", [0, 0, -0.19]);
-    ring([x!, y!, -18.45], radius! - 0.48, 0.09, "gold", [0, 0, -0.19]);
-    for (let i = 0; i < 13; i++) {
-      const a = (i / 12) * Math.PI * 1.78 - 0.19;
-      box(
-        "trim",
-        [x! + Math.cos(a) * radius!, y! + Math.sin(a) * radius!, -18.9],
-        [0.4, 0.72, 1.15],
-        [0, 0, a - Math.PI / 2],
-      );
-    }
-  }
-  box("wood", [0, 5.1, -18.9], [23, 0.5, 1]);
-  box("trim", [0, 4.6, -18.45], [22, 0.2, 0.4]);
-  carving(0, 6.9, -18.35, 1.8);
-  for (let i = -5; i <= 5; i++) if (i) carving(i * 1.9, 1.7, -17.43, 0.48);
-  for (let i = 0; i < 15; i++) {
-    const x = -13.5 + i * 1.9,
-      h = 2.7 + Math.sin(i * 2) * 0.35;
-    for (let j = 0; j < 4; j++) {
-      const hh = h / 4;
-      box(
-        "stone",
-        [x + (j % 2 ? -0.035 : 0.035), hh * (j + 0.5), -18.2],
-        [1.78, hh - 0.025, 1.4],
-        [0, 0, (random() - 0.5) * 0.012],
-      );
-    }
-    box("trim", [x, h + 0.02, -18.2], [1.92, 0.16, 1.52]);
-    if (i % 2)
-      box("moss", [x, h + 0.04, -18.2], [1.72, 0.06, 1.35], [0, 0.04, 0]);
-  }
+  buildThaiArchitecture({ add, box, beam, curve });
+
   // Side retaining wall anchors the eastern silhouette.
   for (let i = 0; i < 6; i++) {
     box("stone", [14.8, 1.4, -17 + i * 1.7], [1.8, 2.8, 1.6]);
     box("trim", [14.8, 2.85, -17 + i * 1.7], [2, 0.2, 1.7]);
   }
   // Carved arrival gateway: actual opening matches shared collision metadata.
-  column(-19.2, -14.5, 6.4);
-  column(-14.8, -17.5, 6.4);
-  const gateYaw = Math.atan2(3, 4.4);
-  box("stone", [-17, 6.75, -16], [7.2, 1, 1.7], [0, gateYaw, 0]);
-  box("wood", [-17, 7.4, -16], [8.2, 0.35, 1.9], [0, gateYaw, 0.025]);
-  carving(-17, 6.7, -15.15, 0.5, gateYaw);
   for (let i = 0; i < 6; i++) {
     const x = -20 + i * 1.15;
     curve(
@@ -436,12 +398,11 @@ export function buildSanctuary() {
         0.035,
       );
     }
-    if (i < 6) torch(x, z - 5.3, 2.5);
   }
 
   // Ash basin, separate rough stones, split blackened timber and emissive coals.
   add(
-    new T.CylinderGeometry(2.22, 2.35, 0.13, 36),
+    new T.CylinderGeometry(1.6, 1.7, 0.13, 36),
     "ash",
     [0, 0.07, 0],
     [1, 1, 1],
@@ -451,23 +412,23 @@ export function buildSanctuary() {
   for (let i = 0; i < 22; i++) {
     const a = (i / 22) * Math.PI * 2;
     rock(
-      [Math.sin(a) * 2.3, 0.29, Math.cos(a) * 2.3],
-      [0.42, 0.32, 0.36],
+      [Math.sin(a) * 1.65, 0.29, Math.cos(a) * 1.65],
+      [0.31, 0.25, 0.3],
       i % 3 ? "dark" : "stone",
     );
   }
   for (let i = 0; i < 9; i++) {
     const a = i * 2.1;
     beam(
-      [Math.cos(a) * 1.5, 0.2, Math.sin(a) * 1.5],
-      [-Math.cos(a) * 1.2, 0.45 + i * 0.045, -Math.sin(a) * 1.2],
+      [Math.cos(a) * 1.05, 0.2, Math.sin(a) * 1.05],
+      [-Math.cos(a) * 0.95, 0.45 + i * 0.045, -Math.sin(a) * 0.95],
       0.16,
       "ash",
     );
   }
   for (let i = 0; i < 50; i++) {
     const a = random() * 7,
-      r = random() * 1.7;
+      r = random() * 1.3;
     rock(
       [Math.sin(a) * r, 0.18 + random() * 0.18, Math.cos(a) * r],
       [0.07 + random() * 0.12, 0.045, 0.09],
@@ -475,7 +436,7 @@ export function buildSanctuary() {
       false,
     );
   }
-  flames.push({ x: 0, y: 0.4, z: 0, size: 1.65 });
+  flames.push({ x: 0, y: 0.4, z: 0, size: 1.15 });
 
   // Left-center gallery; open aisles, landings and rear entrance. Three rustic tiers face +X.
   for (let i = 0; i < 3; i++) {
@@ -557,23 +518,6 @@ export function buildSanctuary() {
     for (let y = 0.7; y < 3.6; y += 1.1)
       box("dark", [s.x, y, s.z + s.hz + 0.015], [s.hx * 1.95, 0.035, 0.025]);
   }
-  for (const x of [-37, -31])
-    for (const z of [15, 21]) {
-      beam([x, 0.35, z], [x, 4.1, z], 0.19);
-      carving(x, 2.6, z + 0.19, 0.32);
-    }
-  for (let i = 0; i < 15; i++)
-    box(
-      "wood",
-      [-37.4 + i * 0.49, 4.3 + Math.sin((i / 14) * Math.PI) * 0.85, 18],
-      [0.52, 0.17, 7.7],
-      [0, 0, i < 7 ? 0.19 : -0.19],
-      true,
-    );
-  for (const z of [14.5, 21.5]) {
-    beam([-38, 4.2, z], [-34, 5.3, z], 0.17);
-    beam([-34, 5.3, z], [-30, 4.2, z], 0.17);
-  }
   box("wood", [-34, 1.35, 16], [3.1, 0.27, 1.1]);
   for (const x of [-35.2, -32.8]) beam([x, 0.35, 16], [x, 1.25, 16], 0.17);
   carving(-34, 1.34, 16.57, 0.1);
@@ -599,172 +543,119 @@ export function buildSanctuary() {
   // Kept behind the reserved seating to avoid obstructing the walkable council floor.
   for (const seat of TRIBAL.seats) {
     const [sx, , sz] = seat.position;
-    const x = sx, z = sz - 1.65;
+    const x = sx,
+      z = -9.65 - (TRIBAL.seats.indexOf(seat) % 2) * 0.15;
     const h = tribalHeight(x, z);
-    beam([x, h + .12, z], [x, h + 2.15, z], .085, "wood", false);
-    add(new T.CylinderGeometry(.2, .11, .35, 8), "dark", [x, h + 2.16, z], [1, 1, 1], [0, 0, 0], false);
-    ring([x, h + 1.93, z], .18, .035, "gold", [Math.PI / 2, 0, 0]);
-    flames.push({ x, y: h + 2.25, z, size: .28 });
+    beam([x, h + 0.12, z], [x, h + 2.15, z], 0.085, "wood", false);
+    add(
+      new T.CylinderGeometry(0.2, 0.11, 0.35, 8),
+      "dark",
+      [x, h + 2.16, z],
+      [1, 1, 1],
+      [0, 0, 0],
+      false,
+    );
+    ring([x, h + 1.93, z], 0.18, 0.035, "gold", [Math.PI / 2, 0, 0]);
+    if (occupiedSeats(attendeeCount).includes(seat))
+      flames.push({ x, y: h + 2.25, z, size: 0.28 });
   }
   // Distinctive Survivor snuffing ritual: a contestant presents their torch
   // at a dedicated low stone receiver beside the host, not in the walkway.
-  box("stone", [14.8, .38, 7.45], [1.25, .72, 1.25], [0, .18, 0], false);
-  add(new T.CylinderGeometry(.22, .3, .34, 10), "ash", [14.8, .86, 7.45], [1, 1, 1], [0, 0, 0], false);
-  ring([14.8, 1.05, 7.45], .32, .07, "gold", [Math.PI / 2, 0, 0]);
+  const snuff = COUNCIL.snuff;
+  box("stone", [snuff.x, snuff.y + 0.28, snuff.z], [0.8, 0.56, 0.8]);
+  add(new T.CylinderGeometry(0.17, 0.24, 0.24, 10), "ash", [
+    snuff.x,
+    snuff.y + 0.68,
+    snuff.z,
+  ]);
+  ring([snuff.x, snuff.y + 0.82, snuff.z], 0.23, 0.04, "trim", [
+    Math.PI / 2,
+    0,
+    0,
+  ]);
   // Ceremony-specific voter's wayfinding: low amber braziers near the path,
   // leaving the center unobstructed for contestant processions.
-  for (const [x, z] of [[-17.5, 5.2], [-25.8, 10.8], [-29.9, 15.2]] as const) {
+  for (const [x, z] of [
+    [-17.5, 5.2],
+    [-25.8, 10.8],
+    [-29.9, 15.2],
+  ] as const) {
     const h = tribalHeight(x, z);
-    box("stone", [x, h + .2, z], [.65, .4, .65], [0, .3, 0], false);
-    add(new T.CylinderGeometry(.3, .19, .22, 8), "ash", [x, h + .53, z], [1, 1, 1], [0, 0, 0], false);
-    flames.push({ x, y: h + .62, z, size: .34 });
+    box("stone", [x, h + 0.2, z], [0.65, 0.4, 0.65], [0, 0.3, 0], false);
+    add(
+      new T.CylinderGeometry(0.3, 0.19, 0.22, 8),
+      "ash",
+      [x, h + 0.53, z],
+      [1, 1, 1],
+      [0, 0, 0],
+      false,
+    );
+    flames.push({ x, y: h + 0.62, z, size: 0.34 });
   }
 
-  // Host terrace: low worn plinth, individual chair joinery, urn and a hand-held snuffer.
-  for (let i = 0; i < 5; i++)
-    box("stone", [8.2 + i * 1.45, 0.14, 5], [1.4, 0.25, 4.2], [0, 0, 0], false);
-  const hx = 11.5,
-    hz = 4.8,
-    hy = 0.5;
-  // Standing ceremonial dais: deliberately no host chair or seat-back.
-  // Jeff remains at the existing presentation anchor beside the carved podium.
-  for (let level = 0; level < 4; level++) {
-    add(new T.CylinderGeometry(0.76 - level * 0.045, 0.84 - level * 0.045, 0.22, 12),
-      level % 2 ? "trim" : "stone", [hx, hy + 0.17 + level * 0.22, hz]);
+  // One low host terrace. Its surface is sampled by the controller; no hidden dais/chair.
+  for (let i = 0; i < 5; i++) {
+    const x = 4.1 + i * 0.95;
+    box("stone", [x, 0.1, 4.1], [0.92, 0.2, 3.8], [0, 0, 0], false);
   }
-  add(new T.CylinderGeometry(0.79, 0.72, 0.18, 12), "gold", [hx, hy + 1.14, hz]);
-  for (let i = 0; i < 8; i++) {
-    const a = i * Math.PI / 4;
-    const x = hx + Math.sin(a) * 0.7, z = hz + Math.cos(a) * 0.7;
-    box(i % 2 ? "gold" : "trim", [x, hy + 0.58, z], [0.17, 0.46, 0.17], [0, a, 0], false);
-  }
-  for (const side of [-1, 1]) {
-    column(hx + side * 2.2, hz - 1.6, 3.8, 0.35);
-    torch(hx + side * 2.55, hz - 1.7, 2.9);
-  }
-  add(new T.CylinderGeometry(0.6, 0.72, 1.05, 8), "stone", [9.1, 1.03, 4.2]);
-  add(new T.CylinderGeometry(0.43, 0.29, 0.63, 12), "wood", [9.1, 1.87, 4.2]);
-  add(new T.ConeGeometry(0.49, 0.27, 12), "gold", [9.1, 2.31, 4.2]);
-  carving(9.1, 1.88, 4.64, 0.19);
-  beam([12.8, 1.05, 6.9], [13.6, 1.05, 6.9], 0.035, "gold");
+  const u = COUNCIL.urn,
+    sy = COUNCIL.snuff.y;
+  add(new T.CylinderGeometry(0.36, 0.45, 0.7, 8), "stone", [
+    u.x,
+    u.y + 0.35,
+    u.z,
+  ]);
+  add(new T.CylinderGeometry(0.33, 0.24, 0.5, 16), "wood", [
+    u.x,
+    u.y + 0.95,
+    u.z,
+  ]);
   add(
-    new T.ConeGeometry(0.24, 0.34, 10),
+    new T.LatheGeometry(
+      [
+        new T.Vector2(0, 0),
+        new T.Vector2(0.36, 0),
+        new T.Vector2(0.25, 0.12),
+        new T.Vector2(0.07, 0.18),
+      ],
+      16,
+    ),
+    "wood",
+    [u.x, u.y + 1.2, u.z],
+  );
+  for (const side of [-1, 1])
+    curve(
+      [
+        [u.x + side * 0.29, u.y + 0.96, u.z],
+        [u.x + side * 0.46, u.y + 1.08, u.z],
+        [u.x + side * 0.29, u.y + 1.17, u.z],
+      ],
+      0.035,
+      "gold",
+      false,
+    );
+  const sf = COUNCIL.snuff;
+  beam(
+    [sf.x - 0.48, sy + 0.42, sf.z + 0.55],
+    [sf.x + 0.48, sy + 0.42, sf.z + 0.55],
+    0.03,
     "gold",
-    [13.55, 0.91, 6.9],
+    false,
+  );
+  add(
+    new T.ConeGeometry(0.2, 0.28, 12),
+    "dark",
+    [sf.x + 0.43, sy + 0.3, sf.z + 0.55],
     [1, 1, 1],
     [Math.PI, 0, 0],
+    false,
   );
-  box("stone", [13.1, 0.7, 6.9], [1.3, 0.35, 0.7]);
   column(18.1, 13, 4.7, 0.65);
   column(21.9, 9, 4.7, 0.65);
   beam([18.1, 4.9, 13], [21.9, 4.9, 9], 0.35, "wood");
-  torch(15.7, 4, 3);
-  torch(11, 9, 2.5);
+  torch(9.6, 6.3, 2.4);
   for (const [i, p] of EXIT_PATH.entries())
     if (i > 1 && i < 5) torch(p.x + 1.7, p.z - 1.5, 2.4);
-
-  // Ayutthaya / Sukhothai-inspired original ruin language: ringed chedis,
-  // lotus-like tiering, respectful elephant guardian silhouettes and naga balustrades.
-  // These are physical 3D assets, not background billboards.
-  function chedi(x: number, z: number, height: number, radius: number, background = false) {
-    const base = tribalHeight(x, z);
-    for (let i = 0; i < 3; i++)
-      add(new T.CylinderGeometry(radius * (1.05 - i * .12), radius * (1.24 - i * .12), .38, 12),
-        i % 2 ? "trim" : "dark", [x, base + .2 + i * .38, z], [1,1,1], [0,0,0], !background);
-    add(new T.CylinderGeometry(radius * .62, radius * .9, height * .32, 12), "stone",
-      [x, base + 1.1 + height * .16, z], [1,1,1], [0,0,0], !background);
-    for (let j = 0; j < 3; j++) {
-      const y = base + 1.3 + height * (.32 + j * .13);
-      add(new T.CylinderGeometry(radius * (.65-j*.12), radius * (.85-j*.13), .21, 12), "trim", [x,y,z], [1,1,1], [0,0,0], !background);
-    }
-    add(new T.ConeGeometry(radius * .56, height * .39, 12), "stone",
-      [x, base + height * .76, z], [1,1,1], [0,0,0], !background);
-    add(new T.ConeGeometry(radius * .12, height * .17, 10), "gold",
-      [x, base + height * 1.045, z], [1,1,1], [0,0,0], false);
-  }
-  function elephant(x: number, z: number, size: number, yaw = 0) {
-    const y = tribalHeight(x,z);
-    const toWorld = (u: number,v: number,w: number): Vec => [x+(u*Math.cos(yaw)+w*Math.sin(yaw))*size,y+v*size,z+(w*Math.cos(yaw)-u*Math.sin(yaw))*size];
-    box("dark",toWorld(0,.18,0),[2.8*size,.36*size,2.5*size]);
-    add(new T.SphereGeometry(.68,12,9),"stone",toWorld(0,1.5,0),[1.45*size,.84*size,.92*size]);
-    for(const u of [-.7,.7]) for(const w of [-.48,.48])
-      add(new T.CylinderGeometry(.24,.3,1.18,9),"stone",toWorld(u,.75,w),[size,size,size]);
-    add(new T.SphereGeometry(.57,12,9),"stone",toWorld(0,1.6,-.88),[1.12*size,1.1*size,1.05*size]);
-    for(const side of [-1,1]) {
-      add(new T.SphereGeometry(.4,10,8),"trim",toWorld(side*.58,1.65,-.88),[.31*size,.8*size,.8*size]);
-      beam(toWorld(side*.3,1.25,-1.32),toWorld(side*.36,.85,-1.55),.075*size,"gold",false,.015*size);
-    }
-    curve([toWorld(0,1.35,-1.33),toWorld(0,.8,-1.8),toWorld(0,.35,-1.65)],.19*size,"stone",false);
-  }
-  // Hero chedis stay behind the seating and off player routes. The foreground
-  // can retain its existing tree density and collision proxies.
-  chedi(0,-32,16,3.4,true);
-  chedi(-15,-31,10,2.1,true);
-  chedi(19,-30,11.5,2.4,true);
-  for(const p of [[-14,-24],[15,-24]] as const) elephant(p[0],p[1],.76);
-  // Pagoda canopy over the secluded voting chamber, retaining the dogleg entrance.
-  // The original chamber walls and writing table remain walkable and private.
-  for(let i=0;i<3;i++) {
-    const y=5.1+i*1.18;
-    add(new T.ConeGeometry(5.55-i*.9,1.65,8), i===1?"dark":"trim",[-34,y,18], [1,1,1],[0,Math.PI/8,0],false);
-    add(new T.CylinderGeometry(4.3-i*.78,4.7-i*.8,.17,8),"gold",[-34,y-.61,18],[1,1,1],[0,Math.PI/8,0],false);
-  }
-  add(new T.ConeGeometry(.65,2.7,10),"gold",[-34,9.1,18],[1,1,1],[0,0,0],false);
-  for(const x of [-37,-31])for(const z of [15,21])
-    add(new T.CylinderGeometry(.16,.22,1.25,8),"trim",[x,4.5,z]);
-  // Continuous stone marker paving and regularly spaced torches for voting.
-  for(let i=1;i<7;i++) {
-    const a=PATHS[1]![i-1]!, b=PATHS[1]![i]!;
-    const dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz),count=Math.max(1,Math.ceil(len/.85));
-    const nx=-dz/len,nz=dx/len;
-    for(let j=0;j<count;j++) {
-      const t=(j+.5)/count,x=a.x+dx*t,z=a.z+dz*t;
-      box(j%4===0?"trim":"stone",[x,tribalHeight(x,z)+.055,z],
-        [Math.min(1.38,len/count+.06),.095,1.25],[0,Math.atan2(-dz,dx),0],false);
-    }
-    for(const side of [-1,1]) {
-      const x=(a.x+b.x)/2+nx*1.9*side,z=(a.z+b.z)/2+nz*1.9*side;
-      if(trailDistance(x,z)>1.3) torch(x,z,2.55);
-    }
-  }
-  // Raised ceremonial jury silhouette and illuminated architectural framing.
-  for(const z of [-8.1,2.05]) {
-    column(-23.8,z,5.7,.47);
-    torch(-24.7,z,3.3);
-  }
-  for(let j=0;j<9;j++) box(j%2?"trim":"gold",[-19.3,5.6,-7.5+j*1.12],[.55,.28,.54], [0,0,0],false);
-  beam([-23.8,5.6,-8.1],[-23.8,5.6,2.05],.19,"gold",false);
-  // Naga ceremonial approach at the upper-left entry, with readable step rhythm.
-  // Keep collision geometry outside the 1.8m walking corridor.
-  const climbA=ARRIVAL[2]!,climbB=ARRIVAL[4]!;
-  const ddx=climbB.x-climbA.x,ddz=climbB.z-climbA.z,ll=Math.hypot(ddx,ddz);
-  const nx=-ddz/ll,nz=ddx/ll;
-  for(let i=0;i<14;i++) {
-    const t=(i+.5)/14,x=climbA.x+ddx*t,z=climbA.z+ddz*t;
-    box(i%3?"stone":"trim",[x,tribalHeight(x,z)+.055,z],[ll/14+.07,.1,2.35],[0,Math.atan2(-ddz,ddx),0],false);
-  }
-  for(const side of [-1,1]) {
-    const pts: Vec[]=[];
-    for(let i=0;i<=12;i++) {
-      const t=i/12,x=climbA.x+ddx*t+nx*side*1.9,z=climbA.z+ddz*t+nz*side*1.9;
-      pts.push([x,tribalHeight(x,z)+.55+Math.sin(t*Math.PI)*.22,z]);
-    }
-    curve(pts,.21,"trim",false);
-    for(let i=0;i<=12;i+=2) beam([pts[i]![0],tribalHeight(pts[i]![0],pts[i]![2]),pts[i]![2]],pts[i]!, .13,"stone",false);
-    const head=pts[12]!;
-    add(new T.SphereGeometry(.48,12,9),"gold",[head[0],head[1]+.25,head[2]],[1,1.5,1], [0,0,0],false);
-    for(let k=0;k<3;k++) add(new T.ConeGeometry(.16,.55,6),"trim",
-      [head[0]+nx*side*(k-1)*.27,head[1]+.77,head[2]+nz*side*(k-1)*.27], [1,1,1],[0,0,0],false);
-  }
-  // A low stone bridge crosses a shallow ruined channel without blocking the approach.
-  const bridgeA=ARRIVAL[4]!,bridgeB=ARRIVAL[5]!;
-  const bx=(bridgeA.x+bridgeB.x)/2,bz=(bridgeA.z+bridgeB.z)/2;
-  box("trim",[bx,tribalHeight(bx,bz)+.04,bz],[5.9,.16,3.05],[0,Math.atan2(-(bridgeB.z-bridgeA.z),bridgeB.x-bridgeA.x),0],false);
-  for(const side of [-1,1]) {
-    const t=(side+1)/2;
-    rock([bx+side*2.1,tribalHeight(bx,bz)-.27,bz+side*.4],[1,.43,1.3],"dark",false);
-    if(t) torch(bx-2.2,bz+2.2,2.7);
-  }
 
   // Buttress jungle trees, sweeping roots, layered palm/fern leaves and draped vines.
   const leaf = (
@@ -908,33 +799,6 @@ export function buildSanctuary() {
       for (let j = 0; j < 4; j++)
         leaf([x, tribalHeight(x, z) + 0.25, z], 0.7, j * 1.5, 0.2, 0.12);
   }
-  // Two enormous roots embrace the rear sanctuary; vines hang clear of all routes.
-  for (const side of [-1, 1]) {
-    curve(
-      [
-        [side * 17, 0, -25],
-        [side * 15, 5, -22],
-        [side * 11, 9.5, -21],
-        [side * 5, 11.8, -21],
-      ],
-      0.5,
-    );
-    for (let i = 0; i < 9; i++) {
-      const x = side * (2 + i * 1.6),
-        h = 8 + Math.sin(i) * 2;
-      curve(
-        [
-          [x, h, -20],
-          [x - 0.4, h - 2, -18.2],
-          [x + 0.5, 2 + random() * 3, -18],
-        ],
-        0.035 + random() * 0.025,
-        "moss",
-      );
-      for (let j = 0; j < 3; j++)
-        leaf([x, h - 1.3 * j, -18], 0.55, random() * 7, 0.2, 0.13);
-    }
-  }
   for (const [id, geometries] of buckets) {
     const [key, blocking] = id.split(":") as [MaterialKey, string];
     const merged = mergeGeometries(geometries, false)!;
@@ -942,7 +806,15 @@ export function buildSanctuary() {
     merged.computeBoundingSphere();
     const mesh = new T.Mesh(merged, materials[key]);
     mesh.name = `sanctuary-${id}`;
-    mesh.castShadow = ["stone", "dark", "wood", "bark", "ash"].includes(key);
+    mesh.castShadow = [
+      "stone",
+      "dark",
+      "wood",
+      "bark",
+      "ash",
+      "brick",
+      "roof",
+    ].includes(key);
     mesh.receiveShadow = key !== "leaf" && key !== "ember";
     mesh.userData.cameraBlocker = false;
     group.add(mesh);
@@ -951,32 +823,39 @@ export function buildSanctuary() {
   // turn five camera rays into hundreds of thousands of triangle tests every frame.
   const proxyMaterial = new T.MeshBasicMaterial();
   for (const solid of SOLIDS) {
-    const h = solid.id.startsWith("tree-")
-      ? 12
-      : solid.id.startsWith("stump-")
-        ? 0.65
-        : solid.id.startsWith("jury-")
-          ? 2.5
-          : solid.id.includes("backdrop")
-            ? 5
-            : solid.id.includes("gate")
-              ? 6
-              : solid.id.includes("booth") || solid.id.includes("privacy")
-                ? 3.9
-                : 2;
+    const h = solid.id.startsWith("approach-rail-")
+      ? 0.9
+      : solid.id.startsWith("tower-")
+        ? 22
+        : solid.id.startsWith("tree-")
+          ? 12
+          : solid.id.startsWith("stump-")
+            ? 0.65
+            : solid.id.startsWith("jury-")
+              ? 2.5
+              : solid.id.includes("backdrop")
+                ? 2.2
+                : solid.id.includes("gate")
+                  ? 6
+                  : solid.id.includes("booth") || solid.id.includes("privacy")
+                    ? 3.9
+                    : 2;
     const proxy = new T.Mesh(
       new T.BoxGeometry(solid.hx * 2, h, solid.hz * 2),
       proxyMaterial,
     );
-    proxy.position.set(solid.x, h / 2, solid.z);
+    const base = solid.id.startsWith("approach-")
+      ? tribalHeight(solid.x, solid.z)
+      : 0;
+    proxy.position.set(solid.x, base + h / 2, solid.z);
     proxy.rotation.y = solid.yaw || 0;
     proxy.visible = false;
     proxy.userData.cameraBlocker = true;
     proxy.name = `camera-${solid.id}`;
     group.add(proxy);
   }
-  const roof = new T.Mesh(new T.BoxGeometry(8, 0.5, 8), proxyMaterial);
-  roof.position.set(-34, 4.6, 18);
+  const roof = new T.Mesh(new T.BoxGeometry(8.4, 0.35, 8.5), proxyMaterial);
+  roof.position.set(-34, 4.35, 18);
   roof.visible = false;
   roof.userData.cameraBlocker = true;
   group.add(roof);

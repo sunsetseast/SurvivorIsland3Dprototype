@@ -44,7 +44,7 @@ function RunButton() {
   );
 }
 
-function OrbitZone() {
+function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
   const id = useRef<number | null>(null);
   const last = useRef({ x: 0, y: 0 });
   return (
@@ -53,7 +53,7 @@ function OrbitZone() {
       onPointerMove={e => {
         if (e.pointerId !== id.current) return;
         input.yaw -= (e.clientX - last.current.x) * 0.007;
-        input.pitch = Math.max(0.12, Math.min(1.15, input.pitch + (e.clientY - last.current.y) * 0.005));
+        input.pitch = Math.max(allowLookUp ? -0.25 : 0.12, Math.min(1.15, input.pitch + (e.clientY - last.current.y) * 0.005));
         last.current = { x: e.clientX, y: e.clientY };
       }}
       onPointerUp={e => { if (e.pointerId === id.current) id.current = null; }}
@@ -110,7 +110,7 @@ export function Hud({ tribal = false, onMenu }: { tribal?: boolean; onMenu?: () 
   const bearing = ((-input.yaw * 180) / Math.PI % 360 + 360) % 360;
   return (
     <div className="hud absolute inset-0" style={{ pointerEvents: 'none' }}>
-      {(tribal || !social.conversation) && <OrbitZone />}
+      {(tribal || !social.conversation) && <OrbitZone allowLookUp={tribal} />}
       <div className="absolute" style={{ left: safe('left'), top: safe('top'), zIndex: 4 }}>
         <div className="chip" style={{ padding: '4px 10px', lineHeight: 1.25 }}>
           <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '.12em', color: '#f6c35a' }}>SURVIVOR ISLAND</div>

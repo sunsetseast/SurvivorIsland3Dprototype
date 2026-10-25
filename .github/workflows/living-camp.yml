@@ -36,4 +36,5 @@ jobs:
           path: |
             docs/living-camp/evidence/
             docs/tribal-council/evidence/
+            docs/tribal-council/overhaul-evidence/
             artifacts/survivor-camp-prototype/dist/standalone/

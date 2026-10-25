@@ -8,14 +8,17 @@ const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
 if (process.env.CAMP_RESTRICTED_HOST) os.networkInterfaces = () => ({});
 const root = fileURLToPath(new URL("..", import.meta.url));
-const output = path.resolve(root, "../../docs/tribal-council/evidence");
+const output = path.resolve(
+  root,
+  "../../docs/tribal-council/overhaul-evidence",
+);
 await mkdir(output, { recursive: true });
 process.env.PORT = "5176";
 process.env.BASE_PATH = "/";
 const { createServer } = await import("vite");
 const server = await createServer({
   configFile: path.join(root, "vite.config.ts"),
-  server: { host: "127.0.0.1" },
+  server: { host: "127.0.0.1", hmr: false, watch: null },
 });
 await server.listen();
 console.log("Vite listening");
@@ -136,6 +139,7 @@ try {
       path: path.join(output, name + ".jpg"),
       type: "jpeg",
       quality: 91,
+      style: ".tribal-intro-overlay{visibility:hidden}",
     });
     report.captures.push({ name, ...data });
     console.log("Captured", name);
@@ -166,6 +170,7 @@ try {
     0,
     "exploration controls gated until seated",
   );
+  await page.evaluate(() => window.__tribalQA.advance(60));
   await capture("intro-06-player-seated");
   await page.getByTestId("stand-and-explore").click();
   await page.waitForSelector("[data-testid=joystick]");
@@ -243,11 +248,20 @@ try {
     );
     report.checks.push("Camp runtime remains paused during Tribal exploration");
   }
+  await page.evaluate(() => window.__tribalQA.intro.tribalIntro.sit());
+  await page.waitForSelector("[data-testid=stand-and-explore]");
+  await page.evaluate(() => window.__tribalQA.advance(40));
   const cameras = await page.evaluate(
     () => window.__tribalQA.layout.TRIBAL.cameras,
   );
   await capture("02-first-reveal", cameras.reveal);
   await capture("03-full-council", cameras.council);
+  for (const name of ["contestantEye", "hostEye", "fireSide", "entrance"])
+    await capture("composition-" + name, cameras[name]);
+  await capture("elephant-guardian", {
+    position: [-8, 2.6, -9],
+    target: [-11.8, 1.5, -15.2],
+  });
   await capture("04-staggered-stumps", cameras.contestants);
   await capture("05-central-fire", {
     position: [4.5, 2.3, 5],
@@ -261,6 +275,8 @@ try {
   await capture("08-voting-interior", cameras.vote);
   await capture("09-host-and-exit", cameras.host);
   await capture("10-stars-and-sanctuary", cameras.sky);
+  await page.getByTestId("stand-and-explore").click();
+  await page.evaluate(() => window.__tribalQA.advance(3));
   // Wall-time GPU rendering: separately labelled, no accelerated clock trick in timing.
   for (const viewport of [
     { width: 375, height: 812 },
@@ -303,6 +319,56 @@ try {
     });
     report.performance.push({ viewport, ...measured });
   }
+  // New environmental interactions use production DOM controls and lock real movement.
+  await page.setViewportSize({ width: 844, height: 390 });
+  await page.evaluate(() => {
+    const q = window.__tribalQA;
+    q.io.dbg.teleportRequested = { x: -34, z: 18 };
+    q.advance(3);
+  });
+  await page.getByTestId("tribal-interact").click();
+  await page.getByTestId("practice-ballot").fill("Sandra");
+  const writingPosition = await page.evaluate(
+    () => window.__CAMP_DEBUG__.position,
+  );
+  await page.evaluate(() => {
+    const q = window.__tribalQA;
+    q.io.input.joyY = 1;
+    q.advance(30);
+  });
+  assert.deepEqual(
+    await page.evaluate(() => window.__CAMP_DEBUG__.position),
+    writingPosition,
+    "modal locks locomotion",
+  );
+  await page.getByTestId("fold-ballot").click();
+  await page.evaluate(() => window.__tribalQA.advance(3));
+  assert.ok(
+    await page.evaluate(
+      () =>
+        !!window.__tribalQA.s.scene.getObjectByName("folded-practice-ballot"),
+    ),
+  );
+  await capture("practice-ballot-folded", cameras.vote);
+  report.checks.push(
+    "Ballot writing, movement lock, fold and visible parchment passed",
+  );
+  await page.evaluate(() => {
+    const q = window.__tribalQA;
+    const p = q.layout.TRIBAL.seats[7].position;
+    q.io.dbg.teleportRequested = { x: p[0], z: p[2] + 1.05 };
+    q.advance(3);
+  });
+  await page.waitForFunction(() =>
+    document
+      .querySelector("[data-testid=tribal-interact]")
+      ?.textContent.includes("Return to your seat"),
+  );
+  await page.getByTestId("tribal-interact").click();
+  await page.waitForSelector("[data-testid=stand-and-explore]");
+  await page.getByTestId("stand-and-explore").click();
+  await page.evaluate(() => window.__tribalQA.advance(3));
+  report.checks.push("Return to seat and stand again passed");
   // Real pointer/touch events through the unchanged joystick and orbit zones.
   await page.setViewportSize({ width: 844, height: 390 });
   const joy = await page.getByTestId("joystick").boundingBox();
@@ -333,6 +399,17 @@ try {
       (await page.evaluate(() => window.__CAMP_DEBUG__.camera.yaw)) - yaw,
     ) > 0.5,
   );
+  await page.mouse.move(610, 180);
+  await page.mouse.down();
+  await page.mouse.move(610, 30, { steps: 6 });
+  await page.mouse.up();
+  assert.ok(
+    await page.evaluate(() => window.__tribalQA.io.input.pitch < 0),
+    "Tribal camera can look up at the towers",
+  );
+  await page.evaluate(() => {
+    window.__tribalQA.io.input.pitch = 0.3;
+  });
   const cdp = await context.newCDPSession(page);
   await cdp.send("Input.dispatchTouchEvent", {
     type: "touchStart",

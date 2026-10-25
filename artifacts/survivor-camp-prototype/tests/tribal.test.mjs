@@ -10,6 +10,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   ARRIVAL,
+  COUNCIL,
+  TOWERS,
+  occupiedSeats,
+  approachSurface,
   EXIT_PATH,
   JURY_PATH,
   VOTING_PATH,
@@ -53,7 +57,8 @@ function walk(points) {
 test("locked geography is never mirrored or rotated", () => {
   assert.ok(
     TRIBAL.seats.every(
-      (a) => a.position[2] < -9 && Math.abs(a.position[0]) < 10,
+      (a) =>
+        a.position[2] < -5 && a.position[2] > -8 && Math.abs(a.position[0]) < 8,
     ),
   );
   assert.ok(
@@ -69,7 +74,11 @@ test("locked geography is never mirrored or rotated", () => {
       Math.min(...TRIBAL.jurors.map((a) => a.position[0])) - 8 &&
       TRIBAL.vote.position[2] > 10,
   );
-  assert.ok(TRIBAL.host.position[0] > 8 && TRIBAL.host.position[2] > 2);
+  assert.ok(
+    TRIBAL.host.position[0] > 4 &&
+      TRIBAL.host.position[0] < 8 &&
+      TRIBAL.host.position[2] > 2,
+  );
   assert.ok(
     TRIBAL.exit.position[0] > TRIBAL.host.position[0] &&
       TRIBAL.exit.position[2] > TRIBAL.host.position[2],
@@ -98,8 +107,8 @@ test("each contestant can leave a stump into a broad shared aisle", () => {
     const [x, , z] = seat.position;
     walk([
       { x, z: z + 1 },
-      { x, z: -7 },
-      { x: -11, z: -7 },
+      { x, z: COUNCIL.aisleZ },
+      { x: -10, z: COUNCIL.aisleZ },
     ]);
   }
 });
@@ -109,7 +118,7 @@ test("collision substeps prevent tunnelling through fire, tree trunks, walls and
     "backdrop",
     "booth-back",
     "writing-table",
-    "host-seat",
+    "host-podium",
     "stump-1",
     "tree-0",
   ]) {
@@ -119,7 +128,7 @@ test("collision substeps prevent tunnelling through fire, tree trunks, walls and
     assert.equal(tribalBlocked(solid.x, solid.z), true, id);
   }
   const p = moveTribal({ x: 0, z: 7 }, 0, -20);
-  assert.ok(p.z >= 2.85, JSON.stringify(p));
+  assert.ok(p.z >= COUNCIL.fireRadius + 0.35, JSON.stringify(p));
   assert.equal(tribalBlocked(p.x, p.z), false);
 });
 test("future anchors have unique stable IDs and finite stage/camera coordinates", () => {
@@ -174,4 +183,74 @@ test("opening stages drone, ruin detail, Jeff, arrivals, then seated handoff", (
   tribalIntro.stand();
   assert.equal(tribalIntro.getSnapshot(), "explore");
   tribalIntro.reset();
+});
+
+test("intimate host, fire and cast proportions retain body clearance", () => {
+  assert.equal(occupiedSeats(5).length, 5);
+  assert.deepEqual(occupiedSeats(12), TRIBAL.seats);
+  assert.deepEqual(occupiedSeats(0), []);
+  for (let i = 0; i < 12; i++)
+    for (let j = i + 1; j < 12; j++) {
+      const a = TRIBAL.seats[i].position,
+        b = TRIBAL.seats[j].position;
+      assert.ok(Math.hypot(a[0] - b[0], a[2] - b[2]) > 1.5);
+    }
+  assert.ok(Math.hypot(COUNCIL.host.x, COUNCIL.host.z) < 8);
+  assert.ok(
+    Math.hypot(
+      COUNCIL.host.x - COUNCIL.podium.x,
+      COUNCIL.host.z - COUNCIL.podium.z,
+    ) > 1.1,
+  );
+  assert.equal(tribalBlocked(COUNCIL.host.x, COUNCIL.host.z, 0), false);
+  assert.equal(tribalHeight(COUNCIL.host.x, COUNCIL.host.z), COUNCIL.host.y);
+  assert.ok(TOWERS[0].height > 20);
+});
+
+test("entrance has twelve physical risers, level bridge and continuous landings", () => {
+  for (let i = 2; i <= 3; i++) {
+    const a = ARRIVAL[i],
+      b = ARRIVAL[i + 1];
+    const values = new Set();
+    for (let j = 0; j < 120; j++) {
+      const t = (j + 0.5) / 120,
+        x = a.x + (b.x - a.x) * t,
+        z = a.z + (b.z - a.z) * t;
+      const surface = approachSurface(x, z);
+      values.add(surface.height.toFixed(2));
+      assert.ok(Math.abs(tribalHeight(x, z) - surface.height) < 0.001);
+    }
+    assert.equal(values.size, 6);
+  }
+  const a = ARRIVAL[4],
+    b = ARRIVAL[5];
+  for (let j = 1; j < 10; j++)
+    assert.equal(
+      tribalHeight(a.x + ((b.x - a.x) * j) / 10, a.z + ((b.z - a.z) * j) / 10),
+      0.6,
+    );
+});
+
+test("ceremony ambience continues after seating and returning to seat is reversible", () => {
+  tribalIntro.skip();
+  const t = tribalIntro.ceremonyTime;
+  tribalIntro.step(0.03);
+  assert.ok(tribalIntro.ceremonyTime > t);
+  tribalIntro.stand();
+  tribalIntro.sit();
+  assert.equal(tribalIntro.getSnapshot(), "seated");
+  tribalIntro.reset();
+});
+
+test("host can distinguish the five attending faces despite the alternating stagger", () => {
+  const angles = occupiedSeats(5)
+    .map((s) =>
+      Math.atan2(
+        s.position[0] - COUNCIL.host.x,
+        s.position[2] - COUNCIL.host.z,
+      ),
+    )
+    .sort((a, b) => a - b);
+  for (let i = 1; i < angles.length; i++)
+    assert.ok(angles[i] - angles[i - 1] > 0.035);
 });

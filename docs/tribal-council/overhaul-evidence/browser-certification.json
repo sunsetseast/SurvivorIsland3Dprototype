@@ -1,0 +1,1204 @@
+{
+  "renderer": "Chromium / software WebGL; NOT physical iPhone Safari",
+  "acceleratedMovement": true,
+  "checks": [
+    {
+      "route": "arrival",
+      "target": {
+        "x": -34,
+        "z": -37
+      },
+      "distance": 0.035138804077691016,
+      "frames": 37,
+      "lowCamera": 7.40908820481766,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -36,
+        "z": -30
+      },
+      "distance": 0.010085149879152915,
+      "frames": 37,
+      "lowCamera": 6.918422228006039,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -30.5,
+        "z": -25.5
+      },
+      "distance": 0.07631999257460596,
+      "frames": 36,
+      "lowCamera": 6.443689407517073,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -25,
+        "z": -21
+      },
+      "distance": 0.14867181053704587,
+      "frames": 36,
+      "lowCamera": 7.47086105126632,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -21,
+        "z": -20
+      },
+      "distance": 0.0026741771332908014,
+      "frames": 23,
+      "lowCamera": 7.354572765035471,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -17,
+        "z": -16
+      },
+      "distance": 0.11388569800436935,
+      "frames": 29,
+      "lowCamera": 7.295717032957933,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -12,
+        "z": -13
+      },
+      "distance": 0.025823916993550418,
+      "frames": 31,
+      "lowCamera": 7.435858872209317,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -11,
+        "z": -8
+      },
+      "distance": 0.03240076049325833,
+      "frames": 27,
+      "lowCamera": 4.387508598116896,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -12,
+        "z": -13
+      },
+      "distance": 0.017423952705927837,
+      "frames": 27,
+      "lowCamera": 2.5331485195441807,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -17,
+        "z": -16
+      },
+      "distance": 0.08869954027022318,
+      "frames": 30,
+      "lowCamera": 6.969089196167427,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -21,
+        "z": -20
+      },
+      "distance": 0.010994626794925235,
+      "frames": 30,
+      "lowCamera": 7.433735550525662,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -25,
+        "z": -21
+      },
+      "distance": 0.06624713407556095,
+      "frames": 22,
+      "lowCamera": 6.220197616511866,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -30.5,
+        "z": -25.5
+      },
+      "distance": 0.13228549858983726,
+      "frames": 36,
+      "lowCamera": 7.322119459781865,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -36,
+        "z": -30
+      },
+      "distance": 0.00869684974609009,
+      "frames": 37,
+      "lowCamera": 7.470273954623195,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -34,
+        "z": -37
+      },
+      "distance": 0.029352178869713568,
+      "frames": 37,
+      "lowCamera": 6.442545437754538,
+      "grounded": true
+    },
+    {
+      "route": "arrival",
+      "target": {
+        "x": -38,
+        "z": -43
+      },
+      "distance": 0.017193990827124223,
+      "frames": 37,
+      "lowCamera": 6.9230850012090706,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -12,
+        "z": 3
+      },
+      "distance": 0.03486875360765344,
+      "frames": 51,
+      "lowCamera": 3.69934464332002,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -18,
+        "z": 8
+      },
+      "distance": 0.10915509418082762,
+      "frames": 39,
+      "lowCamera": 7.151743170620281,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -25,
+        "z": 8
+      },
+      "distance": 0.050410463068816934,
+      "frames": 36,
+      "lowCamera": 7.151053693042669,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -29,
+        "z": 12
+      },
+      "distance": 0.15230238066101517,
+      "frames": 29,
+      "lowCamera": 7.048522310138429,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -29,
+        "z": 17.5
+      },
+      "distance": 0.06741576362348517,
+      "frames": 29,
+      "lowCamera": 7.044571745521023,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -34,
+        "z": 17.5
+      },
+      "distance": 0.10108753644194211,
+      "frames": 26,
+      "lowCamera": 5.593581461808779,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -29,
+        "z": 17.5
+      },
+      "distance": 0.0017473903525824805,
+      "frames": 26,
+      "lowCamera": 1.6860365084897517,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -29,
+        "z": 12
+      },
+      "distance": 0.0406547317841654,
+      "frames": 29,
+      "lowCamera": 1.6434108613630518,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -25,
+        "z": 8
+      },
+      "distance": 0.08753408192822901,
+      "frames": 29,
+      "lowCamera": 2.699173540345355,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -18,
+        "z": 8
+      },
+      "distance": 0.02849654015254721,
+      "frames": 36,
+      "lowCamera": 4.774500281033646,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -12,
+        "z": 3
+      },
+      "distance": 0.15833729011645256,
+      "frames": 39,
+      "lowCamera": 5.899464935900867,
+      "grounded": true
+    },
+    {
+      "route": "voting",
+      "target": {
+        "x": -10,
+        "z": -7
+      },
+      "distance": 0.08755980996801084,
+      "frames": 51,
+      "lowCamera": 7.16291516738585,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -19.8,
+        "z": -19.5
+      },
+      "distance": 0.009411251880482752,
+      "frames": 9,
+      "lowCamera": 5.1813606982458715,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -19.8,
+        "z": -17
+      },
+      "distance": 0.05190451712545838,
+      "frames": 15,
+      "lowCamera": 6.408041807724807,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -23,
+        "z": -17
+      },
+      "distance": 0.006140084735962721,
+      "frames": 18,
+      "lowCamera": 5.020055591149041,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -28,
+        "z": -15
+      },
+      "distance": 0.0635045982444893,
+      "frames": 28,
+      "lowCamera": 7.345434430081968,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -27,
+        "z": -9
+      },
+      "distance": 0.12930273818269986,
+      "frames": 31,
+      "lowCamera": 6.100512995359766,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -25,
+        "z": -7
+      },
+      "distance": 0.047503437649975534,
+      "frames": 17,
+      "lowCamera": 7.232231316717342,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -24,
+        "z": -4
+      },
+      "distance": 0.13794990303781748,
+      "frames": 17,
+      "lowCamera": 7.343466788598112,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -22.25,
+        "z": -4
+      },
+      "distance": 0.08899592382846064,
+      "frames": 11,
+      "lowCamera": 6.369662115360684,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -24,
+        "z": -4
+      },
+      "distance": 0.04730127399206408,
+      "frames": 11,
+      "lowCamera": 1.9355081414661375,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -25,
+        "z": -7
+      },
+      "distance": 0.046629362769792036,
+      "frames": 18,
+      "lowCamera": 1.3805829569429502,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -27,
+        "z": -9
+      },
+      "distance": 0.018717361824119098,
+      "frames": 16,
+      "lowCamera": 7.312112132993165,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -28,
+        "z": -15
+      },
+      "distance": 0.13060292892726771,
+      "frames": 31,
+      "lowCamera": 7.210509373661573,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -23,
+        "z": -17
+      },
+      "distance": 0.08702365116578152,
+      "frames": 28,
+      "lowCamera": 5.894134439684482,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -19.8,
+        "z": -17
+      },
+      "distance": 0.08572868559979961,
+      "frames": 18,
+      "lowCamera": 7.373379220306223,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -19.8,
+        "z": -19.5
+      },
+      "distance": 0.15932762935382785,
+      "frames": 14,
+      "lowCamera": 2.734724909340131,
+      "grounded": true
+    },
+    {
+      "route": "jury",
+      "target": {
+        "x": -21,
+        "z": -20
+      },
+      "distance": 0.07276085522333965,
+      "frames": 9,
+      "lowCamera": 4.2014745074244795,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 16,
+        "z": 8
+      },
+      "distance": 0.12600239105583458,
+      "frames": 36,
+      "lowCamera": 2.7380197664839585,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 21,
+        "z": 12
+      },
+      "distance": 0.12208370546701515,
+      "frames": 33,
+      "lowCamera": 7.337898787150817,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 27,
+        "z": 14
+      },
+      "distance": 0.04562015141964829,
+      "frames": 33,
+      "lowCamera": 7.397089205617595,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 31,
+        "z": 21
+      },
+      "distance": 0.004143592207894639,
+      "frames": 41,
+      "lowCamera": 6.593891419147573,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 38,
+        "z": 25
+      },
+      "distance": 0.041969342714443025,
+      "frames": 41,
+      "lowCamera": 7.291372873084919,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 31,
+        "z": 21
+      },
+      "distance": 0.003577413686267005,
+      "frames": 41,
+      "lowCamera": 2.5321719612191482,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 27,
+        "z": 14
+      },
+      "distance": 0.03530964608187787,
+      "frames": 41,
+      "lowCamera": 7.2898134020137,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 21,
+        "z": 12
+      },
+      "distance": 0.11762838752546097,
+      "frames": 32,
+      "lowCamera": 7.091977730197469,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 16,
+        "z": 8
+      },
+      "distance": 0.11949265490376443,
+      "frames": 33,
+      "lowCamera": 7.391634729820145,
+      "grounded": true
+    },
+    {
+      "route": "exit",
+      "target": {
+        "x": 9,
+        "z": 6.5
+      },
+      "distance": 0.01899793471683436,
+      "frames": 37,
+      "lowCamera": 5.966627809812489,
+      "grounded": true
+    },
+    "Camp runtime remains paused during Tribal exploration",
+    "Ballot writing, movement lock, fold and visible parchment passed",
+    "Return to seat and stand again passed",
+    "Joystick movement, touch release and drag camera passed at 844×390",
+    "Gesture-enabled audio starts and stops without autoplay errors",
+    {
+      "cameraChecks": [
+        {
+          "distance": 5.3936801056536625,
+          "y": 3.7718446548869435,
+          "blocked": true
+        },
+        {
+          "distance": 6.914081996178554,
+          "y": 3.977718949227366,
+          "blocked": false
+        },
+        {
+          "distance": 7.184945494815916,
+          "y": 4.023655713493993,
+          "blocked": false
+        },
+        {
+          "distance": 2.769687768651651,
+          "y": 2.6751545535773995,
+          "blocked": true
+        },
+        {
+          "distance": 2.584363022603867,
+          "y": 2.6159559748930556,
+          "blocked": true
+        },
+        {
+          "distance": 5.925378469941848,
+          "y": 3.609441689198338,
+          "blocked": true
+        },
+        {
+          "distance": 3.4631433499443083,
+          "y": 2.8789520175692087,
+          "blocked": true
+        },
+        {
+          "distance": 3.5716814024025885,
+          "y": 2.911682488633475,
+          "blocked": true
+        },
+        {
+          "distance": 3.318899250687363,
+          "y": 2.8356689423012393,
+          "blocked": true
+        },
+        {
+          "distance": 3.4822990902537025,
+          "y": 2.8839030151088836,
+          "blocked": true
+        },
+        {
+          "distance": 3.698886500035321,
+          "y": 2.9495364144658662,
+          "blocked": true
+        },
+        {
+          "distance": 2.7528075688563596,
+          "y": 2.666772740972606,
+          "blocked": true
+        },
+        {
+          "distance": 2.5842633577170324,
+          "y": 2.615706271985206,
+          "blocked": true
+        },
+        {
+          "distance": 2.7091625167812956,
+          "y": 2.6525838222926383,
+          "blocked": true
+        },
+        {
+          "distance": 3.493389639523891,
+          "y": 2.8861166476589073,
+          "blocked": true
+        },
+        {
+          "distance": 6.475615753951549,
+          "y": 3.7800863171266075,
+          "blocked": true
+        }
+      ]
+    },
+    "Menu -> Tribal -> Menu -> Island transitions passed",
+    "Reentry replays intro; skip reaches seated handoff"
+  ],
+  "captures": [
+    {
+      "name": "intro-01-drone",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 280,
+      "triangles": 482310,
+      "geometries": 211,
+      "textures": 9
+    },
+    {
+      "name": "intro-02-ruin-detail",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 165,
+      "triangles": 355922,
+      "geometries": 213,
+      "textures": 9
+    },
+    {
+      "name": "intro-03-jeff-probst",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 200,
+      "triangles": 394368,
+      "geometries": 236,
+      "textures": 9
+    },
+    {
+      "name": "intro-04-survivor-arrival",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 298,
+      "triangles": 461266,
+      "geometries": 237,
+      "textures": 9
+    },
+    {
+      "name": "intro-05-taking-seats",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 328,
+      "triangles": 497820,
+      "geometries": 239,
+      "textures": 9
+    },
+    {
+      "name": "intro-06-player-seated",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 265,
+      "triangles": 466814,
+      "geometries": 240,
+      "textures": 9
+    },
+    {
+      "name": "01-arrival-path",
+      "player": {
+        "x": -38,
+        "y": 2.824676358002986,
+        "z": -43
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 418,
+      "triangles": 663114,
+      "geometries": 260,
+      "textures": 10
+    },
+    {
+      "name": "02-first-reveal",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 348,
+      "triangles": 534424,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "03-full-council",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 363,
+      "triangles": 545202,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "composition-contestantEye",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 262,
+      "triangles": 452436,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "composition-hostEye",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 327,
+      "triangles": 489094,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "composition-fireSide",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 304,
+      "triangles": 475910,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "composition-entrance",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 381,
+      "triangles": 613426,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "elephant-guardian",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 239,
+      "triangles": 416080,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "04-staggered-stumps",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 324,
+      "triangles": 488182,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "05-central-fire",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 329,
+      "triangles": 494096,
+      "geometries": 251,
+      "textures": 10
+    },
+    {
+      "name": "06-jury-gallery",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 247,
+      "triangles": 428746,
+      "geometries": 253,
+      "textures": 10
+    },
+    {
+      "name": "07-voting-exterior",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 243,
+      "triangles": 364002,
+      "geometries": 258,
+      "textures": 10
+    },
+    {
+      "name": "08-voting-interior",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 258,
+      "triangles": 463292,
+      "geometries": 258,
+      "textures": 10
+    },
+    {
+      "name": "09-host-and-exit",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 259,
+      "triangles": 447332,
+      "geometries": 258,
+      "textures": 10
+    },
+    {
+      "name": "10-stars-and-sanctuary",
+      "player": {
+        "x": 9.018546831781292,
+        "y": 0.10909461100510988,
+        "z": 6.504115404522228
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 328,
+      "triangles": 504774,
+      "geometries": 258,
+      "textures": 10
+    },
+    {
+      "name": "viewport-375",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 9
+      },
+      "viewport": [
+        375,
+        812
+      ],
+      "calls": 295,
+      "triangles": 456474,
+      "geometries": 267,
+      "textures": 10
+    },
+    {
+      "name": "viewport-430",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 9
+      },
+      "viewport": [
+        430,
+        932
+      ],
+      "calls": 295,
+      "triangles": 456474,
+      "geometries": 267,
+      "textures": 10
+    },
+    {
+      "name": "11-iphone-landscape",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 9
+      },
+      "viewport": [
+        844,
+        390
+      ],
+      "calls": 364,
+      "triangles": 548242,
+      "geometries": 267,
+      "textures": 10
+    },
+    {
+      "name": "viewport-1280",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 9
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 352,
+      "triangles": 540928,
+      "geometries": 267,
+      "textures": 10
+    },
+    {
+      "name": "practice-ballot-folded",
+      "player": {
+        "x": -34,
+        "y": 0.35,
+        "z": 18
+      },
+      "viewport": [
+        844,
+        390
+      ],
+      "calls": 292,
+      "triangles": 481770,
+      "geometries": 269,
+      "textures": 10
+    }
+  ],
+  "performance": [
+    {
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "samplesMs": [
+        482.6000000005588,
+        437.79999999981374,
+        453.40000000037253,
+        477.59999999962747,
+        488.6000000005588,
+        504,
+        438.30000000074506,
+        461.59999999962747
+      ],
+      "calls": 122,
+      "triangles": 267564,
+      "buffer": [
+        375,
+        812
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "viewport": {
+        "width": 430,
+        "height": 932
+      },
+      "samplesMs": [
+        541.5,
+        579,
+        617.1000000005588,
+        675.0999999996275,
+        597.1000000005588,
+        594.7000000001863,
+        529.4000000003725,
+        528.2000000001863
+      ],
+      "calls": 122,
+      "triangles": 267564,
+      "buffer": [
+        430,
+        932
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "samplesMs": [
+        759.4000000003725,
+        872.2999999998137,
+        727,
+        765.2999999998137,
+        696.5999999996275,
+        729.6999999992549,
+        663.7999999998137,
+        705.7999999998137
+      ],
+      "calls": 191,
+      "triangles": 359332,
+      "buffer": [
+        844,
+        390
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "samplesMs": [
+        1208.9000000003725,
+        1152.2000000001863,
+        1229.7000000001863,
+        1168,
+        1134.2000000001863,
+        1163.2999999998137,
+        1155.4000000003725,
+        1172.5999999996275
+      ],
+      "calls": 179,
+      "triangles": 352018,
+      "buffer": [
+        1280,
+        800
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "errors": []
+}
