@@ -613,10 +613,7 @@ export function buildSanctuary() {
     const x = hx + Math.sin(a) * 0.7, z = hz + Math.cos(a) * 0.7;
     box(i % 2 ? "gold" : "trim", [x, hy + 0.58, z], [0.17, 0.46, 0.17], [0, a, 0], false);
   }
-  for (const side of [-1, 1]) {
-    column(hx + side * 2.2, hz - 1.6, 3.8, 0.35);
-    torch(hx + side * 2.55, hz - 1.7, 2.9);
-  }
+  // Keep the host dais visually open: no flanking columns or pillars.
   add(new T.CylinderGeometry(0.6, 0.72, 1.05, 8), "stone", [9.1, 1.03, 4.2]);
   add(new T.CylinderGeometry(0.43, 0.29, 0.63, 12), "wood", [9.1, 1.87, 4.2]);
   add(new T.ConeGeometry(0.49, 0.27, 12), "gold", [9.1, 2.31, 4.2]);
@@ -673,9 +670,11 @@ export function buildSanctuary() {
   }
   // Hero chedis stay behind the seating and off player routes. The foreground
   // can retain its existing tree density and collision proxies.
-  chedi(0,-32,16,3.4,true);
-  chedi(-15,-31,10,2.1,true);
-  chedi(19,-30,11.5,2.4,true);
+  // Monumental visible skyline behind the contestant backdrop, not hidden below it.
+  // Three tall chedis rise well above the existing 8m wall and carved halo.
+  chedi(0,-26,25,4.3,true);
+  chedi(-13,-27,19,3.15,true);
+  chedi(14,-27,20,3.25,true);
   for(const p of [[-14,-24],[15,-24]] as const) elephant(p[0],p[1],.76);
   // Pagoda canopy over the secluded voting chamber, retaining the dogleg entrance.
   // The original chamber walls and writing table remain walkable and private.
