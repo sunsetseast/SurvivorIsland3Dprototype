@@ -17,7 +17,7 @@ try {
 }
 if (process.env.CAMP_RESTRICTED_HOST) os.networkInterfaces = () => ({});
 const root = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
-const output = path.resolve(root, "../../docs/living-camp/evidence");
+const output = path.resolve(root, process.env.CAMP_EVIDENCE || "../../docs/living-camp/evidence");
 await mkdir(output, { recursive: true });
 process.env.PORT = "5174";
 process.env.BASE_PATH = "/";

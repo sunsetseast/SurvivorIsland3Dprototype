@@ -1,0 +1,1 @@
+Asset loading, low quality, fallback and reentry passed

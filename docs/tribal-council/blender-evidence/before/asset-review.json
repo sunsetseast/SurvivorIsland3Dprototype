@@ -1,0 +1,103 @@
+{
+  "renderer": "Chrome 142 / SwiftShader; not iPhone Safari",
+  "captures": [
+    {
+      "name": "sanctuary",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          14,
+          6.5,
+          16
+        ],
+        "target": [
+          -1,
+          6,
+          -9
+        ]
+      },
+      "calls": 190,
+      "triangles": 356292,
+      "textures": 9,
+      "geometries": 246,
+      "meshes": 551,
+      "instances": 0,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        12281.199999999953,
+        840,
+        819.2999999998137
+      ]
+    },
+    {
+      "name": "guardian",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -6.5,
+          2.7,
+          -10
+        ],
+        "target": [
+          -10.3,
+          1.8,
+          -16.3
+        ]
+      },
+      "calls": 66,
+      "triangles": 223582,
+      "textures": 9,
+      "geometries": 246,
+      "meshes": 551,
+      "instances": 0,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1600.0999999998603,
+        758.4000000001397,
+        787.3000000000466
+      ]
+    },
+    {
+      "name": "voting-roof",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -23,
+          6,
+          29
+        ],
+        "target": [
+          -34,
+          4,
+          18
+        ]
+      },
+      "calls": 94,
+      "triangles": 270538,
+      "textures": 10,
+      "geometries": 263,
+      "meshes": 551,
+      "instances": 0,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1537.1000000000931,
+        708.6999999999534,
+        748.5
+      ]
+    }
+  ],
+  "errors": [],
+  "checks": []
+}

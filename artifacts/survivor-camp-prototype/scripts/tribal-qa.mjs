@@ -10,7 +10,7 @@ if (process.env.CAMP_RESTRICTED_HOST) os.networkInterfaces = () => ({});
 const root = fileURLToPath(new URL("..", import.meta.url));
 const output = path.resolve(
   root,
-  "../../docs/tribal-council/overhaul-evidence",
+  process.env.TRIBAL_EVIDENCE || "../../docs/tribal-council/polish-evidence",
 );
 await mkdir(output, { recursive: true });
 process.env.PORT = "5176";
@@ -104,6 +104,7 @@ try {
   }
   console.log("Scene ready");
   await connect();
+  await page.waitForFunction(() => window.__tribalQA.s.scene.getObjectByName("sanctuary-assets-ready"));
   console.log(
     await page.evaluate(() => ({
       mode: window.__tribalQA.intro.tribalIntro.getSnapshot(),
@@ -148,7 +149,7 @@ try {
     [3, "intro-01-drone"],
     [8, "intro-02-ruin-detail"],
     [12, "intro-03-jeff-probst"],
-    [20, "intro-04-survivor-arrival"],
+    [24, "intro-04-survivor-arrival"],
     [30, "intro-05-taking-seats"],
   ]) {
     await page.evaluate((t) => {
@@ -259,8 +260,8 @@ try {
   for (const name of ["contestantEye", "hostEye", "fireSide", "entrance"])
     await capture("composition-" + name, cameras[name]);
   await capture("elephant-guardian", {
-    position: [-8, 2.6, -9],
-    target: [-11.8, 1.5, -15.2],
+    position: [-7, 2.9, -10],
+    target: [-10.3, 1.8, -16.3],
   });
   await capture("04-staggered-stumps", cameras.contestants);
   await capture("05-central-fire", {
@@ -274,6 +275,10 @@ try {
   });
   await capture("08-voting-interior", cameras.vote);
   await capture("09-host-and-exit", cameras.host);
+  await capture("12-voting-approach", cameras.votingApproach);
+  await capture("13-side-exit-origin", cameras.exitOrigin);
+  await capture("14-exit-threshold", cameras.lastWalk);
+  await capture("15-naga-stairs-bridge", cameras.entrance);
   await capture("10-stars-and-sanctuary", cameras.sky);
   await page.getByTestId("stand-and-explore").click();
   await page.evaluate(() => window.__tribalQA.advance(3));
@@ -285,15 +290,47 @@ try {
     { width: 1280, height: 800 },
   ]) {
     await page.setViewportSize(viewport);
+    await page.evaluate(() => window.__tribalQA.intro.tribalIntro.reset());
+    await page.waitForSelector("[data-testid=tribal-intro][data-phase=intro]");
+    const framing = await page.evaluate(() => {
+      const q = window.__tribalQA,
+        out = [];
+      for (const time of [16, 20, 24, 28]) {
+        q.intro.tribalIntro.time = time;
+        q.advance(2);
+        q.s.camera.updateMatrixWorld();
+        for (let index = 0; index < q.intro.CAST.length; index++) {
+          const p = q.intro.stageAt(q.intro.tribalIntro.time, index);
+          const v = q.s.camera.position
+            .clone()
+            .set(p.x, p.y + 1, p.z)
+            .project(q.s.camera);
+          out.push({ time, index, x: v.x, y: v.y, z: v.z });
+        }
+      }
+      q.intro.tribalIntro.skip();
+      q.intro.tribalIntro.stand();
+      return out;
+    });
+    assert.ok(
+      framing.every(
+        (p) => Math.abs(p.x) < 0.95 && Math.abs(p.y) < 0.75 && p.z < 1,
+      ),
+      JSON.stringify({ viewport, framing }),
+    );
+    report.checks.push({ viewport, processionFraming: framing });
+    await page.waitForSelector("[data-testid=joystick]");
     await page.evaluate(() => {
       const q = window.__tribalQA;
       q.io.dbg.teleportRequested = { x: 0, z: 9 };
+      q.advance(2);
       q.io.input.yaw = 0.1;
       q.io.input.pitch = 0.3;
       q.advance(2);
     });
     await capture(
       `${viewport.width === 844 ? "11-iphone-landscape" : "viewport-" + viewport.width}`,
+      { position: [0.705, 3.69, 16.03], target: [0, 1.85, 9] },
     );
     const measured = await page.evaluate(() => {
       const q = window.__tribalQA,
@@ -369,6 +406,49 @@ try {
   await page.getByTestId("stand-and-explore").click();
   await page.evaluate(() => window.__tribalQA.advance(3));
   report.checks.push("Return to seat and stand again passed");
+  // Production contextual control launches a presentation-only rehearsal.
+  await page.evaluate(() => {
+    const q = window.__tribalQA;
+    q.io.dbg.teleportRequested = { x: 9.7, z: 3.2 };
+    q.advance(3);
+  });
+  await page.waitForFunction(() =>
+    document
+      .querySelector("[data-testid=tribal-interact]")
+      ?.textContent.includes("Rehearse"),
+  );
+  await page.getByTestId("tribal-interact").click();
+  await page.waitForFunction(
+    () => window.__tribalQA.intro.tribalIntro.getSnapshot() === "elimination",
+  );
+  const ceremony = await page.evaluate(async () => {
+    const q = window.__tribalQA,
+      e = await import("/src/game/tribal/elimination.ts");
+    const phases = [];
+    let snuffTime;
+    while (q.intro.tribalIntro.getSnapshot() === "elimination") {
+      const p = e.eliminationAt(q.intro.tribalIntro.eliminationTime);
+      if (!phases.includes(p.phase)) phases.push(p.phase);
+      if (p.phase === "snuff" && !p.lit) {
+        snuffTime = q.intro.tribalIntro.eliminationTime;
+        break;
+      }
+      q.advance();
+    }
+    return { phases, snuffTime };
+  });
+  assert.ok(ceremony.snuffTime > 0);
+  await capture("16-torch-snuff-rehearsal");
+  await page.evaluate(() => window.__tribalQA.advance(170));
+  await capture("17-side-exit-procession");
+  await page.evaluate(() => {
+    const q = window.__tribalQA;
+    while (q.intro.tribalIntro.getSnapshot() === "elimination") q.advance();
+  });
+  await page.waitForSelector("[data-testid=stand-and-explore]");
+  report.checks.push({ ceremony, completed: true });
+  await page.getByTestId("stand-and-explore").click();
+  await page.evaluate(() => window.__tribalQA.advance(3));
   // Real pointer/touch events through the unchanged joystick and orbit zones.
   await page.setViewportSize({ width: 844, height: 390 });
   const joy = await page.getByTestId("joystick").boundingBox();

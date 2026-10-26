@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "generatorSha256": "eacf3c400ececa4d990f9bdabd84a4a51776d5e5c44e0e7299099dc80277a9f8",
+  "blender": "4.5.3 LTS",
+  "seed": 47921,
+  "units": "metres",
+  "up": "Y",
+  "origin": "ground centre; roof eave datum; vine top attachment",
+  "authoring": "Original meshes generated and exported by Blender; no external art",
+  "atlases": {
+    "count": 2,
+    "size": 1024,
+    "channels": [
+      "sRGB albedo",
+      "tangent-space normal"
+    ]
+  },
+  "assets": [
+    "elephant_guardian",
+    "naga_terminal",
+    "voting_roof",
+    "root_column",
+    "ceremonial_urn",
+    "fallen_relief",
+    "fern_cluster",
+    "hanging_vine",
+    "lotus_relief"
+  ],
+  "files": {
+    "sanctuary-kit-low.glb": {
+      "bytes": 2460072,
+      "sha256": "0f8f340e880440f3528639178971681931a4bffa88d0bc4e0d124c420bdc05c7"
+    },
+    "sanctuary-kit.glb": {
+      "bytes": 6883360,
+      "sha256": "0d972c901489a3156d39b1f8305b46dd0eebcd1608226c96401befae73f0910c"
+    }
+  }
+}

@@ -117,8 +117,10 @@ function useParts() {
       sph(0.045, M(0, 0.2, 0.19, 0, 0, 0, 0.8, 1, 1.1), SKIN_L, 0.02),
       sph(0.035, M(0.17, 0.21, 0.0, 0, 0, 0, 0.5, 1, 0.9), SKIN, 0.02),
       sph(0.035, M(-0.17, 0.21, 0.0, 0, 0, 0, 0.5, 1, 0.9), SKIN, 0.02),
-      sph(0.022, M(0.07, 0.25, 0.165), "#17110d", 0.02),
-      sph(0.022, M(-0.07, 0.25, 0.165), "#17110d", 0.02),
+      sph(0.018, M(0.07, 0.25, 0.165,0,0,0,1,.6,.5), "#d8c9ad", 0.01),
+      sph(.009,M(.07,.25,.175,0,0,0,1,1,.4),"#34261d",.01),
+      sph(0.018, M(-0.07, 0.25, 0.165,0,0,0,1,.6,.5), "#d8c9ad", 0.01),
+      sph(.009,M(-.07,.25,.175,0,0,0,1,1,.4),"#34261d",.01),
       mk(
         new THREE.BoxGeometry(0.07, 0.014, 0.02),
         M(0.07, 0.29, 0.17, 0, 0, 0.1),
@@ -302,7 +304,7 @@ export function Survivor({
 }) {
   const p = useParts();
   const mat = useMemo(
-    () => new THREE.MeshLambertMaterial({ vertexColors: true }),
+    () => new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .92 }),
     [],
   );
   useEffect(
@@ -453,7 +455,7 @@ export function Survivor({
         <Part g={p.pelvis} mat={mat} />
         <group ref={spine} position={[0, 0.06, 0]}>
           <Part g={p.torso} mat={mat} />
-          <group ref={head} position={[0, 0.62, 0]}>
+          <group ref={head} position={[0, 0.65, 0]} scale={[.84,.85,.87]}>
             <Part g={p.head} mat={mat} />
             <group ref={tail} position={[0, 0.3, -0.17]}>
               <Part g={p.tail} mat={mat} />

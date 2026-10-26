@@ -37,6 +37,7 @@ export function TribalInteractions() {
             const current = nearbyInterest(dbg.x, dbg.z);
             if (!current) return;
             if (current.id === "seat") tribalIntro.sit();
+            else if(current.id === "last-walk") tribalIntro.rehearse();
             else tribalInteractions.open(current.id);
           }}
         >

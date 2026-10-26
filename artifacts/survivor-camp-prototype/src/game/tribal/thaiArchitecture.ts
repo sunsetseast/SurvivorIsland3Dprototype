@@ -1,6 +1,7 @@
 import * as T from "three";
 import {
   ARRIVAL,
+  offsetPath,
   COUNCIL,
   TOWERS,
   approachSurface,
@@ -458,14 +459,16 @@ function elephant(w: MasonryWriter, x: number, z: number, yaw: number) {
     key: MaterialKey = "stone",
   ) =>
     add(
-      new T.SphereGeometry(1, 16, 12),
+      new T.SphereGeometry(1, 24, 16),
       key,
       p(u, v, d),
       scale,
       [0, yaw, 0],
       false,
     );
-  oval(0, 1.85, 0.2, [0.81, 1.04, 1.25]);
+  oval(0, 1.92, 0.2, [0.83, 1.07, 1.35]);
+  // Massive shoulder and sloping back of an Asian elephant, carved from one stone volume.
+  oval(0, 2.28, -0.45, [0.73, 0.84, 0.75]);
   for (const side of [-1, 1])
     for (const end of [-1, 1]) {
       oval(side * 0.57, 1.12, 0.2 + end * 0.75, [0.28, 0.65, 0.32]);
@@ -479,13 +482,13 @@ function elephant(w: MasonryWriter, x: number, z: number, yaw: number) {
           "plaster",
         );
     }
-  oval(0, 2.25, -0.87, [0.68, 0.78, 0.72]);
-  oval(0, 2.67, -0.95, [0.48, 0.38, 0.42]);
+  oval(0, 2.35, -0.92, [0.53, 0.69, 0.63]);
+  oval(0, 2.72, -0.95, [0.39, 0.34, 0.4]);
   for (const side of [-1, 1]) {
     // Broad, scalloped fan ears with carved inner folds, rather than small spheres.
     const ear = new T.Shape();
     ear.moveTo(0, 0);
-    ear.bezierCurveTo(side * 0.85, 0.35, side * 0.95, -0.1, side * 0.72, -0.8);
+    ear.bezierCurveTo(side * 0.68, 0.22, side * 0.74, -0.1, side * 0.57, -0.72);
     ear.bezierCurveTo(side * 0.3, -1.05, side * 0.15, -0.45, 0, 0);
     add(
       new T.ExtrudeGeometry(ear, {
@@ -512,12 +515,12 @@ function elephant(w: MasonryWriter, x: number, z: number, yaw: number) {
       "dark",
       false,
     );
-    oval(side * 0.42, 2.4, -1.42, [0.075, 0.065, 0.05], "dark");
+    oval(side * 0.42, 2.4, -1.42, [0.037, 0.025, 0.018], "dark");
     curve(
       [
         p(side * 0.29, 1.95, -1.42),
         p(side * 0.4, 1.65, -1.75),
-        p(side * 0.48, 1.75, -2.05),
+        p(side * 0.43, 1.72, side < 0 ? -1.94 : -2.05),
       ],
       0.06,
       "plaster",
@@ -595,22 +598,24 @@ function approach(w: MasonryWriter) {
     }
     for (const side of [-1, 1]) {
       if (i === 5 && side === 1) continue; // Open landing branches to the existing jury approach.
+      const edgeA = offsetPath(ARRIVAL, i, side * 1.65),
+        edgeB = offsetPath(ARRIVAL, i + 1, side * 1.65);
       const pts: Vec[] = [];
       for (let j = 0; j <= 18; j++) {
         const t = j / 18,
           x = a.x + dx * t,
           z = a.z + dz * t;
         pts.push([
-          x + nx * side * 1.65,
+          edgeA.x + (edgeB.x - edgeA.x) * t,
           approachSurface(x, z).height + 0.64,
-          z + nz * side * 1.65,
+          edgeA.z + (edgeB.z - edgeA.z) * t,
         ]);
       }
       curve(pts, i === 2 || i === 3 ? 0.18 : 0.11, "stone", false);
       for (let j = 0; j <= 6; j++) {
         const t = j / 6,
-          x = a.x + dx * t + nx * side * 1.65,
-          z = a.z + dz * t + nz * side * 1.65,
+          x = edgeA.x + (edgeB.x - edgeA.x) * t,
+          z = edgeA.z + (edgeB.z - edgeA.z) * t,
           h = approachSurface(a.x + dx * t, a.z + dz * t).height;
         beam([x, h - 0.2, z], [x, h + 0.6, z], 0.11, "brick", false);
       }
@@ -618,8 +623,8 @@ function approach(w: MasonryWriter) {
         // Continuous scalation along both serpent bodies.
         for (let j = 0; j < 24; j++) {
           const t = (j + 0.5) / 24,
-            x = a.x + dx * t + nx * side * 1.65,
-            z = a.z + dz * t + nz * side * 1.65;
+            x = edgeA.x + (edgeB.x - edgeA.x) * t,
+            z = edgeA.z + (edgeB.z - edgeA.z) * t;
           add(
             petalGeometry(0.12, 0.16, 0.035),
             "trim",
@@ -631,8 +636,8 @@ function approach(w: MasonryWriter) {
         }
       }
       if (i === 3) {
-        const x = b.x + nx * side * 1.65,
-          z = b.z + nz * side * 1.65,
+        const x = edgeB.x,
+          z = edgeB.z,
           h = approachSurface(b.x - 0.01 * dx, b.z - 0.01 * dz).height;
         const p = (u: number, v: number, d: number): Vec => [
           x + (dx / len) * d + nx * u,
@@ -707,11 +712,13 @@ function approach(w: MasonryWriter) {
   }
 }
 
-export function buildThaiArchitecture(w: MasonryWriter) {
+export function buildThaiArchitecture(w: MasonryWriter, authored = false) {
   const { box, add, beam } = w;
   for (const t of TOWERS) tower(w, t);
-  elephant(w, -11.8, -15.2, Math.PI + 0.35);
-  elephant(w, 12, -15.5, Math.PI - 0.35);
+  if (!authored) {
+    elephant(w, -10.3, -16.3, Math.PI + 0.35);
+    elephant(w, 12, -15.5, Math.PI - 0.35);
+  }
   // Carved gateway replaces the old timber-capped generic columns.
   const gateYaw = Math.atan2(3, 4.4);
   door(w, -17, 0, -16, 4.84, 6.15, gateYaw);
@@ -757,9 +764,38 @@ export function buildThaiArchitecture(w: MasonryWriter) {
     }
   for (const x of [-37, -31]) box("wood", [x, 4.05, 18], [0.34, 0.3, 6.65]);
   for (const z of [15, 21]) box("wood", [-34, 4.05, z], [6.5, 0.3, 0.34]);
-  roof(w, -34, 18, 4.15, 8.4, 8.5, 2);
-  roof(w, -34, 17.8, 5.85, 5.4, 6.7, 1.4);
+  if (!authored) {
+    roof(w, -34, 18, 4.15, 8.4, 8.5, 2);
+    roof(w, -34, 17.8, 5.85, 5.4, 6.7, 1.4);
+  }
   door(w, -30.68, 0.35, 17.35, 1.8, 2.55, Math.PI / 2);
+  // Enclosed gables terminate the roof at the same perimeter as the room. Interior
+  // rafters support the layered roof; the east doorway is the only public opening.
+  for (const end of [-1, 1]) {
+    const gable = new T.Shape();
+    gable.moveTo(-3.25, 0);
+    gable.lineTo(0, 1.9);
+    gable.lineTo(3.25, 0);
+    gable.closePath();
+    add(
+      new T.ExtrudeGeometry(gable, { depth: 0.18, bevelEnabled: false }),
+      "wood",
+      [-34, 4.12, 18 + end * 3.05],
+      [1, 1, 1],
+      [0, 0, 0],
+      false,
+    );
+  }
+  for (let j = 0; j < 5; j++) {
+    const zz = 15.3 + j * 1.35;
+    beam([-37.15, 4.2, zz], [-34, 6.1, zz], 0.075, "wood", false);
+    beam([-34, 6.1, zz], [-30.85, 4.2, zz], 0.075, "wood", false);
+  }
+  // Attached brick foundation courses visually join the return walls to the paved floor.
+  box("brick", [-37.25, 0.22, 18], [0.88, 0.4, 6.8], [0, 0, 0], false);
+  box("brick", [-30.75, 0.22, 19.6], [0.88, 0.4, 3], [0, 0, 0], false);
+  box("brick", [-30.75, 0.22, 15.6], [0.88, 0.4, 2.2], [0, 0, 0], false);
+
   // Reachable, functional stone podium with floral relief; host stands behind it.
   const { x, z, y, yaw } = COUNCIL.podium;
   box("brick", [x, y + 0.12, z], [1.75, 0.24, 1.04], [0, yaw, 0]);

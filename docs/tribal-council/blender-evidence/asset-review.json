@@ -1,0 +1,331 @@
+{
+  "renderer": "Chrome 142 / SwiftShader; not iPhone Safari",
+  "captures": [
+    {
+      "name": "arrival",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -32,
+          3.5,
+          -28
+        ],
+        "target": [
+          -24,
+          1.5,
+          -21
+        ]
+      },
+      "calls": 268,
+      "triangles": 494157,
+      "textures": 11,
+      "geometries": 266,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        13153,
+        1331.5,
+        1196.6000000000931
+      ]
+    },
+    {
+      "name": "sanctuary",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          14,
+          6.5,
+          16
+        ],
+        "target": [
+          -1,
+          6,
+          -9
+        ]
+      },
+      "calls": 252,
+      "triangles": 436290,
+      "textures": 11,
+      "geometries": 274,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1821.6000000000931,
+        910.8000000000466,
+        881.1999999999534
+      ]
+    },
+    {
+      "name": "seating",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          6.12,
+          1.85,
+          3.83
+        ],
+        "target": [
+          -0.6,
+          1.1,
+          -6.8
+        ]
+      },
+      "calls": 202,
+      "triangles": 345738,
+      "textures": 11,
+      "geometries": 274,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1989.3000000000466,
+        1077.8000000000466,
+        1063.9000000001397
+      ]
+    },
+    {
+      "name": "jeff",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          1,
+          2.2,
+          -3
+        ],
+        "target": [
+          6.2,
+          1.8,
+          4
+        ]
+      },
+      "calls": 96,
+      "triangles": 236956,
+      "textures": 11,
+      "geometries": 274,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1227.6999999999534,
+        592.6000000000931,
+        618.3999999999069
+      ]
+    },
+    {
+      "name": "voting-roof",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -23,
+          6,
+          29
+        ],
+        "target": [
+          -34,
+          4,
+          18
+        ]
+      },
+      "calls": 131,
+      "triangles": 286713,
+      "textures": 11,
+      "geometries": 287,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1585.8999999999069,
+        700.6999999999534,
+        807.9000000001397
+      ]
+    },
+    {
+      "name": "voting-interior",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -31.8,
+          2.2,
+          20.5
+        ],
+        "target": [
+          -34,
+          1.5,
+          16.5
+        ]
+      },
+      "calls": 118,
+      "triangles": 280277,
+      "textures": 11,
+      "geometries": 287,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1709,
+        874.9000000001397,
+        896.5999999998603
+      ]
+    },
+    {
+      "name": "voting-approach",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -24,
+          3.3,
+          20
+        ],
+        "target": [
+          -32,
+          2.3,
+          17
+        ]
+      },
+      "calls": 89,
+      "triangles": 182340,
+      "textures": 11,
+      "geometries": 288,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1399.0999999998603,
+        743.0999999998603,
+        780.3000000000466
+      ]
+    },
+    {
+      "name": "exit",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          21,
+          3.4,
+          -4
+        ],
+        "target": [
+          21,
+          1.3,
+          4
+        ]
+      },
+      "calls": 73,
+      "triangles": 200661,
+      "textures": 11,
+      "geometries": 288,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1132.3000000000466,
+        577.9000000001397,
+        514.2999999998137
+      ]
+    },
+    {
+      "name": "guardian",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -6.5,
+          2.7,
+          -10
+        ],
+        "target": [
+          -7.5,
+          1.8,
+          -16.3
+        ]
+      },
+      "calls": 88,
+      "triangles": 234546,
+      "textures": 11,
+      "geometries": 288,
+      "meshes": 669,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1765.6000000000931,
+        743.0999999998603,
+        846
+      ]
+    },
+    {
+      "name": "mobile-375",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      }
+    },
+    {
+      "name": "mobile-430",
+      "viewport": {
+        "width": 430,
+        "height": 932
+      }
+    },
+    {
+      "name": "mobile-844",
+      "viewport": {
+        "width": 844,
+        "height": 390
+      }
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "assets": [
+        "blender-voting_roof",
+        "blender-elephant_guardian",
+        "blender-naga_terminal",
+        "blender-root_column",
+        "blender-ceremonial_urn",
+        "blender-lotus_relief",
+        "blender-fallen_relief",
+        "blender-fern_cluster",
+        "blender-hanging_vine"
+      ],
+      "quality": "full"
+    }
+  ]
+}

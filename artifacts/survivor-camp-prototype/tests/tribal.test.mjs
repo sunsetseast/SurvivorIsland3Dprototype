@@ -254,3 +254,102 @@ test("host can distinguish the five attending faces despite the alternating stag
   for (let i = 1; i < angles.length; i++)
     assert.ok(angles[i] - angles[i - 1] > 0.035);
 });
+
+test("scenery footprints protect the complete ceremonial corridor and arrival group width", async () => {
+  const { PRACTICALS, corridorClear, pathDistance, TREES } =
+    await import("../src/game/tribal/layout.ts");
+  assert.ok(PRACTICALS.some((p) => p.id.startsWith("arrival-torch")));
+  assert.ok(PRACTICALS.some((p) => p.id.startsWith("vote-torch")));
+  assert.ok(PRACTICALS.some((p) => p.id.startsWith("exit-torch")));
+  assert.equal(
+    PRACTICALS.filter((p) => p.id.startsWith("personal-")).length,
+    12,
+  );
+  for (const p of PRACTICALS) {
+    assert.ok(corridorClear(p.x, p.z, p.radius), p.id);
+    assert.ok(
+      SOLIDS.some((s) => s.id === p.id),
+      `missing practical collider ${p.id}`,
+    );
+  }
+  for (const t of TREES) assert.ok(corridorClear(t.x, t.z, 2.7));
+  // Old offending torch (-26.7,-21) is only 1.06m from the diagonal entrance.
+  assert.ok(!corridorClear(-26.7, -21, 0.26));
+  for (let i = 1; i < ARRIVAL.length; i++) {
+    const a = ARRIVAL[i - 1],
+      b = ARRIVAL[i],
+      dx = b.x - a.x,
+      dz = b.z - a.z,
+      len = Math.hypot(dx, dz);
+    for (let j = 1; j < 30; j++)
+      for (const offset of [-0.52, 0, 0.52]) {
+        const x = a.x + (dx * j) / 30 - (dz / len) * offset,
+          z = a.z + (dz * j) / 30 + (dx / len) * offset;
+        assert.ok(!tribalBlocked(x, z, 0.3), `group corridor ${x},${z}`);
+      }
+  }
+});
+
+test("voting privacy uses the attached pavilion envelope, with both freestanding walls deleted", async () => {
+  const { STRUCTURES } = await import("../src/game/tribal/layout.ts");
+  assert.ok(!SOLIDS.some((s) => s.id.startsWith("privacy-wall")));
+  const walls = STRUCTURES.filter((s) => s.id.startsWith("booth-"));
+  // Every eye ray from council/host to all four corners of the writing surface
+  // meets the room's masonry below its 3.8m cap (eye and parchment are below 2m).
+  for (const eye of [
+    ...TRIBAL.seats.map((s) => ({ x: s.position[0], z: s.position[2] })),
+    COUNCIL.host,
+  ])
+    for (const x of [-34.47, -33.72])
+      for (const z of [15.9, 16.4]) {
+        let obscured = false;
+        for (let k = 1; k < 800; k++) {
+          const p = {
+            x: eye.x + ((x - eye.x) * k) / 800,
+            z: eye.z + ((z - eye.z) * k) / 800,
+          };
+          if (
+            walls.some(
+              (w) => Math.abs(p.x - w.x) < w.hx && Math.abs(p.z - w.z) < w.hz,
+            )
+          )
+            obscured = true;
+        }
+        assert.ok(obscured, `visible ballot from ${JSON.stringify(eye)}`);
+      }
+});
+
+test("elimination approaches Jeff, pauses to snuff, then departs by the side apron", async () => {
+  const { EXIT_ORIGIN } = await import("../src/game/tribal/layout.ts");
+  const { eliminationApproach, eliminationDeparture, eliminationAt } =
+    await import("../src/game/tribal/elimination.ts");
+  assert.deepEqual(EXIT_PATH[0], EXIT_ORIGIN);
+  assert.ok(EXIT_ORIGIN.x > 10 && EXIT_ORIGIN.z < COUNCIL.host.z - 2);
+  assert.deepEqual(eliminationDeparture.slice(1), EXIT_PATH);
+  for (let i = 0; i < CAST.length; i++) {
+    walk(eliminationApproach(i));
+    walk(eliminationDeparture);
+    let previous = eliminationAt(0, i),
+      phases = new Set();
+    for (let t = 0.04; t < 90; t += 0.04) {
+      const p = eliminationAt(t, i);
+      phases.add(p.phase);
+      assert.ok(
+        !tribalBlocked(p.x, p.z),
+        `elimination actor ${i}: ${p.x},${p.z}`,
+      );
+      assert.ok(Math.hypot(p.x - previous.x, p.z - previous.z) < 0.07);
+      if (p.phase === "exit") assert.equal(p.lit, false);
+      previous = p;
+      if (p.done) break;
+    }
+    assert.deepEqual([...phases], ["approach", "snuff", "exit"]);
+    assert.ok(previous.done);
+  }
+  tribalIntro.rehearse();
+  assert.equal(tribalIntro.getSnapshot(), "elimination");
+  for (let i = 0; i < 3000 && tribalIntro.getSnapshot() === "elimination"; i++)
+    tribalIntro.step(0.05);
+  assert.equal(tribalIntro.getSnapshot(), "seated");
+  tribalIntro.reset();
+});

@@ -1,0 +1,39 @@
+$ node --import tsx --test tests/*.test.mjs
+Certified 256 directed spot routes
+Certified 22978 physical travel frames
+{"activities":{"4":["socialize","observe","chores","explore","rest","collect_water","private_chat"],"11":["rest","explore","observe","collect_water","socialize","chores","private_chat"],"13":["socialize","explore","collect_water","observe","chores","rest","private_chat"],"18":["observe","socialize","rest","explore","collect_water","chores","private_chat"]},"exchanges":13,"departures":132}
+✔ production snapshots remain byte-identical to the audited source manifest (3.106337ms)
+✔ every major activity spot has a collision-validated path to every other spot (2130.886128ms)
+✔ four contestants physically traverse all five landmarks with no early arrival or teleport (424.001298ms)
+✔ proximity, responses, exit and interrupted intent recover without a false arrival (23.28434ms)
+✔ approaches walk physically, can be accepted/declined and cancel when the player leaves (89.963016ms)
+✔ private meeting knowledge is owner-scoped; movement never grants a witness destination presence (6.502546ms)
+✔ autonomous providers vary activities and decision times, form and leave real groups (2053.837987ms)
+✔ walking stance feet stay planted and articulated legs solve ground targets (2.630597ms)
+✔ authored prang has a finite, correctly oriented recessed silhouette (21.100493ms)
+✔ environment interests are reachable and practice ballots remain separate from season outcomes (1.686524ms)
+✔ pavement is grounded, finite and continuously covers the courtyard, booth and new exit (222.808667ms)
+✔ locked geography is never mirrored or rotated (4.09504ms)
+✔ arrival route is physically walkable both ways (145.189931ms)
+✔ vote route is physically walkable both ways (98.664786ms)
+✔ exit route is physically walkable both ways (100.417182ms)
+✔ jury route is physically walkable both ways (44.713168ms)
+✔ each contestant can leave a stump into a broad shared aisle (137.775297ms)
+✔ collision substeps prevent tunnelling through fire, tree trunks, walls and furniture (5.342621ms)
+✔ future anchors have unique stable IDs and finite stage/camera coordinates (1.11555ms)
+✔ opening stages drone, ruin detail, Jeff, arrivals, then seated handoff (253.153879ms)
+✔ intimate host, fire and cast proportions retain body clearance (0.454082ms)
+✔ entrance has twelve physical risers, level bridge and continuous landings (4.476659ms)
+✔ ceremony ambience continues after seating and returning to seat is reversible (0.451303ms)
+✔ host can distinguish the five attending faces despite the alternating stagger (0.696523ms)
+✔ scenery footprints protect the complete ceremonial corridor and arrival group width (14.876949ms)
+✔ voting privacy uses the attached pavilion envelope, with both freestanding walls deleted (9.369613ms)
+✔ elimination approaches Jeff, pauses to snuff, then departs by the side apron (316.617859ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12981.167342
