@@ -1,0 +1,1784 @@
+{
+  "renderer": "Chromium software WebGL (SwiftShader); not iPhone Safari",
+  "physicalIPhone": false,
+  "timing": "Fixed 1/30s game frames accelerated between captures; actual GPU render at captures. Separate wall-time render samples below.",
+  "checks": [
+    "Desktop proximity, dialogue topic choices, leave and camera return",
+    {
+      "mobileLayout": {
+        "panel": {
+          "x": 42,
+          "y": 195.5,
+          "width": 760,
+          "height": 194.5
+        },
+        "minButtonHeight": 44,
+        "overflow": false
+      }
+    },
+    "Touch Talk, response, Leave, then concurrent joystick/run and release",
+    "Camera drag still responds after conversation",
+    "Physically walked NPC approach and touch decline",
+    "120 simulated seconds of autonomous browser camp updates after controlled route checks"
+  ],
+  "captures": [
+    {
+      "name": "01-four-contestants-at-camp",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 0.14990000000037254,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 219,
+      "triangles": 303327,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -2,
+          "y": 1.0325250117108964,
+          "z": -29,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "observe",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "02-sandra-at-campfire",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 6.583233333333692,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 180,
+      "triangles": 262220,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -2,
+          "y": 1.0325250117108964,
+          "z": -29,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "observe",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "05-player-approaches-sandra",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 6.583233333333692,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 180,
+      "triangles": 262220,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -2,
+          "y": 1.0325250117108964,
+          "z": -29,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "observe",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "06-active-conversation-desktop",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 8.249900000000356,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 205,
+      "triangles": 301906,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "talk",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -2,
+          "y": 1.0325250117108964,
+          "z": -29,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "observe",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "03-parvati-and-rob-conversation",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 15.483233333333663,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 217,
+      "triangles": 266551,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -2,
+          "y": 1.0325250117108964,
+          "z": -29,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "observe",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "09-iphone-landscape-conversation",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 23.049900000000665,
+      "viewport": [
+        844,
+        390
+      ],
+      "drawingBuffer": [
+        844,
+        390
+      ],
+      "calls": 218,
+      "triangles": 319569,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "talk",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -2,
+          "y": 1.0325250117108964,
+          "z": -29,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "observe",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "10-russell-approach-offer",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 32.61656666666775,
+      "viewport": [
+        844,
+        390
+      ],
+      "drawingBuffer": [
+        844,
+        390
+      ],
+      "calls": 166,
+      "triangles": 276642,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -1.4488719150481966,
+          "y": 1.0032777353183209,
+          "z": -26.700112430143985,
+          "place": null,
+          "destination": null,
+          "traveling": false,
+          "activity": "observe",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "offered"
+        }
+      ]
+    },
+    {
+      "name": "04-russell-traveling-path",
+      "note": "Controlled route scenario, real physical motion, gameplay camera",
+      "at": 40.28323333333398,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 221,
+      "triangles": 284737,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -10.989303377949454,
+          "y": 1.0286753855154371,
+          "z": -28.96080667532132,
+          "place": null,
+          "destination": {
+            "x": -48,
+            "z": -24.5
+          },
+          "traveling": true,
+          "activity": "observe",
+          "animation": "walk",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "08-beach-moving-contestant",
+      "note": "Controlled route scenario, genuine game motion",
+      "at": 81.94989999999828,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 157,
+      "triangles": 181728,
+      "npcs": [
+        {
+          "id": 4,
+          "x": -8.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": -10.7,
+          "y": 1.0286753855154371,
+          "z": -27.5,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "socialize",
+          "animation": "talk",
+          "groupId": 1,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": -47.06491039512896,
+          "y": 0.1483459943408754,
+          "z": -25.90517081783846,
+          "place": null,
+          "destination": {
+            "x": 12.2,
+            "z": 8.5
+          },
+          "traveling": true,
+          "activity": "explore",
+          "animation": "walk",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "07-shelter-activity",
+      "note": "Gameplay camera, actual WebGL",
+      "at": 127.4498999999957,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 176,
+      "triangles": 259355,
+      "npcs": [
+        {
+          "id": 4,
+          "x": 13.347758359670214,
+          "y": 1.8,
+          "z": -44.05673153036871,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": 11.045743413849046,
+          "y": 1.8,
+          "z": -43.04766572816983,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": 13.394211501824048,
+          "y": 1.1000051975998917,
+          "z": -16.80324935615483,
+          "place": null,
+          "destination": {
+            "x": 12.2,
+            "z": 8.5
+          },
+          "traveling": true,
+          "activity": "explore",
+          "animation": "walk",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "portrait-11",
+      "note": "Diagnostic close view of actual in-game procedural character; manual camera framing",
+      "at": 127.4498999999957,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 179,
+      "triangles": 263395,
+      "npcs": [
+        {
+          "id": 4,
+          "x": 13.347758359670214,
+          "y": 1.8,
+          "z": -44.05673153036871,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": 11.045743413849046,
+          "y": 1.8,
+          "z": -43.04766572816983,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": 13.394211501824048,
+          "y": 1.1000051975998917,
+          "z": -16.80324935615483,
+          "place": null,
+          "destination": {
+            "x": 12.2,
+            "z": 8.5
+          },
+          "traveling": true,
+          "activity": "explore",
+          "animation": "walk",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "portrait-13",
+      "note": "Diagnostic close view of actual in-game procedural character; manual camera framing",
+      "at": 127.4498999999957,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 186,
+      "triangles": 269485,
+      "npcs": [
+        {
+          "id": 4,
+          "x": 13.347758359670214,
+          "y": 1.8,
+          "z": -44.05673153036871,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": 11.045743413849046,
+          "y": 1.8,
+          "z": -43.04766572816983,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": 13.394211501824048,
+          "y": 1.1000051975998917,
+          "z": -16.80324935615483,
+          "place": null,
+          "destination": {
+            "x": 12.2,
+            "z": 8.5
+          },
+          "traveling": true,
+          "activity": "explore",
+          "animation": "walk",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "portrait-18",
+      "note": "Diagnostic close view of actual in-game procedural character; manual camera framing",
+      "at": 127.4498999999957,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 187,
+      "triangles": 269565,
+      "npcs": [
+        {
+          "id": 4,
+          "x": 13.347758359670214,
+          "y": 1.8,
+          "z": -44.05673153036871,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": 11.045743413849046,
+          "y": 1.8,
+          "z": -43.04766572816983,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": 13.394211501824048,
+          "y": 1.1000051975998917,
+          "z": -16.80324935615483,
+          "place": null,
+          "destination": {
+            "x": 12.2,
+            "z": 8.5
+          },
+          "traveling": true,
+          "activity": "explore",
+          "animation": "walk",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    },
+    {
+      "name": "portrait-4",
+      "note": "Diagnostic close view of actual in-game procedural character; manual camera framing",
+      "at": 127.4498999999957,
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 222,
+      "triangles": 278385,
+      "npcs": [
+        {
+          "id": 4,
+          "x": 13.347758359670214,
+          "y": 1.8,
+          "z": -44.05673153036871,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 11,
+          "x": -9,
+          "y": 1.0286753855154371,
+          "z": -34.15,
+          "place": "campfire",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "sit",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 13,
+          "x": 11.045743413849046,
+          "y": 1.8,
+          "z": -43.04766572816983,
+          "place": "shelter",
+          "destination": null,
+          "traveling": false,
+          "activity": "rest",
+          "animation": "idle",
+          "groupId": null,
+          "approach": "none"
+        },
+        {
+          "id": 18,
+          "x": 13.394211501824048,
+          "y": 1.1000051975998917,
+          "z": -16.80324935615483,
+          "place": null,
+          "destination": {
+            "x": 12.2,
+            "z": 8.5
+          },
+          "traveling": true,
+          "activity": "explore",
+          "animation": "walk",
+          "groupId": null,
+          "approach": "none"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "routes": [
+    {
+      "label": "Walk from spawn to Sandra",
+      "frames": 133,
+      "maxHeightError": 0,
+      "maxStep": 0.10832975249452514,
+      "final": {
+        "x": -9.905204575658946,
+        "z": -32.85832935024333
+      }
+    },
+    {
+      "label": "Walk from Sandra to Rob and Parvati",
+      "frames": 112,
+      "maxHeightError": 0,
+      "maxStep": 0.10832871162956371,
+      "final": {
+        "x": -7.9231980535372335,
+        "z": -25.902242917902015
+      }
+    },
+    {
+      "label": "Mobile walk to Sandra",
+      "frames": 112,
+      "maxHeightError": 0,
+      "maxStep": 0.10832978060039442,
+      "final": {
+        "x": -9.905169752056231,
+        "z": -32.858479285010944
+      }
+    },
+    {
+      "label": "Move near Russell for NPC approach",
+      "frames": 108,
+      "maxHeightError": 0,
+      "maxStep": 0.10833093896122084,
+      "final": {
+        "x": -1.054540300519154,
+        "z": -25.054545086690773
+      }
+    },
+    {
+      "label": "Walk beach route behind Russell",
+      "frames": 430,
+      "maxHeightError": 0,
+      "maxStep": 0.10833174240419707,
+      "final": {
+        "x": -42.422809444519764,
+        "z": -26.190519501988945
+      }
+    },
+    {
+      "label": "Walk shelter ramp",
+      "frames": 575,
+      "maxHeightError": 0,
+      "maxStep": 0.10833168980249372,
+      "final": {
+        "x": 11.996033074915873,
+        "z": -36.91413373581441
+      }
+    }
+  ],
+  "performance": [
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 150,
+      "triangles": 239275,
+      "renderAndFinishMs": [
+        2.599999999627471,
+        1.900000000372529,
+        1.699999999254942,
+        1.400000000372529,
+        1.199999999254942
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7494,
+        "totalMs": 370.2999999579042,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 29976,
+        "totalMs": 215.80000000074506,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 27,
+        "elapsedMs": 17244.599999999627,
+        "fps": 1.565707525834208,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "drawingBuffer": [
+        1266,
+        585
+      ],
+      "calls": 150,
+      "triangles": 239275,
+      "renderAndFinishMs": [
+        2.299999998882413,
+        5.700000001117587,
+        1.900000000372529,
+        5.599999999627471,
+        1.799999998882413
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7541,
+        "totalMs": 373.1999999564141,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 30164,
+        "totalMs": 218.0000000037253,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 22,
+        "elapsedMs": 11419.5,
+        "fps": 1.9265291825386401,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    },
+    {
+      "viewport": [
+        932,
+        430
+      ],
+      "drawingBuffer": [
+        932,
+        430
+      ],
+      "calls": 150,
+      "triangles": 239275,
+      "renderAndFinishMs": [
+        3.100000001490116,
+        1.3999999985098839,
+        1.700000001117587,
+        1.099999999627471,
+        3.800000000745058
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7583,
+        "totalMs": 374.4999999552965,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 30332,
+        "totalMs": 221.300000006333,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 16,
+        "elapsedMs": 7802.200000001118,
+        "fps": 2.0507036476888194,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "drawingBuffer": [
+        585,
+        1266
+      ],
+      "calls": 148,
+      "triangles": 230300,
+      "renderAndFinishMs": [
+        1.599999999627471,
+        1.299999998882413,
+        4.5,
+        0.900000000372529,
+        0.7000000011175871
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7619,
+        "totalMs": 375.1999999564141,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 30476,
+        "totalMs": 222.40000000596046,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 23,
+        "elapsedMs": 15063.900000000373,
+        "fps": 1.5268290416160113,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    }
+  ],
+  "autonomous": {
+    "now": 249.11656666665544,
+    "metrics": {
+      "updates": 7474,
+      "totalMs": 369.599999954924,
+      "maxMs": 28.699999999254942,
+      "replans": 3,
+      "failedRoutes": 0,
+      "arrivals": 13,
+      "decisions": 9,
+      "approaches": 2
+    },
+    "mode": "demo",
+    "npcs": [
+      {
+        "id": 4,
+        "x": -2.5565678300208416,
+        "y": 1.0422045074538584,
+        "z": -33.04470360117887,
+        "place": "campfire",
+        "destination": null,
+        "traveling": false,
+        "activity": "socialize",
+        "animation": "talk",
+        "groupId": 3,
+        "approach": "none"
+      },
+      {
+        "id": 11,
+        "x": -4.346624259052077,
+        "y": 1.0286753855154371,
+        "z": -33.393892119818425,
+        "place": "campfire",
+        "destination": null,
+        "traveling": false,
+        "activity": "socialize",
+        "animation": "talk",
+        "groupId": 3,
+        "approach": "none"
+      },
+      {
+        "id": 13,
+        "x": -22.22176037105484,
+        "y": 1.527579116796614,
+        "z": -19.519328494921883,
+        "place": null,
+        "destination": {
+          "x": -32,
+          "z": 11.6
+        },
+        "traveling": true,
+        "activity": "chores",
+        "animation": "walk",
+        "groupId": null,
+        "approach": "none"
+      },
+      {
+        "id": 18,
+        "x": 13.526579588124443,
+        "y": 1.080983796490971,
+        "z": -26.946161807700875,
+        "place": null,
+        "destination": {
+          "x": 12.2,
+          "z": 8.5
+        },
+        "traveling": true,
+        "activity": "observe",
+        "animation": "walk",
+        "groupId": null,
+        "approach": "none"
+      }
+    ],
+    "groups": [
+      {
+        "id": 3,
+        "participantIds": [
+          11,
+          4
+        ],
+        "invitedIds": [],
+        "privacy": "public",
+        "endsAt": 269.53322076953293,
+        "anchor": {
+          "x": -3.4515960445364593,
+          "z": -33.21929786049864
+        },
+        "place": "campfire"
+      }
+    ],
+    "receipts": [
+      {
+        "id": "3d:2",
+        "actorId": 11,
+        "type": "seen_together",
+        "participantIds": [
+          0
+        ],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": null,
+        "privacy": "private",
+        "at": 6.583233333333692
+      },
+      {
+        "id": "3d:3",
+        "actorId": 11,
+        "type": "seen_together",
+        "participantIds": [
+          0
+        ],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": null,
+        "privacy": "private",
+        "at": 21.383233333333916
+      },
+      {
+        "id": "3d:5",
+        "actorId": 18,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          0,
+          4,
+          13
+        ],
+        "place": null,
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 30.61656666666771
+      },
+      {
+        "id": "3d:6",
+        "actorId": 18,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [
+          0,
+          4,
+          13
+        ],
+        "place": null,
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 32.08323333333445
+      },
+      {
+        "id": "3d:7",
+        "actorId": 18,
+        "type": "approached",
+        "participantIds": [
+          0
+        ],
+        "witnessIds": [
+          4,
+          13
+        ],
+        "place": null,
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 32.08323333333445
+      },
+      {
+        "id": "3d:9",
+        "actorId": 18,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          0,
+          4,
+          13
+        ],
+        "place": "beach",
+        "fromPlace": null,
+        "privacy": "public",
+        "at": 33.11656666666772
+      },
+      {
+        "id": "3d:10",
+        "actorId": 18,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "beach",
+        "fromPlace": null,
+        "privacy": "public",
+        "at": 63.983233333332635
+      },
+      {
+        "id": "3d:12",
+        "actorId": 18,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          0
+        ],
+        "place": "jungleTrail",
+        "fromPlace": "beach",
+        "privacy": "public",
+        "at": 80.94989999999834
+      },
+      {
+        "id": "3d:14",
+        "actorId": 4,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          13
+        ],
+        "place": "shelter",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 81.94989999999828
+      },
+      {
+        "id": "3d:16",
+        "actorId": 13,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "shelter",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 81.94989999999828
+      },
+      {
+        "id": "3d:17",
+        "actorId": 4,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "shelter",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 103.58323333333038
+      },
+      {
+        "id": "3d:18",
+        "actorId": 13,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [
+          4
+        ],
+        "place": "shelter",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 103.8165666666637
+      },
+      {
+        "id": "3d:20",
+        "actorId": 4,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          0,
+          13
+        ],
+        "place": null,
+        "fromPlace": "shelter",
+        "privacy": "public",
+        "at": 130.7498999999955
+      },
+      {
+        "id": "3d:22",
+        "actorId": 11,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 133.54989999999535
+      },
+      {
+        "id": "3d:23",
+        "actorId": 11,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 133.58323333332868
+      },
+      {
+        "id": "3d:25",
+        "actorId": 13,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          0
+        ],
+        "place": "campfire",
+        "fromPlace": "shelter",
+        "privacy": "public",
+        "at": 134.3498999999953
+      },
+      {
+        "id": "3d:26",
+        "actorId": 4,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [
+          0
+        ],
+        "place": null,
+        "fromPlace": "shelter",
+        "privacy": "public",
+        "at": 134.74989999999528
+      },
+      {
+        "id": "3d:27",
+        "actorId": 4,
+        "type": "approached",
+        "participantIds": [
+          0
+        ],
+        "witnessIds": [],
+        "place": null,
+        "fromPlace": "shelter",
+        "privacy": "public",
+        "at": 134.74989999999528
+      },
+      {
+        "id": "3d:28",
+        "actorId": 18,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "jungleTrail",
+        "fromPlace": "beach",
+        "privacy": "public",
+        "at": 144.01656666666142
+      },
+      {
+        "id": "3d:30",
+        "actorId": 4,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          0
+        ],
+        "place": "campfire",
+        "fromPlace": null,
+        "privacy": "public",
+        "at": 149.8165666666611
+      },
+      {
+        "id": "3d:31",
+        "actorId": 13,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "shelter",
+        "privacy": "public",
+        "at": 157.41656666666066
+      },
+      {
+        "id": "3d:32",
+        "actorId": 4,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [
+          11
+        ],
+        "place": "campfire",
+        "fromPlace": null,
+        "privacy": "public",
+        "at": 164.6832333333269
+      },
+      {
+        "id": "3d:34",
+        "actorId": 18,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "jungleTrail",
+        "privacy": "public",
+        "at": 169.04989999999333
+      },
+      {
+        "id": "3d:36",
+        "actorId": 11,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          4
+        ],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 183.4498999999925
+      },
+      {
+        "id": "3d:37",
+        "actorId": 11,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [
+          4
+        ],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 187.38323333332562
+      },
+      {
+        "id": "3d:38",
+        "actorId": 11,
+        "type": "seen_together",
+        "participantIds": [
+          4
+        ],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "private",
+        "at": 187.38323333332562
+      },
+      {
+        "id": "3d:40",
+        "actorId": 13,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 202.44989999999143
+      },
+      {
+        "id": "3d:41",
+        "actorId": 13,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 202.48323333332476
+      },
+      {
+        "id": "3d:42",
+        "actorId": 13,
+        "type": "work",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 202.48323333332476
+      },
+      {
+        "id": "3d:43",
+        "actorId": 18,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [
+          13
+        ],
+        "place": "campfire",
+        "fromPlace": "jungleTrail",
+        "privacy": "public",
+        "at": 206.18323333332455
+      },
+      {
+        "id": "3d:45",
+        "actorId": 18,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          13
+        ],
+        "place": "jungleTrail",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 234.88323333332292
+      },
+      {
+        "id": "3d:47",
+        "actorId": 4,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [
+          11
+        ],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 236.68323333332282
+      },
+      {
+        "id": "3d:48",
+        "actorId": 4,
+        "type": "arrived",
+        "participantIds": [],
+        "witnessIds": [
+          11
+        ],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 236.71656666665615
+      },
+      {
+        "id": "3d:49",
+        "actorId": 4,
+        "type": "seen_together",
+        "participantIds": [
+          11
+        ],
+        "witnessIds": [],
+        "place": "campfire",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 236.71656666665615
+      },
+      {
+        "id": "3d:51",
+        "actorId": 13,
+        "type": "departed",
+        "participantIds": [],
+        "witnessIds": [],
+        "place": "waterWell",
+        "fromPlace": "campfire",
+        "privacy": "public",
+        "at": 238.71656666665604
+      }
+    ]
+  }
+}

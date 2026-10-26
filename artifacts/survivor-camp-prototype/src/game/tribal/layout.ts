@@ -33,12 +33,15 @@ export const VOTING_PATH: Point[] = [
   { x: -29, z: 17.5 },
   { x: -34, z: 17.5 },
 ];
+// Screenshot 3: the open apron on the north/east SIDE of Jeff's terrace.
+// The procession turns away from the snuff receiver before entering this route.
+export const EXIT_ORIGIN: Point = { x: 10.8, z: 0.6 };
 export const EXIT_PATH: Point[] = [
-  { x: 9, z: 6.5 },
-  { x: 16, z: 8 },
-  { x: 21, z: 12 },
-  { x: 27, z: 14 },
-  { x: 31, z: 21 },
+  EXIT_ORIGIN,
+  { x: 16, z: -0.5 },
+  { x: 21, z: 2.5 },
+  { x: 27, z: 8 },
+  { x: 32, z: 17 },
   { x: 38, z: 25 },
 ];
 export const JURY_PATH: Point[] = [
@@ -53,6 +56,11 @@ export const JURY_PATH: Point[] = [
   { x: -22.25, z: -4 },
 ];
 export const PATHS = [ARRIVAL, VOTING_PATH, EXIT_PATH, JURY_PATH];
+// Static warm bounce in remote circulation areas; no extra per-pixel point lights.
+export const PATH_FILLS = [
+  { ...VOTING_PATH[3]!, radius: 17, strength: 0.36 },
+  { ...EXIT_PATH[2]!, radius: 18, strength: 0.32 },
+];
 // One source of truth for furniture, actors, lights, collision and cinematic targets.
 export const COUNCIL = {
   aisleZ: -4.25,
@@ -61,6 +69,7 @@ export const COUNCIL = {
   host: { x: 6.37, z: 4.25, y: 0.22 },
   urn: { x: 4.55, z: 4.1, y: 0.22 },
   snuff: { x: 8.25, z: 4.7, y: 0.22 },
+  snuffMark: { x: 8.9, z: 3.55 },
 };
 export const TOWERS = [
   { kind: "prang", x: 1, z: -25, height: 23, radius: 4.2 },
@@ -70,7 +79,7 @@ export const TOWERS = [
 ] as const;
 export const TRIBAL = {
   id: "forgotten-island-sanctuary",
-  version: 2,
+  version: 3,
   arrival: anchor("contestant-arrival", -38, -43, 0, -2.55),
   entrance: anchor("sanctuary-gateway", -17, -16),
   host: anchor(
@@ -91,7 +100,8 @@ export const TRIBAL = {
   juryEntrance: anchor("jury-entrance", -25, -7),
   votingApproach: anchor("voting-approach", -29, 12),
   vote: anchor("voting-interaction", -34, 17.3, 0.35, Math.PI),
-  exit: anchor("elimination-exit", 38, 25),
+  exitOrigin: anchor("elimination-exit-origin", EXIT_ORIGIN.x, EXIT_ORIGIN.z),
+  exit: anchor("elimination-exit", EXIT_PATH.at(-1)!.x, EXIT_PATH.at(-1)!.z),
   fire: anchor("council-fire", 0, 0),
   // Owner-locked stagger: alternate forward/back along a broad curved formation.
   seats: Array.from({ length: 12 }, (_, i) => {
@@ -130,6 +140,9 @@ export const TRIBAL = {
     hostEye: { position: [6.12, 1.85, 3.83], target: [-0.6, 1.1, -6.8] },
     fireSide: { position: [-6, 2, 3], target: [3.4, 1.5, -1] },
     entrance: { position: [-32, 3.5, -28], target: [-24, 1.5, -21] },
+    exitOrigin: { position: [16, 4.2, -8], target: [9.2, 1.2, 3.2] },
+    lastWalk: { position: [21, 3.4, -4], target: [21, 1.3, 4] },
+    votingApproach: { position: [-24, 3.3, 20], target: [-32, 2.3, 17] },
   },
 };
 
@@ -140,6 +153,7 @@ export type Solid = {
   hx: number;
   hz: number;
   yaw?: number;
+  height?: number;
 };
 export const STRUCTURES: Solid[] = [
   { id: "backdrop", x: 0, z: -18.6, hx: 14, hz: 0.65 },
@@ -158,8 +172,25 @@ export const STRUCTURES: Solid[] = [
   { id: "booth-east-front", x: -30.7, z: 19.6, hx: 0.45, hz: 1.5 },
   { id: "booth-privacy-return", x: -30.7, z: 15.6, hx: 0.45, hz: 1.1 },
   { id: "writing-table", x: -34, z: 16, hx: 1.55, hz: 0.55 },
-  { id: "privacy-wall", x: -24, z: 11.5, hx: 3.3, hz: 0.5 },
-  { id: "privacy-wall-west", x: -30, z: 8.1, hx: 0.6, hz: 2.4 },
+  // Guardian footprint includes trunk, plinth and ears; scenery is physical.
+  {
+    id: "guardian-west",
+    x: -10.3,
+    z: -16.3,
+    hx: 1.55,
+    hz: 2.6,
+    height: 3.4,
+    yaw: Math.PI + 0.35,
+  },
+  {
+    id: "guardian-east",
+    x: 12,
+    z: -15.5,
+    hx: 1.55,
+    hz: 2.6,
+    height: 3.4,
+    yaw: Math.PI - 0.35,
+  },
   {
     id: "host-person",
     x: COUNCIL.host.x,
@@ -189,27 +220,27 @@ export const STRUCTURES: Solid[] = [
     hx: 0.4,
     hz: 0.4,
   },
-  { id: "exit-gate-left", x: 18.1, z: 13, hx: 0.7, hz: 0.7 },
-  { id: "exit-gate-right", x: 21.9, z: 9, hx: 0.7, hz: 0.7 },
-  ...ARRIVAL.slice(1, 6).flatMap((a, i) => {
-    const b = ARRIVAL[i + 2]!,
-      dx = b.x - a.x,
-      dz = b.z - a.z,
-      len = Math.hypot(dx, dz),
-      n = Math.ceil(len / 0.7);
-    return Array.from({ length: n }, (_, j) =>
-      [-1, 1]
-        .filter((side) => !(i === 4 && side === 1))
-        .map((side) => ({
-          id: `approach-rail-${i}-${j}-${side}`,
-          x: a.x + (dx * (j + 0.5)) / n - (dz / len) * side * 1.65,
-          z: a.z + (dz * (j + 0.5)) / n + (dx / len) * side * 1.65,
-          hx: len / n / 2 + 0.02,
-          hz: 0.12,
-          yaw: Math.atan2(-dz, dx),
-        })),
-    ).flat();
-  }),
+  { id: "exit-gate-left", x: 19.68, z: 4.7, hx: 0.65, hz: 0.65 },
+  { id: "exit-gate-right", x: 22.32, z: 0.3, hx: 0.65, hz: 0.65 },
+  ...ARRIVAL.slice(1, 6).flatMap((_, i) =>
+    [-1, 1].flatMap((side) => {
+      if (i === 4 && side === 1) return [];
+      const a = offsetPath(ARRIVAL, i + 1, side * 1.65),
+        b = offsetPath(ARRIVAL, i + 2, side * 1.65);
+      const dx = b.x - a.x,
+        dz = b.z - a.z,
+        len = Math.hypot(dx, dz),
+        n = Math.ceil(len / 0.7);
+      return Array.from({ length: n }, (_, j) => ({
+        id: `approach-rail-${i}-${j}-${side}`,
+        x: a.x + (dx * (j + 0.5)) / n,
+        z: a.z + (dz * (j + 0.5)) / n,
+        hx: len / n / 2 + 0.02,
+        hz: 0.12,
+        yaw: Math.atan2(-dz, dx),
+      }));
+    }),
+  ),
   ...TRIBAL.seats.map((s) => ({
     id: s.id,
     x: s.position[0],
@@ -226,6 +257,8 @@ export const STRUCTURES: Solid[] = [
   })),
   { id: "jury-rear-rail-north", x: -23.1, z: -6.1, hx: 0.12, hz: 0.9 },
   { id: "jury-rear-rail-south", x: -23.1, z: -0.9, hx: 0.12, hz: 1.9 },
+  { id: "jury-column-north", x: -23.5, z: -8.5, hx: 0.9, hz: 0.9, height: 5.7 },
+  { id: "jury-column-south", x: -23.5, z: 2.5, hx: 0.9, hz: 0.9, height: 5.7 },
   { id: "jury-north-rail", x: -19.5, z: -7.2, hx: 3.7, hz: 0.12 },
 ];
 
@@ -237,6 +270,36 @@ export function segmentDistance(x: number, z: number, a: Point, b: Point) {
     Math.min(1, ((x - a.x) * dx + (z - a.z) * dz) / (dx * dx + dz * dz || 1)),
   );
   return Math.hypot(x - a.x - t * dx, z - a.z - t * dz);
+}
+export function pathDistance(path: Point[], x: number, z: number) {
+  return Math.min(
+    ...path.slice(1).map((b, i) => segmentDistance(x, z, path[i]!, b)),
+  );
+}
+/** Reserved 2.2m processional corridor, including camera/body allowance.
+ * Pass the entire horizontal footprint (leaves, roots, flame baskets), not a prop's centre. */
+export function corridorClear(x: number, z: number, footprint = 0) {
+  return trailDistance(x, z) >= 1.1 + footprint;
+}
+export function offsetPath(
+  path: Point[],
+  index: number,
+  offset: number,
+): Point {
+  const p = path[index]!,
+    a = path[Math.max(0, index - 1)]!,
+    b = path[Math.min(path.length - 1, index + 1)]!;
+  const l1 = Math.hypot(p.x - a.x, p.z - a.z) || 1,
+    l2 = Math.hypot(b.x - p.x, b.z - p.z) || 1;
+  let n1 = { x: -(p.z - a.z) / l1, z: (p.x - a.x) / l1 },
+    n2 = { x: -(b.z - p.z) / l2, z: (b.x - p.x) / l2 };
+  if (index === 0) n1 = n2;
+  if (index === path.length - 1) n2 = n1;
+  const len = Math.hypot(n1.x + n2.x, n1.z + n2.z) || 1;
+  const nx = (n1.x + n2.x) / len,
+    nz = (n1.z + n2.z) / len;
+  const m = offset / Math.max(0.5, nx * n2.x + nz * n2.z);
+  return { x: p.x + nx * m, z: p.z + nz * m };
 }
 export function trailDistance(x: number, z: number) {
   let d = Infinity;
@@ -352,12 +415,56 @@ export const TREES = Array.from({ length: 150 }, (_, i) => {
   };
 }).filter(
   (t) =>
-    trailDistance(t.x, t.z) > 3.6 &&
+    corridorClear(t.x, t.z, Math.max(2.7, t.size * 0.8)) &&
     !(t.z < -18 && t.z > -38 && Math.abs(t.x) < 21) &&
     !(t.x < -29 && t.x > -39 && t.z > 12 && t.z < 24) &&
     !(t.x < -12 && t.x > -29 && t.z > -10 && t.z < 6),
 );
+export type Practical = Point & { id: string; height: number; radius: number };
+// Canonical practicals feed geometry, flames, movement and camera collision.
+const candidates: Practical[] = [
+  ...[0, 2, 4, 6, 8].map((i) => ({
+    ...offsetPath(ARRIVAL, i, i < 6 ? -2.3 : 2.1),
+    id: `arrival-torch-${i}`,
+    height: 2.35,
+    radius: 0.26,
+  })),
+  ...[1, 2, 3, 4].map((i) => ({
+    ...offsetPath(VOTING_PATH, i, -2.1),
+    id: `vote-torch-${i}`,
+    height: 2.3,
+    radius: 0.26,
+  })),
+  ...[1, 2, 3, 4].map((i) => ({
+    ...offsetPath(EXIT_PATH, i, -2.2),
+    id: `exit-torch-${i}`,
+    height: 2.3,
+    radius: 0.26,
+  })),
+  { id: "jury-torch", x: -15.4, z: -7.5, height: 2.8, radius: 0.26 },
+  { id: "writing-torch", x: -36.5, z: 16.1, height: 2.05, radius: 0.26 },
+  ...TRIBAL.seats.map((s, i) => ({
+    id: `personal-torch-${i}`,
+    x: s.position[0],
+    z: -9.65 - (i % 2) * 0.15,
+    height: 2.15,
+    radius: 0.21,
+  })),
+];
+export const PRACTICALS = candidates.filter(
+  (p) =>
+    corridorClear(p.x, p.z, p.radius) &&
+    !STRUCTURES.some((b) => solidDistance(p.x, p.z, b) < p.radius + 0.08),
+);
 export const SOLIDS: Solid[] = [
+  ...PRACTICALS.map((p) => ({
+    id: p.id,
+    x: p.x,
+    z: p.z,
+    hx: 0.12,
+    hz: 0.12,
+    height: p.height + 0.6,
+  })),
   ...STRUCTURES,
   ...TREES.map((t) => ({
     id: `tree-${t.seed}`,
@@ -376,20 +483,17 @@ export function tribalBlocked(x: number, z: number, radius = 0.36) {
     Math.hypot(x, z) < COUNCIL.fireRadius + radius
   )
     return true;
-  return SOLIDS.some((b) => {
-    const c = Math.cos(b.yaw || 0),
-      s = Math.sin(b.yaw || 0),
-      dx = x - b.x,
-      dz = z - b.z;
-    const lx = dx * c - dz * s,
-      lz = dx * s + dz * c;
-    return (
-      Math.hypot(
-        Math.max(0, Math.abs(lx) - b.hx),
-        Math.max(0, Math.abs(lz) - b.hz),
-      ) < radius
-    );
-  });
+  return SOLIDS.some((b) => solidDistance(x, z, b) < radius);
+}
+export function solidDistance(x: number, z: number, b: Solid) {
+  const c = Math.cos(b.yaw || 0),
+    s = Math.sin(b.yaw || 0),
+    dx = x - b.x,
+    dz = z - b.z;
+  return Math.hypot(
+    Math.max(0, Math.abs(dx * c - dz * s) - b.hx),
+    Math.max(0, Math.abs(dx * s + dz * c) - b.hz),
+  );
 }
 export function moveTribal(p: Point, dx: number, dz: number): Point {
   const steps = Math.max(1, Math.ceil(Math.hypot(dx, dz) / 0.12));
@@ -404,7 +508,7 @@ export function tribalLocation(x: number, z: number) {
   if (x < -29 && z > 13) return "The Voting Chamber";
   if (z < -18) return "The Torchlit Approach";
   if (x < -13 && z < 4 && z > -10) return "The Jury Gallery";
-  if (x > 21) return "The Last Walk";
+  if (pathDistance(EXIT_PATH, x, z) < 2.5 && x > 10) return "The Last Walk";
   if (x > 3 && x < 11 && z > 1) return "The Host Terrace";
   if (z < -5 && z > -10 && x > -10 && x < 10) return "Contestant Stumps";
   if (x < -17 && z > 5) return "The Private Passage";

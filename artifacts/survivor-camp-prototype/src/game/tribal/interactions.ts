@@ -1,6 +1,8 @@
 import { TRIBAL } from "./layout";
 
 export const INTERESTS = [
+  { id: "last-walk", x: 9.7, z: 3.2, radius: 2,
+    action: "Rehearse the last walk", title: "The tribe has spoken", text: "" },
   {
     id: "ballot",
     x: -34,

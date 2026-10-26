@@ -3,12 +3,15 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { rng } from "../world";
 import {
   ARRIVAL,
+  PRACTICALS,
+  corridorClear,
   COUNCIL,
   drainageBed,
   approachSurface,
   occupiedSeats,
   EXIT_PATH,
   PATHS,
+  PATH_FILLS,
   SOLIDS,
   STRUCTURES,
   TREES,
@@ -16,6 +19,7 @@ import {
   trailDistance,
   tribalHeight,
 } from "./layout";
+import { pavedAt, pavementTiles } from "./paving";
 import { buildThaiArchitecture } from "./thaiArchitecture";
 import { sanctuaryMaterials, type MaterialKey } from "./surfaces";
 
@@ -54,7 +58,19 @@ export function buildSanctuary(attendeeCount = 5) {
     const shade = 1 - random() * variation;
     for (let i = 0; i < positions.count; i++) {
       const n = shade * (0.94 + random() * 0.12);
-      color.setRGB(n, n, n);
+      const warm = PATH_FILLS.reduce(
+        (sum, f) =>
+          sum +
+          f.strength *
+            Math.max(
+              0,
+              1 -
+                Math.hypot(positions.getX(i) - f.x, positions.getZ(i) - f.z) /
+                  f.radius,
+            ),
+        0,
+      );
+      color.setRGB(n + warm, n + warm * 0.52, n + warm * 0.18);
       color.toArray(colors, i * 3);
     }
     geo.setAttribute("color", new T.BufferAttribute(colors, 3));
@@ -255,7 +271,8 @@ export function buildSanctuary(attendeeCount = 5) {
       i,
       bed.weight > 0
         ? bed.height - 0.025
-        : tribalHeight(x, z) - (a.distance < 1.5 ? 0.3 : 0.025),
+        : tribalHeight(x, z) -
+            (a.distance < 1.5 ? 0.3 : pavedAt(x, z) ? 0.12 : 0.025),
     );
   }
   ground.computeVertexNormals();
@@ -263,51 +280,18 @@ export function buildSanctuary(attendeeCount = 5) {
   for (let i = 0; i < guv.count; i++)
     guv.setXY(i, guv.getX(i) * 14, guv.getY(i) * 14);
   add(ground, "ground", [0, 0, 0], [1, 1, 1], [0, 0, 0], false);
-  // Broken radial flagstones, intentionally NOT a square-grid texture.
-  for (let r = 2.6; r < 14; r += 1.45) {
-    const count = Math.floor(r * 3.2);
-    for (let i = 0; i < count; i++) {
-      const a = (i / count) * Math.PI * 2 + r * 0.17,
-        x = Math.sin(a) * r,
-        z = Math.cos(a) * r;
-      if (
-        (x < -12 && z < 3) ||
-        (z < -5.2 && Math.abs(x) < 9) ||
-        (x > 3 && z > 1)
-      )
-        continue;
-      add(
-        new T.CylinderGeometry(0.92, 0.94, 0.07, 5),
-        random() > 0.2 ? "stone" : "dark",
-        [x, 0.012, z],
-        [1, 1, 0.72],
-        [0, a, 0],
-        false,
-        0.35,
-      );
-    }
-  }
-  for (const path of PATHS.filter((p) => p !== ARRIVAL))
-    for (let i = 1; i < path.length; i++) {
-      const a = path[i - 1]!,
-        b = path[i]!,
-        length = Math.hypot(a.x - b.x, a.z - b.z),
-        n = Math.ceil(length / 1.1);
-      for (let j = 0; j < n; j++)
-        for (const side of [-1, 1]) {
-          const t = j / n,
-            x = a.x + (b.x - a.x) * t + side * 0.48,
-            z = a.z + (b.z - a.z) * t;
-          add(
-            new T.CylinderGeometry(0.58, 0.63, 0.06, 5),
-            "dark",
-            [x, tribalHeight(x, z) + 0.015, z],
-            [1, 1, 0.84],
-            [0, random() * 7, 0],
-            false,
-          );
-        }
-    }
+  // One continuous tessellation replaces disconnected stepping stones. Each top vertex
+  // samples tribalHeight, including host apron, voting floor and the side exit.
+  for (const tile of pavementTiles())
+    add(
+      tile.geometry,
+      tile.moss ? "moss" : "stone",
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 0, 0],
+      false,
+      0.24,
+    );
 
   buildThaiArchitecture({ add, box, beam, curve });
 
@@ -329,10 +313,8 @@ export function buildSanctuary(attendeeCount = 5) {
       "moss",
     );
   }
-  torch(-20.8, -16.9);
-  torch(-15.1, -14.3);
-  for (const [i, p] of ARRIVAL.entries())
-    if (i % 2 === 0 && i < 6) torch(p.x - 1.7, p.z, 2.35);
+  for (const p of PRACTICALS.filter((p) => !p.id.startsWith("personal-")))
+    torch(p.x, p.z, p.height);
 
   // Twelve irregular hand-shaped stumps, radial growth rings, buttress roots and bark splinters.
   for (const [i, s] of TRIBAL.seats.entries()) {
@@ -485,8 +467,6 @@ export function buildSanctuary(attendeeCount = 5) {
     "booth-west",
     "booth-east-front",
     "booth-privacy-return",
-    "privacy-wall",
-    "privacy-wall-west",
   ]) {
     const s = STRUCTURES.find((s) => s.id === id)!;
     for (let course = 0; course < 6; course++) {
@@ -499,7 +479,7 @@ export function buildSanctuary(attendeeCount = 5) {
       for (let j = 0; j < count; j++) {
         const offset = -length / 2 + (length / count) * (j + 0.5);
         box(
-          "stone",
+          course < 3 ? "stone" : "wood",
           [
             s.x + (alongX ? offset : 0),
             0.32 + course * 0.63,
@@ -535,29 +515,22 @@ export function buildSanctuary(attendeeCount = 5) {
     [-33.1, 1.55, 15.8],
   );
   carving(-34, 2.65, 15.02, 0.68);
-  torch(-36.5, 16.1, 2.05, 0.35);
-  torch(-28, 12.2, 2.7);
-  torch(-22, 6.1, 2.5);
-
   // Survivor ceremony dressing: personal torch stations form an intimate crescent.
   // Kept behind the reserved seating to avoid obstructing the walkable council floor.
-  for (const seat of TRIBAL.seats) {
-    const [sx, , sz] = seat.position;
-    const x = sx,
-      z = -9.65 - (TRIBAL.seats.indexOf(seat) % 2) * 0.15;
-    const h = tribalHeight(x, z);
-    beam([x, h + 0.12, z], [x, h + 2.15, z], 0.085, "wood", false);
+  for (const p of PRACTICALS.filter((p) => p.id.startsWith("personal-"))) {
+    const seatIndex = Number(p.id.split("-").at(-1));
+    const h = tribalHeight(p.x, p.z);
+    beam([p.x, h, p.z], [p.x, h + p.height, p.z], 0.085, "wood", false);
     add(
       new T.CylinderGeometry(0.2, 0.11, 0.35, 8),
       "dark",
-      [x, h + 2.16, z],
+      [p.x, h + p.height, p.z],
       [1, 1, 1],
       [0, 0, 0],
       false,
     );
-    ring([x, h + 1.93, z], 0.18, 0.035, "gold", [Math.PI / 2, 0, 0]);
-    if (occupiedSeats(attendeeCount).includes(seat))
-      flames.push({ x, y: h + 2.25, z, size: 0.28 });
+    if (occupiedSeats(attendeeCount).includes(TRIBAL.seats[seatIndex]!))
+      flames.push({ x: p.x, y: h + p.height + 0.12, z: p.z, size: 0.28 });
   }
   // Distinctive Survivor snuffing ritual: a contestant presents their torch
   // at a dedicated low stone receiver beside the host, not in the walkway.
@@ -573,30 +546,18 @@ export function buildSanctuary(attendeeCount = 5) {
     0,
     0,
   ]);
-  // Ceremony-specific voter's wayfinding: low amber braziers near the path,
-  // leaving the center unobstructed for contestant processions.
-  for (const [x, z] of [
-    [-17.5, 5.2],
-    [-25.8, 10.8],
-    [-29.9, 15.2],
-  ] as const) {
-    const h = tribalHeight(x, z);
-    box("stone", [x, h + 0.2, z], [0.65, 0.4, 0.65], [0, 0.3, 0], false);
-    add(
-      new T.CylinderGeometry(0.3, 0.19, 0.22, 8),
-      "ash",
-      [x, h + 0.53, z],
-      [1, 1, 1],
+  // Terrace is now part of the same graded masonry pavement as the courtyard.
+  // An embedded brick edge, below the tread, anchors it without an abrupt raised slab.
+  for (let i = 0; i < 10; i++) {
+    const x = 3.3 + i * 0.64,
+      z = 6.45;
+    box(
+      "brick",
+      [x, tribalHeight(x, z) - 0.09, z],
+      [0.61, 0.16, 0.25],
       [0, 0, 0],
       false,
     );
-    flames.push({ x, y: h + 0.62, z, size: 0.34 });
-  }
-
-  // One low host terrace. Its surface is sampled by the controller; no hidden dais/chair.
-  for (let i = 0; i < 5; i++) {
-    const x = 4.1 + i * 0.95;
-    box("stone", [x, 0.1, 4.1], [0.92, 0.2, 3.8], [0, 0, 0], false);
   }
   const u = COUNCIL.urn,
     sy = COUNCIL.snuff.y;
@@ -650,12 +611,17 @@ export function buildSanctuary(attendeeCount = 5) {
     [Math.PI, 0, 0],
     false,
   );
-  column(18.1, 13, 4.7, 0.65);
-  column(21.9, 9, 4.7, 0.65);
-  beam([18.1, 4.9, 13], [21.9, 4.9, 9], 0.35, "wood");
-  torch(9.6, 6.3, 2.4);
-  for (const [i, p] of EXIT_PATH.entries())
-    if (i > 1 && i < 5) torch(p.x + 1.7, p.z - 1.5, 2.4);
+  // Broken portal frames the new route; its two piers share movement/camera footprints.
+  for (const s of STRUCTURES.filter((s) => s.id.startsWith("exit-gate-"))) {
+    const h = tribalHeight(s.x, s.z);
+    for (let course = 0; course < 7; course++)
+      box(
+        course % 3 ? "brick" : "trim",
+        [s.x, h + 0.28 + course * 0.57, s.z],
+        [1.3, 0.54, 1.3],
+      );
+  }
+  beam([19.68, 4.5, 4.7], [22.32, 4.5, 0.3], 0.28, "stone");
 
   // Buttress jungle trees, sweeping roots, layered palm/fern leaves and draped vines.
   const leaf = (
@@ -664,17 +630,18 @@ export function buildSanctuary(attendeeCount = 5) {
     yaw: number,
     bend: number,
     width: number,
+    segments = 7,
   ) => {
     const vertices: number[] = [],
       uvs: number[] = [],
       indices: number[] = [];
-    for (let i = 0; i <= 7; i++) {
-      const t = i / 7,
+    for (let i = 0; i <= segments; i++) {
+      const t = i / segments,
         w = Math.sin(t * Math.PI) * width,
         y = Math.sin(t * Math.PI) * len * 0.24 - t * t * bend;
       vertices.push(-w, y, t * len, w, y, t * len);
       uvs.push(0, t, 1, t);
-      if (i < 7) {
+      if (i < segments) {
         const a = i * 2;
         indices.push(a, a + 2, a + 1, a + 1, a + 2, a + 3);
       }
@@ -772,7 +739,7 @@ export function buildSanctuary(attendeeCount = 5) {
       z = random() * 94 - 49;
     if (
       Math.hypot(x, z) < 18 ||
-      trailDistance(x, z) < 2.15 ||
+      !corridorClear(x, z, 2.1) ||
       (x < -29 && x > -39 && z > 12 && z < 23) ||
       (x < -12 && x > -25 && z > -10 && z < 5)
     )
@@ -780,15 +747,37 @@ export function buildSanctuary(attendeeCount = 5) {
     const y = tribalHeight(x, z);
     if (i % 5 === 0)
       rock([x, y + 0.3, z], [0.7, 0.55, 0.8], i % 2 ? "dark" : "moss", false);
-    for (let k = 0; k < 6; k++)
-      leaf([x, y, z], 1 + random(), k * 1.047 + i, 0.4, 0.22);
+    if (i % 3 === 0) {
+      for (let k = 0; k < 5; k++) {
+        const a = k * 1.257 + i,
+          len = 0.9 + random() * 0.6;
+        for (let j = 1; j <= 4; j++) {
+          const f = j / 5,
+            p: Vec = [
+              x + Math.sin(a) * len * f,
+              y + Math.sin(f * Math.PI) * 0.6,
+              z + Math.cos(a) * len * f,
+            ];
+          for (const side of [-1, 1])
+            leaf(p, (1 - f) * 0.45, a + side * 1.15, 0.12, 0.075, 2);
+        }
+      }
+    } else
+      for (let k = 0; k < (i % 2 ? 5 : 8); k++)
+        leaf(
+          [x, y, z],
+          0.9 + random(),
+          k * 1.047 + i,
+          i % 2 ? 0.6 : 0.3,
+          i % 2 ? 0.28 : 0.15,
+        );
   }
   // Moss pads and fractured stonework connect architecture to the forest floor.
   for (let i = 0; i < 65; i++) {
     const side = i % 2 ? 1 : -1,
       x = side * (12 + random() * 7),
       z = -20 + random() * 4;
-    if (trailDistance(x, z) < 2.1) continue;
+    if (!corridorClear(x, z, 1.2)) continue;
     rock(
       [x, tribalHeight(x, z) + 0.2, z],
       [0.35 + random() * 0.55, 0.2 + random() * 0.35, 0.35 + random() * 0.45],
@@ -823,23 +812,25 @@ export function buildSanctuary(attendeeCount = 5) {
   // turn five camera rays into hundreds of thousands of triangle tests every frame.
   const proxyMaterial = new T.MeshBasicMaterial();
   for (const solid of SOLIDS) {
-    const h = solid.id.startsWith("approach-rail-")
-      ? 0.9
-      : solid.id.startsWith("tower-")
-        ? 22
-        : solid.id.startsWith("tree-")
-          ? 12
-          : solid.id.startsWith("stump-")
-            ? 0.65
-            : solid.id.startsWith("jury-")
-              ? 2.5
-              : solid.id.includes("backdrop")
-                ? 2.2
-                : solid.id.includes("gate")
-                  ? 6
-                  : solid.id.includes("booth") || solid.id.includes("privacy")
-                    ? 3.9
-                    : 2;
+    const h =
+      solid.height ??
+      (solid.id.startsWith("approach-rail-")
+        ? 0.9
+        : solid.id.startsWith("tower-")
+          ? 22
+          : solid.id.startsWith("tree-")
+            ? 12
+            : solid.id.startsWith("stump-")
+              ? 0.65
+              : solid.id.startsWith("jury-")
+                ? 2.5
+                : solid.id.includes("backdrop")
+                  ? 2.2
+                  : solid.id.includes("gate")
+                    ? 6
+                    : solid.id.includes("booth") || solid.id.includes("privacy")
+                      ? 3.9
+                      : 2);
     const proxy = new T.Mesh(
       new T.BoxGeometry(solid.hx * 2, h, solid.hz * 2),
       proxyMaterial,

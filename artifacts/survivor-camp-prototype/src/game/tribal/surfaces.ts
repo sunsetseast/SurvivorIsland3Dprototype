@@ -128,7 +128,7 @@ export function sanctuaryMaterials() {
     ground: stone("#514c3a", maps.earth),
     moss: stone("#475b38"),
     leaf: new T.MeshStandardMaterial({
-      color: "#314a38",
+      color: "#4b6648",
       roughness: 0.9,
       side: T.DoubleSide,
       vertexColors: true,

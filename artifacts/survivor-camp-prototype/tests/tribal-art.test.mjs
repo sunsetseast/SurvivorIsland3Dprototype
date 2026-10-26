@@ -46,3 +46,40 @@ test("environment interests are reachable and practice ballots remain separate f
   tribalInteractions.reset();
   assert.equal(tribalInteractions.getSnapshot().ballot, "");
 });
+
+test("pavement is grounded, finite and continuously covers the courtyard, booth and new exit", async () => {
+  const { pavementTiles, pavedAt } =
+    await import("../src/game/tribal/paving.ts");
+  const { tribalHeight, EXIT_PATH } =
+    await import("../src/game/tribal/layout.ts");
+  const tiles = pavementTiles();
+  assert.ok(tiles.length > 0);
+  let area = 0;
+  for (const { geometry: g } of tiles) {
+    const p = g.getAttribute("position");
+    for (let i = 0; i < p.count; i += 3)
+      area +=
+        Math.abs(
+          (p.getX(i + 1) - p.getX(i)) * (p.getZ(i + 2) - p.getZ(i)) -
+            (p.getZ(i + 1) - p.getZ(i)) * (p.getX(i + 2) - p.getX(i)),
+        ) / 2;
+    for (let i = 0; i < p.count; i++) {
+      assert.ok(Number.isFinite(p.getY(i)));
+      assert.ok(
+        Math.abs(p.getY(i) - tribalHeight(p.getX(i), p.getZ(i))) < 0.006,
+      );
+    }
+    g.dispose();
+  }
+  assert.ok(
+    area > 850,
+    "courtyard and complete circulation need substantial continuous pavement",
+  );
+  for (const p of [
+    ...EXIT_PATH,
+    { x: 6, z: 4 },
+    { x: -34, z: 18 },
+    { x: -24, z: 8 },
+  ])
+    assert.ok(pavedAt(p.x, p.z));
+});

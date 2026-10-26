@@ -284,11 +284,11 @@ export function TribalScene() {
       <color attach="background" args={["#060e1e"]} />
       <fog attach="fog" args={["#0b1921", 45, 115]} />
       <NightSky />
-      <hemisphereLight args={["#819bba", "#363021", 0.76]} />
+      <hemisphereLight args={["#a2b9cb", "#514431", 1.05]} />
       <directionalLight
         position={[18, 35, -25]}
-        color="#8aaedc"
-        intensity={1.65}
+        color="#9ebcda"
+        intensity={2.0}
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-left={-45}

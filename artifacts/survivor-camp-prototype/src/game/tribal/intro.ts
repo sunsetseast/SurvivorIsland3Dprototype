@@ -5,8 +5,9 @@ import {
   occupiedSeats,
   tribalHeight,
 } from "./layout";
+import { eliminationAt } from "./elimination";
 import type { Point } from "../world";
-export type IntroMode = "intro" | "seated" | "explore";
+export type IntroMode = "intro" | "seated" | "explore" | "elimination";
 export const CAST = [4, 11, 13, 18, 0];
 export const CAST_SEATS = occupiedSeats(CAST.length);
 export const INTRO_SHOTS = [
@@ -36,15 +37,15 @@ export const INTRO_SHOTS = [
   },
   {
     start: 14,
-    end: 24,
+    end: 29,
     label: "Bring in the survivors",
     from: [-7, 3, -6],
     to: [-8, 3.2, -8],
     target: [-16.5, 1.4, -15],
   },
   {
-    start: 24,
-    end: 40,
+    start: 29,
+    end: 50,
     label: "Take a seat",
     from: [9, 3.6, 0],
     to: [5, 2.6, -0.5],
@@ -70,13 +71,13 @@ function length(path: Point[]) {
     );
 }
 export const INTRO_DURATION = Math.max(
-  ...CAST.map((_, i) => 2 + i * 1.1 + length(stagedRoute(i)) / 2.8 + 1.6),
+  ...CAST.map((_, i) => 2 + i * 1.1 + length(stagedRoute(i)) / 2.15 + 1.6),
 );
 export function stageAt(time: number, index: number) {
   const path = stagedRoute(index),
     seat = CAST_SEATS[index]!,
     total = length(path),
-    distance = Math.max(0, time - 2 - index * 1.1) * 2.8;
+    distance = Math.max(0, time - 2 - index * 1.1) * 2.15;
   let remain = Math.min(distance, total),
     position = { ...path[0]! },
     facing = 0;
@@ -90,7 +91,7 @@ export function stageAt(time: number, index: number) {
     if (remain < len) break;
     remain -= len;
   }
-  const sit = Math.max(0, Math.min(1, (distance - total) / (2.8 * 1.3)));
+  const sit = Math.max(0, Math.min(1, (distance - total) / (2.15 * 1.3)));
   if (distance >= total) {
     position.x += Math.sin(seat.facing) * 0.37 * sit;
     position.z += (Math.cos(seat.facing) * 0.37 - 1.05) * sit;
@@ -105,7 +106,7 @@ export function stageAt(time: number, index: number) {
     y: tribalHeight(position.x, position.z),
     facing,
     distance: Math.min(distance, total),
-    speed: distance > 0 && distance < total ? 2.8 : 0,
+    speed: distance > 0 && distance < total ? 2.15 : 0,
     seated: sit > 0.35,
     arrived: sit >= 1,
   };
@@ -113,6 +114,8 @@ export function stageAt(time: number, index: number) {
 class Intro {
   time = 0;
   ceremonyTime = 0;
+  eliminationTime = 0;
+  eliminatedIndex = 4;
   private mode: IntroMode = "intro";
   private listeners = new Set<() => void>();
   subscribe = (fn: () => void) => {
@@ -133,6 +136,12 @@ class Intro {
   }
   step(dt: number) {
     this.ceremonyTime += Math.min(0.05, Math.max(0, dt));
+    if (this.mode === "elimination") {
+      this.eliminationTime += Math.min(0.05, Math.max(0, dt));
+      if (eliminationAt(this.eliminationTime, this.eliminatedIndex).done)
+        this.skip();
+      return;
+    }
     if (this.mode !== "intro") return;
     this.time += Math.min(0.05, Math.max(0, dt));
     if (this.time >= INTRO_DURATION) this.skip();
@@ -144,6 +153,13 @@ class Intro {
   };
   sit = () => {
     this.skip();
+  };
+  rehearse = (index = 4) => {
+    if (!Number.isInteger(index) || index < 0 || index >= CAST.length) return;
+    this.eliminatedIndex = index;
+    this.eliminationTime = 0;
+    this.mode = "elimination";
+    this.emit();
   };
   stand = () => {
     this.mode = "explore";

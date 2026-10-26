@@ -1,0 +1,212 @@
+Captured 01-four-contestants-at-camp
+Captured 02-sandra-at-campfire
+Captured 05-player-approaches-sandra
+Captured 06-active-conversation-desktop
+Captured 03-parvati-and-rob-conversation
+Captured 09-iphone-landscape-conversation
+Captured 10-russell-approach-offer
+Captured 04-russell-traveling-path
+Captured 08-beach-moving-contestant
+Captured 07-shelter-activity
+Captured portrait-11
+Captured portrait-13
+Captured portrait-18
+Captured portrait-4
+7:23:07 PM [vite] (client) hmr update /src/index.css
+{
+  "checks": [
+    "Desktop proximity, dialogue topic choices, leave and camera return",
+    {
+      "mobileLayout": {
+        "panel": {
+          "x": 42,
+          "y": 195.5,
+          "width": 760,
+          "height": 194.5
+        },
+        "minButtonHeight": 44,
+        "overflow": false
+      }
+    },
+    "Touch Talk, response, Leave, then concurrent joystick/run and release",
+    "Camera drag still responds after conversation",
+    "Physically walked NPC approach and touch decline",
+    "120 simulated seconds of autonomous browser camp updates after controlled route checks"
+  ],
+  "captures": 14,
+  "errors": [],
+  "performance": [
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "drawingBuffer": [
+        1280,
+        800
+      ],
+      "calls": 150,
+      "triangles": 239275,
+      "renderAndFinishMs": [
+        2.599999999627471,
+        1.900000000372529,
+        1.699999999254942,
+        1.400000000372529,
+        1.199999999254942
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7494,
+        "totalMs": 370.2999999579042,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 29976,
+        "totalMs": 215.80000000074506,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 27,
+        "elapsedMs": 17244.599999999627,
+        "fps": 1.565707525834208,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "drawingBuffer": [
+        1266,
+        585
+      ],
+      "calls": 150,
+      "triangles": 239275,
+      "renderAndFinishMs": [
+        2.299999998882413,
+        5.700000001117587,
+        1.900000000372529,
+        5.599999999627471,
+        1.799999998882413
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7541,
+        "totalMs": 373.1999999564141,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 30164,
+        "totalMs": 218.0000000037253,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 22,
+        "elapsedMs": 11419.5,
+        "fps": 1.9265291825386401,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    },
+    {
+      "viewport": [
+        932,
+        430
+      ],
+      "drawingBuffer": [
+        932,
+        430
+      ],
+      "calls": 150,
+      "triangles": 239275,
+      "renderAndFinishMs": [
+        3.100000001490116,
+        1.3999999985098839,
+        1.700000001117587,
+        1.099999999627471,
+        3.800000000745058
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7583,
+        "totalMs": 374.4999999552965,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 30332,
+        "totalMs": 221.300000006333,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 16,
+        "elapsedMs": 7802.200000001118,
+        "fps": 2.0507036476888194,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "drawingBuffer": [
+        585,
+        1266
+      ],
+      "calls": 148,
+      "triangles": 230300,
+      "renderAndFinishMs": [
+        1.599999999627471,
+        1.299999998882413,
+        4.5,
+        0.900000000372529,
+        0.7000000011175871
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "npcUpdate": {
+        "updates": 7619,
+        "totalMs": 375.1999999564141,
+        "maxMs": 28.699999999254942,
+        "replans": 3,
+        "failedRoutes": 0,
+        "arrivals": 13,
+        "decisions": 9,
+        "approaches": 2
+      },
+      "characterAnimation": {
+        "updates": 30476,
+        "totalMs": 222.40000000596046,
+        "maxMs": 4.099999999627471
+      },
+      "geometries": 113,
+      "textures": 12,
+      "wallTimeRenderLoop": {
+        "frames": 23,
+        "elapsedMs": 15063.900000000373,
+        "fps": 1.5268290416160113,
+        "note": "Short software renderer sample; not sustained device FPS"
+      }
+    }
+  ]
+}

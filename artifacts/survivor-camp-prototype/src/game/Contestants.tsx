@@ -7,7 +7,7 @@ import type { Geo } from "./geo";
 import { groundHeight } from "./world";
 import { sampleFoot, solveLeg } from "./characterMotion";
 
-const material = new THREE.MeshLambertMaterial({ vertexColors: true });
+const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .92, metalness: 0 });
 export const characterAnimationMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
 const mesh = (g: Geo) => <mesh geometry={g} material={material} castShadow />;
 
@@ -48,7 +48,7 @@ export function Contestant({ npc, terrain = groundHeight, time }: { npc: StagedP
   useFrame((_, rawDt) => {
     const animationStart = performance.now();
     const dt = Math.min(rawDt, 0.05),
-      t = time ? time() : camp.now,
+      t = (time ? time() : camp.now) + npc.id * .73,
       s = smooth.current;
     const damp = (a: number, b: number) =>
       a + (b - a) * (1 - Math.exp(-dt * 9));
@@ -84,8 +84,8 @@ export function Contestant({ npc, terrain = groundHeight, time }: { npc: StagedP
         -0.83 + 0.072 * s.move + foot.lift * s.move + terrainOffset,
         z,
       );
-      set(leg, ik.hip * (1 - s.sit) - 1.45 * s.sit);
-      set(knee, ik.knee * (1 - s.sit) + 1.52 * s.sit);
+      set(leg, ik.hip * (1 - s.sit) - 1.32 * s.sit);
+      set(knee, ik.knee * (1 - s.sit) + 1.39 * s.sit);
       set(ankle, ik.ankle * (1 - s.sit) - 0.07 * s.sit);
     }
     // Alternating speech beats with relaxed listening pauses, not constant waving.
@@ -97,13 +97,13 @@ export function Contestant({ npc, terrain = groundHeight, time }: { npc: StagedP
       upperL,
       Math.sin(ph) * gait * 0.8 - gesture * 0.28 - s.work * 0.35,
       0,
-      0.07 + gesture * 0.16,
+      0.07 + gesture * 0.16 + idle * (1-s.move),
     );
     set(
       upperR,
       -Math.sin(ph) * gait * 0.8 - gesture * 0.12 - s.work * 0.45,
       0,
-      -0.07 - gesture * 0.08,
+      -0.07 - gesture * 0.08 - idle * (1-s.move),
     );
     set(
       elbowL,
@@ -116,14 +116,14 @@ export function Contestant({ npc, terrain = groundHeight, time }: { npc: StagedP
     if (hips.current) {
       hips.current.position.set(
         0,
-        0.92 - 0.37 * s.sit - 0.1 * s.move,
+        0.92 - 0.33 * s.sit - 0.072 * s.move + Math.cos(ph*2)*.008*s.move,
         -0.37 * s.sit,
       );
       hips.current.rotation.y = Math.sin(ph) * 0.02 * s.move;
     }
     set(
       spine,
-      0.025 + s.move * 0.035 + s.work * 0.1,
+      0.025 + s.move * 0.035 + s.work * 0.1 + s.sit * (.04 + idle),
       Math.sin(ph) * -0.04 * s.move,
       idle,
     );
@@ -175,7 +175,7 @@ export function Contestant({ npc, terrain = groundHeight, time }: { npc: StagedP
           {mesh(p.pelvis)}
           <group ref={spine} position={[0, 0.045, 0]}>
             {mesh(p.torso)}
-            <group ref={head} position={[0, 0.585, 0]}>
+            <group ref={head} position={[0, 0.61, 0]} scale={[.83,.82,.86]}>
               {mesh(p.head)}
             </group>
             {arm(1, upperL, elbowL)}

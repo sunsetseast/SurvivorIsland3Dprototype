@@ -1,0 +1,111 @@
+{
+  "renderer": "Chromium / software WebGL; NOT physical iPhone Safari",
+  "method": "qa:tribal fixed camera; eight synchronous GPU/readback samples per viewport, shadows refreshed on samples 0 and 5. Software timings are not device FPS.",
+  "camera": {
+    "position": [
+      0.705,
+      3.69,
+      16.03
+    ],
+    "target": [
+      0,
+      1.85,
+      9
+    ]
+  },
+  "performance": [
+    {
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "samplesMs": [
+        598.5999999996275,
+        607.0999999996275,
+        522.5,
+        527.1999999992549,
+        511.80000000074506,
+        557.7999999988824,
+        512.8000000007451,
+        528.2000000011176
+      ],
+      "calls": 124,
+      "triangles": 287385,
+      "buffer": [
+        375,
+        812
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "viewport": {
+        "width": 430,
+        "height": 932
+      },
+      "samplesMs": [
+        657.0999999996275,
+        609.5,
+        604,
+        614.0999999996275,
+        658,
+        786.5999999996275,
+        596.2000000011176,
+        585.6999999992549
+      ],
+      "calls": 124,
+      "triangles": 287385,
+      "buffer": [
+        430,
+        932
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "samplesMs": [
+        834.8999999985099,
+        807.4000000003725,
+        839.3000000007451,
+        863.5,
+        821,
+        842.0999999996275,
+        793,
+        797.4000000003725
+      ],
+      "calls": 188,
+      "triangles": 370735,
+      "buffer": [
+        844,
+        390
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "samplesMs": [
+        1369.7999999988824,
+        1378.5999999996275,
+        1403.4000000003725,
+        1342.0999999996275,
+        1688.5,
+        1460.0999999996275,
+        1311.0999999996275,
+        1503.7999999988824
+      ],
+      "calls": 179,
+      "triangles": 359417,
+      "buffer": [
+        1280,
+        800
+      ],
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    }
+  ],
+  "errors": []
+}
