@@ -11,7 +11,10 @@
     "test": "node --import tsx --test tests/*.test.mjs",
     "preview:standalone": "node scripts/build-standalone.mjs",
     "qa:tribal": "node scripts/tribal-qa.mjs",
-    "qa:living-camp": "node scripts/living-camp-qa.mjs"
+    "qa:living-camp": "node scripts/living-camp-qa.mjs",
+    "assets:regenerate": "node ../../tools/blender/regenerate.mjs",
+    "assets:validate": "node ../../tools/blender/validate.mjs",
+    "qa:assets": "node scripts/sanctuary-review.mjs && node scripts/sanctuary-loading-qa.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

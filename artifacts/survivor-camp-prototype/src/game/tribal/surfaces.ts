@@ -108,9 +108,9 @@ export function sanctuaryMaterials() {
       vertexColors: true,
     });
   const materials = {
-    stone: stone("#969484"),
-    brick: stone("#9f7055", maps.brick),
-    plaster: stone("#b9afa0"),
+    stone: stone("#88704e"),
+    brick: stone("#8e4c30", maps.brick),
+    plaster: stone("#8b7856"),
     roof: new T.MeshStandardMaterial({
       color: "#605a52",
       map: maps.roof,
@@ -120,15 +120,15 @@ export function sanctuaryMaterials() {
       vertexColors: true,
       side: T.DoubleSide,
     }),
-    trim: stone("#b0a28a"),
-    dark: stone("#47473e"),
+    trim: stone("#9a7a4e"),
+    dark: stone("#3a3b30"),
     wood: stone("#8a6240", maps.wood),
     bark: stone("#655543", maps.bark),
     cut: stone("#c9a26a", maps.rings),
-    ground: stone("#514c3a", maps.earth),
-    moss: stone("#475b38"),
+    ground: stone("#403322", maps.earth),
+    moss: stone("#38472a"),
     leaf: new T.MeshStandardMaterial({
-      color: "#4b6648",
+      color: "#3c5b33",
       roughness: 0.9,
       side: T.DoubleSide,
       vertexColors: true,

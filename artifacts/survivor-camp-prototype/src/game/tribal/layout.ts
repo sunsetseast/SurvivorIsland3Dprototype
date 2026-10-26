@@ -441,6 +441,7 @@ const candidates: Practical[] = [
     height: 2.3,
     radius: 0.26,
   })),
+  { id: "sanctuary-uplight", x: -1, z: -17.1, height: 3.2, radius: .26 },
   { id: "jury-torch", x: -15.4, z: -7.5, height: 2.8, radius: 0.26 },
   { id: "writing-torch", x: -36.5, z: 16.1, height: 2.05, radius: 0.26 },
   ...TRIBAL.seats.map((s, i) => ({

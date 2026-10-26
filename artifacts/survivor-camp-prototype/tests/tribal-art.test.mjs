@@ -72,8 +72,8 @@ test("pavement is grounded, finite and continuously covers the courtyard, booth 
     g.dispose();
   }
   assert.ok(
-    area > 850,
-    "courtyard and complete circulation need substantial continuous pavement",
+    area > 740 && area < 850,
+    "reclaimed courtyard retains substantial stone circulation while exposing soil",
   );
   for (const p of [
     ...EXIT_PATH,

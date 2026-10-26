@@ -1,0 +1,41 @@
+Certified 256 directed spot routes
+Certified 22978 physical travel frames
+{"activities":{"4":["socialize","observe","chores","explore","rest","collect_water","private_chat"],"11":["rest","explore","observe","collect_water","socialize","chores","private_chat"],"13":["socialize","explore","collect_water","observe","chores","rest","private_chat"],"18":["observe","socialize","rest","explore","collect_water","chores","private_chat"]},"exchanges":13,"departures":132}
+✔ production snapshots remain byte-identical to the audited source manifest (2.973052ms)
+✔ every major activity spot has a collision-validated path to every other spot (1917.553322ms)
+✔ four contestants physically traverse all five landmarks with no early arrival or teleport (341.491924ms)
+✔ proximity, responses, exit and interrupted intent recover without a false arrival (13.591105ms)
+✔ approaches walk physically, can be accepted/declined and cancel when the player leaves (63.509756ms)
+✔ private meeting knowledge is owner-scoped; movement never grants a witness destination presence (3.307157ms)
+✔ autonomous providers vary activities and decision times, form and leave real groups (1634.142162ms)
+✔ walking stance feet stay planted and articulated legs solve ground targets (1.775372ms)
+✔ actual Blender GLBs contain complete finite Y-up meshes, embedded PBR atlases, and a cheaper fallback (50.177814ms)
+✔ authored decorations reserve a conservative footprint around all ceremony routes (4.33167ms)
+✔ reclaimed ground exposes soil without removing stone from the ceremonial walking lanes (2.108889ms)
+✔ authored prang has a finite, correctly oriented recessed silhouette (7.111429ms)
+✔ environment interests are reachable and practice ballots remain separate from season outcomes (1.071331ms)
+✔ pavement is grounded, finite and continuously covers the courtyard, booth and new exit (173.129768ms)
+✔ locked geography is never mirrored or rotated (1.055496ms)
+✔ arrival route is physically walkable both ways (70.056666ms)
+✔ vote route is physically walkable both ways (49.90552ms)
+✔ exit route is physically walkable both ways (52.860776ms)
+✔ jury route is physically walkable both ways (30.313329ms)
+✔ each contestant can leave a stump into a broad shared aisle (75.596492ms)
+✔ collision substeps prevent tunnelling through fire, tree trunks, walls and furniture (3.69917ms)
+✔ future anchors have unique stable IDs and finite stage/camera coordinates (0.476285ms)
+✔ opening stages drone, ruin detail, Jeff, arrivals, then seated handoff (164.493935ms)
+✔ intimate host, fire and cast proportions retain body clearance (0.411029ms)
+✔ entrance has twelve physical risers, level bridge and continuous landings (1.314148ms)
+✔ ceremony ambience continues after seating and returning to seat is reversible (0.2255ms)
+✔ host can distinguish the five attending faces despite the alternating stagger (0.127532ms)
+✔ scenery footprints protect the complete ceremonial corridor and arrival group width (8.154044ms)
+✔ voting privacy uses the attached pavilion envelope, with both freestanding walls deleted (5.312357ms)
+✔ elimination approaches Jeff, pauses to snuff, then departs by the side apron (208.879638ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10562.248304

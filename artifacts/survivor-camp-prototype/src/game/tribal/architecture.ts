@@ -20,6 +20,7 @@ import {
   tribalHeight,
 } from "./layout";
 import { pavedAt, pavementTiles } from "./paving";
+import { reclaimedStone } from "./assetPlacements";
 import { buildThaiArchitecture } from "./thaiArchitecture";
 import { sanctuaryMaterials, type MaterialKey } from "./surfaces";
 
@@ -27,7 +28,7 @@ type Vec = [number, number, number];
 export type FlameSource = { x: number; y: number; z: number; size: number };
 
 /** Static geometry is merged by surface and camera-blocking role (not hundreds of React meshes). */
-export function buildSanctuary(attendeeCount = 5) {
+export function buildSanctuary(attendeeCount = 5, authored = false) {
   const { materials, dispose } = sanctuaryMaterials(),
     group = new T.Group(),
     random = rng(11739);
@@ -70,7 +71,10 @@ export function buildSanctuary(attendeeCount = 5) {
             ),
         0,
       );
-      color.setRGB(n + warm, n + warm * 0.52, n + warm * 0.18);
+      const x = positions.getX(i), z = positions.getZ(i);
+      const stain = .82 + .13 * Math.sin(x * .7 + Math.sin(z * .43)) * Math.sin(z * .56);
+      const damp = Math.max(0, 1 - positions.getY(i) / 1.7) * .14;
+      color.setRGB((n + warm) * stain * (1-damp), (n + warm * .52) * stain, (n + warm * .18) * stain * .92);
       color.toArray(colors, i * 3);
     }
     geo.setAttribute("color", new T.BufferAttribute(colors, 3));
@@ -272,7 +276,7 @@ export function buildSanctuary(attendeeCount = 5) {
       bed.weight > 0
         ? bed.height - 0.025
         : tribalHeight(x, z) -
-            (a.distance < 1.5 ? 0.3 : pavedAt(x, z) ? 0.12 : 0.025),
+            (a.distance < 1.5 ? 0.3 : pavedAt(x, z) && !reclaimedStone(x,z).missing ? 0.12 : 0.025),
     );
   }
   ground.computeVertexNormals();
@@ -293,7 +297,7 @@ export function buildSanctuary(attendeeCount = 5) {
       0.24,
     );
 
-  buildThaiArchitecture({ add, box, beam, curve });
+  buildThaiArchitecture({ add, box, beam, curve }, authored);
 
   // Side retaining wall anchors the eastern silhouette.
   for (let i = 0; i < 6; i++) {
@@ -771,6 +775,13 @@ export function buildSanctuary(attendeeCount = 5) {
           i % 2 ? 0.6 : 0.3,
           i % 2 ? 0.28 : 0.15,
         );
+  }
+  // Flat fallen leaves never become colliders; batched with rough bark, no alpha overdraw.
+  for (let i=0; i<460; i++) {
+    const x=-40+random()*80, z=-37+random()*64;
+    if (Math.hypot(x,z)<2 || (pavedAt(x,z) && !reclaimedStone(x,z).missing)) continue;
+    const g=new T.CircleGeometry(.1+random()*.1,5);
+    add(g, i%4 ? "bark" : "moss", [x,tribalHeight(x,z)-.013,z], [1,.4+random()*.4,1], [-Math.PI/2,0,random()*6.28],false,.35);
   }
   // Moss pads and fractured stonework connect architecture to the forest floor.
   for (let i = 0; i < 65; i++) {

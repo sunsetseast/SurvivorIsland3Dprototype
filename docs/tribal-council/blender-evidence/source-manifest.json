@@ -1,0 +1,30 @@
+{
+  "baseMain": "82a3c84358ddf5c995df7d9bccffaaaf26d612b3",
+  "includedOpenPR6": "1cc2f87d3d051558b34426dc9a142784f0a54720",
+  "files": {
+    "artifacts/survivor-camp-prototype/scripts/living-camp-qa.mjs": "e9ed4ace32576bd497182df2d9c189b4f6789987ecd038639c8f50efcd00337c",
+    "artifacts/survivor-camp-prototype/scripts/sanctuary-loading-qa.mjs": "844af96249d26357be331c44dee5d8a9aa05fae361164a5417cc2dd100ffd865",
+    "artifacts/survivor-camp-prototype/scripts/sanctuary-review.mjs": "1d10f32c97b84150ac3744debcbbd7f54da744be471709e340c20e4e646e02d4",
+    "artifacts/survivor-camp-prototype/scripts/tribal-qa.mjs": "67f13fcbd5c139b13b06ce91a96d5ddca1b5651d4dd71b6b8898706bb51ad755",
+    "artifacts/survivor-camp-prototype/src/assets/sanctuary/manifest.json": "07cd26eb7393392cc83e8d089eaf4505c760023b29c4f1fa1aa045b63931846d",
+    "artifacts/survivor-camp-prototype/src/assets/sanctuary/sanctuary-kit-low.glb": "0f8f340e880440f3528639178971681931a4bffa88d0bc4e0d124c420bdc05c7",
+    "artifacts/survivor-camp-prototype/src/assets/sanctuary/sanctuary-kit.glb": "0d972c901489a3156d39b1f8305b46dd0eebcd1608226c96401befae73f0910c",
+    "artifacts/survivor-camp-prototype/src/game/tribal/AuthoredSanctuary.tsx": "da79c9626a5ebd80f2ffdebf0ae8c490d99c2fd40f611a93e0fa30ab7fa7f88c",
+    "artifacts/survivor-camp-prototype/src/game/tribal/TribalInteractions.tsx": "f9b3bd3fdef4b1d348af5a4c6649b2fe6efa0f296cd3b22550dd86f0357b9710",
+    "artifacts/survivor-camp-prototype/src/game/tribal/TribalIntro.tsx": "8ea71a1110d1e99a73cc5b4bb84ba9521871fc54ff66be872e2c069792ad1958",
+    "artifacts/survivor-camp-prototype/src/game/tribal/TribalScene.tsx": "53a570330520ee40b2ac2215325c15575d85f0269df495c365d168e3dfb9568f",
+    "artifacts/survivor-camp-prototype/src/game/tribal/architecture.ts": "bd79f2dbd260e6c28c341d71f7ae13d97649bcf5924a8d9c3aa3491540a3b836",
+    "artifacts/survivor-camp-prototype/src/game/tribal/assetPlacements.ts": "b8a82171bb4b2614fde8329a2aadb6fac125425dc89ecc3dbbd28b728b206b9a",
+    "artifacts/survivor-camp-prototype/src/game/tribal/audio.ts": "79453e367ba76d52d66383cf76f52a9558342af972fee272b898b68da266797b",
+    "artifacts/survivor-camp-prototype/src/game/tribal/elimination.ts": "105819a3e9cb26b7bd8e581cbdc2c3cfe9ce4477c7eff4111c61f83a0667a767",
+    "artifacts/survivor-camp-prototype/src/game/tribal/interactions.ts": "422e449433d7ffaa97ee5a565c4c7b03612d21ed7f2a691789cde5ab552b7128",
+    "artifacts/survivor-camp-prototype/src/game/tribal/intro.ts": "9a24f4e033c60207b20be3115e28c922e162830a8c8af78893edfd8a9b25cc3c",
+    "artifacts/survivor-camp-prototype/src/game/tribal/layout.ts": "a9e1961168526ddf0cd588adb6cb78d73173605e37d482a43a2462421ec6c58d",
+    "artifacts/survivor-camp-prototype/src/game/tribal/paving.ts": "9a93ea86ee5da60b7285fa395c42baa68f2a88a002feb7ad1009b403fe448278",
+    "artifacts/survivor-camp-prototype/src/game/tribal/surfaces.ts": "4b7f8c876826a842b843dab6d292d9f33b063886ee08029b600aa2d7a7f9b06c",
+    "artifacts/survivor-camp-prototype/src/game/tribal/thaiArchitecture.ts": "644cc42b531b562ab510d39e33a4405084650f13d8ba0bb9a16cb298521e3532",
+    "tools/blender/regenerate.mjs": "20e6ae2007d5636e55e8a07316b3934812dc18c8a833dd3f08f2563b9f1bb611",
+    "tools/blender/sanctuary.py": "eacf3c400ececa4d990f9bdabd84a4a51776d5e5c44e0e7299099dc80277a9f8",
+    "tools/blender/validate.mjs": "6ab962ac407b9bb4af516a5588a76b9c49109ff0982d533aff964509833ceec1"
+  }
+}

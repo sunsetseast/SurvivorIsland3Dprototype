@@ -104,6 +104,7 @@ try {
   }
   console.log("Scene ready");
   await connect();
+  await page.waitForFunction(() => window.__tribalQA.s.scene.getObjectByName("sanctuary-assets-ready"));
   console.log(
     await page.evaluate(() => ({
       mode: window.__tribalQA.intro.tribalIntro.getSnapshot(),

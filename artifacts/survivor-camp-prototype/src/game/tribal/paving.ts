@@ -1,4 +1,5 @@
 import * as T from "three";
+import { reclaimedStone } from "./assetPlacements";
 import {
   approachSurface,
   pathDistance,
@@ -41,7 +42,7 @@ export function pavementTiles() {
     for (let j = -47; j < 29; j++) {
       const centre = seed(i, j),
         { x, z } = centre;
-      if (!pavedAt(x, z)) continue;
+      if (!pavedAt(x, z) || reclaimedStone(x,z).missing) continue;
       let polygon = [
         { x: x - 2.5, z: z - 2.5 },
         { x: x - 2.5, z: z + 2.5 },
@@ -95,7 +96,7 @@ export function pavementTiles() {
       );
       geometry.setAttribute("uv", new T.Float32BufferAttribute(uv, 2));
       geometry.computeVertexNormals();
-      tiles.push({ geometry, moss: false });
+      tiles.push({ geometry, moss: reclaimedStone(x,z).moss });
     }
   return tiles;
 }

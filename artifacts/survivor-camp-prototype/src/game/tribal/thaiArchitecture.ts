@@ -712,11 +712,13 @@ function approach(w: MasonryWriter) {
   }
 }
 
-export function buildThaiArchitecture(w: MasonryWriter) {
+export function buildThaiArchitecture(w: MasonryWriter, authored = false) {
   const { box, add, beam } = w;
   for (const t of TOWERS) tower(w, t);
-  elephant(w, -10.3, -16.3, Math.PI + 0.35);
-  elephant(w, 12, -15.5, Math.PI - 0.35);
+  if (!authored) {
+    elephant(w, -10.3, -16.3, Math.PI + 0.35);
+    elephant(w, 12, -15.5, Math.PI - 0.35);
+  }
   // Carved gateway replaces the old timber-capped generic columns.
   const gateYaw = Math.atan2(3, 4.4);
   door(w, -17, 0, -16, 4.84, 6.15, gateYaw);
@@ -762,8 +764,10 @@ export function buildThaiArchitecture(w: MasonryWriter) {
     }
   for (const x of [-37, -31]) box("wood", [x, 4.05, 18], [0.34, 0.3, 6.65]);
   for (const z of [15, 21]) box("wood", [-34, 4.05, z], [6.5, 0.3, 0.34]);
-  roof(w, -34, 18, 4.15, 8.4, 8.5, 2);
-  roof(w, -34, 17.8, 5.85, 5.4, 6.7, 1.4);
+  if (!authored) {
+    roof(w, -34, 18, 4.15, 8.4, 8.5, 2);
+    roof(w, -34, 17.8, 5.85, 5.4, 6.7, 1.4);
+  }
   door(w, -30.68, 0.35, 17.35, 1.8, 2.55, Math.PI / 2);
   // Enclosed gables terminate the roof at the same perimeter as the room. Interior
   // rafters support the layered roof; the east doorway is the only public opening.

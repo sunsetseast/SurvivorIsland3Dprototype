@@ -12,6 +12,7 @@ const result = await build({
   base: "./",
   build: {
     write: false,
+    assetsInlineLimit: Infinity,
     rollupOptions: { output: { inlineDynamicImports: true } },
   },
 });

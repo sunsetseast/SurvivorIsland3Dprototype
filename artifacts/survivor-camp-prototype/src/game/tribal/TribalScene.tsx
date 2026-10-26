@@ -10,6 +10,7 @@ import { COUNCIL, tribalWorld } from "./layout";
 import { TribalIntro } from "./TribalIntro";
 import { CAST, CAST_SEATS, tribalIntro } from "./intro";
 import { tribalInteractions } from "./interactions";
+import { AuthoredSanctuary, useSanctuaryKit } from "./AuthoredSanctuary";
 import { tribalAudio } from "./audio";
 
 function NightSky() {
@@ -18,7 +19,7 @@ function NightSky() {
       position: number[] = [],
       colors: number[] = [],
       sizes: number[] = [];
-    for (let i = 0; i < 1350; i++) {
+    for (let i = 0; i < 470; i++) {
       const a = random() * Math.PI * 2,
         elevation = Math.asin(0.08 + random() * 0.9),
         r = 145;
@@ -259,14 +260,15 @@ export function TribalScene() {
     [],
   );
   const shadowTime = useRef(1);
-  const sanctuary = useMemo(() => buildSanctuary(CAST.length), []);
+  const {kit,low,failed} = useSanctuaryKit();
+  const sanctuary = useMemo(() => buildSanctuary(CAST.length, !!kit), [kit]);
   useEffect(
     () => () => {
       sanctuary.dispose();
-      tribalAudio.stop();
     },
     [sanctuary],
   );
+  useEffect(() => () => tribalAudio.stop(), []);
   useFrame(({ gl }, dt) => {
     dbg.tribalFrames++;
     gl.shadowMap.autoUpdate = false;
@@ -282,7 +284,7 @@ export function TribalScene() {
   return (
     <>
       <color attach="background" args={["#060e1e"]} />
-      <fog attach="fog" args={["#0b1921", 45, 115]} />
+      <fog attach="fog" args={["#08151a", 34, 100]} />
       <NightSky />
       <hemisphereLight args={["#a2b9cb", "#514431", 1.05]} />
       <directionalLight
@@ -329,13 +331,16 @@ export function TribalScene() {
         decay={1.4}
       />
       <pointLight
-        position={[-30, 3, -29]}
+        position={[-1, 3.4, -17.1]}
         color="#e99c50"
-        intensity={14}
-        distance={18}
+        intensity={62}
+        distance={29}
         decay={1.5}
       />
-      <primitive object={sanctuary.group} />
+      <group name={failed ? "sanctuary-asset-fallback" : kit ? "sanctuary-assets-ready" : "sanctuary-assets-loading"}>
+        <primitive object={sanctuary.group} />
+        {kit && <AuthoredSanctuary kit={kit} low={low}/>}
+      </group>
       <LivingFire sources={sanctuary.flames} />
       <TribalIntro mode={mode} />
       <PracticeBallot />

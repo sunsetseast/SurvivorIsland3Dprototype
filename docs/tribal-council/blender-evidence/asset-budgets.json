@@ -1,0 +1,54 @@
+{
+  "sanctuary-kit-low.glb": {
+    "bytes": 2460072,
+    "triangles": 16734,
+    "materials": 2,
+    "images": [
+      {
+        "width": 512,
+        "height": 512
+      },
+      {
+        "width": 512,
+        "height": 512
+      }
+    ],
+    "assets": [
+      "elephant_guardian",
+      "naga_terminal",
+      "voting_roof",
+      "root_column",
+      "ceremonial_urn",
+      "fallen_relief",
+      "fern_cluster",
+      "hanging_vine",
+      "lotus_relief"
+    ]
+  },
+  "sanctuary-kit.glb": {
+    "bytes": 6883360,
+    "triangles": 33198,
+    "materials": 2,
+    "images": [
+      {
+        "width": 1024,
+        "height": 1024
+      },
+      {
+        "width": 1024,
+        "height": 1024
+      }
+    ],
+    "assets": [
+      "elephant_guardian",
+      "naga_terminal",
+      "voting_roof",
+      "root_column",
+      "ceremonial_urn",
+      "fallen_relief",
+      "fern_cluster",
+      "hanging_vine",
+      "lotus_relief"
+    ]
+  }
+}

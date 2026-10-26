@@ -1,0 +1,86 @@
+{
+  "renderer": "Chrome 142 / SwiftShader; not iPhone Safari",
+  "captures": [
+    {
+      "name": "sanctuary",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          14,
+          6.5,
+          16
+        ],
+        "target": [
+          -1,
+          6,
+          -9
+        ]
+      },
+      "calls": 248,
+      "triangles": 388938,
+      "textures": 9,
+      "geometries": 251,
+      "meshes": 665,
+      "instances": 159,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        10072.100000000093,
+        912.5,
+        856.8999999999069
+      ]
+    },
+    {
+      "name": "voting-roof",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -23,
+          6,
+          29
+        ],
+        "target": [
+          -34,
+          4,
+          18
+        ]
+      },
+      "calls": 131,
+      "triangles": 257583,
+      "textures": 9,
+      "geometries": 283,
+      "meshes": 665,
+      "instances": 159,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1326,
+        697.3000000000466,
+        709.5
+      ]
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "assets": [
+        "blender-voting_roof",
+        "blender-elephant_guardian",
+        "blender-naga_terminal",
+        "blender-root_column",
+        "blender-ceremonial_urn",
+        "blender-lotus_relief",
+        "blender-fallen_relief",
+        "blender-fern_cluster",
+        "blender-hanging_vine"
+      ],
+      "quality": "low"
+    }
+  ]
+}
