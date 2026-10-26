@@ -1,0 +1,44 @@
+Vite listening
+Browser started
+Menu loaded
+Tribal selected
+Scene ready
+{ mode: 'intro', time: 0.1565999999999767, frameloop: 'never' }
+Advanced 0.18993333333331003
+Captured intro-01-drone
+Captured intro-02-ruin-detail
+Captured intro-03-jeff-probst
+Captured intro-04-survivor-arrival
+Captured intro-05-taking-seats
+Captured intro-06-player-seated
+Captured 01-arrival-path
+Walked arrival both ways
+Walked voting both ways
+Walked jury both ways
+Walked exit both ways
+Captured 02-first-reveal
+Captured 03-full-council
+Captured composition-contestantEye
+Captured composition-hostEye
+Captured composition-fireSide
+Captured composition-entrance
+Captured elephant-guardian
+Captured 04-staggered-stumps
+Captured 05-central-fire
+Captured 06-jury-gallery
+Captured 07-voting-exterior
+Captured 08-voting-interior
+Captured 09-host-and-exit
+Captured 12-voting-approach
+Captured 13-side-exit-origin
+Captured 14-exit-threshold
+Captured 15-naga-stairs-bridge
+Captured 10-stars-and-sanctuary
+Captured viewport-375
+Captured viewport-430
+Captured 11-iphone-landscape
+Captured viewport-1280
+Captured practice-ballot-folded
+Captured 16-torch-snuff-rehearsal
+Captured 17-side-exit-procession
+Tribal Council WebGL certification passed

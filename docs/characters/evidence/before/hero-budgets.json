@@ -1,0 +1,47 @@
+[
+  {
+    "id": 11,
+    "name": "Sandra",
+    "triangles": 9494,
+    "meshes": 13,
+    "materials": 1,
+    "textures": 0,
+    "uniqueBufferBytes": 812376
+  },
+  {
+    "id": 13,
+    "name": "Parvati",
+    "triangles": 9494,
+    "meshes": 13,
+    "materials": 1,
+    "textures": 0,
+    "uniqueBufferBytes": 812376
+  },
+  {
+    "id": 18,
+    "name": "Russell",
+    "triangles": 10340,
+    "meshes": 13,
+    "materials": 1,
+    "textures": 0,
+    "uniqueBufferBytes": 900288
+  },
+  {
+    "id": 4,
+    "name": "Boston Rob",
+    "triangles": 10586,
+    "meshes": 13,
+    "materials": 1,
+    "textures": 0,
+    "uniqueBufferBytes": 926856
+  },
+  {
+    "id": -1,
+    "name": "Jeff Probst",
+    "triangles": 9568,
+    "meshes": 13,
+    "materials": 1,
+    "textures": 0,
+    "uniqueBufferBytes": 816912
+  }
+]

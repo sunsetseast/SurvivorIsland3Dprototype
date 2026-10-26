@@ -1,11 +1,12 @@
-import { COUNCIL, EXIT_PATH, tribalHeight, occupiedSeats } from "./layout";
-const CAST_SEATS = occupiedSeats(5);
+import { COUNCIL, EXIT_PATH, tribalHeight, TRIBAL } from "./layout";
+
 import type { Point } from "../world";
 
 const SPEED = 1.65;
 export const SNUFF_HOLD = 3.2;
 export function eliminationApproach(index: number): Point[] {
-  const seat = CAST_SEATS[index]!;
+  const seat = TRIBAL.seats[index];
+  if (!seat) throw new RangeError("No attending contestant at this seat");
   return [
     { x: seat.position[0], z: seat.position[2] + 1.05 },
     { x: seat.position[0], z: COUNCIL.aisleZ },
@@ -40,7 +41,7 @@ function sample(path: Point[], distance: number) {
 }
 /** Presentation only. A future season adapter supplies the resolved contestant;
  * original TribalCouncilView's `snuff` -> `tribal-exit` beats remain the authority. */
-export function eliminationAt(time: number, index = 4) {
+export function eliminationAt(time: number, index = Math.max(0, TRIBAL.seats.length - 1)) {
   const approach = eliminationApproach(index),
     before = length(approach) / SPEED;
   const leaving = Math.max(0, time - before - SNUFF_HOLD);

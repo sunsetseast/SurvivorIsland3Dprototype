@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { M, V, limb, merge, mk, type Geo } from "./geo";
+import { M, V, limb as baseLimb, merge, mk as baseMk, type Geo } from "./geo";
 
 export type CharacterLook = {
   height: number;
@@ -17,14 +17,26 @@ export type CharacterLook = {
   female?: boolean;
 };
 export const LOOKS: Record<number, CharacterLook> = {
-  [-1]: { height: 1.04, width: 1.05, skin: '#c28d6c', highlight: '#dba47c', hair: '#362a24', shirt: '#587f9c', shorts: '#a29171', headWidth: .98, jaw: 1.08, nose: 1.04, hairStyle: 'short' },
+  [-1]: {
+    height: 1.04,
+    width: 1.05,
+    skin: "#ba896d",
+    highlight: "#d2a285",
+    hair: "#362a24",
+    shirt: "#416f92",
+    shorts: "#a29171",
+    headWidth: 0.98,
+    jaw: 1.08,
+    nose: 1.04,
+    hairStyle: "short",
+  },
   11: {
     height: 0.93,
     width: 1.18,
-    skin: "#b67a50",
-    highlight: "#c99365",
+    skin: "#aa7455",
+    highlight: "#c38f6e",
     hair: "#201d1c",
-    shirt: "#ba433c",
+    shirt: "#a74e46",
     shorts: "#243e45",
     headWidth: 1.08,
     jaw: 0.94,
@@ -38,7 +50,7 @@ export const LOOKS: Record<number, CharacterLook> = {
     skin: "#d09b76",
     highlight: "#e1b18d",
     hair: "#38251c",
-    shirt: "#427f87",
+    shirt: "#4a8184",
     shorts: "#5b375e",
     headWidth: 0.9,
     jaw: 0.78,
@@ -52,7 +64,7 @@ export const LOOKS: Record<number, CharacterLook> = {
     skin: "#be865d",
     highlight: "#d7a27a",
     hair: "#382a20",
-    shirt: "#c5b68a",
+    shirt: "#aa9874",
     shorts: "#374a63",
     headWidth: 1.08,
     jaw: 1.12,
@@ -66,7 +78,7 @@ export const LOOKS: Record<number, CharacterLook> = {
     skin: "#c58c65",
     highlight: "#dba47d",
     hair: "#352b23",
-    shirt: "#a83332",
+    shirt: "#9c4842",
     shorts: "#c0a57b",
     headWidth: 1,
     jaw: 1.02,
@@ -75,6 +87,83 @@ export const LOOKS: Record<number, CharacterLook> = {
     beard: true,
   },
 };
+
+/** Opaque, texture-free surface masks: x = roughness, y = cloth grain strength. */
+function surface(g: Geo, color: string) {
+  const looks = Object.values(LOOKS);
+  const cloth = looks.some((c) => c.shirt === color || c.shorts === color);
+  const hair =
+    looks.some((c) => c.hair === color) ||
+    color === "#60422e" ||
+    color === "#40352c";
+  const values = new Float32Array(g.getAttribute("position").count * 2);
+  for (let i = 0; i < values.length; i += 2) {
+    values[i] = cloth ? 0.96 : hair ? 0.84 : 0.72;
+    values[i + 1] = cloth ? 0.025 : hair ? 0.012 : 0.004;
+  }
+  g.setAttribute("heroSurface", new THREE.BufferAttribute(values, 2));
+  return g;
+}
+const mk: typeof baseMk = (...args) => surface(baseMk(...args), args[2]);
+const limb: typeof baseLimb = (...args) => surface(baseLimb(...args), args[4]);
+
+/** Swept, tapered locks with an elliptical cross-section; no transparent hair cards. */
+function lock(
+  points: [number, number, number][],
+  width: number,
+  color: string,
+) {
+  const curve = new THREE.CatmullRomCurve3(points.map((p) => V(...p)));
+  const positions: number[] = [],
+    indices: number[] = [],
+    frames = curve.computeFrenetFrames(10, false);
+  for (let i = 0; i <= 10; i++) {
+    const t = i / 10,
+      p = curve.getPointAt(t);
+    const radius = width * (0.28 + 0.72 * Math.sin(Math.PI * (0.15 + t * 0.8)));
+    for (let j = 0; j <= 6; j++) {
+      const a = (j / 6) * Math.PI * 2;
+      const v = p
+        .clone()
+        .addScaledVector(frames.normals[i]!, Math.cos(a) * radius)
+        .addScaledVector(frames.binormals[i]!, Math.sin(a) * radius * 0.5);
+      positions.push(v.x, v.y, v.z);
+      if (i < 10 && j < 6) {
+        const k = i * 7 + j;
+        indices.push(k, k + 1, k + 7, k + 1, k + 8, k + 7);
+      }
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  g.setIndex(indices);
+  g.computeVertexNormals();
+  return mk(g, null, color, 0.008);
+}
+function weather(g: Geo, id: number) {
+  const p = g.getAttribute("position"),
+    colors = g.getAttribute("color"),
+    mask = g.getAttribute("heroSurface");
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i),
+      y = p.getY(i),
+      z = p.getZ(i);
+    const cloth = mask.getY(i) > 0.02;
+    const fold = Math.sin(y * 72 + Math.sin(x * 19) * 1.4) * 0.025;
+    const dirt = cloth
+      ? Math.max(0, Math.sin(x * 29 + y * 13 + id) * Math.cos(z * 21 - y * 8)) *
+        0.16
+      : 0.015;
+    const fade = cloth ? 0.025 * Math.sin(x * 11 + y * 8) : 0;
+    colors.setXYZ(
+      i,
+      colors.getX(i) * (1 - dirt + fold + fade),
+      colors.getY(i) * (1 - dirt * 0.9 + fold + fade),
+      colors.getZ(i) * (1 - dirt * 0.8 + fold + fade),
+    );
+  }
+  return g;
+}
 
 const oval = (
   x: number,
@@ -110,7 +199,11 @@ function loft(rings: [number, number, number][], color: string) {
   for (const [y, rx, rz] of rings)
     for (let j = 0; j <= sides; j++) {
       const t = (j / sides) * Math.PI * 2;
-      points.push(Math.sin(t) * rx, y, Math.cos(t) * rz);
+      const crease =
+        1 +
+        0.018 * Math.sin(t * 7 + y * 38) +
+        0.012 * Math.sin(t * 11 - y * 24);
+      points.push(Math.sin(t) * rx * crease, y, Math.cos(t) * rz * crease);
     }
   for (let k = 0; k < rings.length - 1; k++)
     for (let j = 0; j < sides; j++) {
@@ -126,7 +219,7 @@ function loft(rings: [number, number, number][], color: string) {
 }
 
 export function buildContestant(id: number) {
-  const c = LOOKS[id]!,
+  const c = LOOKS[id] ?? LOOKS[[11, 13, 18, 4][Math.abs(id) % 4]!]!,
     w = c.width,
     skin = c.skin,
     hi = c.highlight,
@@ -161,30 +254,84 @@ export function buildContestant(id: number) {
         5,
       ),
     );
-    if (!female)
+    if (!female || id === 11)
       torso.push(
-        oval(s * shoulder * 0.87, 0.49, 0, 0.105, 0.085, 0.14, c.shirt),
+        oval(s * shoulder * 0.87, 0.49, 0, 0.085, 0.065, 0.105, c.shirt),
       );
   }
-  torso.push(
-    mk(
-      new THREE.TorusGeometry(0.093, 0.022, 5, 16),
-      M(0, 0.585, 0, Math.PI / 2, 0, 0, 1, 1, 0.6),
-      "#cf9246",
-      0.03,
-    ),
-  );
-  torso.push(
-    limb(
-      V(0.035, 0.57, 0.08),
-      V(0.075, 0.48, 0.13),
-      0.028,
-      0.012,
-      "#cf9246",
-      undefined,
-      5,
-    ),
-  );
+  if (id !== -1) {
+    torso.push(
+      mk(
+        new THREE.TorusGeometry(0.093, 0.022, 5, 16),
+        M(0, 0.585, 0, Math.PI / 2, 0, 0, 1, 1, 0.6),
+        "#cf9246",
+        0.03,
+      ),
+    );
+    torso.push(
+      limb(
+        V(0.035, 0.57, 0.08),
+        V(0.075, 0.48, 0.13),
+        0.028,
+        0.012,
+        "#cf9246",
+        undefined,
+        5,
+      ),
+    );
+  }
+  const faded = new THREE.Color(c.shirt)
+    .lerp(new THREE.Color("#c5b494"), 0.22)
+    .getStyle();
+  for (let j = 0; j < (id === -1 ? 0 : 3); j++) {
+    const y = 0.055 + j * 0.043;
+    torso.push(
+      lock(
+        [
+          [-0.16 * w, y, 0.09 * w],
+          [-0.11 * w, y + 0.012, 0.113 * w],
+          [-0.055 * w, y + 0.016, 0.131 * w],
+        ],
+        0.0025,
+        faded,
+      ),
+    );
+  }
+  for (const side of [-1, 1]) {
+    if (id === -1) {
+      const shape = new THREE.BufferGeometry();
+      const v = [
+        side * 0.025,
+        0.57,
+        0.08,
+        side * 0.12,
+        0.535,
+        0.12,
+        side * 0.06,
+        0.47,
+        0.157,
+      ];
+      if (side > 0) {
+        const a = v.splice(0, 3);
+        v.splice(3, 0, ...a);
+      }
+      shape.setAttribute("position", new THREE.Float32BufferAttribute(v, 3));
+      shape.computeVertexNormals();
+      torso.push(mk(shape, null, c.shirt, 0.005));
+    }
+    // Worn binding at the armhole / rolled sleeve.
+    torso.push(
+      limb(
+        V(side * shoulder * 0.78, 0.515, 0.07),
+        V(side * shoulder, 0.467, 0.06),
+        0.009,
+        0.008,
+        faded,
+        undefined,
+        6,
+      ),
+    );
+  }
   const pelvis = [
     loft(
       [
@@ -199,7 +346,7 @@ export function buildContestant(id: number) {
   const head: Geo[] = [
     limb(V(0, -0.02, 0), V(0, 0.1, 0), 0.064, 0.07, skin, undefined, 10),
   ];
-  const skull = new THREE.SphereGeometry(0.195, 20, 16);
+  const skull = new THREE.SphereGeometry(0.195, 28, 22);
   const pos = skull.attributes.position!;
   for (let i = 0; i < pos.count; i++) {
     let x = pos.getX(i),
@@ -209,24 +356,43 @@ export function buildContestant(id: number) {
       c.headWidth *
       (y < -0.03 ? c.jaw + ((1 - c.jaw) * (y + 0.195)) / 0.165 : 1);
     y = y * 1.19 + 0.23;
-    if (z > 0) z *= 0.86;
+    if (z > 0) {
+      z *= 0.86;
+      // Cheek plane and brow ridge, sculpted into the base mesh.
+      const cheek = Math.exp(
+        -((Math.abs(x) - 0.095) ** 2 / 0.002 + (y - 0.21) ** 2 / 0.003),
+      );
+      z += cheek * 0.009;
+    }
     pos.setXYZ(i, x, y, z);
   }
   skull.computeVertexNormals();
-  head.push(mk(skull, null, hi, 0.015));
+  const face = mk(skull, null, hi, 0.005);
+  const fp = face.getAttribute("position"),
+    fc = face.getAttribute("color");
+  const flush = new THREE.Color(skin),
+    beardColor = new THREE.Color(id === 18 ? "#534336" : "#806954");
+  for (let i = 0; i < fp.count; i++) {
+    const x = fp.getX(i),
+      y = fp.getY(i),
+      z = fp.getZ(i);
+    const tone = new THREE.Color().fromBufferAttribute(fc, i);
+    const warmth =
+      Math.exp(
+        -((Math.abs(x) - 0.11) ** 2 / 0.002 + (y - 0.215) ** 2 / 0.002),
+      ) * 0.23;
+    tone.lerp(flush, warmth);
+    if (c.beard && z > 0 && y < 0.2) {
+      const beard =
+        Math.min(1, Math.max(0, (0.205 - y) / 0.065)) *
+        (id === 18 ? 0.9 : 0.46);
+      tone.lerp(beardColor, beard);
+    }
+    fc.setXYZ(i, tone.r, tone.g, tone.b);
+  }
+  head.push(face);
   // Sculpted cheeks, jaw, brow, eyelids, iris and projected nose. No billboard face.
   for (const s of [-1, 1]) {
-    head.push(
-      oval(
-        s * 0.103 * c.headWidth,
-        0.19,
-        0.118,
-        0.056 * c.headWidth,
-        0.052,
-        0.027,
-        hi,
-      ),
-    );
     head.push(
       oval(s * 0.185 * c.headWidth, 0.237, -0.006, 0.027, 0.05, 0.025, skin),
     );
@@ -243,27 +409,19 @@ export function buildContestant(id: number) {
       ),
     );
     head.push(
-      oval(s * 0.072 * c.headWidth, 0.277, 0.151, 0.049, 0.027, 0.017, skin),
+      oval(s * 0.072 * c.headWidth, 0.277, 0.15, 0.044, 0.021, 0.014, skin),
+    );
+    head.push(
+      oval(s * 0.072 * c.headWidth, 0.278, 0.16, 0.029, 0.01, 0.007, "#eee1ca"),
     );
     head.push(
       oval(
         s * 0.072 * c.headWidth,
         0.278,
-        0.161,
-        0.033,
-        0.014,
+        0.167,
         0.011,
-        "#eee1ca",
-      ),
-    );
-    head.push(
-      oval(
-        s * 0.072 * c.headWidth,
-        0.278,
-        0.171,
-        0.013,
-        0.014,
-        0.005,
+        0.011,
+        0.004,
         "#493729",
         10,
       ),
@@ -272,7 +430,7 @@ export function buildContestant(id: number) {
       oval(
         s * 0.072 * c.headWidth,
         0.279,
-        0.175,
+        0.171,
         0.007,
         0.01,
         0.003,
@@ -284,7 +442,7 @@ export function buildContestant(id: number) {
       oval(
         s * 0.068 * c.headWidth,
         0.284,
-        0.178,
+        0.174,
         0.0035,
         0.0035,
         0.002,
@@ -310,7 +468,7 @@ export function buildContestant(id: number) {
     head.push(
       oval(s * 0.026 * c.nose, 0.204, 0.187, 0.013, 0.007, 0.01, "#94634f", 8),
     );
-  head.push(oval(0, 0.119, 0.131, 0.066, 0.04, 0.03, hi));
+  head.push(oval(0, 0.119, 0.131, 0.058, 0.028, 0.02, hi));
   head.push(
     limb(
       V(-0.049, 0.156, 0.155),
@@ -323,120 +481,183 @@ export function buildContestant(id: number) {
     ),
   );
   head.push(
-    oval(0, 0.145, 0.158, 0.038, 0.009, 0.008, female ? "#ba7f6c" : "#b27b60"),
+    oval(0, 0.145, 0.158, 0.038, 0.006, 0.005, female ? "#ba7f6c" : "#b27b60"),
   );
   if (c.beard) {
-    const beard = id === 18 ? "#49382b" : "#795c46";
-    head.push(
-      oval(
-        0,
-        0.112,
-        0.142,
-        0.074 * c.headWidth,
-        id === 18 ? 0.045 : 0.026,
-        0.028,
-        beard,
-      ),
-    );
-    for (const s of [-1, 1]) {
+    for (const side of [-1, 1])
       head.push(
-        oval(s * 0.102 * c.headWidth, 0.153, 0.119, 0.035, 0.055, 0.03, beard),
-      );
-      head.push(
-        limb(
-          V(s * 0.05, 0.173, 0.158),
-          V(s * 0.018, 0.179, 0.166),
-          0.008,
-          0.007,
-          hair,
-          undefined,
-          5,
+        lock(
+          [
+            [side * 0.049, 0.174, 0.161],
+            [side * 0.028, 0.18, 0.174],
+            [side * 0.012, 0.176, 0.178],
+          ],
+          id === 18 ? 0.008 : 0.004,
+          id === 18 ? "#534336" : "#806954",
         ),
       );
-    }
   }
   if (id === -1) {
     for (const side of [-1, 1]) {
-      torso.push(box(side * .09, .49, .139, .12, .16, .025, '#7394aa'));
-      torso.push(box(side * .115, .29, .147, .12, .1, .018, '#496c88'));
-      torso.push(box(side * .115, .345, .153, .13, .025, .02, '#91a6b1'));
+      torso.push(box(side * 0.115, 0.29, 0.147, 0.12, 0.1, 0.018, "#496c88"));
+      torso.push(box(side * 0.115, 0.345, 0.153, 0.13, 0.025, 0.02, "#577e94"));
     }
-    for (let y = .16; y < .51; y += .08) torso.push(oval(0,y,.155,.012,.012,.007,'#d9cdb3',6));
+    for (let y = 0.16; y < 0.51; y += 0.08)
+      torso.push(oval(0, y, 0.155, 0.012, 0.012, 0.007, "#d9cdb3", 6));
   }
   const hairParts: Geo[] = [];
   if (female) {
-    hairParts.push(
-      mk(
-        new THREE.SphereGeometry(
-          0.208,
-          18,
-          12,
-          0,
-          Math.PI * 2,
-          0,
-          Math.PI * 0.45,
-        ),
-        M(0, 0.235, -0.025, -0.18, 0, 0, c.headWidth, 1.16, 1.02),
-        hair,
-        0.04,
-      ),
+    const cap = new THREE.SphereGeometry(
+      0.204,
+      24,
+      14,
+      0,
+      Math.PI * 2,
+      0,
+      Math.PI * 0.57,
     );
-    for (const s of [-1, 1])
-      for (let j = 0; j < 4; j++) {
-        const xx = s * (0.16 + Math.sin(j * 1.5) * 0.022) * c.headWidth;
-        const length = id === 13 ? 0.55 : 0.3;
+    const cp = cap.getAttribute("position");
+    for (let i = 0; i < cp.count; i++) {
+      const x = cp.getX(i),
+        y = cp.getY(i),
+        z = cp.getZ(i);
+      // Lift the front hairline clear of the brow; leave fuller temples/back.
+      cp.setXYZ(
+        i,
+        x * c.headWidth,
+        y * 1.15 +
+          0.238 +
+          Math.max(0, 0.13 - y) * 0.94 * Math.max(0, z / 0.204),
+        z - 0.02,
+      );
+    }
+    cap.computeVertexNormals();
+    hairParts.push(mk(cap, null, hair, 0.008));
+    for (const side of [-1, 1])
+      for (let j = 0; j < 7; j++) {
+        const back = j / 6,
+          length = id === 13 ? 0.53 : 0.3,
+          xx = side * (0.153 + 0.022 * Math.sin(j * 1.1)) * c.headWidth;
+        const z = 0.012 - back * 0.19;
         hairParts.push(
-          limb(
-            V(xx, 0.34 - j * 0.022, -0.035 - j * 0.035),
-            V(xx + s * 0.015, 0.34 - length, -0.07 - j * 0.035),
-            0.047,
-            id === 13 ? 0.025 : 0.043,
-            hair,
-            undefined,
-            7,
-          ),
-        );
-        hairParts.push(
-          limb(
-            V(xx * 0.98, 0.31 - j * 0.015, -0.005 - j * 0.036),
-            V(xx, 0.34 - length * 0.9, -0.03 - j * 0.036),
-            0.008,
-            0.005,
-            id === 13 ? "#63432c" : "#39312c",
-            undefined,
-            5,
+          lock(
+            [
+              [side * 0.075, 0.44, -0.02 - back * 0.08],
+              [xx, 0.34, z],
+              [xx + side * 0.015, 0.17, z - 0.01],
+              [
+                xx + side * (id === 13 ? 0.025 : -0.02),
+                0.34 - length,
+                z - 0.035,
+              ],
+            ],
+            0.037,
+            j % 3 === 0 ? (id === 13 ? "#60422e" : "#40352c") : hair,
           ),
         );
       }
-    // Back hair stays behind the shoulders; attached to head, subtly sways with turns.
-    hairParts.push(
-      oval(
-        0,
-        id === 13 ? 0.06 : 0.17,
-        -0.15,
-        0.19 * c.headWidth,
-        id === 13 ? 0.29 : 0.19,
-        0.083,
-        hair,
-      ),
-    );
-  } else {
-    hairParts.push(
-      mk(
-        new THREE.SphereGeometry(
-          0.202,
-          16,
-          10,
-          0,
-          Math.PI * 2,
-          0,
-          Math.PI * 0.44,
+    for (let j = 0; j < 7; j++) {
+      const x = (j - 3) * 0.046 * c.headWidth,
+        len = id === 13 ? 0.49 : 0.29;
+      hairParts.push(
+        lock(
+          [
+            [x * 0.6, 0.41, -0.12],
+            [x, 0.29, -0.197],
+            [x, 0.08, -0.213],
+            [x * 0.92, 0.34 - len, -0.188],
+          ],
+          0.041,
+          j % 3 === 0 ? "#40352c" : hair,
         ),
-        M(0, 0.25, -0.015, 0, 0, 0, c.headWidth, 1.14, 1),
-        id === 18 ? skin : hair,
-        0.025,
-      ),
-    );
+      );
+    }
+    // Asymmetric side part: grouped curved forms rather than a helmet fringe.
+    for (let j = 0; j < 5; j++)
+      hairParts.push(
+        lock(
+          [
+            [-0.09 + j * 0.016, 0.44, 0.004],
+            [0.015 + j * 0.019, 0.445, 0.08],
+            [0.13 + j * 0.01, 0.365, 0.13],
+            [0.177, 0.265, 0.033 - j * 0.014],
+          ],
+          0.018,
+          j % 2 ? hair : id === 13 ? "#60422e" : "#40352c",
+        ),
+      );
+  } else {
+    if (id === -1) {
+      const cap = new THREE.SphereGeometry(
+        0.202,
+        22,
+        14,
+        0,
+        Math.PI * 2,
+        0,
+        Math.PI * 0.55,
+      );
+      const cp = cap.getAttribute("position");
+      for (let i = 0; i < cp.count; i++) {
+        const x = cp.getX(i),
+          y = cp.getY(i),
+          z = cp.getZ(i);
+        cp.setXYZ(
+          i,
+          x * c.headWidth,
+          0.25 + y * 1.14 + Math.max(0, 0.1 - y) * 0.9 * Math.max(0, z / 0.202),
+          z - 0.015,
+        );
+      }
+      cap.computeVertexNormals();
+      hairParts.push(mk(cap, null, hair, 0.005));
+    } else {
+      hairParts.push(
+        mk(
+          new THREE.SphereGeometry(
+            0.202,
+            16,
+            10,
+            0,
+            Math.PI * 2,
+            0,
+            Math.PI * 0.44,
+          ),
+          M(0, 0.25, -0.015, 0, 0, 0, c.headWidth, 1.14, 1),
+          id === 18 ? skin : hair,
+          0.025,
+        ),
+      );
+    }
+    if (id === -1) {
+      for (let j = 0; j < 11; j++) {
+        const x = (j - 5) * 0.032;
+        hairParts.push(
+          lock(
+            [
+              [x, 0.37, 0.17],
+              [x - 0.02, 0.496 - Math.abs(x) * 0.4, 0.1],
+              [x + 0.02, 0.49 - Math.abs(x) * 0.4, -0.03],
+              [x + 0.04, 0.37, -0.17],
+            ],
+            0.024,
+            j % 3 === 0 ? "#49362a" : hair,
+          ),
+        );
+      }
+      for (const side of [-1, 1])
+        hairParts.push(
+          lock(
+            [
+              [side * 0.17, 0.35, -0.04],
+              [side * 0.188, 0.29, -0.045],
+              [side * 0.177, 0.21, -0.055],
+            ],
+            0.025,
+            "#40352c",
+          ),
+        );
+    }
     if (id === 4) {
       hairParts.push(
         mk(
@@ -455,6 +676,18 @@ export function buildContestant(id: number) {
         ),
       );
       hairParts.push(oval(0, 0.331, 0.17, 0.177, 0.018, 0.17, "#25334d"));
+      for (const side of [-1, 1])
+        hairParts.push(
+          lock(
+            [
+              [0, 0.484, -0.015],
+              [side * 0.12, 0.448, 0.04],
+              [side * 0.19, 0.37, 0.065],
+            ],
+            0.0028,
+            "#667084",
+          ),
+        );
       // Original stitched monogram, rendered as geometry rather than a texture/logo asset.
       hairParts.push(
         limb(
@@ -501,10 +734,18 @@ export function buildContestant(id: number) {
   }
   head.push(...hairParts);
   const armU = [
-    oval(0, -0.025, 0, 0.074 * w, 0.083, 0.071 * w, skin),
-    limb(V(0, -0.02, 0), V(0, -0.285, 0), 0.072 * w, 0.048 * w, skin, hi, 10),
+    oval(0, -0.025, 0, 0.071 * w, 0.07, 0.068 * w, skin),
+    loft(
+      [
+        [-0.285, 0.048 * w, 0.047 * w],
+        [-0.2, 0.058 * w, 0.057 * w],
+        [-0.1, 0.072 * w, 0.069 * w],
+        [-0.02, 0.072 * w, 0.068 * w],
+      ],
+      skin,
+    ),
   ];
-  if (!female)
+  if (!female || id === 11)
     armU.push(
       loft(
         [
@@ -516,7 +757,15 @@ export function buildContestant(id: number) {
     );
   const forearm = [
     oval(0, 0, 0, 0.049 * w, 0.05, 0.05 * w, skin),
-    limb(V(0, 0, 0), V(0, -0.255, 0), 0.05 * w, 0.034 * w, skin, hi, 10),
+    loft(
+      [
+        [-0.255, 0.034 * w, 0.032 * w],
+        [-0.18, 0.04 * w, 0.037 * w],
+        [-0.075, 0.052 * w, 0.046 * w],
+        [0, 0.049 * w, 0.047 * w],
+      ],
+      skin,
+    ),
   ];
   const hand = [oval(0, -0.29, 0.008, 0.043 * w, 0.056, 0.025, hi)];
   // Four fingers and an opposing thumb, shaped as short tapered joints.
@@ -565,11 +814,38 @@ export function buildContestant(id: number) {
       undefined,
       12,
     ),
-    limb(V(0, -0.24, 0), V(0, -0.43, 0), 0.084 * w, 0.061 * w, skin, hi, 10),
+    limb(
+      V(0, -0.24, 0),
+      V(0, -0.43, 0),
+      0.084 * w,
+      0.061 * w,
+      id === 13 ? c.shorts : skin,
+      id === 13 ? c.shorts : hi,
+      12,
+    ),
   ];
+  if (id === 4 || id === -1)
+    thigh.push(box(0.045, -0.135, 0.087 * w, 0.105, 0.11, 0.025, c.shorts));
   const shin = [
-    oval(0, 0, 0, 0.064 * w, 0.062, 0.061, hi),
-    limb(V(0, -0.01, 0), V(0, -0.395, 0), 0.063 * w, 0.038 * w, skin, hi, 10),
+    oval(0, 0, 0, 0.064 * w, 0.062, 0.061, id === 13 ? c.shorts : hi),
+    limb(
+      V(0, -0.01, 0),
+      V(0, -0.18, 0),
+      0.063 * w,
+      0.058 * w,
+      id === 13 ? c.shorts : skin,
+      undefined,
+      12,
+    ),
+    limb(
+      V(0, -0.18, 0),
+      V(0, -0.395, 0),
+      0.058 * w,
+      0.038 * w,
+      id === 13 ? c.shorts : skin,
+      id === 13 ? c.shorts : hi,
+      12,
+    ),
   ];
   const foot = [
     oval(0, -0.005, 0.045, 0.06 * w, 0.04, 0.125, skin),
@@ -590,14 +866,14 @@ export function buildContestant(id: number) {
       ),
     );
   return {
-    torso: merge(torso),
-    pelvis: merge(pelvis),
-    head: merge(head),
-    armU: merge(armU),
-    forearm: merge(forearm),
-    thigh: merge(thigh),
-    shin: merge(shin),
-    foot: merge(foot),
+    torso: weather(merge(torso), id),
+    pelvis: weather(merge(pelvis), id),
+    head: weather(merge(head), id),
+    armU: weather(merge(armU), id),
+    forearm: weather(merge(forearm), id),
+    thigh: weather(merge(thigh), id),
+    shin: weather(merge(shin), id),
+    foot: weather(merge(foot), id),
     shoulder,
     look: c,
   };

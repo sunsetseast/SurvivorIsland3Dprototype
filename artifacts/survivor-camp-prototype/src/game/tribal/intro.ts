@@ -8,8 +8,11 @@ import {
 import { eliminationAt } from "./elimination";
 import type { Point } from "../world";
 export type IntroMode = "intro" | "seated" | "explore" | "elimination";
-export const CAST = [4, 11, 13, 18, 0];
-export const CAST_SEATS = occupiedSeats(CAST.length);
+import { councilAttendance } from "./attendance";
+export let CAST = councilAttendance.getSnapshot();
+export let CAST_SEATS = occupiedSeats(CAST.length);
+export let PLAYER_INDEX = CAST.indexOf(0);
+export const playerSeat = () => CAST_SEATS[PLAYER_INDEX];
 export const INTRO_SHOTS = [
   {
     start: 0,
@@ -70,9 +73,20 @@ function length(path: Point[]) {
       0,
     );
 }
-export const INTRO_DURATION = Math.max(
-  ...CAST.map((_, i) => 2 + i * 1.1 + length(stagedRoute(i)) / 2.15 + 1.6),
-);
+function duration() {
+  return Math.max(
+    14,
+    ...CAST.map((_, i) => 2 + i * 1.1 + length(stagedRoute(i)) / 2.15 + 1.6),
+  );
+}
+export let INTRO_DURATION = duration();
+councilAttendance.subscribe(() => {
+  CAST = councilAttendance.getSnapshot();
+  CAST_SEATS = occupiedSeats(CAST.length);
+  PLAYER_INDEX = CAST.indexOf(0);
+  INTRO_DURATION = duration();
+  tribalIntro.reset();
+});
 export function stageAt(time: number, index: number) {
   const path = stagedRoute(index),
     seat = CAST_SEATS[index]!,
@@ -108,6 +122,7 @@ export function stageAt(time: number, index: number) {
     distance: Math.min(distance, total),
     speed: distance > 0 && distance < total ? 2.15 : 0,
     seated: sit > 0.35,
+    seatHeight: seat.position[1],
     arrived: sit >= 1,
   };
 }
@@ -115,7 +130,7 @@ class Intro {
   time = 0;
   ceremonyTime = 0;
   eliminationTime = 0;
-  eliminatedIndex = 4;
+  eliminatedIndex = PLAYER_INDEX;
   private mode: IntroMode = "intro";
   private listeners = new Set<() => void>();
   subscribe = (fn: () => void) => {
@@ -131,6 +146,7 @@ class Intro {
   reset() {
     this.time = 0;
     this.ceremonyTime = 0;
+    this.eliminatedIndex = PLAYER_INDEX;
     this.mode = "intro";
     this.emit();
   }
@@ -154,7 +170,7 @@ class Intro {
   sit = () => {
     this.skip();
   };
-  rehearse = (index = 4) => {
+  rehearse = (index = PLAYER_INDEX) => {
     if (!Number.isInteger(index) || index < 0 || index >= CAST.length) return;
     this.eliminatedIndex = index;
     this.eliminationTime = 0;

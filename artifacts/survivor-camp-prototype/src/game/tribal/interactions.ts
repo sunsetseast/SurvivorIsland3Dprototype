@@ -1,4 +1,4 @@
-import { TRIBAL } from "./layout";
+import { playerSeat } from "./intro";
 
 export const INTERESTS = [
   { id: "last-walk", x: 9.7, z: 3.2, radius: 2,
@@ -32,8 +32,8 @@ export const INTERESTS = [
   },
   {
     id: "seat",
-    x: TRIBAL.seats[7]!.position[0],
-    z: TRIBAL.seats[7]!.position[2] + 1.1,
+    get x() { return playerSeat()?.position[0] ?? -38; },
+    get z() { return (playerSeat()?.position[2] ?? -43) + 1.1; },
     radius: 2,
     action: "Return to your seat",
     title: "Council",
@@ -41,7 +41,7 @@ export const INTERESTS = [
   },
 ] as const;
 export function nearbyInterest(x: number, z: number) {
-  return INTERESTS.find((p) => Math.hypot(p.x - x, p.z - z) < p.radius) || null;
+  return INTERESTS.find((p) => (p.id !== "seat" || !!playerSeat()) && Math.hypot(p.x - x, p.z - z) < p.radius) || null;
 }
 type Snapshot = { open: string | null; ballot: string; folded: boolean };
 class Interactions {

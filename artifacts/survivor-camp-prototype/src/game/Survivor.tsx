@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { M, V, limb, merge, mk, type Geo } from "./geo";
+import { solveSeatedLeg } from "./characterMotion";
 
 type Motion = {
   speed: number;
@@ -9,6 +10,7 @@ type Motion = {
   distance: number;
   talking?: boolean;
   seated?: boolean;
+  seatHeight?: number;
 };
 const SKIN = "#c98d62",
   SKIN_L = "#dba074",
@@ -405,24 +407,25 @@ export function Survivor({
     }
     s.sit += ((m.seated ? 1 : 0) - s.sit) * (1 - Math.exp(-dt * 9));
     if (s.sit > 0.001) {
+      const pose=solveSeatedLeg(.96,m.seatHeight??.535,.47,.41,.02,.072);
       const sit = (g: React.RefObject<THREE.Group | null>, angle: number) => {
         if (g.current)
           g.current.rotation.x = TBlend(g.current.rotation.x, angle, s.sit);
       };
-      sit(legL, -1.45);
-      sit(legR, -1.45);
-      sit(knL, 1.52);
-      sit(knR, 1.52);
-      sit(ankL, -0.07);
-      sit(ankR, -0.07);
+      sit(legL, pose.hip);
+      sit(legR, pose.hip);
+      sit(knL, pose.knee);
+      sit(knR, pose.knee);
+      sit(ankL, pose.ankle);
+      sit(ankR, pose.ankle);
       sit(elL, -0.7);
       sit(elR, -0.7);
       if (hips.current) {
         const p = hips.current.position;
         p.set(
           TBlend(p.x, 0, s.sit),
-          TBlend(p.y, 0.62, s.sit),
-          TBlend(p.z, -0.32, s.sit),
+          TBlend(p.y, pose.hipHeight, s.sit),
+          TBlend(p.z, -.22, s.sit),
         );
       }
     }
