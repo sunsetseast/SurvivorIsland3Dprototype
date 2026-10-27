@@ -1,0 +1,88 @@
+{
+  "renderer": "Chrome 142 / ANGLE SwiftShader, host software WebGL; physical iPhone Safari UNVERIFIED",
+  "errors": [],
+  "captures": [
+    {
+      "name": "17-third-person-exploration"
+    }
+  ],
+  "performance": [],
+  "checks": [
+    "Live minimap and expandable geographical map open / close correctly.",
+    {
+      "playerMovement": {
+        "before": {
+          "x": -467.96734814953726,
+          "z": -728.3277755297208
+        },
+        "after": {
+          "x": -462.92089280397005,
+          "z": -729.4604812889197
+        },
+        "y": 1.5146534986774327,
+        "moved": 5.172014490672484
+      }
+    },
+    {
+      "touchDebug": {
+        "joy": {
+          "x": 12,
+          "y": 306,
+          "width": 112,
+          "height": 112
+        },
+        "beforeTouch": {
+          "x": -462.92089280397005,
+          "y": 1.5146534986774327,
+          "z": -729.4604812889197
+        },
+        "afterTouch": {
+          "x": -461.4150745598875,
+          "y": 1.5894210245854563,
+          "z": -729.7984708044472
+        },
+        "touchInput": {
+          "joyX": 0,
+          "joyY": 0.6756756756756757,
+          "run": false,
+          "yaw": -1.3484424948561489,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 5
+        }
+      }
+    },
+    {
+      "touchscreen": {
+        "before": {
+          "x": -462.92089280397005,
+          "y": 1.5146534986774327,
+          "z": -729.4604812889197
+        },
+        "after": {
+          "x": -461.4150745598875,
+          "y": 1.5894210245854563,
+          "z": -729.7984708044472
+        },
+        "yawBefore": -1.3498155262415334,
+        "yawAfter": -1.7698155262415334,
+        "note": "CDP touch emulation, not physical Safari"
+      }
+    },
+    {
+      "disposed": {
+        "geometry": 174,
+        "material": 16,
+        "texture": 13
+      }
+    },
+    "Menu → Railay → camp → Tribal Council → Railay; reset, quality, overview, player movement and disposal verified in WebGL."
+  ],
+  "initialEntryHostWallMs": 18333,
+  "resourceStats": {
+    "geometryBytes": 12356386,
+    "textureBytesEstimate": 29709674.66666666,
+    "note": "CPU attribute bytes and uncompressed RGBA mip estimate; not driver GPU allocation. Shader depth texture is counted separately in report."
+  }
+}

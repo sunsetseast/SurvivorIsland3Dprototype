@@ -1,8 +1,14 @@
+import { canopyShade } from "./tonsai/canopyShade";
+import { tonsaiWeight } from "./tonsai/domain";
 import * as T from "three";
 /** Original procedural world-space detail: stable across terrain chunk and LOD boundaries. */
 export function groundMaterial() {
   const m = new T.MeshStandardMaterial({ vertexColors: true, roughness: 1 });
+  const shade = canopyShade();
+  m.userData.textureResources = new Set([shade]);
+  m.addEventListener("dispose", () => shade.dispose());
   m.onBeforeCompile = (s) => {
+    s.uniforms.canopyShade = { value: shade };
     s.vertexShader = s.vertexShader
       .replace("#include <common>", "#include <common>\nvarying vec3 vGround;")
       .replace(
@@ -14,7 +20,9 @@ export function groundMaterial() {
         "#include <common>",
         `#include <common>
  varying vec3 vGround;
+ uniform sampler2D canopyShade;
  float hashG(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+ float noiseG(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hashG(i),hashG(i+vec2(1,0)),f.x),mix(hashG(i+vec2(0,1)),hashG(i+vec2(1,1)),f.x),f.y);}
  `,
       )
       .replace(
@@ -24,6 +32,18 @@ export function groundMaterial() {
  float broad=sin(vGround.x*.19+sin(vGround.z*.14))*sin(vGround.z*.23);
  float detailFade=1.-smoothstep(70.,250.,distance(cameraPosition,vGround));
  diffuseColor.rgb*=.94+grain*.08*detailFade+broad*.045;
+ float tonsai=(1.-smoothstep(-90.,55.,vGround.x))*smoothstep(-1590.,-1450.,vGround.z)*(1.-smoothstep(-430.,-335.,vGround.z));
+ float jungle=tonsai*smoothstep(3.7,5.6,vGround.y);
+ float occlusion=texture2D(canopyShade,(vGround.xz+vec2(1320.,1600.))/vec2(1400.,1300.)).r;
+ diffuseColor.rgb*=mix(1.,.35+.65*occlusion,tonsai);
+ float soil=noiseG(vGround.xz*.8);
+ float mottled=sin(vGround.x*.21+sin(vGround.z*.19)*2.)*sin(vGround.z*.15);
+ vec2 cell=floor(vGround.xz*5.);vec2 f=fract(vGround.xz*5.)-.5;
+ float angle=hashG(cell)*6.283;f=mat2(cos(angle),-sin(angle),sin(angle),cos(angle))*f;
+ float litter=(1.-smoothstep(.6,1.,length(f*vec2(2.,5.))))*step(.55,hashG(cell+18.));
+ diffuseColor.rgb=mix(diffuseColor.rgb,diffuseColor.rgb*(.72+.3*soil+.18*mottled),jungle);
+ diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.17,.115,.052),litter*jungle*.45*detailFade);
+
  `,
       );
   };
@@ -81,6 +101,13 @@ export function biomeColor(
   else if (shore < 34 && h < 6) c.set(mud ? "#71734a" : "#ead5a0");
   else if (slope > 1.1) c.set("#a29372");
   else c.set("#535637");
+  const w = tonsaiWeight(x, z);
+  if (w > 0 && h > 0.2 && slope < 1.1) {
+    const soil = new T.Color("#5e5136");
+    const blend = Math.max(0, Math.min(1, (shore - 31) / 23));
+    c.lerp(soil, blend * w);
+    if (h < 1.6) c.lerp(new T.Color("#a49571"), w * 0.4);
+  }
   c.offsetHSL(n * 0.15, n, 0.02 + n);
   return c;
 }

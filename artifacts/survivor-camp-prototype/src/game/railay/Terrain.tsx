@@ -1,3 +1,4 @@
+import { TONSAI_KARSTS, rockInterior } from "./tonsai/domain";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as T from "three";
@@ -11,9 +12,22 @@ import {
   isMud,
   chunkLod,
 } from "./terrain";
-import { KARSTS, CAVE, LAGOON, inside, noise, type P } from "./geography";
+import {
+  KARSTS,
+  CAVE,
+  LAGOON,
+  inside,
+  edgeDistance,
+  noise,
+  type P,
+} from "./geography";
 import { groundMaterial, cliffMaterial, biomeColor } from "./materials";
-export function makeChunk(x: number, z: number, stride: number) {
+export function makeChunk(
+  x: number,
+  z: number,
+  stride: number,
+  tonsaiReady = false,
+) {
   const n = GRID.chunk / (GRID.step * stride),
     ps: number[] = [],
     cs: number[] = [],
@@ -25,7 +39,16 @@ export function makeChunk(x: number, z: number, stride: number) {
         wz = z + j * GRID.step * stride,
         gi = Math.round((wx - GRID.min) / GRID.step),
         gj = Math.round((wz - GRID.min) / GRID.step),
-        h = gridHeight(gi, gj);
+        rawHeight = gridHeight(gi, gj),
+        h =
+          tonsaiReady &&
+          TONSAI_KARSTS.some((k) => edgeDistance(wx, wz, k.outline) < 9)
+            ? Math.min(
+                rawHeight,
+                0.04 +
+                  Math.min(5.8, Math.max(0, shores[gj * SIZE + gi]!) * 0.065),
+              )
+            : rawHeight;
       ps.push(wx, h, wz);
       const c = biomeColor(
         wx,
@@ -40,6 +63,14 @@ export function makeChunk(x: number, z: number, stride: number) {
   for (let j = 0; j < n; j++)
     for (let i = 0; i < n; i++) {
       const a = j * (n + 1) + i;
+      if (
+        tonsaiReady &&
+        rockInterior(
+          x + (i + 0.5) * GRID.step * stride,
+          z + (j + 0.5) * GRID.step * stride,
+        )
+      )
+        continue;
       ix.push(a, a + n + 1, a + 1, a + 1, a + n + 1, a + n + 2);
     }
   // Matching outer edge vertices plus down skirts prevent mixed-LOD cracks.
@@ -77,15 +108,20 @@ function Chunk({
   z,
   material,
   low,
+  tonsaiReady,
 }: {
   x: number;
   z: number;
   material: T.Material;
   low: boolean;
+  tonsaiReady: boolean;
 }) {
   const [lod, setLod] = useState(2),
     time = useRef(0);
-  const g = useMemo(() => makeChunk(x, z, lod), [x, z, lod]);
+  const g = useMemo(
+    () => makeChunk(x, z, lod, tonsaiReady),
+    [x, z, lod, tonsaiReady],
+  );
   useEffect(() => () => g.dispose(), [g]);
   useFrame(({ camera }, dt) => {
     time.current += dt;
@@ -186,7 +222,13 @@ export function makeCliff(k: (typeof KARSTS)[number], proxy = false) {
   g.computeVertexNormals();
   return g;
 }
-export function RailayTerrain({ low }: { low: boolean }) {
+export function RailayTerrain({
+  low,
+  tonsaiReady = false,
+}: {
+  low: boolean;
+  tonsaiReady?: boolean;
+}) {
   const mat = useMemo(groundMaterial, []),
     rock = useMemo(() => {
       const m = cliffMaterial();
@@ -194,7 +236,7 @@ export function RailayTerrain({ low }: { low: boolean }) {
       return m;
     }, []);
   const cliffDefs = [
-    ...KARSTS,
+    ...KARSTS.filter((k) => !TONSAI_KARSTS.includes(k)),
     { id: "lagoon-rim", outline: LAGOON, height: 95, seed: 91 },
   ];
   const cliffs = useMemo(() => cliffDefs.map((k) => makeCliff(k)), []);
@@ -227,7 +269,13 @@ export function RailayTerrain({ low }: { low: boolean }) {
     <group name="railay-terrain">
       <group>
         {chunks.map((c) => (
-          <Chunk key={`${c.x},${c.z}`} {...c} material={mat} low={low} />
+          <Chunk
+            key={`${c.x},${c.z}`}
+            {...c}
+            material={mat}
+            low={low}
+            tonsaiReady={tonsaiReady}
+          />
         ))}
       </group>
       {cameraCliffs.map((g, i) => (

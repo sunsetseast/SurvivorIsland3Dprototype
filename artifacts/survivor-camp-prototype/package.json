@@ -18,7 +18,10 @@
     "qa:heroes": "node scripts/hero-review.mjs",
     "qa:railay": "node scripts/railay-qa.mjs",
     "qa:railay-loading": "node scripts/railay-loading-qa.mjs",
-    "world:bake": "node --import tsx scripts/bake-railay.mjs"
+    "world:bake": "node --import tsx scripts/bake-railay.mjs",
+    "qa:tonsai": "node scripts/tonsai-qa.mjs",
+    "qa:tonsai-gameplay": "node scripts/tonsai-gameplay-qa.mjs",
+    "qa:tonsai-loading": "node scripts/tonsai-loading-qa.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

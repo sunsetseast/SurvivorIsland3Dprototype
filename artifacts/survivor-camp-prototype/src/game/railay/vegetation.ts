@@ -1,3 +1,4 @@
+import { inTonsai } from "./tonsai/domain";
 import * as T from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { COAST, edgeDistance, trailDistance, noise } from "./geography";
@@ -39,7 +40,7 @@ export function plantsInChunk(x: number, z: number, low: boolean) {
         s = slopeAt(px, pz),
         d = edgeDistance(px, pz, COAST),
         td = trailDistance(px, pz);
-      if (h < 0.5 || s > 1.1 || td < 4 || h > 240) continue;
+      if (inTonsai(px, pz) || h < 0.5 || s > 1.1 || td < 4 || h > 240) continue;
       if (isMud(px, pz) && h < 4.8 && d < 65)
         add(px, pz, "mangrove", 0.8 + r() * 0.7);
       else if (d > 23 && d < 110 && h < 7 && r() < 0.65)
@@ -54,6 +55,7 @@ export function plantsInChunk(x: number, z: number, low: boolean) {
       pz = z + r() * 300,
       h = heightAt(px, pz);
     if (
+      !inTonsai(px, pz) &&
       h > 2 &&
       h < 190 &&
       slopeAt(px, pz) < 0.7 &&

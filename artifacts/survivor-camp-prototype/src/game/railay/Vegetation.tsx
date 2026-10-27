@@ -119,7 +119,7 @@ function Patch({
     </group>
   );
 }
-function useFoliageTextures() {
+export function useFoliageTextures() {
   const fallback = useMemo(
     () =>
       [0, 1].map(() => {
