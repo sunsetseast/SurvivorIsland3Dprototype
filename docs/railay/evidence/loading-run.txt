@@ -1,0 +1,11 @@
+REQUEST script http://127.0.0.1:5197/src/assets/railay/broadleaf.png?import&url
+REQUEST script http://127.0.0.1:5197/src/assets/railay/fern.png?import&url
+REQUEST script http://127.0.0.1:5197/src/assets/railay/geology.glb?import&url
+REQUEST fetch http://127.0.0.1:5197/src/assets/railay/geology.glb
+BLOCK http://127.0.0.1:5197/src/assets/railay/geology.glb
+REQUEST image http://127.0.0.1:5197/src/assets/railay/broadleaf.png
+BLOCK http://127.0.0.1:5197/src/assets/railay/broadleaf.png
+REQUEST image http://127.0.0.1:5197/src/assets/railay/fern.png
+BLOCK http://127.0.0.1:5197/src/assets/railay/fern.png
+RESULT {"blocked":["http://127.0.0.1:5197/src/assets/railay/geology.glb","http://127.0.0.1:5197/src/assets/railay/broadleaf.png","http://127.0.0.1:5197/src/assets/railay/fern.png"],"result":{"fallback":true,"ready":false,"stats":{"calls":121,"triangles":571466,"geometries":55,"textures":4,"programs":7,"quality":"high"}},"errors":["Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED"]}
+Loading fallback QA passed

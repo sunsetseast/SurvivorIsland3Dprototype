@@ -16,7 +16,7 @@ const safe = (side: string) => `max(12px, env(safe-area-inset-${side}))`;
 const JOY = 112,
   KNOB = 46;
 
-function Joystick() {
+export function Joystick() {
   const id = useRef<number | null>(null);
   const [k, setK] = useState({ x: 0, y: 0 });
   useEffect(() => {
@@ -92,7 +92,7 @@ function Joystick() {
   );
 }
 
-function RunButton() {
+export function RunButton() {
   const [, tick] = useState(0);
   useEffect(() => {
     const id = setInterval(() => tick((n) => n + 1), 120);
@@ -128,7 +128,7 @@ function RunButton() {
   );
 }
 
-function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
+export function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
   const id = useRef<number | null>(null);
   const last = useRef({ x: 0, y: 0 });
   const end = (e: React.PointerEvent) => {

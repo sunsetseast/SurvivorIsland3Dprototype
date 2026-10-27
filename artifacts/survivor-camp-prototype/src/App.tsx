@@ -7,6 +7,12 @@ import { dbg, input, clearInput as releaseInput } from "@/game/state";
 import { TribalOverlay } from "@/game/tribal/TribalIntro";
 import { camp } from "@/game/CampRuntime";
 
+const IslandScene = lazy(() =>
+  import("@/game/railay/IslandScene").then((m) => ({ default: m.IslandScene })),
+);
+const IslandHud = lazy(() =>
+  import("@/game/railay/IslandHud").then((m) => ({ default: m.IslandHud })),
+);
 const TribalScene = lazy(() =>
   import("@/game/tribal/TribalScene").then((m) => ({ default: m.TribalScene })),
 );
@@ -20,8 +26,19 @@ const keyMap = [
 ];
 
 function App() {
-  const [mode, setMode] = useState<"menu" | "camp" | "tribal">("menu");
-  const enter = (next: "menu" | "camp" | "tribal") => {
+  const [mode, setMode] = useState<"menu" | "camp" | "tribal" | "railay">(
+    "menu",
+  );
+  const [low, setLow] = useState(
+    () =>
+      new URLSearchParams(location.search).get("quality") === "low" ||
+      navigator.hardwareConcurrency <= 4,
+  );
+  const [overview, setOverview] = useState(false);
+  const [islandReady, setIslandReady] = useState(false);
+  const enter = (next: "menu" | "camp" | "tribal" | "railay") => {
+    setOverview(false);
+    setIslandReady(false);
     releaseInput();
     input.pitch = 0.34;
     dbg.resetRequested = false;
@@ -135,24 +152,54 @@ function App() {
         {mode !== "menu" && (
           <Canvas
             key={`canvas-${mode}`}
-            shadows
-            dpr={[1, 1.5]}
+            frameloop={mode === "railay" && overview ? "demand" : "always"}
+            shadows={mode !== "railay"}
+            dpr={mode === "railay" && low ? 1 : [1, 1.5]}
             gl={{ antialias: true, powerPreference: "high-performance" }}
             camera={{
               fov: 55,
               near: 0.2,
-              far: 200,
+              far: mode === "railay" ? 6500 : 200,
               position: mode === "tribal" ? [0, 38, 9] : [0, 6, 0],
             }}
             style={{ pointerEvents: "none" }}
           >
             <Suspense fallback={null}>
-              {mode === "tribal" ? <TribalScene /> : <Scene />}
+              {mode === "railay" ? (
+                <IslandScene
+                  low={low}
+                  overview={overview}
+                  onReady={() => setIslandReady(true)}
+                />
+              ) : mode === "tribal" ? (
+                <TribalScene />
+              ) : (
+                <Scene />
+              )}
             </Suspense>
           </Canvas>
         )}
+        {mode === "railay" && !islandReady && (
+          <div className="island-loading" role="status">
+            Preparing the Railay peninsula…
+          </div>
+        )}
         {mode !== "menu" &&
-          (mode === "tribal" ? (
+          (mode === "railay" ? (
+            <Suspense
+              fallback={
+                <div className="island-loading">Preparing the peninsula…</div>
+              }
+            >
+              <IslandHud
+                onMenu={() => enter("menu")}
+                low={low}
+                setLow={setLow}
+                overview={overview}
+                setOverview={setOverview}
+              />
+            </Suspense>
+          ) : mode === "tribal" ? (
             <TribalOverlay onMenu={() => enter("menu")} />
           ) : (
             <Hud onMenu={() => enter("menu")} />
@@ -173,6 +220,13 @@ function App() {
                 <br />
                 Explore the forgotten island sanctuary.
               </p>
+              <button
+                data-testid="explore-railay"
+                className="sanctuary-primary"
+                onClick={() => enter("railay")}
+              >
+                Explore Island <span>→</span>
+              </button>
               <button
                 data-testid="explore-tribal"
                 className="sanctuary-primary"

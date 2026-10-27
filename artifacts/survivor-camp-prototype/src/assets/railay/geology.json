@@ -1,0 +1,15 @@
+{
+  "generator": "tools/blender/railay.py",
+  "blender": "4.5.3 LTS",
+  "sha256": "46b389eceff12e4fa604e3205d54247162f7db34eca57702d06970c595d3788e",
+  "bytes": 161584,
+  "sourceSha256": "d260d09c95055ad7562bd3f7f32d2d85d740f6362101973f353f72fc686c3dde",
+  "license": "MIT; original procedural art",
+  "modules": [
+    "karst-shelter",
+    "talus-0",
+    "talus-1",
+    "talus-2",
+    "stalactite-cluster"
+  ]
+}
