@@ -1,0 +1,60 @@
+$ node --import tsx --test tests/*.test.mjs
+✔ 0 attendees share exactly 0 unique furniture, collision, torch and cinematic anchors (7.65096ms)
+✔ 1 attendees share exactly 1 unique furniture, collision, torch and cinematic anchors (5.461574ms)
+✔ 4 attendees share exactly 4 unique furniture, collision, torch and cinematic anchors (5.978132ms)
+✔ 5 attendees share exactly 5 unique furniture, collision, torch and cinematic anchors (1.861649ms)
+✔ 7 attendees share exactly 7 unique furniture, collision, torch and cinematic anchors (5.107617ms)
+✔ 8 attendees share exactly 8 unique furniture, collision, torch and cinematic anchors (5.58713ms)
+✔ 10 attendees share exactly 10 unique furniture, collision, torch and cinematic anchors (1.488253ms)
+✔ 12 attendees share exactly 12 unique furniture, collision, torch and cinematic anchors (2.478897ms)
+✔ invalid rosters are rejected atomically; count helper handles numeric edge cases (1.728331ms)
+✔ five hero meshes have finite surface masks, distinct silhouettes and bounded draw/triangle budgets (230.961256ms)
+✔ presence is deterministic, desynchronised and shortest-arc heading eases across pi (2.617679ms)
+✔ seated soles meet ground for all hero heights and every stool tier (2.243547ms)
+Certified 256 directed spot routes
+Certified 22978 physical travel frames
+{"activities":{"4":["socialize","observe","chores","explore","rest","collect_water","private_chat"],"11":["rest","explore","observe","collect_water","socialize","chores","private_chat"],"13":["socialize","explore","collect_water","observe","chores","rest","private_chat"],"18":["observe","socialize","rest","explore","collect_water","chores","private_chat"]},"exchanges":13,"departures":132}
+✔ production snapshots remain byte-identical to the audited source manifest (2.006845ms)
+✔ every major activity spot has a collision-validated path to every other spot (1660.964589ms)
+✔ four contestants physically traverse all five landmarks with no early arrival or teleport (328.912086ms)
+✔ proximity, responses, exit and interrupted intent recover without a false arrival (13.019856ms)
+✔ approaches walk physically, can be accepted/declined and cancel when the player leaves (65.41573ms)
+✔ private meeting knowledge is owner-scoped; movement never grants a witness destination presence (3.312687ms)
+✔ autonomous providers vary activities and decision times, form and leave real groups (1721.304418ms)
+✔ walking stance feet stay planted and articulated legs solve ground targets (1.696854ms)
+✔ actual Blender GLBs contain complete finite Y-up meshes, embedded PBR atlases, and a cheaper fallback (113.181868ms)
+✔ authored decorations reserve a conservative footprint around all ceremony routes (7.632723ms)
+✔ reclaimed ground exposes soil without removing stone from the ceremonial walking lanes (8.267358ms)
+✔ authored prang has a finite, correctly oriented recessed silhouette (23.474868ms)
+✔ environment interests are reachable and practice ballots remain separate from season outcomes (0.94088ms)
+✔ pavement is grounded, finite and continuously covers the courtyard, booth and new exit (154.531058ms)
+✔ locked geography is never mirrored or rotated (1.309037ms)
+✔ arrival route is physically walkable both ways (126.576777ms)
+✔ vote route is physically walkable both ways (77.24563ms)
+✔ exit route is physically walkable both ways (57.76982ms)
+✔ jury route is physically walkable both ways (23.337133ms)
+✔ each contestant can leave a stump into a broad shared aisle (34.621137ms)
+✔ collision substeps prevent tunnelling through fire, tree trunks, walls and furniture (2.978381ms)
+✔ future anchors have unique stable IDs and finite stage/camera coordinates (0.577468ms)
+✔ opening stages drone, ruin detail, Jeff, arrivals, then seated handoff (227.9589ms)
+✔ intimate host, fire and cast proportions retain body clearance (0.450701ms)
+✔ entrance has twelve physical risers, level bridge and continuous landings (1.780429ms)
+✔ ceremony ambience continues after seating and returning to seat is reversible (0.241099ms)
+✔ host can distinguish the five attending faces despite the alternating stagger (0.227428ms)
+✔ scenery footprints protect the complete ceremonial corridor and arrival group width (9.625708ms)
+✔ voting privacy uses the attached pavilion envelope, with both freestanding walls deleted (6.313131ms)
+✔ elimination approaches Jeff, pauses to snuff, then departs by the side apron (232.10051ms)
+✔ front route crosses frontage opening and reaches writing mark; east side is closed (27.9304ms)
+✔ portrait requires table side, facing and inner threshold; exit has hysteresis (0.474516ms)
+✔ manual/stationary inspection retains yaw; moving follow takes shortest turn behind heading (0.283722ms)
+✔ practice ballot folds/deposits once, refuses duplicates; cancel releases portrait (0.330582ms)
+✔ focus/scene release clears movement, run and camera without relying on keyup (2.378808ms)
+✔ real Blender close-up assets have finite meshes, compatible mouth and bounded cost (51.190413ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 48
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11713.500003

@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -10,12 +10,21 @@ import {
   type Point,
 } from "./world";
 import { Survivor } from "./Survivor";
-import { dbg, input } from "./state";
+import { dbg, input, clearInput } from "./state";
 import { camp } from "./CampRuntime";
 import { distance as physicalDistance } from "./navigation";
 
+import {
+  followYaw,
+  movementVector,
+  votingZone,
+  ease,
+} from "./cameraController";
+import { VOTING } from "./tribal/votingAnchors";
+
 /** Locomotion and camera are independent from the art/rig and simulation. */
 export type ExplorationWorld = {
+  voting?: { suppressed: () => boolean; release: () => void };
   standFrom?: Point & { facing: number };
   controlsLocked?: () => boolean;
   spawn: Point;
@@ -54,15 +63,22 @@ export function Player({
     entryTime: 0,
     velocity: 0,
     initialized: false,
+    firstFrame: true,
     fpsTime: 0,
     fpsFrames: 0,
     obstacleTime: 10,
     obstacles: [] as THREE.Object3D[],
+    moving: false,
+    moveYaw: environment.yaw,
+    voting: false,
+    blend: 0,
   });
   const [, getKeys] = useKeyboardControls();
   const tools = useMemo(
     () => ({
       target: new THREE.Vector3(),
+      look: new THREE.Vector3(),
+      smoothLook: new THREE.Vector3(),
       desired: new THREE.Vector3(),
       direction: new THREE.Vector3(),
       camera: new THREE.Vector3(),
@@ -74,19 +90,36 @@ export function Player({
     [],
   );
 
+  useEffect(
+    () => () => {
+      clearInput();
+      dbg.votingBlend = 0;
+    },
+    [],
+  );
+
   useFrame(({ camera, scene }, rawDt) => {
     const dt = Math.min(Math.max(rawDt, 0.001), 0.05);
     const s = state.current;
+    if (s.firstFrame) {
+      input.yaw = environment.yaw;
+      s.firstFrame = false;
+    }
     if (dbg.teleportRequested) {
       s.pos = { ...dbg.teleportRequested };
       s.entryTime = 1;
       dbg.teleportRequested = null;
       s.velocity = 0;
+      s.voting = false;
+      s.blend = 0;
       s.initialized = false;
     }
-    if (!s.initialized && s.fpsFrames === 0) input.yaw = environment.yaw;
     if (dbg.resetRequested) {
       dbg.resetRequested = false;
+      clearInput();
+      s.voting = false;
+      s.blend = 0;
+      s.moving = false;
       s.entryTime = 1;
       s.pos = { ...(environment.resetSpawn || environment.spawn) };
       s.velocity = 0;
@@ -138,10 +171,11 @@ export function Player({
       pressure ? 12 : 18,
       dt,
     );
-    const sy = Math.sin(input.yaw),
-      cy = Math.cos(input.yaw);
-    const wx = -sy * iy + cy * ix,
-      wz = -cy * iy - sy * ix;
+    // Freeze the movement basis for one continuous stick/key gesture. Auto-follow
+    // and right-thumb inspection cannot feed their yaw back into diagonal/backwards travel.
+    if (pressure > 0 && !s.moving) s.moveYaw = input.yaw;
+    s.moving = pressure > 0;
+    const { x: wx, z: wz } = movementVector(ix, iy, s.moveYaw);
     let traveled = 0;
     if (pressure > 0 && s.velocity > 0.02) {
       const len = Math.hypot(wx, wz) || 1;
@@ -181,9 +215,34 @@ export function Player({
         Math.atan2(Math.sin(face - s.face), Math.cos(face - s.face)) *
         (1 - Math.exp(-dt * 8));
     }
+    input.lookGrace = Math.max(0, input.lookGrace - dt);
+    input.yaw = followYaw(
+      input.yaw,
+      s.face,
+      actualSpeed > 0.08,
+      input.looking,
+      input.lookGrace,
+      dt,
+    );
+    const voting = environment.voting;
+    if (voting) {
+      if (
+        Math.hypot(s.pos.x - VOTING.writing.x, s.pos.z - VOTING.writing.z) > 1.7
+      )
+        voting.release();
+      s.voting =
+        !voting.suppressed() &&
+        votingZone(s.pos.x, s.pos.z, s.face, s.voting, VOTING.writing);
+    }
+    s.blend += ((s.voting ? 1 : 0) - s.blend) * ease(dt, 5.5);
+    if (s.blend < 0.001) s.blend = 0;
+    if (s.blend > 0.999) s.blend = 1;
+    const sy = Math.sin(input.yaw),
+      cy = Math.cos(input.yaw);
     root.current?.position.set(s.pos.x, y, s.pos.z);
     if (heading.current) heading.current.rotation.y = s.face;
 
+    const cameraStart = performance.now();
     s.obstacleTime += dt;
     if (s.obstacleTime > 1) {
       s.obstacles = [];
@@ -222,8 +281,22 @@ export function Player({
         t.target.z - (dx / len) * 4.5 * side - (dz / len) * 0.5,
       );
     }
+    t.look.copy(t.target);
+    t.look.y += 0.35;
+    if (isCamp && camp.conversation) t.look.y -= 1.25;
+    if (s.blend > 0) {
+      t.desired.lerp(
+        t.probe.set(VOTING.camera.x, VOTING.camera.y, VOTING.camera.z),
+        s.blend,
+      );
+      t.look.lerp(
+        t.probe.set(s.pos.x, y + (VOTING.look.y - VOTING.writing.y), s.pos.z),
+        s.blend,
+      );
+    }
     if (!s.initialized) {
       t.camera.copy(standing ? camera.position : t.desired);
+      t.smoothLook.copy(t.look);
       s.initialized = true;
     }
     t.camera.lerp(t.desired, 1 - Math.exp(-dt * 9));
@@ -263,11 +336,17 @@ export function Player({
       camera.position.y,
       groundHeight(camera.position.x, camera.position.z) + 0.3,
     );
-    t.probe.copy(t.target);
-    t.probe.y += 0.35;
-    // Compose faces in the upper half, above the landscape dialogue deck.
-    if (isCamp && camp.conversation) t.probe.y -= 1.25;
-    camera.lookAt(t.probe);
+    t.smoothLook.lerp(t.look, ease(dt, 9));
+    camera.lookAt(t.smoothLook);
+    // Portrait uses the live viewport aspect, including visualViewport/keyboard resize.
+    if ((camera as THREE.PerspectiveCamera).isPerspectiveCamera) {
+      const c = camera as THREE.PerspectiveCamera;
+      const fov = 55 + (58 - 55) * s.blend;
+      if (Math.abs(c.fov - fov) > 0.01) {
+        c.fov = fov;
+        c.updateProjectionMatrix();
+      }
+    }
     // Keep smoothing state on the safe side of a wall; recover outward gently.
     t.camera.copy(camera.position);
     s.fpsTime += rawDt;
@@ -278,6 +357,19 @@ export function Player({
       s.fpsFrames = 0;
     }
     Object.assign(dbg, {
+      face: s.face,
+      cameraOwner:
+        s.blend > 0 && s.blend < 1
+          ? "voting-transition"
+          : s.voting
+            ? "voting-portrait"
+            : isCamp && camp.conversation
+              ? "dialogue"
+              : input.looking || input.lookGrace > 0
+                ? "manual-look"
+                : "follow",
+      votingBlend: s.blend,
+      cameraCpuMs: performance.now() - cameraStart,
       x: s.pos.x,
       y,
       z: s.pos.z,

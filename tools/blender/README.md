@@ -44,3 +44,14 @@ The sanctuary is an original fictional environment with a coherent central Thai 
 - [Smithsonian National Museum of Asian Art: scaly naga fragment](https://asia-archive.si.edu/object/FSC-P-5836/) — Sukhothai ware architectural ornament and scale language.
 
 Elephants, naga, lotus reliefs and roof ornament are original stylized carvings. No sacred figure has been copied. This is a focused programmatic technical-art kit; scanned surfaces, production sculpting and photoreal character art remain separate future work.
+
+## Voting close-up props
+
+`voting_props.py` is a separate seeded generator using the same Blender **4.5.3 LTS**, metre scale and `(X,-Z,Y)` axis adapter. Run from repository root:
+
+```sh
+/path/to/blender-4.5.3-linux-x64/blender --background --factory-startup --python-exit-code 1 --python tools/blender/voting_props.py
+pnpm --filter @workspace/survivor-camp-prototype test
+```
+
+It produces the packed editable `source/voting-props.blend`, original `source/voting-props-atlas.png`, runtime `voting-props.glb` and `voting-props.json` in the sanctuary asset directory. The four named modules are independently placed by `votingAnchors.ts`. The single 512² atlas material uses padded UV cells and exported vertex wear; the validator checks finite attributes, UV padding, generator/runtime hashes, module names, triangle/download budgets and ballot/opening compatibility. Runtime loading has procedural fallback props and disposes geometry, material and texture resources on exit. The urn's inner wall is real geometry; its lid rests beside the vessel, with no duplicate host urn. Re-run the generator after edits; do not hand-edit its hash manifest.

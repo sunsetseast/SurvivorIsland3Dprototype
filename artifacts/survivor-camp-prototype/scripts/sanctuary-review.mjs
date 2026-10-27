@@ -63,12 +63,30 @@ try {
     const f = await import("/node_modules/.vite/deps/@react-three_fiber.js");
     const s = f._roots.get(document.querySelector("canvas")).store.getState();
     s.setFrameloop("never");
-    window.__assetReview = { s, render: s.gl.render.bind(s.gl) };
+    window.__assetReview = { s, f, render: s.gl.render.bind(s.gl) };
   });
   if (!process.env.SANCTUARY_BASELINE)
     await page.waitForFunction(() =>
       window.__assetReview.s.scene.getObjectByName("sanctuary-assets-ready"),
     );
+  report.updateCpu = await page.evaluate(() => {
+    const { s, f, render } = window.__assetReview;
+    s.gl.render = () => {};
+    const cpu = [],
+      start = s.clock.elapsedTime;
+    for (let i = 1; i <= 180; i++) {
+      const t = performance.now();
+      f.advance(start + i / 60, false, s);
+      cpu.push(performance.now() - t);
+    }
+    s.gl.render = render;
+    cpu.sort((a, b) => a - b);
+    return {
+      medianMs: cpu[90],
+      p95Ms: cpu[171],
+      note: "Whole scene update callbacks without WebGL rendering; host CPU, not device FPS",
+    };
+  });
   const cameras = await page.evaluate(
     async () => (await import("/src/game/tribal/layout.ts")).TRIBAL.cameras,
   );
@@ -86,7 +104,7 @@ try {
     exit: cameras.lastWalk || { position: [16, 2, 9], target: [24, 2, 9] },
     guardian: { position: [-6.5, 2.7, -10], target: [-7.5, 1.8, -16.3] },
   };
-  const names = process.env.SANCTUARY_BASELINE
+  const names = (process.env.SANCTUARY_BASELINE || process.env.SANCTUARY_METRICS_ONLY)
     ? ["sanctuary", "guardian", "voting-roof"]
     : process.env.SANCTUARY_LOW
       ? ["sanctuary", "voting-roof"]
@@ -120,7 +138,18 @@ try {
           if (o.castShadow) shadowLights++;
         }
       });
+      const unique = new Set();
+      let bufferBytes = 0;
+      s.scene.traverse((o) => {
+        if (o.isMesh) unique.add(o.geometry);
+      });
+      for (const g of unique) {
+        if (g.index) bufferBytes += g.index.array.byteLength;
+        for (const a of Object.values(g.attributes))
+          bufferBytes += a.array.byteLength;
+      }
       return {
+        sceneBufferBytes: bufferBytes,
         calls: s.gl.info.render.calls,
         triangles: s.gl.info.render.triangles,
         textures: s.gl.info.memory.textures,
@@ -132,7 +161,7 @@ try {
         samplesMs: samples,
       };
     }, shots[name]);
-    await page.screenshot({
+    if(!process.env.SANCTUARY_METRICS_ONLY) await page.screenshot({
       path: path.join(output, name + ".jpg"),
       type: "jpeg",
       quality: 90,
@@ -145,7 +174,7 @@ try {
     });
     console.log("Captured", name, data.calls, data.triangles);
   }
-  if (!process.env.SANCTUARY_BASELINE && !process.env.SANCTUARY_LOW)
+  if (!process.env.SANCTUARY_BASELINE && !process.env.SANCTUARY_LOW && !process.env.SANCTUARY_METRICS_ONLY)
     for (const viewport of [
       { width: 375, height: 812 },
       { width: 430, height: 932 },

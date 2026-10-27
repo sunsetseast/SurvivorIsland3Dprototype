@@ -510,3 +510,12 @@ body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none
 .tribal-inspect input {width:100%;padding:10px;background:#e6d5b0;color:#241c14;border:1px solid #ae8c58;border-radius:4px;margin-bottom:12px;font-size:16px;}
 .tribal-inspect .btn {margin:4px 8px 4px 0;padding:9px 12px;}
 .tribal-inspect .btn:disabled {opacity:.4;}
+
+/* Keep the voting portrait unobscured, even above a mobile software keyboard. */
+.writing-backdrop { background:transparent !important; pointer-events:none; }
+.tribal-inspect.writing-inspect { position:fixed; left:auto; top:auto; right:max(12px,env(safe-area-inset-right)); bottom:max(12px,calc(100dvh - var(--writing-height,100dvh) + 12px)); transform:none; width:252px; max-height:calc(var(--writing-height,100dvh) - 24px); overflow:auto; padding:12px; pointer-events:auto; }
+.writing-inspect h2 { font-size:16px; margin:0 0 4px; }
+.writing-inspect p { font-size:11px; margin:4px 0 8px; }
+.writing-inspect form { display:grid; gap:6px; }
+.writing-inspect input { min-width:0; font-size:16px; }
+.writing-inspect button { padding:6px 10px; }
