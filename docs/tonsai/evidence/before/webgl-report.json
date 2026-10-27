@@ -1,0 +1,393 @@
+{
+  "renderer": "Chrome 142 / ANGLE SwiftShader, host software WebGL; physical iPhone Safari UNVERIFIED",
+  "errors": [],
+  "captures": [
+    {
+      "name": "01-aerial",
+      "view": {
+        "p": [
+          -1090,
+          560,
+          -250
+        ],
+        "t": [
+          -540,
+          30,
+          -840
+        ]
+      },
+      "hostRenderSubmissionMs": 2.8999999999068677,
+      "calls": 175,
+      "triangles": 628624,
+      "geometries": 108,
+      "textures": 5,
+      "programs": 8,
+      "quality": "high"
+    },
+    {
+      "name": "02-aerial-from-sea",
+      "view": {
+        "p": [
+          -1330,
+          290,
+          -650
+        ],
+        "t": [
+          -490,
+          50,
+          -860
+        ]
+      },
+      "hostRenderSubmissionMs": 8.199999999953434,
+      "calls": 171,
+      "triangles": 545056,
+      "geometries": 113,
+      "textures": 5,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "03-beachfront",
+      "view": {
+        "p": [
+          -720,
+          8,
+          -860
+        ],
+        "t": [
+          -410,
+          25,
+          -630
+        ]
+      },
+      "hostRenderSubmissionMs": 6.300000000046566,
+      "calls": 185,
+      "triangles": 657084,
+      "geometries": 121,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "04-inland",
+      "view": {
+        "p": [
+          -565,
+          5,
+          -683
+        ],
+        "t": [
+          -370,
+          65,
+          -785
+        ]
+      },
+      "hostRenderSubmissionMs": 2.5,
+      "calls": 141,
+      "triangles": 618400,
+      "geometries": 120,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "05-cliff-hero",
+      "view": {
+        "p": [
+          -535,
+          13,
+          -697
+        ],
+        "t": [
+          -336,
+          68,
+          -649
+        ]
+      },
+      "hostRenderSubmissionMs": 2.5,
+      "calls": 139,
+      "triangles": 558176,
+      "geometries": 120,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "08-southern-headland",
+      "view": {
+        "p": [
+          -530,
+          70,
+          -290
+        ],
+        "t": [
+          -305,
+          30,
+          -488
+        ]
+      },
+      "hostRenderSubmissionMs": 2.599999999976717,
+      "calls": 146,
+      "triangles": 559380,
+      "geometries": 117,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "09-inland-trail",
+      "view": {
+        "p": [
+          -439,
+          9,
+          -807
+        ],
+        "t": [
+          -394,
+          10,
+          -865
+        ]
+      },
+      "hostRenderSubmissionMs": 2.099999999976717,
+      "calls": 112,
+      "triangles": 590590,
+      "geometries": 115,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "10-canopy",
+      "view": {
+        "p": [
+          -590,
+          80,
+          -1070
+        ],
+        "t": [
+          -475,
+          10,
+          -1040
+        ]
+      },
+      "hostRenderSubmissionMs": 2.5,
+      "calls": 150,
+      "triangles": 731066,
+      "geometries": 113,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "11-understory",
+      "view": {
+        "p": [
+          -542,
+          9,
+          -974
+        ],
+        "t": [
+          -527,
+          10,
+          -1000
+        ]
+      },
+      "hostRenderSubmissionMs": 2,
+      "calls": 101,
+      "triangles": 607574,
+      "geometries": 114,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "13-forest-rock",
+      "view": {
+        "p": [
+          -470,
+          10,
+          -850
+        ],
+        "t": [
+          -357,
+          45,
+          -838
+        ]
+      },
+      "hostRenderSubmissionMs": 2.299999999930151,
+      "calls": 135,
+      "triangles": 639280,
+      "geometries": 114,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "14-shallows",
+      "view": {
+        "p": [
+          -760,
+          30,
+          -724
+        ],
+        "t": [
+          -530,
+          1,
+          -705
+        ]
+      },
+      "hostRenderSubmissionMs": 2.799999999930151,
+      "calls": 161,
+      "triangles": 615938,
+      "geometries": 116,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "16-iphone-landscape",
+      "view": {
+        "p": [
+          -565,
+          5,
+          -683
+        ],
+        "t": [
+          -370,
+          65,
+          -785
+        ],
+        "mobile": true
+      },
+      "hostRenderSubmissionMs": 2.400000000023283,
+      "calls": 184,
+      "triangles": 709866,
+      "geometries": 125,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "17-low-quality",
+      "view": {
+        "p": [
+          -1090,
+          560,
+          -250
+        ],
+        "t": [
+          -540,
+          30,
+          -840
+        ],
+        "low": true
+      },
+      "hostRenderSubmissionMs": 3.199999999953434,
+      "calls": 187,
+      "triangles": 443404,
+      "geometries": 124,
+      "textures": 6,
+      "programs": 9,
+      "quality": "low"
+    },
+    {
+      "name": "06-limestone-close",
+      "view": {
+        "p": [
+          -443,
+          30,
+          -687
+        ],
+        "t": [
+          -410,
+          30,
+          -710
+        ]
+      },
+      "hostRenderSubmissionMs": 2.699999999953434,
+      "calls": 130,
+      "triangles": 557650,
+      "geometries": 123,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "07-overhang",
+      "view": {
+        "p": [
+          -490,
+          6,
+          -670
+        ],
+        "t": [
+          -360,
+          32,
+          -650
+        ]
+      },
+      "hostRenderSubmissionMs": 2,
+      "calls": 135,
+      "triangles": 552548,
+      "geometries": 124,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "18-sea-from-beach",
+      "view": {
+        "p": [
+          -540,
+          6,
+          -820
+        ],
+        "t": [
+          -850,
+          0,
+          -600
+        ]
+      },
+      "hostRenderSubmissionMs": 1.3000000000465661,
+      "calls": 40,
+      "triangles": 235468,
+      "geometries": 126,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "12-palms",
+      "view": {
+        "p": [
+          -700,
+          6,
+          -817
+        ],
+        "t": [
+          -730,
+          17,
+          -856
+        ]
+      },
+      "hostRenderSubmissionMs": 2.6000000000931323,
+      "calls": 62,
+      "triangles": 335364,
+      "geometries": 111,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    }
+  ],
+  "performance": [],
+  "checks": [
+    "Live minimap and expandable geographical map open / close correctly."
+  ],
+  "initialEntryHostWallMs": 4482,
+  "resourceStats": {
+    "geometryBytes": 6825260,
+    "textureBytesEstimate": 1747626.6666666665,
+    "note": "CPU attributes; uncompressed mip estimate, not driver allocation"
+  },
+  "baselineCommit": "24c7c9dbc4b1b35086b32eb3293a7247d7230de1"
+}

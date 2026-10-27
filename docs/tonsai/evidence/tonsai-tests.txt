@@ -1,0 +1,15 @@
+✔ Tonsai uses the unchanged original world coastline and existing massif footprints (2.195301ms)
+✔ Blender main formations are valid, bounded and independently optimized for low quality (37.068841ms)
+✔ network fallback contains the new volumetric silhouettes, without ring-wall generation (1.182842ms)
+✔ forest candidates are deterministic, use multiple real mesh variants, and low quality is a stable subset (635.566418ms)
+✔ spawn and direct beach movement stay outside rocks and above the water (172.133256ms)
+✔ the complete authored inland route remains traversable through the actual movement solver (27.507781ms)
+✔ low-height collision follows the actual sculpt field, without remote cliff barriers (0.40551ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1353.309883

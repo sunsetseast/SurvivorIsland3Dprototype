@@ -1,0 +1,34 @@
+{
+  "generator": "tools/tonsai/sculpt.py + tools/blender/tonsai.py",
+  "blender": "4.5.3 LTS",
+  "license": "MIT, original procedural/sculpted art",
+  "modules": [
+    {
+      "name": "tonsai-divider-high",
+      "triangles": 105000,
+      "vertices": 52528
+    },
+    {
+      "name": "tonsai-divider-low",
+      "triangles": 33600,
+      "vertices": 16828
+    },
+    {
+      "name": "northwest-wall-high",
+      "triangles": 105000,
+      "vertices": 52530
+    },
+    {
+      "name": "northwest-wall-low",
+      "triangles": 33600,
+      "vertices": 16830
+    }
+  ],
+  "bytes": 6661140,
+  "sha256": "5457c6b486c3ec872f95ba627f30d4de3eefdaf9782d8f1d9e35477729a547b9",
+  "sourceSha256": {
+    "tools/blender/tonsai.py": "da40e8daf6fca1dddb98c9b534c6388a34b6590df40483807a900ba159bace39",
+    "tools/tonsai/sculpt.py": "ee09d6c5e657357d514fafab30a1745b4c9562f05579500aa401d48e331e1585",
+    "tools/tonsai/footprints.json": "d9220a8a099b1886cfb97858800b2189863c3456d4aab4b15d0fb7f36a0e94fd"
+  }
+}

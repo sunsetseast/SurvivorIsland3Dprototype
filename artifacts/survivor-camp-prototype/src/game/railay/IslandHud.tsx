@@ -103,10 +103,10 @@ export function IslandHud({
         </div>
       )}
       {!overview && (
-        <>
+        <div style={{ pointerEvents: "auto" }}>
           <Joystick />
           <RunButton />
-        </>
+        </div>
       )}
       <div className="island-credit">
         Coastline © OpenStreetMap contributors · ODbL

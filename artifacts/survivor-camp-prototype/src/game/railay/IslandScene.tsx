@@ -1,3 +1,7 @@
+import { CoastalSky } from "./tonsai/CoastalSky";
+import { CoastalDetails } from "./tonsai/CoastalDetails";
+import { TonsaiKarsts } from "./tonsai/Karsts";
+import { TropicalForest } from "./tonsai/TropicalForest";
 import { useEffect, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as T from "three";
@@ -91,16 +95,20 @@ export function IslandScene({
   );
   return (
     <>
-      <color attach="background" args={["#a8d8e6"]} />
-      <fog attach="fog" args={["#a8d8e6", 2400, 6000]} />
-      <hemisphereLight args={["#d4f4ff", "#65724a", 1.5]} />
+      <color attach="background" args={["#8fc3d7"]} />
+      <CoastalSky />
+      <fog attach="fog" args={["#8fc3d7", 1600, 5200]} />
+      <hemisphereLight args={["#d2e7eb", "#9b936f", 1.85]} />
       <directionalLight
         position={[-900, 1500, 650]}
-        intensity={2.1}
-        color="#fff1ca"
+        intensity={2.8}
+        color="#fff0d4"
       />
       <group name="railay-world">
-        <RailayTerrain low={low} />
+        <RailayTerrain low={low} tonsaiReady />
+        <TonsaiKarsts low={low} />
+        <TropicalForest low={low} />
+        <CoastalDetails low={low} />
         <MainlandContext />
         <Ocean />
         <Vegetation low={low} />

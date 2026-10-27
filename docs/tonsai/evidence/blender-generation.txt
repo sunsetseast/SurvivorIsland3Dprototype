@@ -1,0 +1,58 @@
+Info: Saved as "tonsai-karsts.blend"
+INFO Draco mesh compression is available, use library at /workspace/scratch/e12446d002d1/tooling/blender-4.5.3-linux-x64/4.5/scripts/addons_core/io_scene_gltf2/libextern_draco.so
+15:08:54 | INFO: Starting glTF 2.0 export
+15:08:54 | WARNING: Mesh tonsai-divider is not valid, and may be exported wrongly
+15:08:54 | INFO: Extracting primitive: tonsai-divider
+15:08:54 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+15:08:54 | INFO: Primitives created: 1
+15:08:54 | WARNING: Mesh tonsai-divider.001 is not valid, and may be exported wrongly
+15:08:54 | INFO: Extracting primitive: tonsai-divider.001
+15:08:54 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+15:08:54 | INFO: Primitives created: 1
+15:08:54 | WARNING: Mesh northwest-wall is not valid, and may be exported wrongly
+15:08:54 | INFO: Extracting primitive: northwest-wall
+15:08:54 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+15:08:55 | INFO: Primitives created: 1
+15:08:55 | WARNING: Mesh northwest-wall.001 is not valid, and may be exported wrongly
+15:08:55 | INFO: Extracting primitive: northwest-wall.001
+15:08:55 | WARNING: The active Vertex Color will not be exported, as it is not used in the node tree of the material
+15:08:55 | INFO: Primitives created: 1
+15:08:55 | INFO: Finished glTF 2.0 export in 0.36831235885620117 s
+
+{
+  "generator": "tools/tonsai/sculpt.py + tools/blender/tonsai.py",
+  "blender": "4.5.3 LTS",
+  "license": "MIT, original procedural/sculpted art",
+  "modules": [
+    {
+      "name": "tonsai-divider-high",
+      "triangles": 105000,
+      "vertices": 52528
+    },
+    {
+      "name": "tonsai-divider-low",
+      "triangles": 33600,
+      "vertices": 16828
+    },
+    {
+      "name": "northwest-wall-high",
+      "triangles": 105000,
+      "vertices": 52530
+    },
+    {
+      "name": "northwest-wall-low",
+      "triangles": 33600,
+      "vertices": 16830
+    }
+  ],
+  "bytes": 6661140,
+  "sha256": "5457c6b486c3ec872f95ba627f30d4de3eefdaf9782d8f1d9e35477729a547b9",
+  "sourceSha256": {
+    "tools/blender/tonsai.py": "da40e8daf6fca1dddb98c9b534c6388a34b6590df40483807a900ba159bace39",
+    "tools/tonsai/sculpt.py": "ee09d6c5e657357d514fafab30a1745b4c9562f05579500aa401d48e331e1585",
+    "tools/tonsai/footprints.json": "d9220a8a099b1886cfb97858800b2189863c3456d4aab4b15d0fb7f36a0e94fd"
+  }
+}
+Blender 4.5.3 LTS (hash 67807e1800cc built 2025-09-09 01:38:15)
+
+Blender quit

@@ -1,0 +1,29 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 680 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/public/index.html                                 1.33 kB │ gzip:     0.57 kB
+dist/public/assets/fern-fWCX6G_p.png                  24.63 kB
+dist/public/assets/canopy-CDYUxL1E.png                36.41 kB
+dist/public/assets/broadleaf-DJo94Nsg.png             44.58 kB
+dist/public/assets/geology-BIPUa6jz.glb              161.58 kB
+dist/public/assets/rock_06_nor_gl_1k-JDIemyFe.jpg    703.28 kB
+dist/public/assets/rock_06_diff_1k-D1Qsa8Fl.jpg      913.68 kB
+dist/public/assets/voting-props-C8V7mVEO.glb       1,819.87 kB
+dist/public/assets/sanctuary-kit-low-Dz1KIqQ9.glb  2,460.07 kB
+dist/public/assets/karsts-4ADEsEYV.glb             6,661.14 kB
+dist/public/assets/sanctuary-kit-BTU5bH4I.glb      6,883.36 kB
+dist/public/assets/index-Ci5BdD65.css                108.10 kB │ gzip:    18.94 kB
+dist/public/assets/IslandHud-BV8IfhxY.js               5.69 kB │ gzip:     2.50 kB
+dist/public/assets/TribalScene-CYKoWr8P.js            42.23 kB │ gzip:    16.67 kB
+dist/public/assets/GLTFLoader-CfZVBr2h.js             44.79 kB │ gzip:    13.53 kB
+dist/public/assets/IslandScene-Sh8MHjlb.js           142.18 kB │ gzip:    57.58 kB
+dist/public/assets/index-DKAakgHK.js               1,310.93 kB │ gzip:   377.74 kB
+dist/public/assets/coastal-CgSXW_dW.js             3,742.27 kB │ gzip: 1,059.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.31s

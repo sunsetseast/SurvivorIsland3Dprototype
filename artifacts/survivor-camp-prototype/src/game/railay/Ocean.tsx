@@ -41,18 +41,23 @@ export function Ocean() {
  void main(){vec2 uv=(world.xz+2100.)/3600.;vec4 data=texture2D(depthMap,uv);float h=data.r*280.-40.;
  if(all(greaterThanEqual(uv,vec2(0.)))&&all(lessThanEqual(uv,vec2(1.)))&&h>.65)discard;
  float inBounds=step(0.,uv.x)*step(0.,uv.y)*step(uv.x,1.)*step(uv.y,1.);float depth=mix(35.,max(.0,-h),inBounds),mud=data.g*inBounds;
- vec3 shallow=mix(vec3(.08,.66,.61),vec3(.23,.38,.28),mud*.8),deep=vec3(.018,.16,.27);
+ vec3 shallow=mix(vec3(.015,.39,.34),vec3(.23,.38,.28),mud*.8),deep=vec3(.009,.115,.22);
  shallow=mix(shallow,vec3(.10,.28,.17),data.b);
  vec3 color=mix(shallow,deep,smoothstep(1.,27.,depth));
  float w=(sin(world.x*.08+time*.85+sin(world.z*.014))+sin(world.z*.09-time*.4))*.5;
  float caustic=pow(max(0.,sin(world.x*.46+sin(world.z*.38)+time*.5)),12.);
  color+=vec3(.04,.10,.085)*caustic*(1.-smoothstep(1.,8.,depth));
- color+=w*.006;float wave=sin(world.x*.11+world.z*.16+time*1.2)*.4+.6;
+ float dx=cos(world.x*.08+time*.85+sin(world.z*.014))*.026;
+ float dz=cos(world.z*.09-time*.4)*.028;
+ vec3 waveNormal=normalize(vec3(-dx,1.,-dz));
+ vec3 eye=normalize(cameraPosition-world);
+ float glint=pow(max(0.,dot(waveNormal,normalize(eye+normalize(vec3(-.45,.83,.32))))),150.);
+ color+=vec3(.23,.24,.17)*glint+ w*.006;float wave=sin(world.x*.11+world.z*.16+time*1.2)*.4+.6;
  float foam=(1.-data.b)*(1.-smoothstep(.0,.6,abs(h+wave*.2)))*(.35+.2*sin(world.x*.8+world.z*.5+time));
  color=mix(color,vec3(.78,.88,.78),foam*.7*inBounds);
  vec3 view=normalize(cameraPosition-world);float fresnel=pow(1.-max(0.,view.y),4.);color=mix(color,vec3(.47,.70,.77),fresnel*.4);
  color=mix(color,vec3(.4,.68,.75),smoothstep(2300.,6200.,distance(cameraPosition,world)));
- gl_FragColor=vec4(color,mix(.52,1.,smoothstep(0.,8.,depth)));#include <tonemapping_fragment>
+ gl_FragColor=vec4(color,mix(.64,1.,smoothstep(0.,8.,depth)));#include <tonemapping_fragment>
  #include <colorspace_fragment>
  }
  `,

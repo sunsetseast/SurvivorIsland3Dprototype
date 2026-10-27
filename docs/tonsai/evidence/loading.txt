@@ -1,0 +1,17 @@
+REQUEST script http://127.0.0.1:5199/src/assets/railay/broadleaf.png?import&url
+REQUEST script http://127.0.0.1:5199/src/assets/railay/fern.png?import&url
+REQUEST script http://127.0.0.1:5199/src/assets/railay/geology.glb?import&url
+BLOCK http://127.0.0.1:5199/src/assets/tonsai/rock_06_diff_1k.jpg
+BLOCK http://127.0.0.1:5199/src/assets/tonsai/rock_06_nor_gl_1k.jpg
+BLOCK http://127.0.0.1:5199/src/assets/tonsai/rock_06_diff_1k.jpg
+BLOCK http://127.0.0.1:5199/src/assets/tonsai/rock_06_nor_gl_1k.jpg
+BLOCK http://127.0.0.1:5199/src/assets/tonsai/karsts.glb
+REQUEST fetch http://127.0.0.1:5199/src/assets/railay/geology.glb
+BLOCK http://127.0.0.1:5199/src/assets/railay/geology.glb
+REQUEST image http://127.0.0.1:5199/src/assets/railay/broadleaf.png
+BLOCK http://127.0.0.1:5199/src/assets/railay/broadleaf.png
+REQUEST image http://127.0.0.1:5199/src/assets/railay/fern.png
+BLOCK http://127.0.0.1:5199/src/assets/railay/fern.png
+BLOCK http://127.0.0.1:5199/src/assets/tonsai/canopy.png
+RESULT {"blocked":["http://127.0.0.1:5199/src/assets/tonsai/rock_06_diff_1k.jpg","http://127.0.0.1:5199/src/assets/tonsai/rock_06_nor_gl_1k.jpg","http://127.0.0.1:5199/src/assets/tonsai/rock_06_diff_1k.jpg","http://127.0.0.1:5199/src/assets/tonsai/rock_06_nor_gl_1k.jpg","http://127.0.0.1:5199/src/assets/tonsai/karsts.glb","http://127.0.0.1:5199/src/assets/railay/geology.glb","http://127.0.0.1:5199/src/assets/railay/broadleaf.png","http://127.0.0.1:5199/src/assets/railay/fern.png","http://127.0.0.1:5199/src/assets/tonsai/canopy.png"],"result":{"fallback":true,"tonsaiFallback":true,"ready":false,"stats":{"calls":102,"triangles":353324,"geometries":51,"textures":6,"programs":8,"quality":"high"}},"errors":["Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED","Failed to load resource: net::ERR_FAILED"]}
+Loading fallback QA passed

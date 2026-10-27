@@ -1,0 +1,18 @@
+01-aerial 158 996535
+02-aerial-from-sea 162 924073
+03-beachfront 207 1243391
+04-inland 159 1065959
+05-cliff-hero 171 1081635
+06-limestone-close 147 989821
+07-overhang 167 1077115
+08-southern-headland 143 973551
+09-inland-trail 132 1174263
+10-canopy 156 1369063
+11-understory 116 1177912
+12-palms 77 787844
+13-forest-rock 156 1264317
+14-shallows 177 1146647
+16-iphone-landscape 194 1120299
+17-low-quality 200 627913
+18-sea-from-beach 57 702606
+Tonsai visual capture passed

@@ -1,3 +1,6 @@
+import { karstDistance } from "./tonsai/karstField";
+import { rockInterior, inTonsai } from "./tonsai/domain";
+import { coastalBlocked } from "./tonsai/coastal";
 import baked from "./height-grid.json";
 import {
   COAST,
@@ -26,6 +29,7 @@ export function naturalHeight(x: number, z: number) {
     0.04 +
     Math.min(5.8, d * 0.065) +
     Math.max(0, noise(x, z)) * 0.3 * smooth(10, 70, d);
+  const baseHeight = h;
   for (const k of KARSTS)
     if (inside(x, z, k.outline)) {
       const e = edgeDistance(x, z, k.outline),
@@ -37,7 +41,16 @@ export function naturalHeight(x: number, z: number) {
               0.15 * noise(x * 0.45 + k.seed * 10, z * 0.45) +
               0.1 * Math.sin(x * 0.005 + z * 0.007),
           );
-      h = Math.max(h, 5 + smooth(0, 14, e) * top);
+      const crown =
+        k.id === "tonsai-divider" || k.id === "northwest-wall"
+          ? k.height *
+            (0.78 +
+              0.085 * Math.sin(x * 0.013 + k.seed) * Math.cos(z * 0.011) +
+              0.055 * Math.sin(x * 0.031 + z * 0.022 + k.seed))
+          : top;
+      h = Math.max(h, 5 + smooth(0, 14, e) * crown);
+      if ((k.id === "tonsai-divider" || k.id === "northwest-wall") && e < 9)
+        h = baseHeight;
     }
   // Natural lowland trails only smooth low ground; never cut roads through karst walls.
   const td = trailDistance(x, z);
@@ -93,6 +106,13 @@ export function walkable(x: number, z: number) {
     z < GRID.min + 20 ||
     x > GRID.max - 20 ||
     z > GRID.max - 20
+  )
+    return false;
+  if (
+    inTonsai(x, z) &&
+    (rockInterior(x, z) ||
+      karstDistance(x, heightAt(x, z) + 1.2, z) < 0.45 ||
+      coastalBlocked(x, z))
   )
     return false;
   return heightAt(x, z) > 0.12 && slopeAt(x, z) < 0.9;
