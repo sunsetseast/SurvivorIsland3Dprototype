@@ -15,7 +15,10 @@
     "assets:regenerate": "node ../../tools/blender/regenerate.mjs",
     "assets:validate": "node ../../tools/blender/validate.mjs",
     "qa:assets": "node scripts/sanctuary-review.mjs && node scripts/sanctuary-loading-qa.mjs",
-    "qa:heroes": "node scripts/hero-review.mjs"
+    "qa:heroes": "node scripts/hero-review.mjs",
+    "qa:railay": "node scripts/railay-qa.mjs",
+    "qa:railay-loading": "node scripts/railay-loading-qa.mjs",
+    "world:bake": "node --import tsx scripts/bake-railay.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

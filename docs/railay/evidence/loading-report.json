@@ -1,0 +1,32 @@
+{
+  "renderer": "Chrome 142 / ANGLE SwiftShader, host software WebGL; physical iPhone Safari UNVERIFIED",
+  "errors": [],
+  "captures": [],
+  "performance": [],
+  "checks": [
+    {
+      "blocked": [
+        "http://127.0.0.1:5197/src/assets/railay/geology.glb",
+        "http://127.0.0.1:5197/src/assets/railay/broadleaf.png",
+        "http://127.0.0.1:5197/src/assets/railay/fern.png"
+      ],
+      "result": {
+        "fallback": true,
+        "ready": false,
+        "stats": {
+          "calls": 121,
+          "triangles": 571466,
+          "geometries": 55,
+          "textures": 4,
+          "programs": 7,
+          "quality": "high"
+        }
+      }
+    }
+  ],
+  "expectedNetworkErrors": [
+    "Failed to load resource: net::ERR_FAILED",
+    "Failed to load resource: net::ERR_FAILED",
+    "Failed to load resource: net::ERR_FAILED"
+  ]
+}

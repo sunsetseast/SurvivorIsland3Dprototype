@@ -1,0 +1,472 @@
+{
+  "renderer": "Chrome 142 / ANGLE SwiftShader, host software WebGL; physical iPhone Safari UNVERIFIED",
+  "errors": [],
+  "captures": [
+    {
+      "name": "01-peninsula-aerial",
+      "view": {
+        "p": [
+          -1300,
+          1800,
+          1950
+        ],
+        "t": [
+          -30,
+          10,
+          -150
+        ]
+      },
+      "hostRenderSubmissionMs": 8.700000000186265,
+      "calls": 289,
+      "triangles": 856172,
+      "geometries": 129,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "02-overhead-coastline",
+      "view": {
+        "p": [
+          -110,
+          3000,
+          0
+        ],
+        "t": [
+          -110,
+          0,
+          -0.01
+        ],
+        "fov": 48
+      },
+      "hostRenderSubmissionMs": 6.199999999720603,
+      "calls": 224,
+      "triangles": 687610,
+      "geometries": 129,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "03-tonsai-aerial",
+      "view": {
+        "p": [
+          -950,
+          400,
+          -100
+        ],
+        "t": [
+          -430,
+          20,
+          -750
+        ]
+      },
+      "hostRenderSubmissionMs": 3.1999999997206032,
+      "calls": 156,
+      "triangles": 520340,
+      "geometries": 120,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "04-tonsai-ground",
+      "view": {
+        "p": [
+          -555,
+          5,
+          -645
+        ],
+        "t": [
+          -445,
+          55,
+          -785
+        ]
+      },
+      "hostRenderSubmissionMs": 8.100000000093132,
+      "calls": 128,
+      "triangles": 595814,
+      "geometries": 117,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "05-railay-west-aerial",
+      "view": {
+        "p": [
+          -600,
+          340,
+          290
+        ],
+        "t": [
+          40,
+          12,
+          -140
+        ]
+      },
+      "hostRenderSubmissionMs": 4,
+      "calls": 170,
+      "triangles": 537838,
+      "geometries": 120,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "06-railay-west-beach",
+      "view": {
+        "p": [
+          -35,
+          4,
+          -30
+        ],
+        "t": [
+          -185,
+          22,
+          -490
+        ]
+      },
+      "hostRenderSubmissionMs": 5.699999999720603,
+      "calls": 144,
+      "triangles": 694164,
+      "geometries": 120,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "07-railay-east",
+      "view": {
+        "p": [
+          395,
+          5,
+          80
+        ],
+        "t": [
+          410,
+          20,
+          -140
+        ]
+      },
+      "hostRenderSubmissionMs": 3.5,
+      "calls": 166,
+      "triangles": 754104,
+      "geometries": 115,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "08-phra-nang",
+      "view": {
+        "p": [
+          75,
+          5,
+          654
+        ],
+        "t": [
+          260,
+          33,
+          760
+        ]
+      },
+      "hostRenderSubmissionMs": 8.100000000093132,
+      "calls": 42,
+      "triangles": 195494,
+      "geometries": 112,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "09-southern-headlands",
+      "view": {
+        "p": [
+          70,
+          200,
+          1120
+        ],
+        "t": [
+          420,
+          45,
+          760
+        ]
+      },
+      "hostRenderSubmissionMs": 13,
+      "calls": 134,
+      "triangles": 392724,
+      "geometries": 118,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "10-karst-formations",
+      "view": {
+        "p": [
+          -90,
+          40,
+          -290
+        ],
+        "t": [
+          120,
+          125,
+          -560
+        ]
+      },
+      "hostRenderSubmissionMs": 4.5,
+      "calls": 135,
+      "triangles": 650260,
+      "geometries": 112,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "11-limestone-detail",
+      "view": {
+        "p": [
+          -17,
+          19,
+          -364
+        ],
+        "t": [
+          -80,
+          38,
+          -407
+        ]
+      },
+      "hostRenderSubmissionMs": 3.2999999998137355,
+      "calls": 105,
+      "triangles": 549790,
+      "geometries": 117,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "12-tropical-jungle",
+      "view": {
+        "p": [
+          150,
+          9,
+          -90
+        ],
+        "t": [
+          225,
+          13,
+          -155
+        ]
+      },
+      "hostRenderSubmissionMs": 5,
+      "calls": 125,
+      "triangles": 616626,
+      "geometries": 113,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "13-jungle-floor",
+      "view": {
+        "p": [
+          145,
+          6.9,
+          -45
+        ],
+        "t": [
+          160,
+          7,
+          -65
+        ]
+      },
+      "hostRenderSubmissionMs": 4.2000000001862645,
+      "calls": 138,
+      "triangles": 687158,
+      "geometries": 114,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "14-hidden-lagoon",
+      "view": {
+        "p": [
+          510,
+          210,
+          700
+        ],
+        "t": [
+          510,
+          0,
+          700.01
+        ]
+      },
+      "hostRenderSubmissionMs": 4,
+      "calls": 28,
+      "triangles": 247000,
+      "geometries": 111,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "15-cave-recess",
+      "view": {
+        "p": [
+          214,
+          4,
+          810
+        ],
+        "t": [
+          246,
+          5,
+          810
+        ]
+      },
+      "hostRenderSubmissionMs": 2.1000000000931323,
+      "calls": 34,
+      "triangles": 186598,
+      "geometries": 112,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "16-shallow-coastal-water",
+      "view": {
+        "p": [
+          -180,
+          9,
+          75
+        ],
+        "t": [
+          -40,
+          0,
+          -35
+        ]
+      },
+      "hostRenderSubmissionMs": 4.5,
+      "calls": 160,
+      "triangles": 536140,
+      "geometries": 116,
+      "textures": 6,
+      "programs": 9,
+      "quality": "high"
+    },
+    {
+      "name": "19-low-quality",
+      "view": {
+        "p": [
+          -600,
+          340,
+          290
+        ],
+        "t": [
+          40,
+          12,
+          -140
+        ]
+      },
+      "hostRenderSubmissionMs": 7.399999999906868,
+      "calls": 122,
+      "triangles": 263072,
+      "geometries": 122,
+      "textures": 6,
+      "programs": 9,
+      "quality": "low"
+    },
+    {
+      "name": "18-iphone-landscape-viewport",
+      "view": {
+        "p": [
+          -35,
+          4,
+          -30
+        ],
+        "t": [
+          -185,
+          22,
+          -490
+        ]
+      },
+      "hostRenderSubmissionMs": 2.3999999999068677,
+      "calls": 110,
+      "triangles": 285924,
+      "geometries": 119,
+      "textures": 6,
+      "programs": 9,
+      "quality": "low"
+    },
+    {
+      "name": "17-third-person-exploration"
+    }
+  ],
+  "performance": [
+    {
+      "quality": "high",
+      "camera": "railay-west-aerial",
+      "name": "05-railay-west-aerial",
+      "view": {
+        "p": [
+          -600,
+          340,
+          290
+        ],
+        "t": [
+          40,
+          12,
+          -140
+        ]
+      },
+      "hostRenderSubmissionMs": 4,
+      "calls": 170,
+      "triangles": 537838,
+      "geometries": 120,
+      "textures": 6,
+      "programs": 9
+    },
+    {
+      "quality": "low",
+      "camera": "railay-west-aerial",
+      "hostRenderSubmissionMs": 7.399999999906868,
+      "calls": 122,
+      "triangles": 263072,
+      "geometries": 122,
+      "textures": 6,
+      "programs": 9
+    }
+  ],
+  "checks": [
+    "Live minimap and expandable geographical map open / close correctly.",
+    {
+      "playerMovement": {
+        "before": {
+          "x": -16.516494639559415,
+          "z": -22.239016046852274
+        },
+        "after": {
+          "x": -11.470039293992434,
+          "z": -23.37172180605163
+        },
+        "y": 0.9886562394571106,
+        "moved": 5.172014490672368
+      }
+    },
+    {
+      "disposed": {
+        "geometry": 142,
+        "material": 10,
+        "texture": 3
+      }
+    },
+    "Menu → Railay → camp → Tribal Council → Railay; reset, quality, overview, player movement and disposal verified in WebGL."
+  ],
+  "initialEntryHostWallMs": 12521,
+  "resourceStats": {
+    "geometryBytes": 7836880,
+    "textureBytesEstimate": 3145728,
+    "note": "CPU attribute bytes and uncompressed RGBA mip estimate; not driver GPU allocation. Shader depth texture is counted separately in report."
+  }
+}

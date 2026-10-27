@@ -1,0 +1,7 @@
+[
+  { id: 'tonsai', reachable: true, steps: 277 },
+  { id: 'west', reachable: true, steps: 1 },
+  { id: 'east', reachable: true, steps: 80 },
+  { id: 'phra', reachable: true, steps: 127 },
+  { id: 'lagoon', reachable: false, steps: 0 }
+] 112953

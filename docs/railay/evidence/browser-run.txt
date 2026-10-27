@@ -1,0 +1,20 @@
+01-peninsula-aerial 289 856172
+02-overhead-coastline 224 687610
+03-tonsai-aerial 156 520340
+04-tonsai-ground 128 595814
+05-railay-west-aerial 170 537838
+06-railay-west-beach 144 694164
+07-railay-east 166 754104
+08-phra-nang 42 195494
+09-southern-headlands 134 392724
+10-karst-formations 135 650260
+11-limestone-detail 105 549790
+12-tropical-jungle 125 616626
+13-jungle-floor 138 687158
+14-hidden-lagoon 28 247000
+15-cave-recess 34 186598
+16-shallow-coastal-water 160 536140
+19-low-quality 122 263072
+18-iphone-landscape-viewport 110 285924
+MOVEMENT {"before":{"x":-16.516494639559415,"z":-22.239016046852274},"after":{"x":-11.470039293992434,"z":-23.37172180605163},"y":0.9886562394571106,"moved":5.172014490672368}
+Railay WebGL QA passed

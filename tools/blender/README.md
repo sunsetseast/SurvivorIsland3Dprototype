@@ -55,3 +55,9 @@ pnpm --filter @workspace/survivor-camp-prototype test
 ```
 
 It produces the packed editable `source/voting-props.blend`, original `source/voting-props-atlas.png`, runtime `voting-props.glb` and `voting-props.json` in the sanctuary asset directory. The four named modules are independently placed by `votingAnchors.ts`. The single 512² atlas material uses padded UV cells and exported vertex wear; the validator checks finite attributes, UV padding, generator/runtime hashes, module names, triangle/download budgets and ballot/opening compatibility. Runtime loading has procedural fallback props and disposes geometry, material and texture resources on exit. The urn's inner wall is real geometry; its lid rests beside the vessel, with no duplicate host urn. Re-run the generator after edits; do not hand-edit its hash manifest.
+
+## Railay natural geology
+
+`railay.py` uses the same Blender 4.5.3 LTS pipeline and metre/Y-up adapter. Run it with Blender's `--background --factory-startup --python-exit-code 1 --python tools/blender/railay.py`. It exports one original hollow rock shelter, three talus shapes and a stalactite cluster, a packed editable `.blend`, a self-contained 158 KB GLB and a hash manifest. Runtime uses a procedural shelter fallback while loading or on failure and disposes late loads after exit. Geographic hero cliff walls are generated from the OSM-derived terrain data, rather than copying these small modules across the peninsula.
+
+The foliage atlases are original procedural botanical art. Regenerate them with `python tools/railay/foliage.py` using Pillow. No map imagery, scanned vegetation, or proprietary photographs are included.
