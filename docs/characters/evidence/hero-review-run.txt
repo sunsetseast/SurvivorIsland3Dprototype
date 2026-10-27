@@ -1,0 +1,24 @@
+Vite listening
+Browser started
+Menu loaded
+Tribal selected
+Scene ready
+{ mode: 'intro', time: 0.11280000000004656, frameloop: 'never' }
+Advanced 0.14613333333337988
+Captured arrival-procession
+Captured hero-4
+Captured hero-11
+Captured hero-13
+Captured hero-18
+Captured hero-jeff
+Captured council
+Captured heroes-with-host
+Captured host-facing-contestants
+Captured side-firelight
+Captured stools-4
+Captured stools-5
+Captured mobile-landscape-5
+Captured stools-8
+Captured stools-12
+Captured mobile-landscape-12
+Captured voting-departure

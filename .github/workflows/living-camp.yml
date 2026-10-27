@@ -28,6 +28,7 @@ jobs:
       - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
       - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
       - run: pnpm --filter @workspace/survivor-camp-prototype qa:living-camp
+      - run: pnpm --filter @workspace/survivor-camp-prototype qa:heroes
       - run: pnpm --filter @workspace/survivor-camp-prototype qa:tribal
       - run: pnpm --filter @workspace/survivor-camp-prototype qa:assets
       - run: pnpm --filter @workspace/survivor-camp-prototype preview:standalone
@@ -36,6 +37,7 @@ jobs:
         with:
           name: living-camp-webgl-evidence
           path: |
+            docs/characters/evidence/
             docs/living-camp/evidence/
             docs/tribal-council/evidence/
             docs/tribal-council/overhaul-evidence/

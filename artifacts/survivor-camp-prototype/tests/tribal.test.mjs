@@ -96,8 +96,8 @@ for (const [name, path] of Object.entries({
   });
 }
 test("each contestant can leave a stump into a broad shared aisle", () => {
-  assert.equal(TRIBAL.seats.length, 12);
-  for (let i = 1; i < 12; i++)
+  assert.equal(TRIBAL.seats.length, CAST.length);
+  for (let i = 1; i < TRIBAL.seats.length; i++)
     assert.equal(
       Math.sign(TRIBAL.seats[i].position[2] - TRIBAL.seats[i - 1].position[2]),
       i % 2 ? -1 : 1,
@@ -187,10 +187,10 @@ test("opening stages drone, ruin detail, Jeff, arrivals, then seated handoff", (
 
 test("intimate host, fire and cast proportions retain body clearance", () => {
   assert.equal(occupiedSeats(5).length, 5);
-  assert.deepEqual(occupiedSeats(12), TRIBAL.seats);
+  assert.deepEqual(occupiedSeats(CAST.length), TRIBAL.seats);
   assert.deepEqual(occupiedSeats(0), []);
-  for (let i = 0; i < 12; i++)
-    for (let j = i + 1; j < 12; j++) {
+  for (let i = 0; i < TRIBAL.seats.length; i++)
+    for (let j = i + 1; j < TRIBAL.seats.length; j++) {
       const a = TRIBAL.seats[i].position,
         b = TRIBAL.seats[j].position;
       assert.ok(Math.hypot(a[0] - b[0], a[2] - b[2]) > 1.5);
@@ -263,7 +263,7 @@ test("scenery footprints protect the complete ceremonial corridor and arrival gr
   assert.ok(PRACTICALS.some((p) => p.id.startsWith("exit-torch")));
   assert.equal(
     PRACTICALS.filter((p) => p.id.startsWith("personal-")).length,
-    12,
+    CAST.length,
   );
   for (const p of PRACTICALS) {
     assert.ok(corridorClear(p.x, p.z, p.radius), p.id);

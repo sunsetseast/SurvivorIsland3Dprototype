@@ -1,0 +1,105 @@
+{
+  "renderer": "Chromium / software WebGL; NOT physical iPhone Safari",
+  "acceleratedMovement": true,
+  "checks": [],
+  "captures": [
+    {
+      "name": "hero-4",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 315,
+      "triangles": 487954,
+      "geometries": 210,
+      "textures": 11
+    },
+    {
+      "name": "hero-11",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 350,
+      "triangles": 522742,
+      "geometries": 214,
+      "textures": 11
+    },
+    {
+      "name": "hero-13",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 351,
+      "triangles": 528222,
+      "geometries": 214,
+      "textures": 11
+    },
+    {
+      "name": "hero-18",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 370,
+      "triangles": 524968,
+      "geometries": 214,
+      "textures": 11
+    },
+    {
+      "name": "hero-jeff",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 278,
+      "triangles": 431892,
+      "geometries": 237,
+      "textures": 11
+    },
+    {
+      "name": "council",
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "viewport": [
+        1280,
+        800
+      ],
+      "calls": 397,
+      "triangles": 568549,
+      "geometries": 242,
+      "textures": 11
+    }
+  ],
+  "performance": [],
+  "errors": []
+}

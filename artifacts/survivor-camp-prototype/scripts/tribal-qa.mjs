@@ -392,7 +392,7 @@ try {
   );
   await page.evaluate(() => {
     const q = window.__tribalQA;
-    const p = q.layout.TRIBAL.seats[7].position;
+    const p = q.intro.playerSeat().position;
     q.io.dbg.teleportRequested = { x: p[0], z: p[2] + 1.05 };
     q.advance(3);
   });

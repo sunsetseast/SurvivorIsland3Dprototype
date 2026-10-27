@@ -1,0 +1,1 @@
+PASS: tsc -p artifacts/survivor-camp-prototype/tsconfig.json --noEmit (exit 0)

@@ -16,6 +16,8 @@ import { input } from "../state";
 import {
   CAST,
   CAST_SEATS,
+  PLAYER_INDEX,
+  playerSeat,
   INTRO_DURATION,
   INTRO_SHOTS,
   stageAt,
@@ -23,6 +25,7 @@ import {
 } from "./intro";
 import { eliminationAt } from "./elimination";
 import { TRIBAL, COUNCIL, tribalHeight } from "./layout";
+import { councilAttendance } from "./attendance";
 
 const time = () => tribalIntro.ceremonyTime;
 function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
@@ -30,9 +33,7 @@ function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
   const npc = useMemo<StagedPerson>(
     () => ({
       id: CAST[index]!,
-      x: 0,
-      y: 0,
-      z: 0,
+      ...stageAt(tribalIntro.time, index),
       facing: 0,
       animation: "walk",
       distance: 0,
@@ -45,6 +46,7 @@ function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
     distance: 0,
     running: false,
     seated: false,
+    seatHeight: 0.535,
   });
   useFrame(() => {
     const leaving =
@@ -60,15 +62,20 @@ function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
       speed: pose.speed,
       distance: pose.distance,
       seated: pose.seated,
+      seatHeight: CAST_SEATS[index]!.position[1],
     });
-    if (index === 4 && root.current) {
+    if (index === PLAYER_INDEX && root.current) {
       root.current.position.set(pose.x, pose.y, pose.z);
       root.current.rotation.y = pose.facing;
     }
   }, -1);
   return (
-    <group visible={visible}>
-      {index === 4 ? (
+    <group
+      visible={visible}
+      name={`council-attendee-${CAST[index]}`}
+      userData={{ attendee: CAST[index] }}
+    >
+      {index === PLAYER_INDEX ? (
         <group ref={root}>
           <Survivor motion={motion} />
         </group>
@@ -144,6 +151,10 @@ export function TribalIntro({
 }: {
   mode: ReturnType<typeof tribalIntro.getSnapshot>;
 }) {
+  const participants = useSyncExternalStore(
+    councilAttendance.subscribe,
+    councilAttendance.getSnapshot,
+  );
   const jeff = useMemo<StagedPerson>(
     () => ({
       id: -1,
@@ -167,7 +178,7 @@ export function TribalIntro({
       input.joyX = input.joyY = 0;
       input.run = false;
     };
-  }, []);
+  }, [participants]);
   useFrame(({ camera }, dt) => {
     tribalIntro.step(dt);
     jeff.animation =
@@ -212,7 +223,7 @@ export function TribalIntro({
         shot.from[2]! + (shot.to[2]! - shot.from[2]!) * t,
       );
       target.set(shot.target[0]!, shot.target[1]!, shot.target[2]!);
-      if (shot.label === "Bring in the survivors") {
+      if (shot.label === "Bring in the survivors" && CAST.length) {
         // Fit the actual procession, including the trailing player, at every aspect ratio.
         const poses = CAST.map((_, i) => stageAt(tribalIntro.time, i));
         const centre = poses
@@ -237,8 +248,29 @@ export function TribalIntro({
           );
         target.copy(centre);
       }
+      if (shot.label === "Take a seat" && CAST_SEATS.length) {
+        const perspective = camera as T.PerspectiveCamera;
+        const halfY = T.MathUtils.degToRad(perspective.fov) * 0.5 * 0.86;
+        const halfX = Math.atan(Math.tan(halfY) * perspective.aspect);
+        const halfWidth =
+          (CAST_SEATS.at(-1)!.position[0] - CAST_SEATS[0]!.position[0]) / 2 +
+          0.9;
+        // Fit the wide formation as a rectangle, with floor/fire clearance.
+        const distance = Math.max(
+          7.6,
+          halfWidth / Math.tan(halfX) + 1.3,
+          1.4 / Math.tan(halfY),
+        );
+        target.set(0, 1.05, -6.5);
+        camera.position
+          .copy(target)
+          .add(
+            new T.Vector3(0.24, 0.24, 1).normalize().multiplyScalar(distance),
+          );
+      }
     } else {
-      const [x, , z] = CAST_SEATS[4]!.position;
+      const [x, , z] = (playerSeat() ?? CAST_SEATS[0] ?? TRIBAL.arrival)
+        .position;
       camera.position.set(x - 0.6, 2.1, z - 0.95);
       target.set(COUNCIL.host.x, 1.65, COUNCIL.host.z);
     }
@@ -257,7 +289,7 @@ export function TribalIntro({
         <ArrivalActor
           key={id}
           index={i}
-          visible={i !== 4 || mode !== "explore"}
+          visible={i !== PLAYER_INDEX || mode !== "explore"}
         />
       ))}
     </>

@@ -29,7 +29,7 @@ test("authored prang has a finite, correctly oriented recessed silhouette", () =
 test("environment interests are reachable and practice ballots remain separate from season outcomes", () => {
   assert.equal(nearbyInterest(-34, 17.3)?.id, "ballot");
   assert.equal(nearbyInterest(38, 25), null);
-  const seat = TRIBAL.seats[7].position;
+  const seat = TRIBAL.seats.at(-1).position;
   assert.equal(nearbyInterest(seat[0], seat[2] + 1.05)?.id, "seat");
   for (const p of INTERESTS)
     assert.ok(Number.isFinite(p.radius) && p.radius > 0);

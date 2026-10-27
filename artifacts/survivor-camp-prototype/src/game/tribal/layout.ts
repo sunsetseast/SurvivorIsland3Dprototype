@@ -1,4 +1,5 @@
 import type { Point } from "../world";
+import { councilAttendance } from "./attendance";
 
 /** Metres. +X = map right, +Z = map bottom. Never rotate this owner-approved layout. */
 export type Anchor = {
@@ -103,19 +104,10 @@ export const TRIBAL = {
   exitOrigin: anchor("elimination-exit-origin", EXIT_ORIGIN.x, EXIT_ORIGIN.z),
   exit: anchor("elimination-exit", EXIT_PATH.at(-1)!.x, EXIT_PATH.at(-1)!.z),
   fire: anchor("council-fire", 0, 0),
-  // Owner-locked stagger: alternate forward/back along a broad curved formation.
-  seats: Array.from({ length: 12 }, (_, i) => {
-    const x = (i - 5.5) * 1.35,
-      setback = i % 2 ? 0.8 : 0;
-    const z = -5.9 - setback - 0.5 * (1 - (x / 8) ** 2);
-    return anchor(
-      `stump-${i + 1}`,
-      x,
-      z,
-      0.6,
-      Math.atan2(COUNCIL.host.x - x, COUNCIL.host.z - z),
-    );
-  }),
+  // Furniture, collision and actors consume the same count-aware anchors.
+  get seats() {
+    return occupiedSeats(councilAttendance.getSnapshot().length);
+  },
   jurors: Array.from({ length: 12 }, (_, i) => {
     const tier = Math.floor(i / 4),
       x = -17 - tier * 2.2,
@@ -241,13 +233,6 @@ export const STRUCTURES: Solid[] = [
       }));
     }),
   ),
-  ...TRIBAL.seats.map((s) => ({
-    id: s.id,
-    x: s.position[0],
-    z: s.position[2],
-    hx: 0.53,
-    hz: 0.53,
-  })),
   ...Array.from({ length: 3 }, (_, i) => ({
     id: `jury-bench-${i}`,
     x: -17 - i * 2.2,
@@ -397,10 +382,27 @@ export function tribalHeight(x: number, z: number) {
   const blend = clamp((2.7 - a.distance) / 1.2);
   return base + (a.height - base) * blend;
 }
-export function occupiedSeats(count: number) {
-  const n = Math.max(0, Math.min(12, Math.floor(count)));
-  const start = Math.floor((12 - n) / 2);
-  return TRIBAL.seats.slice(start, start + n);
+const seatLayouts = new Map<number, Anchor[]>();
+export function occupiedSeats(count: number): Anchor[] {
+  const n = Number.isFinite(count)
+    ? Math.max(0, Math.min(12, Math.floor(count)))
+    : 0;
+  if (!seatLayouts.has(n))
+    seatLayouts.set(
+      n,
+      Array.from({ length: n }, (_, i) => {
+        const x = (i - (n - 1) / 2) * 1.35;
+        const z = -5.9 - (i % 2 ? 0.8 : 0) - 0.5 * (1 - (x / 8) ** 2);
+        return anchor(
+          `stump-${i + 1}`,
+          x,
+          z,
+          0.52 + (i % 3) * 0.015,
+          Math.atan2(COUNCIL.host.x - x, COUNCIL.host.z - z),
+        );
+      }),
+    );
+  return seatLayouts.get(n)!;
 }
 
 // Deterministic foliage; the SAME trunk positions feed collision and rendering.
@@ -441,40 +443,63 @@ const candidates: Practical[] = [
     height: 2.3,
     radius: 0.26,
   })),
-  { id: "sanctuary-uplight", x: -1, z: -17.1, height: 3.2, radius: .26 },
+  { id: "sanctuary-uplight", x: -1, z: -17.1, height: 3.2, radius: 0.26 },
   { id: "jury-torch", x: -15.4, z: -7.5, height: 2.8, radius: 0.26 },
   { id: "writing-torch", x: -36.5, z: 16.1, height: 2.05, radius: 0.26 },
-  ...TRIBAL.seats.map((s, i) => ({
-    id: `personal-torch-${i}`,
-    x: s.position[0],
-    z: -9.65 - (i % 2) * 0.15,
-    height: 2.15,
-    radius: 0.21,
-  })),
 ];
-export const PRACTICALS = candidates.filter(
-  (p) =>
-    corridorClear(p.x, p.z, p.radius) &&
-    !STRUCTURES.some((b) => solidDistance(p.x, p.z, b) < p.radius + 0.08),
-);
-export const SOLIDS: Solid[] = [
-  ...PRACTICALS.map((p) => ({
-    id: p.id,
-    x: p.x,
-    z: p.z,
-    hx: 0.12,
-    hz: 0.12,
-    height: p.height + 0.6,
-  })),
-  ...STRUCTURES,
-  ...TREES.map((t) => ({
-    id: `tree-${t.seed}`,
-    x: t.x,
-    z: t.z,
-    hx: 0.48 * t.size,
-    hz: 0.48 * t.size,
-  })),
-];
+export function councilPracticals(
+  count = councilAttendance.getSnapshot().length,
+): Practical[] {
+  return [
+    ...candidates,
+    ...occupiedSeats(count).map((s, i) => ({
+      id: `personal-torch-${i}`,
+      x: s.position[0],
+      z: -9.65 - (i % 2) * 0.15,
+      height: 2.15,
+      radius: 0.21,
+    })),
+  ].filter(
+    (p) =>
+      corridorClear(p.x, p.z, p.radius) &&
+      !STRUCTURES.some((b) => solidDistance(p.x, p.z, b) < p.radius + 0.08),
+  );
+}
+export function councilSolids(
+  count = councilAttendance.getSnapshot().length,
+): Solid[] {
+  return [
+    ...councilPracticals(count).map((p) => ({
+      id: p.id,
+      x: p.x,
+      z: p.z,
+      hx: 0.12,
+      hz: 0.12,
+      height: p.height + 0.6,
+    })),
+    ...STRUCTURES,
+    ...occupiedSeats(count).map((s) => ({
+      id: s.id,
+      x: s.position[0],
+      z: s.position[2],
+      hx: 0.39,
+      hz: 0.39,
+    })),
+    ...TREES.map((t) => ({
+      id: `tree-${t.seed}`,
+      x: t.x,
+      z: t.z,
+      hx: 0.48 * t.size,
+      hz: 0.48 * t.size,
+    })),
+  ];
+}
+export let PRACTICALS = councilPracticals();
+export let SOLIDS = councilSolids();
+councilAttendance.subscribe(() => {
+  PRACTICALS = councilPracticals();
+  SOLIDS = councilSolids();
+});
 export function tribalBlocked(x: number, z: number, radius = 0.36) {
   if (
     x < -48 ||

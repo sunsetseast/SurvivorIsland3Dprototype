@@ -3,16 +3,16 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { rng } from "../world";
 import {
   ARRIVAL,
-  PRACTICALS,
   corridorClear,
   COUNCIL,
   drainageBed,
   approachSurface,
   occupiedSeats,
+  councilPracticals,
+  councilSolids,
   EXIT_PATH,
   PATHS,
   PATH_FILLS,
-  SOLIDS,
   STRUCTURES,
   TREES,
   TRIBAL,
@@ -29,9 +29,12 @@ export type FlameSource = { x: number; y: number; z: number; size: number };
 
 /** Static geometry is merged by surface and camera-blocking role (not hundreds of React meshes). */
 export function buildSanctuary(attendeeCount = 5, authored = false) {
+  const seats = occupiedSeats(attendeeCount);
+  const PRACTICALS = councilPracticals(attendeeCount), SOLIDS = councilSolids(attendeeCount);
   const { materials, dispose } = sanctuaryMaterials(),
     group = new T.Group(),
     random = rng(11739);
+  group.name = "council-environment";
   const buckets = new Map<string, T.BufferGeometry[]>(),
     flames: FlameSource[] = [];
   const color = new T.Color(),
@@ -320,11 +323,13 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
   for (const p of PRACTICALS.filter((p) => !p.id.startsWith("personal-")))
     torch(p.x, p.z, p.height);
 
-  // Twelve irregular hand-shaped stumps, radial growth rings, buttress roots and bark splinters.
-  for (const [i, s] of TRIBAL.seats.entries()) {
+  // Only attending contestants receive geometry; no hidden maximum-layout furniture.
+  group.userData.contestantSeats = seats.map(s => ({...s, position:[...s.position]}));
+  group.userData.stoolCount = seats.length;
+  for (const [i, s] of seats.entries()) {
     const [x, , z] = s.position,
-      h = 0.55 + (i % 3) * 0.045,
-      radius = 0.48 + (i % 4) * 0.018;
+      h = s.position[1],
+      radius = 0.31 + (i % 4) * 0.009;
     const g = new T.CylinderGeometry(
         radius * 0.97,
         radius * 1.16,
@@ -376,8 +381,8 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
     for (let j = 0; j < 3; j++) {
       const a = j * 2.1 + i;
       beam(
-        [x + Math.cos(a) * 0.65, 0.03, z + Math.sin(a) * 0.65],
-        [x + Math.cos(a) * 0.4, 0.22, z + Math.sin(a) * 0.4],
+        [x + Math.cos(a) * 0.36, 0.03, z + Math.sin(a) * 0.36],
+        [x + Math.cos(a) * 0.3, 0.22, z + Math.sin(a) * 0.3],
         0.06,
         "bark",
         false,
@@ -522,7 +527,6 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
   // Survivor ceremony dressing: personal torch stations form an intimate crescent.
   // Kept behind the reserved seating to avoid obstructing the walkable council floor.
   for (const p of PRACTICALS.filter((p) => p.id.startsWith("personal-"))) {
-    const seatIndex = Number(p.id.split("-").at(-1));
     const h = tribalHeight(p.x, p.z);
     beam([p.x, h, p.z], [p.x, h + p.height, p.z], 0.085, "wood", false);
     add(
@@ -533,8 +537,7 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
       [0, 0, 0],
       false,
     );
-    if (occupiedSeats(attendeeCount).includes(TRIBAL.seats[seatIndex]!))
-      flames.push({ x: p.x, y: h + p.height + 0.12, z: p.z, size: 0.28 });
+    flames.push({ x: p.x, y: h + p.height + 0.12, z: p.z, size: 0.28 });
   }
   // Distinctive Survivor snuffing ritual: a contestant presents their torch
   // at a dedicated low stone receiver beside the host, not in the walkway.

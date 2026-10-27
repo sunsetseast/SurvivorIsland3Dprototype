@@ -6,9 +6,10 @@ import { Player } from "../Player";
 import { rng } from "../world";
 import { dbg } from "../state";
 import { buildSanctuary, type FlameSource } from "./architecture";
-import { COUNCIL, tribalWorld } from "./layout";
+import { TRIBAL, COUNCIL, tribalWorld } from "./layout";
 import { TribalIntro } from "./TribalIntro";
-import { CAST, CAST_SEATS, tribalIntro } from "./intro";
+import { playerSeat, tribalIntro } from "./intro";
+import { councilAttendance } from "./attendance";
 import { tribalInteractions } from "./interactions";
 import { AuthoredSanctuary, useSanctuaryKit } from "./AuthoredSanctuary";
 import { tribalAudio } from "./audio";
@@ -237,6 +238,8 @@ function PracticeBallot() {
   ) : null;
 }
 export function TribalScene() {
+  const participants = useSyncExternalStore(councilAttendance.subscribe, councilAttendance.getSnapshot);
+  const seat = playerSeat() ?? TRIBAL.arrival;
   const mode = useSyncExternalStore(
     tribalIntro.subscribe,
     tribalIntro.getSnapshot,
@@ -247,21 +250,21 @@ export function TribalScene() {
       resetSpawn: tribalWorld.spawn,
       controlsLocked: () => !!tribalInteractions.getSnapshot().open,
       standFrom: {
-        x: CAST_SEATS[4]!.position[0] + Math.sin(CAST_SEATS[4]!.facing) * 0.37,
-        z: CAST_SEATS[4]!.position[2] + Math.cos(CAST_SEATS[4]!.facing) * 0.37,
-        facing: CAST_SEATS[4]!.facing,
+        x: seat.position[0] + Math.sin(seat.facing) * 0.37,
+        z: seat.position[2] + Math.cos(seat.facing) * 0.37,
+        facing: seat.facing,
       },
       spawn: {
-        x: CAST_SEATS[4]!.position[0],
-        z: CAST_SEATS[4]!.position[2] + 1.05,
+        x: seat.position[0],
+        z: seat.position[2] + 1.05,
       },
       yaw: -2.3,
     }),
-    [],
+    [participants],
   );
   const shadowTime = useRef(1);
   const {kit,low,failed} = useSanctuaryKit();
-  const sanctuary = useMemo(() => buildSanctuary(CAST.length, !!kit), [kit]);
+  const sanctuary = useMemo(() => buildSanctuary(participants.length, !!kit), [kit, participants]);
   useEffect(
     () => () => {
       sanctuary.dispose();

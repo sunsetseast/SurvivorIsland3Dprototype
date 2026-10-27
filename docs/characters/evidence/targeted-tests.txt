@@ -1,0 +1,20 @@
+✔ 0 attendees share exactly 0 unique furniture, collision, torch and cinematic anchors (3.942603ms)
+✔ 1 attendees share exactly 1 unique furniture, collision, torch and cinematic anchors (1.897421ms)
+✔ 4 attendees share exactly 4 unique furniture, collision, torch and cinematic anchors (1.633534ms)
+✔ 5 attendees share exactly 5 unique furniture, collision, torch and cinematic anchors (1.674256ms)
+✔ 7 attendees share exactly 7 unique furniture, collision, torch and cinematic anchors (2.414147ms)
+✔ 8 attendees share exactly 8 unique furniture, collision, torch and cinematic anchors (1.447515ms)
+✔ 10 attendees share exactly 10 unique furniture, collision, torch and cinematic anchors (1.075626ms)
+✔ 12 attendees share exactly 12 unique furniture, collision, torch and cinematic anchors (1.605292ms)
+✔ invalid rosters are rejected atomically; count helper handles numeric edge cases (0.475704ms)
+✔ five hero meshes have finite surface masks, distinct silhouettes and bounded draw/triangle budgets (143.231388ms)
+✔ presence is deterministic, desynchronised and shortest-arc heading eases across pi (1.978973ms)
+✔ seated soles meet ground for all hero heights and every stool tier (0.630537ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 445.529741
