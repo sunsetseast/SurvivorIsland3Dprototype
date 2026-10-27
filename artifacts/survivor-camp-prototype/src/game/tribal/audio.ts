@@ -29,6 +29,20 @@ class TribalAudio {
       noise.connect(filter).connect(this.fire).connect(c.destination);
       noise.start();
       this.nodes.push(noise, filter, this.fire);
+      const wind = c.createBiquadFilter(),
+        breeze = c.createGain(),
+        sway = c.createOscillator(),
+        depth = c.createGain();
+      wind.type = "bandpass";
+      wind.frequency.value = 280;
+      wind.Q.value = 0.7;
+      breeze.gain.value = 0.009;
+      sway.frequency.value = 0.08;
+      depth.gain.value = 0.003;
+      noise.connect(wind).connect(breeze).connect(c.destination);
+      sway.connect(depth).connect(breeze.gain);
+      sway.start();
+      this.nodes.push(wind, breeze, sway, depth);
       for (let i = 0; i < 3; i++) {
         const insect = c.createOscillator(),
           gain = c.createGain(),
@@ -54,7 +68,9 @@ class TribalAudio {
   update(x: number, z: number, _dt: number) {
     if (!this.enabled || !this.context || !this.fire) return;
     this.fire.gain.setTargetAtTime(
-      0.012 + 0.12 / (1 + Math.hypot(x, z) * 0.25),
+      0.012 +
+        0.12 /
+          (1 + Math.min(Math.hypot(x, z), Math.hypot(x + 34, z - 16.7)) * 0.25),
       this.context.currentTime,
       0.3,
     );

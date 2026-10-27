@@ -12,6 +12,8 @@ import { playerSeat, tribalIntro } from "./intro";
 import { councilAttendance } from "./attendance";
 import { tribalInteractions } from "./interactions";
 import { AuthoredSanctuary, useSanctuaryKit } from "./AuthoredSanctuary";
+import { VOTING } from "./votingAnchors";
+import { VotingProps } from "./VotingProps";
 import { tribalAudio } from "./audio";
 
 function NightSky() {
@@ -215,30 +217,11 @@ function LivingFire({ sources }: { sources: FlameSource[] }) {
   );
 }
 
-function PracticeBallot() {
-  const ballot = useSyncExternalStore(
-    tribalInteractions.subscribe,
-    tribalInteractions.getSnapshot,
-  );
-  return ballot.folded ? (
-    <group
-      name="folded-practice-ballot"
-      position={[-34.1, 1.52, 16.15]}
-      rotation={[0, 0.1, 0]}
-    >
-      <mesh>
-        <boxGeometry args={[0.37, 0.025, 0.5]} />
-        <meshStandardMaterial color="#ddc79b" roughness={1} />
-      </mesh>
-      <mesh position={[0.175, 0.015, 0]} rotation={[0, 0, 0.18]}>
-        <boxGeometry args={[0.025, 0.03, 0.5]} />
-        <meshStandardMaterial color="#b49a70" roughness={1} />
-      </mesh>
-    </group>
-  ) : null;
-}
 export function TribalScene() {
-  const participants = useSyncExternalStore(councilAttendance.subscribe, councilAttendance.getSnapshot);
+  const participants = useSyncExternalStore(
+    councilAttendance.subscribe,
+    councilAttendance.getSnapshot,
+  );
   const seat = playerSeat() ?? TRIBAL.arrival;
   const mode = useSyncExternalStore(
     tribalIntro.subscribe,
@@ -247,6 +230,12 @@ export function TribalScene() {
   const exploration = useMemo(
     () => ({
       ...tribalWorld,
+      voting: {
+        suppressed: () => tribalInteractions.cameraSuppressed,
+        release: () => {
+          tribalInteractions.cameraSuppressed = false;
+        },
+      },
       resetSpawn: tribalWorld.spawn,
       controlsLocked: () => !!tribalInteractions.getSnapshot().open,
       standFrom: {
@@ -263,8 +252,11 @@ export function TribalScene() {
     [participants],
   );
   const shadowTime = useRef(1);
-  const {kit,low,failed} = useSanctuaryKit();
-  const sanctuary = useMemo(() => buildSanctuary(participants.length, !!kit), [kit, participants]);
+  const { kit, low, failed } = useSanctuaryKit();
+  const sanctuary = useMemo(
+    () => buildSanctuary(participants.length, !!kit),
+    [kit, participants],
+  );
   useEffect(
     () => () => {
       sanctuary.dispose();
@@ -289,11 +281,11 @@ export function TribalScene() {
       <color attach="background" args={["#060e1e"]} />
       <fog attach="fog" args={["#08151a", 34, 100]} />
       <NightSky />
-      <hemisphereLight args={["#a2b9cb", "#514431", 1.05]} />
+      <hemisphereLight args={["#8aa7bf", "#302b25", 0.84]} />
       <directionalLight
         position={[18, 35, -25]}
         color="#9ebcda"
-        intensity={2.0}
+        intensity={1.5}
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-left={-45}
@@ -320,11 +312,18 @@ export function TribalScene() {
         decay={1.5}
       />
       <pointLight
-        position={[-34, 3, 17]}
+        position={[-34, 2.8, 16.7]}
         color="#ffb36b"
-        intensity={19}
+        intensity={23}
         distance={13}
         decay={1.3}
+      />
+      <pointLight
+        position={[-34, 3.1, 23]}
+        color="#e8ae72"
+        intensity={15}
+        distance={15}
+        decay={1.45}
       />
       <pointLight
         position={[COUNCIL.host.x, 3.5, COUNCIL.host.z]}
@@ -340,13 +339,21 @@ export function TribalScene() {
         distance={29}
         decay={1.5}
       />
-      <group name={failed ? "sanctuary-asset-fallback" : kit ? "sanctuary-assets-ready" : "sanctuary-assets-loading"}>
+      <group
+        name={
+          failed
+            ? "sanctuary-asset-fallback"
+            : kit
+              ? "sanctuary-assets-ready"
+              : "sanctuary-assets-loading"
+        }
+      >
         <primitive object={sanctuary.group} />
-        {kit && <AuthoredSanctuary kit={kit} low={low}/>}
+        {kit && <AuthoredSanctuary kit={kit} low={low} />}
       </group>
       <LivingFire sources={sanctuary.flames} />
       <TribalIntro mode={mode} />
-      <PracticeBallot />
+      <VotingProps />
       {mode === "explore" && <Player environment={exploration} />}
     </>
   );

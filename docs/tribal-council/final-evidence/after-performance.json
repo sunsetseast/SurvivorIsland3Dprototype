@@ -1,0 +1,126 @@
+{
+  "renderer": "Chrome 142 / SwiftShader; not iPhone Safari",
+  "captures": [
+    {
+      "name": "sanctuary",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          14,
+          6.5,
+          16
+        ],
+        "target": [
+          -1,
+          6,
+          -9
+        ]
+      },
+      "sceneBufferBytes": 69337136,
+      "calls": 253,
+      "triangles": 455119,
+      "textures": 11,
+      "geometries": 267,
+      "meshes": 664,
+      "instances": 255,
+      "lights": 9,
+      "shadowLights": 1,
+      "samplesMs": [
+        21300.200000000186,
+        1307.5999999996275,
+        1635.8000000002794
+      ]
+    },
+    {
+      "name": "guardian",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -6.5,
+          2.7,
+          -10
+        ],
+        "target": [
+          -7.5,
+          1.8,
+          -16.3
+        ]
+      },
+      "sceneBufferBytes": 69337136,
+      "calls": 88,
+      "triangles": 250035,
+      "textures": 11,
+      "geometries": 267,
+      "meshes": 664,
+      "instances": 255,
+      "lights": 9,
+      "shadowLights": 1,
+      "samplesMs": [
+        2530.2999999998137,
+        1476.7999999998137,
+        1073.1000000000931
+      ]
+    },
+    {
+      "name": "voting-roof",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -23,
+          6,
+          29
+        ],
+        "target": [
+          -34,
+          4,
+          18
+        ]
+      },
+      "sceneBufferBytes": 69337136,
+      "calls": 134,
+      "triangles": 324380,
+      "textures": 12,
+      "geometries": 285,
+      "meshes": 664,
+      "instances": 255,
+      "lights": 9,
+      "shadowLights": 1,
+      "samplesMs": [
+        1824.7000000001863,
+        799.2000000001863,
+        788.5
+      ]
+    }
+  ],
+  "errors": [],
+  "checks": [
+    {
+      "assets": [
+        "blender-voting_roof",
+        "blender-elephant_guardian",
+        "blender-naga_terminal",
+        "blender-root_column",
+        "blender-ceremonial_urn",
+        "blender-lotus_relief",
+        "blender-hanging_vine",
+        "blender-fallen_relief",
+        "blender-fern_cluster"
+      ],
+      "quality": "full"
+    }
+  ],
+  "updateCpu": {
+    "medianMs": 0.39999999990686774,
+    "p95Ms": 2.8999999999068677,
+    "note": "Whole scene update callbacks without WebGL rendering; host CPU, not device FPS"
+  }
+}

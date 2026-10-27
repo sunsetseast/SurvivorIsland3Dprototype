@@ -1,0 +1,111 @@
+{
+  "renderer": "Chrome 142 / SwiftShader; not iPhone Safari",
+  "captures": [
+    {
+      "name": "sanctuary",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          14,
+          6.5,
+          16
+        ],
+        "target": [
+          -1,
+          6,
+          -9
+        ]
+      },
+      "sceneBufferBytes": 64394408,
+      "calls": 253,
+      "triangles": 443039,
+      "textures": 11,
+      "geometries": 265,
+      "meshes": 656,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        23308.80000000028,
+        1088.7000000001863,
+        1182
+      ]
+    },
+    {
+      "name": "guardian",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -6.5,
+          2.7,
+          -10
+        ],
+        "target": [
+          -7.5,
+          1.8,
+          -16.3
+        ]
+      },
+      "sceneBufferBytes": 64394408,
+      "calls": 88,
+      "triangles": 237232,
+      "textures": 11,
+      "geometries": 265,
+      "meshes": 656,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        2242.399999999907,
+        947.6000000000931,
+        884.8999999999069
+      ]
+    },
+    {
+      "name": "voting-roof",
+      "viewport": [
+        1280,
+        800
+      ],
+      "camera": {
+        "position": [
+          -23,
+          6,
+          29
+        ],
+        "target": [
+          -34,
+          4,
+          18
+        ]
+      },
+      "sceneBufferBytes": 64394408,
+      "calls": 131,
+      "triangles": 286595,
+      "textures": 11,
+      "geometries": 282,
+      "meshes": 656,
+      "instances": 241,
+      "lights": 8,
+      "shadowLights": 1,
+      "samplesMs": [
+        1961.8999999999069,
+        1114.2999999998137,
+        992.7000000001863
+      ]
+    }
+  ],
+  "errors": [],
+  "checks": [],
+  "updateCpu": {
+    "medianMs": 0.20000000018626451,
+    "p95Ms": 4.899999999906868,
+    "note": "Whole scene update callbacks without WebGL rendering; host CPU, not device FPS"
+  }
+}

@@ -12,7 +12,7 @@ import { Survivor } from "../Survivor";
 import { Hud } from "../Hud";
 import { TribalInteractions } from "./TribalInteractions";
 import { tribalInteractions } from "./interactions";
-import { input } from "../state";
+import { input, dbg } from "../state";
 import {
   CAST,
   CAST_SEATS,
@@ -188,6 +188,11 @@ export function TribalIntro({
         ? "work"
         : "idle";
     if (mode === "explore") return;
+    dbg.cameraOwner = "ceremony";
+    if ((camera as T.PerspectiveCamera).fov !== 55) {
+      (camera as T.PerspectiveCamera).fov = 55;
+      camera.updateProjectionMatrix();
+    }
     input.joyX = input.joyY = 0;
     input.run = false;
     if (mode === "elimination") {

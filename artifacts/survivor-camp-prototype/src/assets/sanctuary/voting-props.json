@@ -1,0 +1,22 @@
+{
+  "generator": "tools/blender/voting_props.py",
+  "blender": "4.5.3 LTS",
+  "generatorSha256": "418f6bafa7d31556c223be247ef203999e80de89c22f133562155e8e94288e49",
+  "seed": 9302,
+  "sha256": "5b1255d94ad0869bb647248b4aedcd982b20ea91eaf3b51c3927ec4f8daabc7d",
+  "bytes": 1819868,
+  "modules": {
+    "voting_urn": 7008,
+    "voting_pen": 3552,
+    "shot_dark_bag": 4366,
+    "parchment": 1696
+  },
+  "textureSize": 512,
+  "materials": 1,
+  "urnOpeningDiameter": 0.53,
+  "foldedBallotSize": [
+    0.35,
+    0.008,
+    0.25
+  ]
+}

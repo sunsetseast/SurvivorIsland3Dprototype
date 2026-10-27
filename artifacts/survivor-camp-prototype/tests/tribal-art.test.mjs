@@ -42,6 +42,7 @@ test("environment interests are reachable and practice ballots remain separate f
     open: null,
     ballot: "Sandra",
     folded: true,
+    deposited: false,
   });
   tribalInteractions.reset();
   assert.equal(tribalInteractions.getSnapshot().ballot, "");

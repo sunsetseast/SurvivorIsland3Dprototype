@@ -17,7 +17,10 @@ try {
 }
 if (process.env.CAMP_RESTRICTED_HOST) os.networkInterfaces = () => ({});
 const root = path.resolve(fileURLToPath(new URL("..", import.meta.url)));
-const output = path.resolve(root, process.env.CAMP_EVIDENCE || "../../docs/living-camp/evidence");
+const output = path.resolve(
+  root,
+  process.env.CAMP_EVIDENCE || "../../docs/living-camp/evidence",
+);
 await mkdir(output, { recursive: true });
 process.env.PORT = "5174";
 process.env.BASE_PATH = "/";
@@ -141,8 +144,14 @@ try {
         maxHeightError = 0,
         maxStep = 0;
       for (const goal of route) {
+        io.input.joyY = io.input.joyX = 0;
+        q.advance(1); // Begin a new camera-relative movement gesture.
         let attempts = 0;
         while (nav.distance(io.dbg, goal) > 0.13 && attempts++ < 150) {
+          if (attempts % 15 === 0) {
+            io.input.joyY = 0;
+            q.advance(1);
+          }
           const prev = { x: io.dbg.x, z: io.dbg.z },
             dx = goal.x - prev.x,
             dz = goal.z - prev.z;
@@ -261,13 +270,11 @@ try {
     run = await page.getByTestId("button-run").boundingBox();
   const x = joy.x + joy.width / 2,
     y = joy.y + joy.height / 2;
+  await page.getByTestId("button-run").tap(); // Toggle leaves right thumb available for orbit.
   const startPos = await ev(() => ({ ...window.__CAMP_DEBUG__.position }));
   await cdp.send("Input.dispatchTouchEvent", {
     type: "touchStart",
-    touchPoints: [
-      { id: 1, x, y: y - 25 },
-      { id: 2, x: run.x + 35, y: run.y + 35 },
-    ],
+    touchPoints: [{ id: 1, x, y: y - 25 }],
   });
   await advance(15);
   const afterTouch = await ev(() => ({
@@ -290,7 +297,7 @@ try {
   );
   assert(!(await ev(() => window.__CAMP_DEBUG__.moving)));
   report.checks.push(
-    "Touch Talk, response, Leave, then concurrent joystick/run and release",
+    "Touch Talk, response, Leave, then latched sprint, joystick and release",
   );
   const orbitBefore = await ev(() => window.__qa.io.input.yaw);
   await cdp.send("Input.dispatchTouchEvent", {

@@ -1,3 +1,4 @@
+import { VOTING } from "./votingAnchors";
 import * as T from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { rng } from "../world";
@@ -30,7 +31,8 @@ export type FlameSource = { x: number; y: number; z: number; size: number };
 /** Static geometry is merged by surface and camera-blocking role (not hundreds of React meshes). */
 export function buildSanctuary(attendeeCount = 5, authored = false) {
   const seats = occupiedSeats(attendeeCount);
-  const PRACTICALS = councilPracticals(attendeeCount), SOLIDS = councilSolids(attendeeCount);
+  const PRACTICALS = councilPracticals(attendeeCount),
+    SOLIDS = councilSolids(attendeeCount);
   const { materials, dispose } = sanctuaryMaterials(),
     group = new T.Group(),
     random = rng(11739);
@@ -74,10 +76,17 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
             ),
         0,
       );
-      const x = positions.getX(i), z = positions.getZ(i);
-      const stain = .82 + .13 * Math.sin(x * .7 + Math.sin(z * .43)) * Math.sin(z * .56);
-      const damp = Math.max(0, 1 - positions.getY(i) / 1.7) * .14;
-      color.setRGB((n + warm) * stain * (1-damp), (n + warm * .52) * stain, (n + warm * .18) * stain * .92);
+      const x = positions.getX(i),
+        z = positions.getZ(i);
+      const stain =
+        0.82 +
+        0.13 * Math.sin(x * 0.7 + Math.sin(z * 0.43)) * Math.sin(z * 0.56);
+      const damp = Math.max(0, 1 - positions.getY(i) / 1.7) * 0.14;
+      color.setRGB(
+        (n + warm) * stain * (1 - damp),
+        (n + warm * 0.52) * stain,
+        (n + warm * 0.18) * stain * 0.92,
+      );
       color.toArray(colors, i * 3);
     }
     geo.setAttribute("color", new T.BufferAttribute(colors, 3));
@@ -279,7 +288,11 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
       bed.weight > 0
         ? bed.height - 0.025
         : tribalHeight(x, z) -
-            (a.distance < 1.5 ? 0.3 : pavedAt(x, z) && !reclaimedStone(x,z).missing ? 0.12 : 0.025),
+            (a.distance < 1.5
+              ? 0.3
+              : pavedAt(x, z) && !reclaimedStone(x, z).missing
+                ? 0.12
+                : 0.025),
     );
   }
   ground.computeVertexNormals();
@@ -324,7 +337,10 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
     torch(p.x, p.z, p.height);
 
   // Only attending contestants receive geometry; no hidden maximum-layout furniture.
-  group.userData.contestantSeats = seats.map(s => ({...s, position:[...s.position]}));
+  group.userData.contestantSeats = seats.map((s) => ({
+    ...s,
+    position: [...s.position],
+  }));
   group.userData.stoolCount = seats.length;
   for (const [i, s] of seats.entries()) {
     const [x, , z] = s.position,
@@ -507,22 +523,75 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
     for (let y = 0.7; y < 3.6; y += 1.1)
       box("dark", [s.x, y, s.z + s.hz + 0.015], [s.hx * 1.95, 0.035, 0.025]);
   }
-  box("wood", [-34, 1.35, 16], [3.1, 0.27, 1.1]);
-  for (const x of [-35.2, -32.8]) beam([x, 0.35, 16], [x, 1.25, 16], 0.17);
-  carving(-34, 1.34, 16.57, 0.1);
-  box(
-    "parchment",
-    [-34.1, 1.494, 16.15],
-    [0.75, 0.012, 0.5],
-    [0, 0.1, 0],
+  const table = VOTING.table;
+  // Thick, individually grained planks; carved apron, mortised legs and stretchers.
+  for (let j = 0; j < 5; j++) {
+    box(
+      "wood",
+      [table.x, table.y - 0.13, table.z - 0.5 + j * 0.25],
+      [table.width, 0.26, 0.242],
+      [0, 0, 0],
+      false,
+    );
+    for (let k = 0; k < 4; k++)
+      beam(
+        [table.x - 1.35 + k * 0.85, table.y + 0.001, table.z - 0.5 + j * 0.25],
+        [table.x - 1.2 + k * 0.85, table.y + 0.001, table.z - 0.5 + j * 0.25],
+        0.003,
+        "dark",
+        false,
+      );
+  }
+  for (const x of [table.x - 1.23, table.x + 1.23]) {
+    for (const z of [table.z - 0.42, table.z + 0.42]) {
+      box("wood", [x, 0.85, z], [0.23, 1, 0.23], [0, 0, 0], false);
+      box("trim", [x, 0.42, z], [0.3, 0.12, 0.3], [0, 0, 0], false);
+    }
+    beam(
+      [x, 0.6, table.z - 0.46],
+      [x, 0.6, table.z + 0.46],
+      0.07,
+      "wood",
+      false,
+    );
+  }
+  beam(
+    [table.x - 1.2, 0.62, table.z],
+    [table.x + 1.2, 0.62, table.z],
+    0.07,
+    "wood",
     false,
   );
-  beam([-33.4, 1.52, 16.2], [-33.25, 1.52, 15.88], 0.022, "ash", false);
-  add(
-    new T.CylinderGeometry(0.12, 0.09, 0.13, 10),
-    "dark",
-    [-33.1, 1.55, 15.8],
+  box(
+    "wood",
+    [table.x, 1.17, table.z + 0.52],
+    [2.7, 0.25, 0.1],
+    [0, 0, 0],
+    false,
   );
+  for (let j = 0; j < 7; j++)
+    carving(table.x - 1.08 + j * 0.36, 1.19, table.z + 0.58, 0.12);
+  // Front entrance has clear 2.7m opening and carved wings framing the voter.
+  for (const x of [-36.25, -31.75]) {
+    box("wood", [x, 1.85, 21.05], [1.45, 2.9, 0.14], [0, 0, 0], false);
+    for (let j = 0; j < 7; j++) {
+      beam(
+        [x - 0.65, 0.5 + j * 0.38, 21.15],
+        [x + 0.65, 0.5 + j * 0.38, 21.15],
+        0.022,
+        "gold",
+        false,
+      );
+      carving(x, 1.3 + j * 0.21, 21.18, 0.12);
+    }
+  }
+  // Interior raised relief panels and bronze studs leave the lens alcove clear.
+  for (const x of [-36.4, -31.6]) {
+    box("wood", [x, 2.15, 15.03], [1, 2.2, 0.1], [0, 0, 0], false);
+    carving(x, 2.7, 15.12, 0.3);
+    for (const y of [1.3, 3.0])
+      box("gold", [x, y, 15.15], [0.65, 0.04, 0.04], [0, 0, 0], false);
+  }
   carving(-34, 2.65, 15.02, 0.68);
   // Survivor ceremony dressing: personal torch stations form an intimate crescent.
   // Kept behind the reserved seating to avoid obstructing the walkable council floor.
@@ -566,42 +635,7 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
       false,
     );
   }
-  const u = COUNCIL.urn,
-    sy = COUNCIL.snuff.y;
-  add(new T.CylinderGeometry(0.36, 0.45, 0.7, 8), "stone", [
-    u.x,
-    u.y + 0.35,
-    u.z,
-  ]);
-  add(new T.CylinderGeometry(0.33, 0.24, 0.5, 16), "wood", [
-    u.x,
-    u.y + 0.95,
-    u.z,
-  ]);
-  add(
-    new T.LatheGeometry(
-      [
-        new T.Vector2(0, 0),
-        new T.Vector2(0.36, 0),
-        new T.Vector2(0.25, 0.12),
-        new T.Vector2(0.07, 0.18),
-      ],
-      16,
-    ),
-    "wood",
-    [u.x, u.y + 1.2, u.z],
-  );
-  for (const side of [-1, 1])
-    curve(
-      [
-        [u.x + side * 0.29, u.y + 0.96, u.z],
-        [u.x + side * 0.46, u.y + 1.08, u.z],
-        [u.x + side * 0.29, u.y + 1.17, u.z],
-      ],
-      0.035,
-      "gold",
-      false,
-    );
+  const sy = COUNCIL.snuff.y;
   const sf = COUNCIL.snuff;
   beam(
     [sf.x - 0.48, sy + 0.42, sf.z + 0.55],
@@ -629,6 +663,84 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
       );
   }
   beam([19.68, 4.5, 4.7], [22.32, 4.5, 0.3], 0.28, "stone");
+
+  // Recessed ruined galleries build a near wall / inner chamber / broken cornice depth.
+  for (const [i, x] of [-12, -6, 0, 6, 12].entries()) {
+    box("dark", [x, 2.8, -19.25], [3.2, 4.6, 0.12], [0, 0, 0], false);
+    for (const side of [-1, 1]) {
+      box("brick", [x + side * 1.75, 2.8, -18.75], [0.65, 5.3, 1.1]);
+      box(
+        "plaster",
+        [x + side * 1.72, 2.95, -18.08],
+        [0.38, 3.9, 0.1],
+        [0, 0, side * 0.012],
+        false,
+      );
+      curve(
+        [
+          [x + side * 1.8, 5.6, -18.5],
+          [x + side * 1.5, 4.1, -17.95],
+          [x + side * 1.9, 2.7, -17.9],
+          [x + side * 1.5, 0.5, -17.5],
+          [x + side * 2.4, 0.1, -17],
+        ],
+        0.12,
+        "bark",
+        false,
+      );
+    }
+    box("stone", [x, 5.35, -18.7], [4.15, 0.45, 1.6]);
+    box("trim", [x, 5.7, -18.7], [4.4, 0.18, 1.75]);
+    for (let j = 0; j < 4; j++)
+      if ((i + j) % 3)
+        box(
+          "brick",
+          [x - 1.3 + j * 0.8, 6.1 + (j % 2) * 0.18, -18.75],
+          [0.72, 0.55, 1.1],
+          [0, (random() - 0.5) * 0.12, 0],
+          false,
+        );
+    // Half concealed animal-mask relief and lotus forms within the recess.
+    carving(x, 2.8, -19.1, 0.62);
+    rock([x, 1.15, -18.95], [0.46, 0.72, 0.3], "stone", false);
+    for (const side of [-1, 1])
+      rock([x + side * 0.4, 1.6, -18.95], [0.26, 0.38, 0.18], "stone", false);
+    curve(
+      [
+        [x, 1.7, -18.6],
+        [x + 0.18, 1.2, -18.45],
+        [x + 0.1, 0.8, -18.3],
+      ],
+      0.12,
+      "stone",
+      false,
+    );
+    for (let j = 0; j < 4; j++) {
+      const xx = x - 1.2 + j * 0.8;
+      if (corridorClear(xx, -17.4, 0.4))
+        rock(
+          [xx, 0.2, -17.4],
+          [0.35, 0.22, 0.3],
+          j % 2 ? "moss" : "plaster",
+          false,
+        );
+    }
+  }
+  // Thick roots wrap neglected side chambers and enter broken masonry joints.
+  for (const x of [-38.1, -29.9])
+    for (let j = 0; j < 3; j++)
+      curve(
+        [
+          [x, 5.3 - j * 0.2, 14.3],
+          [x + 0.3, 3.8, 14.8],
+          [x - 0.2, 2.2, 14.9],
+          [x + 0.35, 0.4, 14.3],
+          [x + 0.9, 0.1, 13.3],
+        ],
+        0.13 - j * 0.025,
+        "bark",
+        false,
+      );
 
   // Buttress jungle trees, sweeping roots, layered palm/fern leaves and draped vines.
   const leaf = (
@@ -780,11 +892,24 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
         );
   }
   // Flat fallen leaves never become colliders; batched with rough bark, no alpha overdraw.
-  for (let i=0; i<460; i++) {
-    const x=-40+random()*80, z=-37+random()*64;
-    if (Math.hypot(x,z)<2 || (pavedAt(x,z) && !reclaimedStone(x,z).missing)) continue;
-    const g=new T.CircleGeometry(.1+random()*.1,5);
-    add(g, i%4 ? "bark" : "moss", [x,tribalHeight(x,z)-.013,z], [1,.4+random()*.4,1], [-Math.PI/2,0,random()*6.28],false,.35);
+  for (let i = 0; i < 460; i++) {
+    const x = -40 + random() * 80,
+      z = -37 + random() * 64;
+    if (
+      Math.hypot(x, z) < 2 ||
+      (pavedAt(x, z) && !reclaimedStone(x, z).missing)
+    )
+      continue;
+    const g = new T.CircleGeometry(0.1 + random() * 0.1, 5);
+    add(
+      g,
+      i % 4 ? "bark" : "moss",
+      [x, tribalHeight(x, z) - 0.013, z],
+      [1, 0.4 + random() * 0.4, 1],
+      [-Math.PI / 2, 0, random() * 6.28],
+      false,
+      0.35,
+    );
   }
   // Moss pads and fractured stonework connect architecture to the forest floor.
   for (let i = 0; i < 65; i++) {
@@ -839,7 +964,7 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
               : solid.id.startsWith("jury-")
                 ? 2.5
                 : solid.id.includes("backdrop")
-                  ? 2.2
+                  ? 6.5
                   : solid.id.includes("gate")
                     ? 6
                     : solid.id.includes("booth") || solid.id.includes("privacy")
@@ -859,6 +984,12 @@ export function buildSanctuary(attendeeCount = 5, authored = false) {
     proxy.name = `camera-${solid.id}`;
     group.add(proxy);
   }
+  const lintel = new T.Mesh(new T.BoxGeometry(3.5, 0.38, 0.76), proxyMaterial);
+  lintel.position.set(VOTING.entrance.x, 3.22, VOTING.entrance.z - 0.17);
+  lintel.visible = false;
+  lintel.name = "camera-voting-front-lintel";
+  lintel.userData.cameraBlocker = true;
+  group.add(lintel);
   const roof = new T.Mesh(new T.BoxGeometry(8.4, 0.35, 8.5), proxyMaterial);
   roof.position.set(-34, 4.35, 18);
   roof.visible = false;

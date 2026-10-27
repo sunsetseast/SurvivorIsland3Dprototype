@@ -70,6 +70,10 @@ export function sanctuaryPlacements(low = false): Placement[] {
       place("ceremonial_urn", x!, z!, 0, 1.1, 0.7);
   for (const x of [-9, -5, 4, 9])
     place("lotus_relief", x, -17.85, Math.PI, 1, 0, 0.1, true);
+  for (const x of [-12, -6, 0, 6, 12]) {
+    place("lotus_relief", x, -19.02, Math.PI, 0.65, 0, 1.6, true);
+    place("hanging_vine", x + 1.4, -18.8, 0, 0.78, 0, 5.7, true);
+  }
   const random = rng(70413);
   // Curated ruin edges, with conservative footprint exclusion around every ceremony route.
   for (let i = 0; i < 22; i++) {
@@ -108,12 +112,12 @@ export function sanctuaryPlacements(low = false): Placement[] {
     if (x > -38 && x < -30 && z > 13 && z < 23) continue;
     place("fern_cluster", x, z, random() * 6.28, 0.65 + random() * 0.65, 1.6);
   }
-  // Attached vines hang outside the east door and above the actor/ballot sightlines.
+  // Attached vines hang above the front entrance and above the actor/ballot sightlines.
   for (const [x, z, y] of [
     [-37.6, 15, 5.4],
     [-37.5, 21, 5.1],
     [-34, 14, 6],
-    [-31.5, 21.7, 5],
+    [-31.5, 21.2, 5],
     [-7, -18.6, 4.4],
     [9, -18.7, 4.2],
     [-19.3, -14.7, 5.7],

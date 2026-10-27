@@ -1,3 +1,4 @@
+import { VOTING } from "./votingAnchors";
 import type { Point } from "../world";
 import { councilAttendance } from "./attendance";
 
@@ -31,8 +32,10 @@ export const VOTING_PATH: Point[] = [
   { x: -18, z: 8 },
   { x: -25, z: 8 },
   { x: -29, z: 12 },
-  { x: -29, z: 17.5 },
-  { x: -34, z: 17.5 },
+  { x: -28.6, z: 24 },
+  { x: VOTING.entrance.x, z: 24 },
+  { x: VOTING.entrance.x, z: VOTING.entrance.z },
+  { x: VOTING.writing.x, z: VOTING.writing.z },
 ];
 // Screenshot 3: the open apron on the north/east SIDE of Jeff's terrace.
 // The procession turns away from the snuff receiver before entering this route.
@@ -68,7 +71,7 @@ export const COUNCIL = {
   fireRadius: 1.7,
   podium: { x: 5.8, z: 3.25, y: 0.22, yaw: -2.62 },
   host: { x: 6.37, z: 4.25, y: 0.22 },
-  urn: { x: 4.55, z: 4.1, y: 0.22 },
+  urn: VOTING.urn,
   snuff: { x: 8.25, z: 4.7, y: 0.22 },
   snuffMark: { x: 8.9, z: 3.55 },
 };
@@ -100,7 +103,13 @@ export const TRIBAL = {
   ),
   juryEntrance: anchor("jury-entrance", -25, -7),
   votingApproach: anchor("voting-approach", -29, 12),
-  vote: anchor("voting-interaction", -34, 17.3, 0.35, Math.PI),
+  vote: anchor(
+    "voting-interaction",
+    VOTING.writing.x,
+    VOTING.writing.z,
+    VOTING.writing.y,
+    VOTING.writing.facing,
+  ),
   exitOrigin: anchor("elimination-exit-origin", EXIT_ORIGIN.x, EXIT_ORIGIN.z),
   exit: anchor("elimination-exit", EXIT_PATH.at(-1)!.x, EXIT_PATH.at(-1)!.z),
   fire: anchor("council-fire", 0, 0),
@@ -161,9 +170,32 @@ export const STRUCTURES: Solid[] = [
   { id: "arrival-gate-east", x: -14.8, z: -17.5, hx: 0.85, hz: 0.85 },
   { id: "booth-back", x: -34, z: 14.5, hx: 3.7, hz: 0.45 },
   { id: "booth-west", x: -37.3, z: 18, hx: 0.45, hz: 3.1 },
-  { id: "booth-east-front", x: -30.7, z: 19.6, hx: 0.45, hz: 1.5 },
+  { id: "booth-east-front", x: -30.7, z: 18.65, hx: 0.45, hz: 2.55 },
   { id: "booth-privacy-return", x: -30.7, z: 15.6, hx: 0.45, hz: 1.1 },
-  { id: "writing-table", x: -34, z: 16, hx: 1.55, hz: 0.55 },
+  {
+    id: "booth-front-west",
+    x: -36.25,
+    z: 21.05,
+    hx: 0.9,
+    hz: 0.2,
+    height: 3.45,
+  },
+  {
+    id: "booth-front-east",
+    x: -31.75,
+    z: 21.05,
+    hx: 0.9,
+    hz: 0.2,
+    height: 3.45,
+  },
+  {
+    id: "writing-table",
+    x: VOTING.table.x,
+    z: VOTING.table.z,
+    hx: VOTING.table.width / 2,
+    hz: VOTING.table.depth / 2,
+    height: VOTING.table.y,
+  },
   // Guardian footprint includes trunk, plinth and ears; scenery is physical.
   {
     id: "guardian-west",
@@ -445,6 +477,8 @@ const candidates: Practical[] = [
   })),
   { id: "sanctuary-uplight", x: -1, z: -17.1, height: 3.2, radius: 0.26 },
   { id: "jury-torch", x: -15.4, z: -7.5, height: 2.8, radius: 0.26 },
+  { id: "voting-front-west", x: -36.7, z: 22.8, height: 2.2, radius: 0.26 },
+  { id: "voting-front-east", x: -31.3, z: 22.8, height: 2.2, radius: 0.26 },
   { id: "writing-torch", x: -36.5, z: 16.1, height: 2.05, radius: 0.26 },
 ];
 export function councilPracticals(

@@ -768,9 +768,9 @@ export function buildThaiArchitecture(w: MasonryWriter, authored = false) {
     roof(w, -34, 18, 4.15, 8.4, 8.5, 2);
     roof(w, -34, 17.8, 5.85, 5.4, 6.7, 1.4);
   }
-  door(w, -30.68, 0.35, 17.35, 1.8, 2.55, Math.PI / 2);
+  door(w, -34, 0.35, 21.18, 2.7, 3.1, 0);
   // Enclosed gables terminate the roof at the same perimeter as the room. Interior
-  // rafters support the layered roof; the east doorway is the only public opening.
+  // rafters support the layered roof; the centred south/front doorway is the public opening.
   for (const end of [-1, 1]) {
     const gable = new T.Shape();
     gable.moveTo(-3.25, 0);
@@ -793,7 +793,7 @@ export function buildThaiArchitecture(w: MasonryWriter, authored = false) {
   }
   // Attached brick foundation courses visually join the return walls to the paved floor.
   box("brick", [-37.25, 0.22, 18], [0.88, 0.4, 6.8], [0, 0, 0], false);
-  box("brick", [-30.75, 0.22, 19.6], [0.88, 0.4, 3], [0, 0, 0], false);
+  box("brick", [-30.75, 0.22, 18], [0.88, 0.4, 6.8], [0, 0, 0], false);
   box("brick", [-30.75, 0.22, 15.6], [0.88, 0.4, 2.2], [0, 0, 0], false);
 
   // Reachable, functional stone podium with floral relief; host stands behind it.
