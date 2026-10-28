@@ -4,7 +4,7 @@ import * as T from "three";
 import { worldTravel } from "./travel";
 import type { LocationId } from "./registry";
 
-type Resource = T.BufferGeometry | T.Material | T.Texture | T.WebGLRenderTarget;
+type Resource = T.BufferGeometry | T.Material | T.Texture | T.RenderTarget;
 export const lifecycle = {
   mounts: 0,
   unmounts: 0,
@@ -21,7 +21,7 @@ const kind = (r: Resource) =>
     ? "texture"
     : r instanceof T.Material
       ? "material"
-      : r instanceof T.WebGLRenderTarget
+      : r instanceof T.RenderTarget
         ? "target"
         : "geometry";
 // Every scene owns its assets today. Explicit shared resources can opt out; never sweep a live destination.
@@ -109,15 +109,18 @@ export function SceneLifecycle({
       lifecycle.active--;
       delete w.__WORLD_RENDER__;
       const resources = owned.current;
-      // R3F disposes declarative resources on idle. Finish only remaining scene-owned resources, including primitive maps.
+      // R3F also disposes on idle. A previously disposed resource can have been
+      // uploaded again during asynchronous replacement; finish with an
+      // idempotent release of EVERY observed scene-owned resource. Destinations
+      // wait for this promise and shared resources were excluded by collect().
       releasePending = new Promise<void>((resolve) =>
         setTimeout(() => {
           let swept = 0;
           for (const [r, e] of resources) {
             if (!e.disposed) {
-              r.dispose();
               swept++;
             }
+            r.dispose();
             r.removeEventListener("dispose", e.listener);
           }
           resources.clear();
@@ -147,7 +150,11 @@ export function SceneLifecycle({
             rockReady = true;
       });
       assets = assets && rockReady;
-    } else if (id === "tribal_council")
+    } else if (id === "camp_tribe_a")
+      assets =
+        !!scene.getObjectByName("camp-assets-ready") ||
+        !!scene.getObjectByName("camp-assets-degraded");
+    else if (id === "tribal_council")
       assets = !!scene.getObjectByName("sanctuary-assets-ready");
     if (assets) {
       collect();

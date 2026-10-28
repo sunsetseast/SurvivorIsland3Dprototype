@@ -1,0 +1,43 @@
+$ vite build --config vite.config.ts
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 704 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/scratch/7b3828e02a4c/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/Scene.tsx is dynamically imported by /workspace/scratch/7b3828e02a4c/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/locations/travel.ts but also statically imported by /workspace/scratch/7b3828e02a4c/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/App.tsx, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/public/index.html                                          1.33 kB │ gzip:     0.57 kB
+dist/public/assets/fern-fWCX6G_p.png                           24.63 kB
+dist/public/assets/broadleaf-DJo94Nsg.png                      44.58 kB
+dist/public/assets/sand_02-normal-BLCxg0jx.jpg                 59.00 kB
+dist/public/assets/brown_mud_leaves_01-normal-Bj8DOn56.jpg    120.55 kB
+dist/public/assets/leaf-sprays-g6mRu1OV.png                   147.36 kB
+dist/public/assets/geology-BIPUa6jz.glb                       161.58 kB
+dist/public/assets/coast_rocks_05-vztNENlk.glb                272.24 kB
+dist/public/assets/sand_02-diff-BQzakbQ5.jpg                  331.64 kB
+dist/public/assets/brown_mud_leaves_01-diff-Cq1rge4_.jpg      423.03 kB
+dist/public/assets/fern_02-SrGECGLv.glb                       481.48 kB
+dist/public/assets/rock_06_nor_gl_1k-JDIemyFe.jpg             703.28 kB
+dist/public/assets/limestone-CG-3UH2o.glb                     724.02 kB
+dist/public/assets/palms-Dq4xC_Td.glb                         901.24 kB
+dist/public/assets/rock_06_diff_1k-D1Qsa8Fl.jpg               913.68 kB
+dist/public/assets/karsts-low-ge9WS8yJ.glb                  1,366.02 kB
+dist/public/assets/botanical-MY7NnqJm.glb                   1,641.87 kB
+dist/public/assets/coastal-tree-riod1bi9.glb                1,704.46 kB
+dist/public/assets/voting-props-C8V7mVEO.glb                1,819.87 kB
+dist/public/assets/sanctuary-kit-low-Dz1KIqQ9.glb           2,460.07 kB
+dist/public/assets/karsts-high-DruJMwkt.glb                 4,436.90 kB
+dist/public/assets/sanctuary-kit-BTU5bH4I.glb               6,883.36 kB
+dist/public/assets/index-DSkx91JB.css                         109.94 kB │ gzip:    19.36 kB
+dist/public/assets/IslandHud-Bqtgjt-F.js                        6.31 kB │ gzip:     2.79 kB
+dist/public/assets/TribalScene-B2iQphxV.js                     42.21 kB │ gzip:    16.66 kB
+dist/public/assets/IslandScene-0KIDyaM2.js                    347.74 kB │ gzip:   113.00 kB
+dist/public/assets/index-g7Hgevow.js                        1,415.79 kB │ gzip:   411.69 kB
+dist/public/assets/terrain-BM6XA2_e.js                      3,705.76 kB │ gzip: 1,047.81 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.91s

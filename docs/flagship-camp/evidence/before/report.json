@@ -1,0 +1,135 @@
+{
+  "method": "Real Chromium WebGL / ANGLE SwiftShader, 932x430 DPR1. Identical poses before/after. Manual 60Hz simulation avoids conflating software raster cost with input. Render submission wall timings are NOT GPU or iPhone FPS.",
+  "phase": "before",
+  "browser": "156.0.8078.4",
+  "errors": [],
+  "samples": [
+    {
+      "label": "low default",
+      "calls": 219,
+      "triangles": 325419,
+      "geometries": 103,
+      "textures": 8,
+      "programs": 24,
+      "sceneGeometries": 115,
+      "materials": 44,
+      "sceneTextures": 10,
+      "geometryBytes": 10343584,
+      "textureBytesEstimate": 5308415.999999997,
+      "softwareRenderFinishMs": [
+        3.200000000069849,
+        2.599999999976717,
+        1.599999999976717,
+        1.5,
+        1.400000000023283
+      ],
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "resources": [],
+      "entryWallMs": 14327
+    },
+    {
+      "label": "high default",
+      "calls": 219,
+      "triangles": 325419,
+      "geometries": 103,
+      "textures": 8,
+      "programs": 24,
+      "sceneGeometries": 115,
+      "materials": 44,
+      "sceneTextures": 10,
+      "geometryBytes": 10343584,
+      "textureBytesEstimate": 5308415.999999997,
+      "softwareRenderFinishMs": [
+        2.900000000023283,
+        3.900000000023283,
+        2.200000000069849,
+        2.099999999976717,
+        2.400000000023283
+      ],
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "resources": [],
+      "entryWallMs": 9090
+    }
+  ],
+  "checks": [
+    {
+      "qualityAnchors": [
+        {
+          "place": "campfire",
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "reachable": true
+        }
+      ]
+    },
+    "Run movement active during screenshot",
+    {
+      "qualityAnchors": [
+        {
+          "place": "campfire",
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "reachable": true
+        }
+      ]
+    }
+  ]
+}

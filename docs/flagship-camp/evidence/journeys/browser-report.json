@@ -1,0 +1,1829 @@
+{
+  "method": "Chromium SwiftShader; 932x430 DPR1 low; trusted keyboard/touch input, real collision/camera/rig; 60 Hz manual simulation between genuine WebGL captures. No physical iPhone certification. Entry timings are host wall times.",
+  "checks": [
+    {
+      "name": "Normal menu has no unrestricted island scene selector"
+    },
+    {
+      "name": "Camp NPC runtime advances"
+    },
+    {
+      "name": "Unauthorized departure denied at real exit"
+    },
+    {
+      "name": "Denied travel leaves movement usable"
+    },
+    {
+      "name": "Camp visual tree unloads, camp simulation retains exact state while paused"
+    },
+    {
+      "name": "Run toggles while joystick and camera remain held; latch survives release"
+    },
+    {
+      "name": "Camp NPC progress, social-memory owner and original instance survive return",
+      "detail": {
+        "savedNow": 33.766666666666026,
+        "restoredNow": 33.83333333333269
+      }
+    },
+    {
+      "name": "Four complete Camp ↔ Trail round trips; camp global listener count stays constant"
+    },
+    {
+      "name": "Interrupted destination recovers to preserved source"
+    },
+    {
+      "name": "Failed destination can retry and complete return; overview does not persist into travel"
+    },
+    {
+      "name": "Existing camp conversation opens and closes after repeated journeys"
+    },
+    {
+      "name": "At most one detailed scene; observed geometry/material/texture disposal"
+    },
+    {
+      "name": "Existing sanctuary scene, intro and mobile HUD load through adapter"
+    },
+    {
+      "name": "Existing practice ballot folds and deposits after the world adapter"
+    },
+    {
+      "name": "Actual aborted destination module request returns safely to camp",
+      "detail": {
+        "abortedRequests": 1
+      }
+    }
+  ],
+  "samples": [
+    {
+      "label": "initial camp",
+      "geometryBytes": 10903128,
+      "textureBytesEstimate": 46115520.000000015,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "calls": 219,
+      "triangles": 482883,
+      "geometries": 97,
+      "textures": 28,
+      "programs": 33,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 0,
+        "material": 0,
+        "texture": 0,
+        "target": 0
+      },
+      "active": 1
+    },
+    {
+      "label": "first Railay trail arrival",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "triangles": 415807,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 23,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 106,
+        "material": 48,
+        "texture": 34,
+        "target": 1
+      },
+      "active": 1
+    },
+    {
+      "label": "first camp return",
+      "geometryBytes": 10903128,
+      "textureBytesEstimate": 46115520.000000015,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8296143282039392,
+        "z": 22
+      },
+      "calls": 160,
+      "triangles": 486551,
+      "geometries": 95,
+      "textures": 27,
+      "programs": 32,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 285,
+        "material": 70,
+        "texture": 49,
+        "target": 1
+      },
+      "active": 1
+    },
+    {
+      "label": "Railay round 2",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "triangles": 425163,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 27,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 395,
+        "material": 123,
+        "texture": 83,
+        "target": 2
+      },
+      "active": 1
+    },
+    {
+      "label": "camp round 2",
+      "geometryBytes": 10903128,
+      "textureBytesEstimate": 46115520.000000015,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8296143282039392,
+        "z": 22
+      },
+      "calls": 160,
+      "triangles": 486551,
+      "geometries": 95,
+      "textures": 27,
+      "programs": 32,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 574,
+        "material": 145,
+        "texture": 99,
+        "target": 2
+      },
+      "active": 1
+    },
+    {
+      "label": "Railay round 3",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "triangles": 425163,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 27,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 684,
+        "material": 198,
+        "texture": 133,
+        "target": 3
+      },
+      "active": 1
+    },
+    {
+      "label": "camp round 3",
+      "geometryBytes": 10903128,
+      "textureBytesEstimate": 46115520.000000015,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8296143282039392,
+        "z": 22
+      },
+      "calls": 160,
+      "triangles": 486551,
+      "geometries": 95,
+      "textures": 27,
+      "programs": 32,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 863,
+        "material": 220,
+        "texture": 149,
+        "target": 3
+      },
+      "active": 1
+    },
+    {
+      "label": "Railay round 4",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "triangles": 425163,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 27,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 973,
+        "material": 273,
+        "texture": 183,
+        "target": 4
+      },
+      "active": 1
+    },
+    {
+      "label": "camp round 4",
+      "geometryBytes": 10903128,
+      "textureBytesEstimate": 46115520.000000015,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8296143282039392,
+        "z": 22
+      },
+      "calls": 160,
+      "triangles": 486551,
+      "geometries": 95,
+      "textures": 29,
+      "programs": 32,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 1152,
+        "material": 295,
+        "texture": 199,
+        "target": 4
+      },
+      "active": 1
+    },
+    {
+      "label": "camp baseline pose after four rounds",
+      "geometryBytes": 10903128,
+      "textureBytesEstimate": 46115520.000000015,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "calls": 222,
+      "triangles": 485960,
+      "geometries": 99,
+      "textures": 29,
+      "programs": 35,
+      "jsHeap": 64000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 1152,
+        "material": 295,
+        "texture": 199,
+        "target": 4
+      },
+      "active": 1
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "url": "sand_02-diff.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coast_rocks_05.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-high.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "broadleaf.png?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern.png?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "leaf-sprays.png?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_diff_1k.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_nor_gl_1k.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_diff_1k.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_nor_gl_1k.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "broadleaf.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "leaf-sprays.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sanctuary-kit.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sanctuary-kit-low.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "voting-props.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "voting-props.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sanctuary-kit-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    }
+  ],
+  "touches": [
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "explore-island"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "explore-island"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "joystick"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "orbit-zone"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "orbit-zone"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "joystick"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "island-minimap"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "island-map-toggle"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "island-map-close"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "island-map-close"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "island-overview"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "island-overview"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-cancel"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-cancel"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-retry"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-retry"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "talk-prompt"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "talk-prompt"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "conversation-panel"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "conversation-panel"
+    }
+  ],
+  "browser": "156.0.8078.4",
+  "assetTimings": [
+    {
+      "asset": "limestone.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 5.900000000023283
+    },
+    {
+      "asset": "coastal-tree.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 6.2999999999883585
+    },
+    {
+      "asset": "palms.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 7.399999999965075
+    },
+    {
+      "asset": "fern_02.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 7.599999999976717
+    },
+    {
+      "asset": "sand_02-diff.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 6.5
+    },
+    {
+      "asset": "sand_02-normal.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 6.7000000000116415
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 7
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 7.100000000034925
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 331941,
+      "encodedBodySize": 331641,
+      "duration": 20.29999999998836
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 423330,
+      "encodedBodySize": 423030,
+      "duration": 12.399999999965075
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 59304,
+      "encodedBodySize": 59004,
+      "duration": 8.099999999976717
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 120847,
+      "encodedBodySize": 120547,
+      "duration": 10.199999999953434
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 724320,
+      "encodedBodySize": 724020,
+      "duration": 12.799999999988358
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 1704756,
+      "encodedBodySize": 1704456,
+      "duration": 19.599999999976717
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 901544,
+      "encodedBodySize": 901244,
+      "duration": 15.099999999976717
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 481780,
+      "encodedBodySize": 481480,
+      "duration": 8
+    },
+    {
+      "asset": "coast_rocks_05.glb?import&url",
+      "transferSize": 725,
+      "encodedBodySize": 425,
+      "duration": 18.800000000046566
+    },
+    {
+      "asset": "karsts-high.glb?import&url",
+      "transferSize": 726,
+      "encodedBodySize": 426,
+      "duration": 63.5
+    },
+    {
+      "asset": "karsts-low.glb?import&url",
+      "transferSize": 725,
+      "encodedBodySize": 425,
+      "duration": 64.29999999998836
+    },
+    {
+      "asset": "broadleaf.png?import&url",
+      "transferSize": 708,
+      "encodedBodySize": 408,
+      "duration": 65.59999999997672
+    },
+    {
+      "asset": "fern.png?import&url",
+      "transferSize": 687,
+      "encodedBodySize": 387,
+      "duration": 66
+    },
+    {
+      "asset": "geology.glb?import&url",
+      "transferSize": 698,
+      "encodedBodySize": 398,
+      "duration": 81.39999999996508
+    },
+    {
+      "asset": "leaf-sprays.png?import&url",
+      "transferSize": 726,
+      "encodedBodySize": 426,
+      "duration": 81.90000000002328
+    },
+    {
+      "asset": "rock_06_diff_1k.jpg?import&url",
+      "transferSize": 730,
+      "encodedBodySize": 430,
+      "duration": 83.70000000001164
+    },
+    {
+      "asset": "rock_06_nor_gl_1k.jpg?import&url",
+      "transferSize": 740,
+      "encodedBodySize": 440,
+      "duration": 84.59999999997672
+    },
+    {
+      "asset": "botanical.glb?import&url",
+      "transferSize": 708,
+      "encodedBodySize": 408,
+      "duration": 1.8000000000465661
+    },
+    {
+      "asset": "rock_06_diff_1k.jpg",
+      "transferSize": 913980,
+      "encodedBodySize": 913680,
+      "duration": 9.5
+    },
+    {
+      "asset": "rock_06_nor_gl_1k.jpg",
+      "transferSize": 703575,
+      "encodedBodySize": 703275,
+      "duration": 8.5
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 1366316,
+      "encodedBodySize": 1366016,
+      "duration": 8.899999999965075
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 1642168,
+      "encodedBodySize": 1641868,
+      "duration": 9.299999999988358
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 1.7999999999883585
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 161884,
+      "encodedBodySize": 161584,
+      "duration": 11
+    },
+    {
+      "asset": "broadleaf.png",
+      "transferSize": 44876,
+      "encodedBodySize": 44576,
+      "duration": 10.099999999976717
+    },
+    {
+      "asset": "fern.png",
+      "transferSize": 24925,
+      "encodedBodySize": 24625,
+      "duration": 10.100000000034925
+    },
+    {
+      "asset": "leaf-sprays.png",
+      "transferSize": 147662,
+      "encodedBodySize": 147362,
+      "duration": 10.600000000034925
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 331641,
+      "duration": 3.5
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 423030,
+      "duration": 4.100000000034925
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 59004,
+      "duration": 4.5
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 120547,
+      "duration": 4.599999999976717
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 5.7000000000116415
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 6.2999999999883585
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 6.7000000000116415
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 3.2000000000116415
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 4.5
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 98.5
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 97
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.7000000000116415
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 331641,
+      "duration": 3.300000000046566
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 423030,
+      "duration": 7.099999999976717
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 59004,
+      "duration": 4.2999999999883585
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 120547,
+      "duration": 5.7000000000116415
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 6.7000000000116415
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 7
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 8.399999999965075
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 7.7999999999883585
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 2.099999999976717
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 4.2000000000116415
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 3.1000000000349246
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 0.8000000000465661
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 5.2000000000116415
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 8
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 6.800000000046566
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 5.7999999999883585
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 3.8999999999650754
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 6.7000000000116415
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 5.600000000034925
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.6000000000349246
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 2.199999999953434
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 4.2000000000116415
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 3
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 4.7999999999883585
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 4.899999999965075
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 7
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 7.199999999953434
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 0.9000000000232831
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 5.5
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 9.399999999965075
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 6.100000000034925
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 12.5
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 3
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 4
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 2.8999999999650754
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.5
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 4.800000000046566
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 6.2999999999883585
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 4.900000000023283
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.2000000000116415
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 3.2000000000116415
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 4.899999999965075
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 4
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 4.900000000023283
+    }
+  ],
+  "lifecycle": {
+    "mounts": 14,
+    "unmounts": 13,
+    "active": 1,
+    "peakActive": 1,
+    "disposals": {
+      "geometry": 1823,
+      "material": 458,
+      "texture": 309,
+      "target": 5
+    },
+    "releases": [
+      {
+        "id": "camp_tribe_a",
+        "swept": 47,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 47,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 47,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 47,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 70,
+        "textures": 12
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 47,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 47,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      }
+    ],
+    "samples": []
+  },
+  "timings": [
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 1620.5,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 2976.7000000000116,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 943.2000000000116,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 2292.100000000035,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 1177.4000000000233,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 2268.2999999999884,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 1098.100000000035,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 2340.5999999999767,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 1618,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 2301.7000000000116,
+      "outcome": "error"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 3136.5,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 1882.6999999999534,
+      "outcome": "error"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 3465.899999999965,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 952.5999999999767,
+      "outcome": "ready"
+    }
+  ],
+  "result": "PASS"
+}
