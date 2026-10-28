@@ -54,3 +54,6 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Blender automatic backups (editable source scenes are committed)
+*.blend1

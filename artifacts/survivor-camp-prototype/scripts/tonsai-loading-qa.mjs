@@ -66,7 +66,7 @@ try {
     const r = route.request(),
       u = r.url();
     if (
-      (/geology.glb|karsts.glb/.test(u) && r.resourceType() !== "script") ||
+      (/geology.glb|karsts.glb|karsts-(high|low).glb/.test(u) && r.resourceType() !== "script") ||
       (r.resourceType() === "image" &&
         /broadleaf.png|fern.png|canopy.png|rock_06_/.test(u))
     ) {

@@ -1,0 +1,42 @@
+{
+  "generator": "tools/tonsai/hero.py + tools/blender/hero.py",
+  "blender": "4.5.3 LTS",
+  "license": "Original art, MIT",
+  "files": [
+    {
+      "file": "karsts-high.glb",
+      "bytes": 4436904,
+      "sha256": "2cddb5a13d4eeba36790f6a5ce139250b2688bb17c48b48519ff460f4d9b5437",
+      "modules": [
+        {
+          "name": "northwest-wall-high",
+          "triangles": 104984,
+          "vertices": 52530
+        },
+        {
+          "name": "tonsai-divider-high",
+          "triangles": 62000,
+          "vertices": 31174
+        }
+      ]
+    },
+    {
+      "file": "karsts-low.glb",
+      "bytes": 1366016,
+      "sha256": "423648a5d7e5920e25441c455be74a4db0eac1812d0059f7e82f13e53d1f4615",
+      "modules": [
+        {
+          "name": "northwest-wall-low",
+          "triangles": 33575,
+          "vertices": 16830
+        },
+        {
+          "name": "tonsai-divider-low",
+          "triangles": 17360,
+          "vertices": 8854
+        }
+      ]
+    }
+  ],
+  "anchors": 1288
+}

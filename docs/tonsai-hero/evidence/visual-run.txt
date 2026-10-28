@@ -1,0 +1,7 @@
+05-cliff-hero 161 940391
+11-understory 121 752915
+12-palms 85 567876
+16-iphone-landscape 174 1128343
+19-benchmark 221 1116915
+20-benchmark-low 147 479525
+Tonsai visual capture passed

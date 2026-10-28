@@ -1,3 +1,4 @@
+import { CliffGardens } from "./tonsai/CliffGardens";
 import { CoastalSky } from "./tonsai/CoastalSky";
 import { CoastalDetails } from "./tonsai/CoastalDetails";
 import { TonsaiKarsts } from "./tonsai/Karsts";
@@ -97,17 +98,18 @@ export function IslandScene({
     <>
       <color attach="background" args={["#8fc3d7"]} />
       <CoastalSky />
-      <fog attach="fog" args={["#8fc3d7", 1600, 5200]} />
-      <hemisphereLight args={["#d2e7eb", "#9b936f", 1.85]} />
+      <fog attach="fog" args={["#accbd2", 1050, 4800]} />
+      <hemisphereLight args={["#c7e3ed", "#696b45", 1.4]} />
       <directionalLight
-        position={[-900, 1500, 650]}
-        intensity={2.8}
-        color="#fff0d4"
+        position={[-1100, 1200, -700]}
+        intensity={3.2}
+        color="#fff1d8"
       />
       <group name="railay-world">
         <RailayTerrain low={low} tonsaiReady />
         <TonsaiKarsts low={low} />
         <TropicalForest low={low} />
+        <CliffGardens low={low} />
         <CoastalDetails low={low} />
         <MainlandContext />
         <Ocean />

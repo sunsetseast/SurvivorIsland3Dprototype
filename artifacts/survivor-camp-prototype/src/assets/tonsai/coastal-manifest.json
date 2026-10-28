@@ -1,0 +1,42 @@
+[
+  {
+    "asset": "coast_rocks_05",
+    "name": "coast_rocks_05",
+    "sourceTriangles": 771724,
+    "triangles": 2400
+  },
+  {
+    "file": "coast_rocks_05.glb",
+    "bytes": 272240,
+    "sha256": "d957200c8c18d59318c7811e1ff63501c94eb93bc8af64bb2cbdac27c531ddb6"
+  },
+  {
+    "asset": "fern_02",
+    "name": "fern_02_b",
+    "sourceTriangles": 2384,
+    "triangles": 699
+  },
+  {
+    "asset": "fern_02",
+    "name": "fern_02_c",
+    "sourceTriangles": 2248,
+    "triangles": 700
+  },
+  {
+    "asset": "fern_02",
+    "name": "fern_02_a",
+    "sourceTriangles": 784,
+    "triangles": 700
+  },
+  {
+    "asset": "fern_02",
+    "name": "fern_02_d",
+    "sourceTriangles": 816,
+    "triangles": 700
+  },
+  {
+    "file": "fern_02.glb",
+    "bytes": 481480,
+    "sha256": "60225b180fa10ae741fd94f32256924e5fda203cb382f729e8188578cc98fa4f"
+  }
+]

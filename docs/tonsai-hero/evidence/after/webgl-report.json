@@ -1,0 +1,117 @@
+{
+  "renderer": "Chrome 142 headless shell / ANGLE SwiftShader, host software WebGL; physical iPhone Safari UNVERIFIED",
+  "errors": [],
+  "captures": [
+    {
+      "name": "19-benchmark",
+      "view": {
+        "p": [
+          -670,
+          3.063333344,
+          -820
+        ],
+        "t": [
+          -313,
+          77,
+          -623
+        ],
+        "fov": 62
+      },
+      "hostRenderSubmissionMs": 71.10000000149012,
+      "calls": 218,
+      "triangles": 1063473,
+      "geometries": 168,
+      "textures": 16,
+      "programs": 20,
+      "quality": "high",
+      "breakdown": {
+        "unnamed": 296688,
+        "botanical-canopy-far": 214192,
+        "tonsai-northwest-wall": 104984,
+        "terrain": 96686,
+        "tonsai-talus-driftwood": 81930,
+        "tonsai-tonsai-divider": 61832,
+        "botanical-palm-near": 41664,
+        "botanical-ficus-far": 31328,
+        "andaman-water": 28800,
+        "botanical-palm-far": 23416,
+        "botanical-canopy-near": 14808,
+        "diamond-ridge": 13440,
+        "southern-massif": 13352,
+        "tonsai-anchored-cliff-gardens": 12285,
+        "distant-mainland-context": 9080,
+        "railay-geology-ready": 4240,
+        "thaiwand": 4160,
+        "botanical-pandanus-near": 3952,
+        "lagoon-rim": 1640,
+        "mapped-islet-1": 1280
+      },
+      "synchronizedHostFrameMs": [
+        4.900000000372529,
+        3.799999998882413,
+        4.600000001490116
+      ]
+    },
+    {
+      "name": "20-benchmark-low",
+      "view": {
+        "p": [
+          -670,
+          3.063333344,
+          -820
+        ],
+        "t": [
+          -313,
+          77,
+          -623
+        ],
+        "fov": 62,
+        "low": true
+      },
+      "hostRenderSubmissionMs": 7.699999999254942,
+      "calls": 147,
+      "triangles": 479525,
+      "geometries": 167,
+      "textures": 13,
+      "programs": 19,
+      "quality": "low",
+      "breakdown": {
+        "botanical-canopy-far": 110000,
+        "terrain": 88366,
+        "unnamed": 60100,
+        "tonsai-northwest-wall": 33575,
+        "tonsai-talus-driftwood": 32720,
+        "andaman-water": 28800,
+        "tonsai-tonsai-divider": 17146,
+        "botanical-palm-near": 16896,
+        "botanical-ficus-far": 15136,
+        "diamond-ridge": 13440,
+        "southern-massif": 13352,
+        "botanical-palm-far": 13312,
+        "distant-mainland-context": 9080,
+        "tonsai-anchored-cliff-gardens": 6240,
+        "botanical-canopy-near": 4936,
+        "railay-geology-ready": 4240,
+        "thaiwand": 4160,
+        "botanical-pandanus-near": 1976,
+        "lagoon-rim": 1640,
+        "mapped-islet-1": 1280
+      },
+      "synchronizedHostFrameMs": [
+        1.799999998882413,
+        1,
+        1
+      ]
+    }
+  ],
+  "performance": [],
+  "checks": [
+    "Live minimap and expandable geographical map open / close correctly."
+  ],
+  "initialEntryHostWallMs": 6437,
+  "resourceStats": {
+    "geometryBytes": 11315402,
+    "textureBytesEstimate": 26913471.999999996,
+    "note": "CPU attributes; uncompressed mip estimate, not driver allocation"
+  }
+}
