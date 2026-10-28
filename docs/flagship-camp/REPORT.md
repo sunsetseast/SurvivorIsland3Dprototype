@@ -28,7 +28,7 @@ The result is a substantial, cohesive improvement in the real Camp, but **this i
 
 ## Loading, ownership and optimization
 
-The reusable `environment/assets.ts` loader gives each mounted location its own parsed geometry/materials/maps. HTTP caching reuses transferred bytes. Timeout/error paths settle to playable degraded art; late callbacks are disposed after timeout/unmount and cannot attach assets to another location. `SceneLifecycle` waits for full or degraded Camp readiness and still releases source-owned resources before destination mounting.
+The reusable `environment/assets.ts` loader gives each mounted location its own parsed geometry/materials/maps. HTTP caching reuses transferred bytes. Timeout/error paths settle to playable degraded art; late callbacks are disposed after timeout/unmount and cannot attach assets to another location. `SceneLifecycle` waits for full or degraded Camp readiness and still releases source-owned resources before destination mounting. The existing Tribal temple fallback also releases the readiness gate after a failed asset request, verified by its loading/reentry regression.
 
 Foliage uses instancing, periodic distance/frustum compaction, distinct mesh LODs and alpha testing with depth writes. Large ground-zone overlays, transparent foliage sorting, postprocessing and full-world shadow techniques are avoided. Map sizes were reduced after measuring an approximately 100 MB scene texture estimate in an earlier pass. Final measurements and the remaining loading/memory costs are recorded separately; no physical phone FPS is inferred from software WebGL.
 

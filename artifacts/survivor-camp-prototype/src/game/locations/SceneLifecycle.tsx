@@ -155,7 +155,9 @@ export function SceneLifecycle({
         !!scene.getObjectByName("camp-assets-ready") ||
         !!scene.getObjectByName("camp-assets-degraded");
     else if (id === "tribal_council")
-      assets = !!scene.getObjectByName("sanctuary-assets-ready");
+      assets =
+        !!scene.getObjectByName("sanctuary-assets-ready") ||
+        !!scene.getObjectByName("sanctuary-asset-fallback");
     if (assets) {
       collect();
       ready.current = true;

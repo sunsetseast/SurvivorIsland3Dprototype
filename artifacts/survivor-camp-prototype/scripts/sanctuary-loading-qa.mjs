@@ -5,7 +5,11 @@ import { writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 const root = fileURLToPath(new URL("..", import.meta.url));
-const output = path.join(root, "../../docs/tribal-council/blender-evidence");
+const output = path.resolve(
+  root,
+  process.env.TRIBAL_ASSET_EVIDENCE ||
+    "../../docs/tribal-council/blender-evidence",
+);
 await mkdir(output, { recursive: true });
 process.env.PORT = "5183";
 process.env.BASE_PATH = "/";
@@ -40,7 +44,13 @@ try {
   await page.goto("http://127.0.0.1:5183/?quality=low");
   await page.getByTestId("explore-tribal").click();
   async function attach() {
-    await page.evaluate(async () => { window.__kitFiber = await import("/node_modules/.vite/deps/@react-three_fiber.js"); });
+    await page.evaluate(async () => {
+      window.__kitFiber =
+        await import("/node_modules/.vite/deps/@react-three_fiber.js");
+      window.__kitTravel = (
+        await import("/src/game/locations/travel.ts")
+      ).worldTravel;
+    });
     await page.waitForFunction(() => {
       const f = window.__kitFiber;
       const s = f._roots
@@ -57,13 +67,31 @@ try {
         return false;
       window.__kitQA = s;
       s.setFrameloop("never");
+      s.clock.stop();
+      s.clock.autoStart = false;
       return true;
     });
   }
+  async function settled(marker) {
+    await page.waitForFunction(
+      (marker) => !!window.__kitQA.scene.getObjectByName(marker),
+      marker,
+    );
+    // Fixed-step rendering must still drive the location's readiness frames.
+    await page.waitForFunction(() => {
+      const s = window.__kitQA,
+        render = s.gl.render;
+      s.gl.render = () => {};
+      try {
+        s.advance(s.clock.elapsedTime + 1 / 60, false);
+      } finally {
+        s.gl.render = render;
+      }
+      return window.__kitTravel.getSnapshot().phase === "ready";
+    });
+  }
   await attach();
-  await page.waitForFunction(() =>
-    window.__kitQA.scene.getObjectByName("sanctuary-assets-ready"),
-  );
+  await settled("sanctuary-assets-ready");
   const low = await page.evaluate(() => {
     const s = window.__kitQA;
     return {
@@ -83,6 +111,7 @@ try {
   await page.getByTestId("button-menu").click();
   await page.waitForSelector("canvas", { state: "detached" });
   await page.route("**/*.glb*", (route) => {
+    if (route.request().resourceType() !== "fetch") return route.continue();
     report.expectedAssetFailures.push(route.request().url());
     return route.fulfill({
       status: 404,
@@ -91,9 +120,7 @@ try {
   });
   await page.getByTestId("explore-tribal").click();
   await attach();
-  await page.waitForFunction(() =>
-    window.__kitQA.scene.getObjectByName("sanctuary-asset-fallback"),
-  );
+  await settled("sanctuary-asset-fallback");
   await page.getByTestId("skip-tribal-intro").click();
   await page.getByTestId("stand-and-explore").click();
   await page.waitForSelector("[data-testid=joystick]");
@@ -105,13 +132,12 @@ try {
   await page.unroute("**/*.glb*");
   await page.getByTestId("explore-tribal").click();
   await attach();
-  await page.waitForFunction(() =>
-    window.__kitQA.scene.getObjectByName("sanctuary-assets-ready"),
-  );
+  await settled("sanctuary-assets-ready");
   report.checks.push(
     "menu/reentry reloads assets after disposal and after failed request",
   );
   assert.deepEqual(report.errors, []);
+  report.status = "passed";
   console.log("Asset loading, low quality, fallback and reentry passed");
 } finally {
   await writeFile(
