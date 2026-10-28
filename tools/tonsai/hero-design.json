@@ -1,0 +1,19 @@
+{
+  "id": "tonsai-divider",
+  "peaks": [
+    {"name":"western prow","x":-357,"z":-709,"height":168,"rx":108,"rz":94},
+    {"name":"split crown","x":-262,"z":-592,"height":190,"rx":105,"rz":132},
+    {"name":"inland shoulder","x":-132,"z":-810,"height":156,"rx":166,"rz":112},
+    {"name":"southern tooth","x":-264,"z":-414,"height":126,"rx":84,"rz":100},
+    {"name":"eastern ridge","x":-28,"z":-655,"height":173,"rx":108,"rz":150}
+  ],
+  "recesses": [
+    {"x":-383,"y":37,"z":-699,"rx":22,"ry":18,"rz":36},
+    {"x":-320,"y":70,"z":-631,"rx":23,"ry":32,"rz":31},
+    {"x":-287,"y":27,"z":-519,"rx":23,"ry":16,"rz":34},
+    {"x":-331,"y":111,"z":-697,"rx":15,"ry":27,"rz":19},
+    {"x":-360,"y":40,"z":-766,"rx":25,"ry":18,"rz":20}
+  ],
+  "benchmark":{"position":[-670,3.06,-820],"target":[-313,77,-623],"fov":62},
+  "note":"Original art-directed ridge elevations, not surveyed photogrammetry. Original OSM footprint and low walking envelope retained. Maximum crown raised from roughly 145m to 190m; deeply lowered saddles stay internal."
+}

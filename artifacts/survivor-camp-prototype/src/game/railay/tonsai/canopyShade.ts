@@ -1,11 +1,12 @@
 import * as T from "three";
+import { heroUnderstory } from "./heroPlants";
 import { tonsaiPlants } from "./tropical";
 /** A 512² R8 static canopy occlusion field. No peninsula shadow map, depth pass,
  * or runtime light simulation. Placed from the actual tree crown positions. */
 export function canopyShade() {
   const size = 512,
     bytes = new Uint8Array(size * size).fill(255);
-  for (const p of tonsaiPlants(false)) {
+  for (const p of [...tonsaiPlants(false), ...heroUnderstory(false)]) {
     if (!["canopy", "ficus", "palm", "pandanus"].includes(p.kind)) continue;
     const cx = ((p.x + 1320 + 4) / 1400) * size,
       cy = ((p.z + 1600 + 3) / 1300) * size;

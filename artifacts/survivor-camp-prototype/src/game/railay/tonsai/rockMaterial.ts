@@ -5,10 +5,10 @@ import * as T from "three";
  * micro relief; no photograph or proprietary scan, no screen-space passes. */
 export function limestoneMaterial() {
   const m = new T.MeshStandardMaterial({
-    color: "#b8b9ac",
+    color: "#eeeee5",
     roughness: 0.91,
     vertexColors: true,
-    side: T.DoubleSide,
+    side: T.FrontSide,
   });
   m.name = "tonsai-mineral-limestone";
   const pixel = (bytes: number[]) => {
@@ -74,18 +74,24 @@ export function limestoneMaterial() {
       .replace(
         "#include <color_fragment>",
         `#include <color_fragment>
-      float broad=lf(vLime*.038);
-      float stain=lf(vLime*vec3(.078,.011,.078)+vec3(0,lf(vLime*.025)*2.,0));
-      float grain=lf(vLime*.82);
-      float bed=lf(vec3(vLime.x*.07,vLime.y*.17+vLime.x*.025,vLime.z*.07));
-      vec3 stone=mix(vec3(.36,.37,.34),vec3(.64,.65,.59),smoothstep(.22,.78,broad));
-      stone=mix(stone,vec3(.30,.21,.12),smoothstep(.59,.79,stain)*.72);
-      stone=mix(stone,vec3(.15,.205,.115),smoothstep(.64,.84,lf(vLime*.055+40.))*.35);
-      stone*=.90+.12*grain+.06*bed;
-      vec3 weights=pow(abs(normalize(cross(dFdx(vLime),dFdy(vLime)))),vec3(4.));weights/=max(.001,dot(weights,vec3(1.)));
-      vec3 scan=texture2D(rockAlbedo,vLime.zy*.075).rgb*weights.x+texture2D(rockAlbedo,vLime.xz*.075).rgb*weights.y+texture2D(rockAlbedo,vLime.xy*.075).rgb*weights.z;
+      float broad=lf(vLime*.018);
+      float stain=lf(vLime*vec3(.054,.004,.062)+vec3(0,lf(vLime*.019)*1.1,0));
+      float grain=lf(vLime*1.4);
+      float rain=smoothstep(.38,.64,stain);
+      vec3 stone=mix(vec3(.40,.425,.41),vec3(.69,.70,.66),smoothstep(.23,.76,broad));
+      float warm=smoothstep(.38,.68,lf(vLime*vec3(.027,.012,.031)+31.));
+      stone=mix(stone,vec3(.60,.40,.235),warm*.63);
+      stone=mix(stone,vec3(.10,.135,.13),rain*.76);
+      vec3 geomN=normalize(cross(dFdx(vLime),dFdy(vLime)));
+      float moss=smoothstep(.32,.75,geomN.y)*smoothstep(.45,.73,lf(vLime*.095+40.));
+      stone=mix(stone,vec3(.18,.255,.105),moss*.67);
+      float damp=(1.-smoothstep(1.,13.,vLime.y))*smoothstep(.27,.68,stain);
+      stone=mix(stone,vec3(.13,.17,.14),damp*.5);
+      vec3 weights=pow(abs(geomN),vec3(4.));weights/=max(.001,dot(weights,vec3(1.)));
+      vec3 scan=texture2D(rockAlbedo,vLime.zy*.11).rgb*weights.x+texture2D(rockAlbedo,vLime.xz*.11).rgb*weights.y+texture2D(rockAlbedo,vLime.xy*.11).rgb*weights.z;
       float grey=dot(scan,vec3(.3,.55,.15));
-      diffuseColor.rgb*=stone*mix(vec3(grey),scan,.2)*3.2;
+      // The scan contributes restrained grain; 20–80m mineral fields own the cliff.
+      diffuseColor.rgb*=stone*(.53+1.65*grey)*(.89+.16*grain);
     `,
       )
       .replace(
@@ -98,8 +104,8 @@ export function limestoneMaterial() {
       vec3 nz=texture2D(rockNormals,vLime.xy*.075).xyz*2.-1.;
       vec3 mapped=normalize(vec3(nx.z*sign(rockNW.x),nx.y,nx.x)*blendW.x+vec3(ny.x,ny.z*sign(rockNW.y),ny.y)*blendW.y+vec3(nz.x,nz.y,nz.z*sign(rockNW.z))*blendW.z);
       vec3 targetN=normalize(mat3(viewMatrix)*mapped);
-      normal=normalize(mix(normal,targetN,.4));
-      float relief=lf(vLime*1.8)*.022+lf(vLime*.29)*.14;
+      normal=normalize(mix(normal,targetN,.40));
+      float relief=lf(vLime*2.8)*.012+lf(vLime*.39)*.10;
       vec3 q0=dFdx(-vViewPosition),q1=dFdy(-vViewPosition);
       vec3 r1=cross(q1,normal),r2=cross(normal,q0);
       float det=dot(q0,r1);
@@ -113,6 +119,6 @@ export function limestoneMaterial() {
     `,
       );
   };
-  m.customProgramCacheKey = () => "tonsai-limestone-v1";
+  m.customProgramCacheKey = () => "tonsai-limestone-v2";
   return m;
 }

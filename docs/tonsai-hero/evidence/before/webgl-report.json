@@ -1,0 +1,113 @@
+{
+  "renderer": "Chrome 142 headless shell / ANGLE SwiftShader, host software WebGL; physical iPhone Safari UNVERIFIED",
+  "errors": [],
+  "captures": [
+    {
+      "name": "19-benchmark",
+      "view": {
+        "p": [
+          -670,
+          3.063333344,
+          -820
+        ],
+        "t": [
+          -313,
+          77,
+          -623
+        ],
+        "fov": 62
+      },
+      "hostRenderSubmissionMs": 41.5,
+      "calls": 214,
+      "triangles": 1241579,
+      "geometries": 168,
+      "textures": 14,
+      "programs": 19,
+      "quality": "high",
+      "breakdown": {
+        "unnamed": 814120,
+        "tonsai-tonsai-divider": 104995,
+        "tonsai-northwest-wall": 104984,
+        "terrain": 96686,
+        "tonsai-talus-driftwood": 41970,
+        "andaman-water": 28800,
+        "diamond-ridge": 13440,
+        "southern-massif": 13352,
+        "distant-mainland-context": 9080,
+        "railay-geology-ready": 4240,
+        "thaiwand": 4160,
+        "lagoon-rim": 1640,
+        "mapped-islet-1": 1280,
+        "mapped-islet-3": 1040,
+        "mapped-islet-5": 560,
+        "mapped-islet-4": 480,
+        "mapped-islet-6": 400,
+        "andaman-sky": 352
+      },
+      "synchronizedHostFrameMs": [
+        5.199999999254942,
+        2.5,
+        8.900000000372529
+      ]
+    },
+    {
+      "name": "20-benchmark-low",
+      "view": {
+        "p": [
+          -670,
+          3.063333344,
+          -820
+        ],
+        "t": [
+          -313,
+          77,
+          -623
+        ],
+        "fov": 62,
+        "low": true
+      },
+      "hostRenderSubmissionMs": 21.59999999962747,
+      "calls": 144,
+      "triangles": 514783,
+      "geometries": 170,
+      "textures": 14,
+      "programs": 19,
+      "quality": "low",
+      "breakdown": {
+        "unnamed": 247716,
+        "terrain": 88366,
+        "tonsai-tonsai-divider": 33582,
+        "tonsai-northwest-wall": 33575,
+        "tonsai-talus-driftwood": 32720,
+        "andaman-water": 28800,
+        "diamond-ridge": 13440,
+        "southern-massif": 13352,
+        "distant-mainland-context": 9080,
+        "railay-geology-ready": 4240,
+        "thaiwand": 4160,
+        "lagoon-rim": 1640,
+        "mapped-islet-1": 1280,
+        "mapped-islet-3": 1040,
+        "mapped-islet-5": 560,
+        "mapped-islet-4": 480,
+        "mapped-islet-6": 400,
+        "andaman-sky": 352
+      },
+      "synchronizedHostFrameMs": [
+        3.2000000001862645,
+        2.5,
+        1.7000000001862645
+      ]
+    }
+  ],
+  "performance": [],
+  "checks": [
+    "Live minimap and expandable geographical map open / close correctly."
+  ],
+  "initialEntryHostWallMs": 13775,
+  "resourceStats": {
+    "geometryBytes": 11578694,
+    "textureBytesEstimate": 28311573.33333333,
+    "note": "CPU attributes; uncompressed mip estimate, not driver allocation"
+  }
+}

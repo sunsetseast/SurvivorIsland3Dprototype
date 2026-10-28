@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import * as T from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import url from "../../../assets/tonsai/karsts.glb?url";
+import highUrl from "../../../assets/tonsai/karsts-high.glb?url";
+import lowUrl from "../../../assets/tonsai/karsts-low.glb?url";
 import { limestoneMaterial } from "./rockMaterial";
 import { disposeGeology } from "../Geology";
 import { TONSAI_KARSTS } from "./domain";
@@ -34,10 +35,11 @@ export function TonsaiKarsts({ low }: { low: boolean }) {
     [],
   );
   useEffect(() => {
+    setKit(null);
     let active = true,
       loaded: T.Group | undefined;
     new GLTFLoader().load(
-      url,
+      low ? lowUrl : highUrl,
       (g) => {
         loaded = g.scene;
         if (active) {
@@ -51,7 +53,7 @@ export function TonsaiKarsts({ low }: { low: boolean }) {
       active = false;
       if (loaded) disposeGeology(loaded);
     };
-  }, []);
+  }, [low]);
   useEffect(
     () => () => {
       rock.dispose();
@@ -61,6 +63,16 @@ export function TonsaiKarsts({ low }: { low: boolean }) {
   );
   return (
     <group name={kit ? "tonsai-karsts-ready" : "tonsai-karsts-fallback"}>
+      {TONSAI_KARSTS.map((k, i) => (
+        <mesh
+          key={`proxy-${k.id}`}
+          name={`camera-${k.id}`}
+          visible={false}
+          geometry={fallback[i]}
+          material={rock}
+          userData={{ cameraBlocker: true }}
+        />
+      ))}
       {TONSAI_KARSTS.map((k, i) => {
         const mesh = kit?.getObjectByName(`${k.id}-${low ? "low" : "high"}`) as
           T.Mesh | undefined;
@@ -70,7 +82,7 @@ export function TonsaiKarsts({ low }: { low: boolean }) {
             name={`tonsai-${k.id}`}
             geometry={mesh?.geometry || fallback[i]}
             material={rock}
-            userData={{ cameraBlocker: true }}
+            userData={{ cameraBlocker: false }}
           />
         );
       })}

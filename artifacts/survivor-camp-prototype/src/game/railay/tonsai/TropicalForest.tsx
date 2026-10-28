@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as T from "three";
-import canopyUrl from "../../../assets/tonsai/canopy.png?url";
+import { useBotanicalKit } from "./botanicalKit";
+import anchors from "../../../assets/tonsai/hero-anchors.json";
+import sprayUrl from "../../../assets/tonsai/leaf-sprays.png?url";
+import { heroUnderstory } from "./heroPlants";
 import { useFoliageTextures } from "../Vegetation";
 import {
   tonsaiPlants,
@@ -30,7 +33,7 @@ function Instances({
     plants.forEach((p, i) => {
       o.position.set(p.x, p.y - 0.12, p.z);
       o.rotation.set(0, p.turn, 0);
-      o.scale.setScalar(p.scale);
+      o.scale.set(p.scale, p.scale * (p.ledge ? 0.68 : 1), p.scale);
       o.updateMatrix();
       ref.current!.setMatrixAt(i, o.matrix);
       c.set(
@@ -39,7 +42,7 @@ function Instances({
             ? "#80603b"
             : p.kind === "canopy" || p.kind === "ficus"
               ? "#d5e3b9"
-              : "#4e792c"
+              : "#b3cf91"
           : "#68584a",
       );
       c.offsetHSL((p.tint - 0.5) * 0.055, 0, (p.tint - 0.5) * 0.09);
@@ -50,7 +53,7 @@ function Instances({
     ref.current.computeBoundingSphere();
     const instance = ref.current;
     return () => instance.dispose();
-  }, [plants, leaf]);
+  }, [plants, leaf, geometry, material]);
   return (
     <instancedMesh
       ref={ref}
@@ -69,6 +72,10 @@ function Stand({
   leaf,
   broad,
   low,
+  premium,
+  premiumLeaf,
+  premiumPalm,
+  ferns,
 }: {
   kind: Botanical;
   variant: number;
@@ -78,19 +85,41 @@ function Stand({
   leaf: T.Material;
   broad: T.Material;
   low: boolean;
+  premium: T.Group | null;
+  premiumLeaf: T.Material;
+  premiumPalm: T.Material;
+  ferns: T.Group | null;
 }) {
   const [selection, setSelection] = useState({
       near: [] as Specimen[],
-      far: plants,
+      far: [] as Specimen[],
     }),
     last = useRef(new T.Vector3(1e6, 1e6, 1e6)),
-    time = useRef(1);
+    time = useRef(1),
+    direction = useRef(new T.Vector3()),
+    lastDirection = useRef(new T.Vector3()),
+    frustum = useMemo(() => new T.Frustum(), []),
+    matrix = useMemo(() => new T.Matrix4(), []);
   useFrame(({ camera }, dt) => {
-    time.current += dt;
-    if (time.current < 0.7 || camera.position.distanceTo(last.current) < 15)
+    time.current += Math.max(0, Math.min(dt, 1));
+    camera.getWorldDirection(direction.current);
+    if (
+      time.current < 0.7 ||
+      (camera.position.distanceTo(last.current) < 12 &&
+        direction.current.dot(lastDirection.current) > 0.985)
+    )
       return;
+    lastDirection.current.copy(direction.current);
+    camera.updateMatrixWorld();
+    frustum.setFromProjectionMatrix(
+      matrix.multiplyMatrices(
+        camera.projectionMatrix,
+        camera.matrixWorldInverse,
+      ),
+    );
     time.current = 0;
     last.current.copy(camera.position);
+    const sphere = new T.Sphere();
     const near: Specimen[] = [],
       far: Specimen[] = [];
     for (const p of plants) {
@@ -99,13 +128,18 @@ function Stand({
         camera.position.y - p.y,
         camera.position.z - p.z,
       );
+      sphere.center.set(p.x, p.y + 12 * p.scale, p.z);
+      sphere.radius =
+        (["fern", "aroid", "litter"].includes(kind) ? 4 : 24) * p.scale;
+      if (!frustum.intersectsSphere(sphere)) continue;
       if (["fern", "aroid", "litter"].includes(kind)) {
-        if (d < (low ? 65 : 115)) near.push(p);
-      } else if (d < (low ? 180 : 270)) near.push(p);
-      else if (d < (low ? 1500 : 2800)) far.push(p);
+        if (d < (low ? 18 : 30)) near.push(p);
+        else if (d < (low ? 65 : 105)) far.push(p);
+      } else if (d < (low ? 95 : 145)) near.push(p);
+      else if (d < (low ? 1100 : 1900)) far.push(p);
     }
     setSelection({ near, far });
-  });
+  }, 1.5);
   const cutout = kind === "canopy" || kind === "ficus",
     mat = cutout ? broad : leaf;
   return (
@@ -113,13 +147,47 @@ function Stand({
       {[true, false].map((detail) => {
         const ps = detail ? selection.near : selection.far;
         if (!ps.length) return null;
-        const kit = kits[`${kind}-${variant}-${detail}`]!;
+        const fallbackKit = kits[`${kind}-${variant}-${detail}`]!;
+        const premiumMesh = premium?.getObjectByName(
+          `${kind}-${variant % 3}-${detail ? "near" : "far"}-leaves`,
+        ) as T.Mesh | undefined;
+        const premiumWood = premium?.getObjectByName(
+          `${kind}-${variant % 3}-${detail ? "near" : "far"}-wood`,
+        ) as T.Mesh | undefined;
+        const fernMeshes: T.Mesh[] = [];
+        ferns?.traverse((o) => {
+          if ((o as T.Mesh).isMesh) fernMeshes.push(o as T.Mesh);
+        });
+        const fern =
+          kind === "fern" && detail && fernMeshes.length
+            ? fernMeshes[variant % fernMeshes.length]
+            : undefined;
+        const kit = premiumMesh
+          ? { wood: premiumWood?.geometry, leaves: premiumMesh.geometry }
+          : fern
+            ? { wood: null, leaves: fern.geometry }
+            : fallbackKit;
+        const foliageMat = premiumMesh
+          ? kind === "palm"
+            ? premiumPalm
+            : premiumLeaf
+          : fern
+            ? (fern.material as T.Material)
+            : mat;
         return (
-          <group key={String(detail)}>
-            {detail && kit.wood && (
+          <group
+            key={String(detail)}
+            name={`botanical-${kind}-${detail ? "near" : "far"}`}
+          >
+            {kit.wood && (
               <Instances plants={ps} geometry={kit.wood} material={wood} />
             )}
-            <Instances plants={ps} geometry={kit.leaves} material={mat} leaf />
+            <Instances
+              plants={ps}
+              geometry={kit.leaves}
+              material={foliageMat}
+              leaf
+            />
           </group>
         );
       })}
@@ -127,14 +195,24 @@ function Stand({
   );
 }
 export function TropicalForest({ low }: { low: boolean }) {
-  const plants = useMemo(() => tonsaiPlants(low), [low]);
+  const { kit: premium, ferns } = useBotanicalKit();
+  const plants = useMemo(
+    () => [
+      ...tonsaiPlants(low),
+      ...heroUnderstory(low),
+      ...anchors
+        .filter((_, i) => !low || i % 2 === 0)
+        .map((a) => ({ ...a, kind: a.kind as Botanical, ledge: true })),
+    ],
+    [low],
+  );
   const fallback = useFoliageTextures();
   const [canopy, setCanopy] = useState<T.Texture | null>(null);
   useEffect(() => {
     let active = true,
       loaded: T.Texture | undefined;
     new T.TextureLoader().load(
-      canopyUrl,
+      sprayUrl,
       (t) => {
         loaded = t;
         t.colorSpace = T.SRGBColorSpace;
@@ -149,7 +227,7 @@ export function TropicalForest({ low }: { low: boolean }) {
       loaded?.dispose();
     };
   }, []);
-  const textures = [canopy || fallback[0]];
+  const textures = [fallback[0]];
   const defs = useMemo(
     () =>
       SPECIES.flatMap((kind) =>
@@ -197,6 +275,16 @@ export function TropicalForest({ low }: { low: boolean }) {
     () => new T.MeshStandardMaterial({ roughness: 0.87, side: T.DoubleSide }),
     [],
   );
+  const premiumPalm = useMemo(
+    () =>
+      new T.MeshStandardMaterial({
+        roughness: 0.87,
+        side: T.DoubleSide,
+        vertexColors: true,
+      }),
+    [],
+  );
+  useEffect(() => () => premiumPalm.dispose(), [premiumPalm]);
   const broad = useMemo(
     () =>
       new T.MeshStandardMaterial({
@@ -209,6 +297,20 @@ export function TropicalForest({ low }: { low: boolean }) {
       }),
     [canopy, fallback],
   );
+  const premiumLeaf = useMemo(
+    () =>
+      new T.MeshStandardMaterial({
+        map: canopy || fallback[0],
+        alphaTest: 0.42,
+        side: T.DoubleSide,
+        vertexColors: true,
+        roughness: 0.9,
+        emissive: "#547542",
+        emissiveIntensity: 0.1,
+      }),
+    [canopy, fallback],
+  );
+  useEffect(() => () => premiumLeaf.dispose(), [premiumLeaf]);
   useEffect(
     () => () => {
       broad.dispose();
@@ -237,7 +339,10 @@ export function TropicalForest({ low }: { low: boolean }) {
     [defs, plants],
   );
   return (
-    <group name="tonsai-tropical-forest">
+    <group
+      name="tonsai-tropical-forest"
+      userData={{ assetsReady: !!premium && !!ferns && !!canopy }}
+    >
       {groups.map((d) => (
         <Stand
           key={`${d.kind}-${d.variant}-${low}`}
@@ -247,6 +352,10 @@ export function TropicalForest({ low }: { low: boolean }) {
           wood={wood}
           leaf={leaf}
           broad={broad}
+          premium={premium}
+          premiumLeaf={premiumLeaf}
+          premiumPalm={premiumPalm}
+          ferns={ferns}
         />
       ))}
     </group>

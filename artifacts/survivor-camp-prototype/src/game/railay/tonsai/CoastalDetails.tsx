@@ -1,8 +1,45 @@
-import { useMemo, useEffect, useRef } from "react";
+import { useMemo, useEffect, useRef, useState } from "react";
 import * as T from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import scanUrl from "../../../assets/tonsai/coast_rocks_05.glb?url";
+import { disposeGeology } from "../Geology";
 import { coastalDebris } from "./coastal";
 import { limestoneMaterial } from "./rockMaterial";
 export function CoastalDetails({ low }: { low: boolean }) {
+  const [scan, setScan] = useState<T.Mesh | null>(null);
+  const scanMesh = useRef<T.InstancedMesh>(null);
+  useEffect(() => {
+    if (low) {
+      setScan(null);
+      return;
+    }
+    let active = true,
+      loaded: T.Group | undefined;
+    new GLTFLoader().load(
+      scanUrl,
+      ({ scene }) => {
+        loaded = scene;
+        let found: T.Mesh | undefined;
+        scene.traverse((o) => {
+          if ((o as T.Mesh).isMesh) found = o as T.Mesh;
+        });
+        if (active) setScan(found || null);
+        else disposeGeology(scene);
+      },
+      undefined,
+      () => {},
+    );
+    return () => {
+      active = false;
+      if (loaded) disposeGeology(loaded);
+    };
+  }, [low]);
+  const useScan = (p: ReturnType<typeof coastalDebris>[number]) =>
+    !!scan &&
+    !low &&
+    !p.wood &&
+    p.radius > 1.4 &&
+    Math.hypot(p.x + 600, p.z + 800) < 260;
   const mesh = useRef<T.InstancedMesh>(null),
     woodMesh = useRef<T.InstancedMesh>(null);
   const rocks = useMemo(() => {
@@ -42,14 +79,21 @@ export function CoastalDetails({ low }: { low: boolean }) {
   );
   useEffect(() => {
     const o = new T.Object3D();
-    for (const [m, wood] of [
-      [mesh.current, false],
-      [woodMesh.current, true],
+    for (const [m, wood, scanned] of [
+      [mesh.current, false, false],
+      [woodMesh.current, true, false],
+      [scanMesh.current, false, true],
     ] as const) {
       if (!m) continue;
-      ps.filter((p) => p.wood === wood).forEach((p, i) => {
-        o.position.set(p.x, p.y + p.radius * 0.24, p.z);
-        o.rotation.set(wood ? 0.12 : 0, p.turn, wood ? 0.03 : p.variant * 0.21);
+      ps.filter(
+        (p) => p.wood === wood && (wood || useScan(p) === scanned),
+      ).forEach((p, i) => {
+        o.position.set(p.x, scanned ? p.y + 0.14 : p.y + p.radius * 0.24, p.z);
+        o.rotation.set(
+          wood ? 0.12 : 0,
+          p.turn,
+          wood ? 0.03 : scanned ? 0 : p.variant * 0.21,
+        );
         o.scale.setScalar(wood ? 1 : p.radius);
         o.updateMatrix();
         m.setMatrixAt(i, o.matrix);
@@ -57,9 +101,9 @@ export function CoastalDetails({ low }: { low: boolean }) {
       m.instanceMatrix.needsUpdate = true;
       m.computeBoundingSphere();
     }
-    const instances = [mesh.current, woodMesh.current];
+    const instances = [mesh.current, woodMesh.current, scanMesh.current];
     return () => instances.forEach((m) => m?.dispose());
-  }, [ps]);
+  }, [ps, scan]);
   useEffect(
     () => () => {
       rocks.dispose();
@@ -72,9 +116,16 @@ export function CoastalDetails({ low }: { low: boolean }) {
   // Region-wide single batches are frustum-culled; no thousands of object nodes.
   return (
     <group name="tonsai-talus-driftwood">
+      {scan && (
+        <instancedMesh
+          ref={scanMesh}
+          args={[scan.geometry, scan.material, ps.filter(useScan).length]}
+          dispose={null}
+        />
+      )}
       <instancedMesh
         ref={mesh}
-        args={[rocks, stone, ps.filter((p) => !p.wood).length]}
+        args={[rocks, stone, ps.filter((p) => !p.wood && !useScan(p)).length]}
         dispose={null}
       />
       <instancedMesh

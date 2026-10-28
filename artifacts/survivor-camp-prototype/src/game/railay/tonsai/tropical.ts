@@ -2,11 +2,19 @@ import * as T from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { random } from "../vegetation";
 import { heightAt, slopeAt } from "../terrain";
-import { COAST, edgeDistance, trailDistance, noise } from "../geography";
+import {
+  KARSTS,
+  inside,
+  COAST,
+  edgeDistance,
+  trailDistance,
+  noise,
+} from "../geography";
 import { inTonsai, cliffFootDistance, rockInterior } from "./domain";
 export type Botanical =
   "canopy" | "ficus" | "palm" | "pandanus" | "fern" | "aroid" | "litter";
 export type Specimen = {
+  ledge?: boolean;
   x: number;
   y: number;
   z: number;
@@ -61,6 +69,11 @@ export function tonsaiPlants(low: boolean): Specimen[] {
         f = cliffFootDistance(px, pz);
       const accept = r();
       if (
+        inside(
+          px,
+          pz,
+          KARSTS.find((k) => k.id === "tonsai-divider")!.outline,
+        ) ||
         !inTonsai(px, pz) ||
         h < 1.1 ||
         s > (h > 35 ? 1.65 : 0.8) ||
@@ -86,6 +99,7 @@ export function tonsaiPlants(low: boolean): Specimen[] {
       shore = edgeDistance(x, z, COAST),
       foot = cliffFootDistance(x, z);
     if (
+      inside(x, z, KARSTS.find((k) => k.id === "tonsai-divider")!.outline) ||
       !inTonsai(x, z) ||
       h < 2 ||
       h > 195 ||
@@ -237,7 +251,7 @@ export function tropicalGeometry(
         if (ficus && j % 3 === 0)
           wood.push(limb(end, end.clone().setY(0.2), 0.045, 0.08));
       }
-      const count = detail ? 14 : 7;
+      const count = detail ? 14 : 3;
       for (let k = 0; k < count; k++) {
         const p = end
           .clone()
@@ -313,7 +327,7 @@ export function tropicalGeometry(
       } else leaves.push(blade(crown, at(1), 0.18, 0.9));
     }
   } else if (kind === "aroid" || kind === "fern") {
-    for (let i = 0; i < (kind === "aroid" ? 7 : 9); i++) {
+    for (let i = 0; i < (kind === "aroid" ? 7 : detail ? 9 : 5); i++) {
       const a = i * 2.399 + variant,
         len = kind === "aroid" ? 1.6 : 1.4;
       if (kind === "aroid")
@@ -326,8 +340,8 @@ export function tropicalGeometry(
           ),
         );
       else
-        for (let j = 1; j <= 7; j++) {
-          const t = j / 7,
+        for (let j = 1; j <= (detail ? 7 : 4); j++) {
+          const t = j / (detail ? 7 : 4),
             rr = len * t,
             p = v(
               Math.cos(a) * rr,

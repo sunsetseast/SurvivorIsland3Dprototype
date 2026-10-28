@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Joystick, RunButton, OrbitZone } from "../Hud";
-import { dbg, clearInput } from "../state";
+import { dbg, clearInput, input } from "../state";
 import { IslandMap } from "./IslandMap";
 import { ZONES } from "./geography";
 export function IslandHud({
@@ -68,6 +68,19 @@ export function IslandHud({
       <IslandMap />
       {travel && (
         <div className="island-travel">
+          <button
+            data-testid="travel-tonsai-showcase"
+            onClick={() => {
+              clearInput();
+              dbg.teleportRequested = { x: -670, z: -820 };
+              input.yaw = -2.075;
+              input.pitch = -0.1;
+              setOverview(false);
+              setTravel(false);
+            }}
+          >
+            Tonsai · Limestone Cove
+          </button>
           {ZONES.map((z) => (
             <button
               key={z.id}

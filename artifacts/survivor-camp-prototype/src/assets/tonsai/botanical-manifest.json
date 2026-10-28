@@ -1,0 +1,151 @@
+{
+  "license": "MIT original",
+  "generator": "tools/blender/botanical-hero.py",
+  "modules": [
+    {
+      "name": "canopy-0-near-wood",
+      "triangles": 868
+    },
+    {
+      "name": "canopy-0-near-leaves",
+      "triangles": 1600
+    },
+    {
+      "name": "canopy-0-far-wood",
+      "triangles": 80
+    },
+    {
+      "name": "canopy-0-far-leaves",
+      "triangles": 96
+    },
+    {
+      "name": "canopy-1-near-wood",
+      "triangles": 868
+    },
+    {
+      "name": "canopy-1-near-leaves",
+      "triangles": 1600
+    },
+    {
+      "name": "canopy-1-far-wood",
+      "triangles": 80
+    },
+    {
+      "name": "canopy-1-far-leaves",
+      "triangles": 96
+    },
+    {
+      "name": "canopy-2-near-wood",
+      "triangles": 868
+    },
+    {
+      "name": "canopy-2-near-leaves",
+      "triangles": 1600
+    },
+    {
+      "name": "canopy-2-far-wood",
+      "triangles": 80
+    },
+    {
+      "name": "canopy-2-far-leaves",
+      "triangles": 96
+    },
+    {
+      "name": "ficus-0-near-wood",
+      "triangles": 944
+    },
+    {
+      "name": "ficus-0-near-leaves",
+      "triangles": 1600
+    },
+    {
+      "name": "ficus-0-far-wood",
+      "triangles": 80
+    },
+    {
+      "name": "ficus-0-far-leaves",
+      "triangles": 96
+    },
+    {
+      "name": "ficus-1-near-wood",
+      "triangles": 944
+    },
+    {
+      "name": "ficus-1-near-leaves",
+      "triangles": 1600
+    },
+    {
+      "name": "ficus-1-far-wood",
+      "triangles": 80
+    },
+    {
+      "name": "ficus-1-far-leaves",
+      "triangles": 96
+    },
+    {
+      "name": "ficus-2-near-wood",
+      "triangles": 944
+    },
+    {
+      "name": "ficus-2-near-leaves",
+      "triangles": 1600
+    },
+    {
+      "name": "ficus-2-far-wood",
+      "triangles": 80
+    },
+    {
+      "name": "ficus-2-far-leaves",
+      "triangles": 96
+    },
+    {
+      "name": "palm-0-near-wood",
+      "triangles": 952
+    },
+    {
+      "name": "palm-0-near-leaves",
+      "triangles": 1672
+    },
+    {
+      "name": "palm-0-far-wood",
+      "triangles": 844
+    },
+    {
+      "name": "palm-0-far-leaves",
+      "triangles": 760
+    },
+    {
+      "name": "palm-1-near-wood",
+      "triangles": 992
+    },
+    {
+      "name": "palm-1-near-leaves",
+      "triangles": 1760
+    },
+    {
+      "name": "palm-1-far-wood",
+      "triangles": 884
+    },
+    {
+      "name": "palm-1-far-leaves",
+      "triangles": 800
+    },
+    {
+      "name": "palm-2-near-wood",
+      "triangles": 1032
+    },
+    {
+      "name": "palm-2-near-leaves",
+      "triangles": 1848
+    },
+    {
+      "name": "palm-2-far-wood",
+      "triangles": 924
+    },
+    {
+      "name": "palm-2-far-leaves",
+      "triangles": 840
+    }
+  ],
+  "sha256": "c705913d172160cbbea0186aea3acf1ac01cd301c7b242cff8283fa42c72989c"
+}
