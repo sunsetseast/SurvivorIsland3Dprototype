@@ -99,7 +99,7 @@ Provisional default-view budgets are ≤250 calls / 650k submitted triangles on 
 | Physical iPhone Safari | **Not tested or certified** |
 | Historical iPhone diagonal | **Root cause unresolved**; not reproduced in this Camp baseline/final set, so not certified fixed |
 
-The read-only CI workflow is supplied, but local passes are not represented as an unobserved GitHub Actions pass. Remaining art limits are listed in [REPORT.md](REPORT.md) and shown in [GALLERY.md](GALLERY.md).
+The mobile fixture waits for Player's observed control-lock state after a map opens or closes, then attempts fresh keyboard movement while locked. This keeps manual simulation from outrunning React's modal commit on fast CI runners; it does not set locks or alter gameplay inputs. The read-only CI workflow is supplied, but local passes are not represented as an unobserved GitHub Actions pass. Remaining art limits are listed in [REPORT.md](REPORT.md) and shown in [GALLERY.md](GALLERY.md).
 '''
 (DOC/'PERFORMANCE.md').write_text(text)
 print('Updated',DOC/'PERFORMANCE.md')

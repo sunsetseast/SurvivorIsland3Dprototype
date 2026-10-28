@@ -55,6 +55,7 @@ export const dbg = {
   speed: 0,
   cameraDistance: 7.4,
   cameraBlocked: false,
+  controlsLocked: false,
 };
 
 export function clearInput() {
