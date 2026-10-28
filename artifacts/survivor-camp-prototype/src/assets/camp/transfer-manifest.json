@@ -1,0 +1,20 @@
+[
+  {
+    "file": "coastal-tree.glb",
+    "bytes": 1704456,
+    "sourceExportBytes": 6567292,
+    "sha256": "648eec872550a4772cd66a34acc2f22afa5257e1bb5ca3469464a219159bcd46"
+  },
+  {
+    "file": "limestone.glb",
+    "bytes": 724020,
+    "sourceExportBytes": 3138852,
+    "sha256": "62773febc4667ed89b2660aaa28de1e270d60f256d9e7f19758bb4ae635f5332"
+  },
+  {
+    "file": "palms.glb",
+    "bytes": 901244,
+    "sourceExportBytes": 901220,
+    "sha256": "ae34f2b8604f61b1ae3106c415886492bd6f0bb3ab4a2809dc460cb325b0c5e3"
+  }
+]

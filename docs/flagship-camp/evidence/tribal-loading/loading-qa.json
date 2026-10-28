@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {
+      "lowQualityAndControls": {
+        "quality": "low",
+        "dpr": 1,
+        "shadows": false
+      }
+    },
+    "404 asset failure retains procedural architecture and exploration controls",
+    "menu/reentry reloads assets after disposal and after failed request"
+  ],
+  "errors": [],
+  "expectedAssetFailures": [
+    "http://127.0.0.1:5183/src/assets/sanctuary/voting-props.glb",
+    "http://127.0.0.1:5183/src/assets/sanctuary/sanctuary-kit-low.glb"
+  ],
+  "status": "passed"
+}

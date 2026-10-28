@@ -1,0 +1,200 @@
+{
+  "method": "Real Chromium WebGL / ANGLE SwiftShader, 932x430 DPR1. Identical poses before/after. Manual 60Hz simulation avoids conflating software raster cost with input. Render submission wall timings are NOT GPU or iPhone FPS.",
+  "phase": "inspection",
+  "browser": "156.0.8078.4",
+  "errors": [],
+  "samples": [
+    {
+      "label": "high default",
+      "calls": 229,
+      "triangles": 744211,
+      "geometries": 97,
+      "textures": 28,
+      "programs": 31,
+      "sceneGeometries": 106,
+      "materials": 48,
+      "sceneTextures": 34,
+      "geometryBytes": 11056424,
+      "textureBytesEstimate": 46115520.000000015,
+      "softwareRenderFinishMs": [
+        3.4000000001396984,
+        2.3999999999068677,
+        2,
+        1.8000000000465661,
+        1.7999999998137355
+      ],
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "resources": [
+        {
+          "name": "sand_02-diff.jpg?import&url",
+          "transferSize": 725,
+          "encodedBodySize": 425,
+          "duration": 33.800000000046566
+        },
+        {
+          "name": "sand_02-normal.jpg?import&url",
+          "transferSize": 735,
+          "encodedBodySize": 435,
+          "duration": 34.199999999953434
+        },
+        {
+          "name": "brown_mud_leaves_01-diff.jpg?import&url",
+          "transferSize": 773,
+          "encodedBodySize": 473,
+          "duration": 34.300000000046566
+        },
+        {
+          "name": "brown_mud_leaves_01-normal.jpg?import&url",
+          "transferSize": 779,
+          "encodedBodySize": 479,
+          "duration": 38.5
+        },
+        {
+          "name": "limestone.glb?import&url",
+          "transferSize": 702,
+          "encodedBodySize": 402,
+          "duration": 13.899999999906868
+        },
+        {
+          "name": "coastal-tree.glb?import&url",
+          "transferSize": 725,
+          "encodedBodySize": 425,
+          "duration": 14
+        },
+        {
+          "name": "palms.glb?import&url",
+          "transferSize": 686,
+          "encodedBodySize": 386,
+          "duration": 15
+        },
+        {
+          "name": "fern_02.glb?import&url",
+          "transferSize": 698,
+          "encodedBodySize": 398,
+          "duration": 15.199999999953434
+        },
+        {
+          "name": "sand_02-diff.jpg",
+          "transferSize": 331941,
+          "encodedBodySize": 331641,
+          "duration": 10.400000000139698
+        },
+        {
+          "name": "brown_mud_leaves_01-diff.jpg",
+          "transferSize": 423330,
+          "encodedBodySize": 423030,
+          "duration": 11.199999999953434
+        },
+        {
+          "name": "sand_02-normal.jpg",
+          "transferSize": 59304,
+          "encodedBodySize": 59004,
+          "duration": 9.199999999953434
+        },
+        {
+          "name": "brown_mud_leaves_01-normal.jpg",
+          "transferSize": 120847,
+          "encodedBodySize": 120547,
+          "duration": 9.599999999860302
+        },
+        {
+          "name": "limestone.glb",
+          "transferSize": 724320,
+          "encodedBodySize": 724020,
+          "duration": 10.300000000046566
+        },
+        {
+          "name": "coastal-tree.glb",
+          "transferSize": 1704756,
+          "encodedBodySize": 1704456,
+          "duration": 12.800000000046566
+        },
+        {
+          "name": "palms.glb",
+          "transferSize": 901544,
+          "encodedBodySize": 901244,
+          "duration": 10.599999999860302
+        },
+        {
+          "name": "fern_02.glb",
+          "transferSize": 481780,
+          "encodedBodySize": 481480,
+          "duration": 7.5
+        }
+      ],
+      "entryWallMs": 7303
+    }
+  ],
+  "checks": [
+    {
+      "name": "13-limestone-eye-height",
+      "inspectionCamera": {
+        "eye": [
+          -45,
+          2.2017404130493956,
+          -53
+        ],
+        "target": [
+          -36,
+          18,
+          -75
+        ]
+      }
+    },
+    {
+      "name": "14-cove-enclosure-eye-height",
+      "inspectionCamera": {
+        "eye": [
+          -48,
+          1.8730288144210114,
+          -34
+        ],
+        "target": [
+          -20,
+          17,
+          -72
+        ]
+      }
+    },
+    {
+      "qualityAnchors": [
+        {
+          "place": "campfire",
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "reachable": true
+        }
+      ]
+    }
+  ],
+  "result": "PASS"
+}

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 import { createServer } from "vite";
-const out = "../../docs/connected-world/evidence";
+const out = process.env.WORLD_EVIDENCE || "../../docs/connected-world/evidence";
 await mkdir(out, { recursive: true });
 process.env.PORT = "5193";
 process.env.BASE_PATH = "/";
@@ -34,12 +34,13 @@ const report = {
   requests: [],
   touches: [],
 };
-const page = await browser.newPage({
+const context = await browser.newContext({
   viewport: { width: 932, height: 430 },
   hasTouch: true,
   isMobile: true,
   deviceScaleFactor: 1,
 });
+const page = await context.newPage();
 page.setDefaultTimeout(90000);
 page.on("pageerror", (e) => report.errors.push(e.message));
 page.on("response", (r) => {
@@ -557,12 +558,9 @@ try {
   await capture("13-tribal-voting");
   check("Existing practice ballot folds and deposits after the world adapter");
   // An actual aborted module request, independent of the injected state-machine scenarios above.
-  const failurePage = await browser.newPage({
-    viewport: { width: 932, height: 430 },
-    hasTouch: true,
-    isMobile: true,
-    deviceScaleFactor: 1,
-  });
+  // Reuse the context: single-process software WebGL cannot create another
+  // isolated browser context reliably. The new document has a fresh module map.
+  const failurePage = await page.context().newPage();
   failurePage.setDefaultTimeout(90000);
   let aborted = 0;
   await failurePage.route("**/src/game/railay/IslandScene.tsx*", (route) => {
@@ -572,6 +570,7 @@ try {
   await failurePage.goto("http://127.0.0.1:5193/?devTravel=1&quality=low");
   await failurePage.getByTestId("explore-island").click();
   await failurePage.getByTestId("button-run").waitFor();
+  await failurePage.waitForFunction(()=>window.__WORLD_RENDER__?.scene.getObjectByName('camp-assets-ready')||window.__WORLD_RENDER__?.scene.getObjectByName('camp-assets-degraded'));
   await failurePage.evaluate(async () => {
     const { dbg } = await import("/src/game/state.ts");
     dbg.teleportRequested = { x: -6, z: 26 };

@@ -393,6 +393,7 @@ export function Player({
       speed: actualSpeed,
       cameraDistance: safeDistance,
       cameraBlocked: safeDistance < distance - 0.6,
+      controlsLocked: locked,
     });
   });
 

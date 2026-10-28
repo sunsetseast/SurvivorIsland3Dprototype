@@ -244,7 +244,7 @@ export const FLOWERS: Veg[] = SHRUBS.filter(s => s.variant >= 4).map(s => ({ ...
 
 export const COLLIDERS: Collider[] = [
   ...PALMS.map(p => ({ ...p, hx: 0.3 * p.scale, hz: 0.3 * p.scale, kind: 'palm' })),
-  ...BROADLEAF.map(p => ({ ...p, hx: 0.45 * p.scale, hz: 0.45 * p.scale, kind: 'tree' })),
+  ...BROADLEAF.map(p => ({ ...p, hx: 1.25 * p.scale, hz: 1.25 * p.scale, kind: 'tree' })),
   ...BAMBOO.map(p => ({ ...p, hx: 0.65 * p.scale, hz: 0.65 * p.scale, kind: 'bamboo' })),
   ...ROCKS.map(p => ({ ...p, hx: p.scale * 0.85, hz: p.scale * 0.85, kind: 'rock' })),
   ...SEATING_LOGS.map(({ x, z, hx, hz, kind }) => ({ x, z, hx, hz, kind })),

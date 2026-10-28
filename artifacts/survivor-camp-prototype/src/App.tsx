@@ -232,7 +232,7 @@ function App() {
                     ) : mode === "tribal" ? (
                       <TribalScene />
                     ) : (
-                      <Scene arrival={travel.entry ?? undefined} />
+                      <Scene arrival={travel.entry ?? undefined} low={low} />
                     )}
                   </Suspense>
                 </SceneLifecycle>

@@ -87,7 +87,9 @@ try {
         true,
       );
   });
-  await page.goto(`http://127.0.0.1:${process.env.PORT}/?devTravel=1&quality=low`);
+  await page.goto(
+    `http://127.0.0.1:${process.env.PORT}/?devTravel=1&quality=low`,
+  );
   // Playwright exposes CDP for Chromium. Its in-process WebKit page proxy
   // supplies the equivalent inspector touch command for this optional check.
   // This dev-only adapter is covered by the event log (every pointer is trusted).
@@ -551,6 +553,28 @@ try {
     await stick();
     await down(2, 540, 235);
     await tap("island-map-toggle");
+    await page.getByTestId("island-map-close").waitFor();
+    // React propagates modal -> HUD -> App -> Player through effects. Manual
+    // simulation can outrun those commits on a fast CI host. Wait for the
+    // observed Player lock, without setting the lock or altering any input.
+    const modalLock = async (expected) =>
+      page.waitForFunction(
+        (expected) => {
+          const q = window.sprintQA,
+            s = q.store.getState();
+          s.gl.render = () => {};
+          try {
+            q.clock = Math.max(q.clock, s.clock.elapsedTime) + 1 / 60;
+            q.f.advance(q.clock, false, s);
+          } finally {
+            s.gl.render = q.render;
+          }
+          return q.io.dbg.controlsLocked === expected;
+        },
+        expected,
+        { timeout: 5000 },
+      );
+    await modalLock(true);
     await advance(10);
     assert.equal((await snapshot()).input.run, false);
     assert.equal((await snapshot()).input.looking, false);
@@ -563,6 +587,8 @@ try {
     await up(1);
     await up(2);
     await tap("island-map-close");
+    await page.getByTestId("island-map-close").waitFor({ state: "hidden" });
+    await modalLock(false);
     await advance(10);
     await enabled(false);
     await tap("button-run");
