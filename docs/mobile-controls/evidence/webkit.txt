@@ -1,0 +1,18 @@
+Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.
+PASS A: real touch toggles RUN / RUN ON and gameplay latch
+PASS B: joystick + second-thumb Run produces actual 3.25 → 6.4 m/s
+PASS C: release stops movement, preserves Run, and next gesture resumes sprint
+PASS Actual Survivor rig transitions walk → run → slowing → idle
+PASS Eight directions sprint at normalized maximum; diagonals do not exceed 6.4 m/s
+PASS D: stick + Run + orbit; extra pointers cannot steal either gesture
+PASS Cancelled/dragged Run taps preserve state; six rapid taps toggle exactly six times
+PASS E: browser touchCancel releases stick/look without clearing deliberate Run
+PASS Keyboard Shift, keyboard Run activation and combined-input maximum preserved
+PASS Map lock, reset and focus loss clear capture, sprint and stale contacts
+PASS Tonsai camera boom stays finite and bounded during full orbit
+PASS Real RAF + WebGL sprint moves and animates
+PASS Scene exit while touching clears inputs
+PASS F: camp walking, sprinting, simultaneous look, release and reset
+PASS F: tribal walking, sprinting, simultaneous look, release and reset
+PASS Return to Railay has no phantom inputs; landscape controls hit-test with edge margins and no page scrolling
+Mobile sprint WebGL QA passed

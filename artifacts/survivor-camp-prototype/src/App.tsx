@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { KeyboardControls } from "@react-three/drei";
 import { Scene } from "@/game/Scene";
-import { Hud } from "@/game/Hud";
+import { Hud, TouchButton } from "@/game/Hud";
 import { dbg, input, clearInput as releaseInput } from "@/game/state";
 import { TribalOverlay } from "@/game/tribal/TribalIntro";
 import { camp } from "@/game/CampRuntime";
@@ -35,9 +35,11 @@ function App() {
       navigator.hardwareConcurrency <= 4,
   );
   const [overview, setOverview] = useState(false);
+  const [islandControlsLocked, setIslandControlsLocked] = useState(false);
   const [islandReady, setIslandReady] = useState(false);
   const enter = (next: "menu" | "camp" | "tribal" | "railay") => {
     setOverview(false);
+    setIslandControlsLocked(false);
     setIslandReady(false);
     releaseInput();
     input.pitch = 0.34;
@@ -169,6 +171,7 @@ function App() {
                 <IslandScene
                   low={low}
                   overview={overview}
+                  controlsLocked={islandControlsLocked}
                   onReady={() => setIslandReady(true)}
                 />
               ) : mode === "tribal" ? (
@@ -197,6 +200,7 @@ function App() {
                 setLow={setLow}
                 overview={overview}
                 setOverview={setOverview}
+                onBlockedChange={setIslandControlsLocked}
               />
             </Suspense>
           ) : mode === "tribal" ? (
@@ -220,27 +224,27 @@ function App() {
                 <br />
                 Explore the forgotten island sanctuary.
               </p>
-              <button
+              <TouchButton
                 data-testid="explore-railay"
                 className="sanctuary-primary"
-                onClick={() => enter("railay")}
+                onActivate={() => enter("railay")}
               >
                 Explore Island <span>→</span>
-              </button>
-              <button
+              </TouchButton>
+              <TouchButton
                 data-testid="explore-tribal"
                 className="sanctuary-primary"
-                onClick={() => enter("tribal")}
+                onActivate={() => enter("tribal")}
               >
                 Explore Tribal Council <span>→</span>
-              </button>
-              <button
+              </TouchButton>
+              <TouchButton
                 data-testid="explore-island"
                 className="sanctuary-secondary"
-                onClick={() => enter("camp")}
+                onActivate={() => enter("camp")}
               >
                 Return to the Island Camp
-              </button>
+              </TouchButton>
               <p className="sanctuary-footnote">
                 Walk freely · Drag to look · Landscape recommended
               </p>

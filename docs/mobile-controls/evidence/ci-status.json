@@ -1,0 +1,36 @@
+{
+  "codeCommit": "86c6d9f4765552800ad9fe7f6817709bd698ec17",
+  "mobile": {
+    "runId": 40661269952,
+    "conclusion": "success",
+    "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40661269952"
+  },
+  "preExistingTonsai": {
+    "baseCommit": "b06c66481054e64ab0e01578cbcf667ab383b443",
+    "baseRunId": 40654824232,
+    "prRunId": 40661269920,
+    "conclusion": "failure",
+    "sameFailure": "page.waitForFunction: Timeout 180000ms exceeded at scripts/hero-gameplay-qa.mjs:318:14",
+    "baseUrl": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40654824232",
+    "prUrl": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40661269920",
+    "baseLogExcerpt": "2026-10-28T08:14:50.9659029Z node:internal/modules/run_main:107\n2026-10-28T08:14:50.9659756Z     triggerUncaughtException(\n2026-10-28T08:14:50.9660232Z     ^\n2026-10-28T08:14:50.9660464Z \n2026-10-28T08:14:50.9663252Z page.waitForFunction: Timeout 180000ms exceeded.\n2026-10-28T08:14:50.9664083Z     at /home/runner/work/SurvivorIsland3Dprototype/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/scripts/hero-gameplay-qa.mjs:318:14 {\n2026-10-28T08:14:50.9664714Z   log: [],\n2026-10-28T08:14:50.9664941Z   name: 'TimeoutError'\n2026-10-28T08:14:50.9665156Z }\n2026-10-28T08:14:50.9665251Z \n2026-10-28T08:14:50.9665342Z Node.js v24.21.0\n2026-10-28T08:14:51.0085808Z /home/runner/work/SurvivorIsland3Dprototype/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype:",
+    "prLogExcerpt": "2026-10-28T09:10:07.0460274Z node:internal/modules/run_main:107\n2026-10-28T09:10:07.0460804Z     triggerUncaughtException(\n2026-10-28T09:10:07.0461254Z     ^\n2026-10-28T09:10:07.0461453Z \n2026-10-28T09:10:07.0461797Z page.waitForFunction: Timeout 180000ms exceeded.\n2026-10-28T09:10:07.0463536Z     at /home/runner/work/SurvivorIsland3Dprototype/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/scripts/hero-gameplay-qa.mjs:318:14 {\n2026-10-28T09:10:07.0464956Z   log: [],\n2026-10-28T09:10:07.0465398Z   name: 'TimeoutError'\n2026-10-28T09:10:07.0465864Z }\n2026-10-28T09:10:07.0466084Z \n2026-10-28T09:10:07.0466238Z Node.js v24.22.1\n2026-10-28T09:10:07.0886040Z /home/runner/work/SurvivorIsland3Dprototype/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype:"
+  },
+  "legacyCamp": {
+    "runId": 40661269824,
+    "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40661269824",
+    "status": "completed",
+    "conclusion": "success",
+    "passedSteps": [
+      "typecheck",
+      "79 tests",
+      "world check",
+      "production build",
+      "qa:living-camp",
+      "qa:heroes",
+      "qa:tribal",
+      "qa:assets",
+      "preview:standalone"
+    ]
+  }
+}

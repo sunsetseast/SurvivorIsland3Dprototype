@@ -69,6 +69,7 @@ export function Player({
     obstacleTime: 10,
     obstacles: [] as THREE.Object3D[],
     moving: false,
+    locked: false,
     moveYaw: environment.yaw,
     voting: false,
     blend: 0,
@@ -124,8 +125,6 @@ export function Player({
       s.pos = { ...(environment.resetSpawn || environment.spawn) };
       s.velocity = 0;
       s.initialized = false;
-      input.joyX = input.joyY = 0;
-      input.run = false;
       input.yaw = environment.yaw;
       input.pitch = 0.34;
       motion.current.distance = 0;
@@ -145,17 +144,15 @@ export function Player({
     const keys = getKeys();
     let ix = input.joyX + Number(!!keys.right) - Number(!!keys.left);
     let iy = input.joyY + Number(!!keys.forward) - Number(!!keys.back);
-    if (isCamp && camp.conversation) {
+    const locked =
+      standing ||
+      !!environment.controlsLocked?.() ||
+      (isCamp && !!camp.conversation);
+    if (locked && !s.locked) clearInput();
+    s.locked = locked;
+    if (locked) {
       ix = 0;
       iy = 0;
-      input.joyX = input.joyY = 0;
-      input.run = false;
-    }
-    if (standing || environment.controlsLocked?.()) {
-      ix = 0;
-      iy = 0;
-      input.joyX = input.joyY = 0;
-      input.run = false;
     }
     const magnitude = Math.hypot(ix, iy);
     if (magnitude > 1) {
@@ -240,6 +237,7 @@ export function Player({
     const sy = Math.sin(input.yaw),
       cy = Math.cos(input.yaw);
     root.current?.position.set(s.pos.x, y, s.pos.z);
+    if (root.current) root.current.userData.locomotion = motion.current;
     if (heading.current) heading.current.rotation.y = s.face;
 
     const cameraStart = performance.now();
@@ -386,7 +384,7 @@ export function Player({
   });
 
   return (
-    <group ref={root}>
+    <group ref={root} name="exploration-player">
       <group ref={heading}>
         <Survivor motion={motion} />
       </group>

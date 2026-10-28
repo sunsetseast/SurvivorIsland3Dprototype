@@ -29,10 +29,12 @@ export const WORLD: ExplorationWorld = {
 export function IslandScene({
   low,
   overview,
+  controlsLocked,
   onReady,
 }: {
   low: boolean;
   overview: boolean;
+  controlsLocked: boolean;
   onReady: () => void;
 }) {
   const { gl, scene, camera, invalidate } = useThree();
@@ -91,8 +93,8 @@ export function IslandScene({
   // Priority 1 above owns camera in overview; still render through the same WebGL renderer.
   useFrame(({ gl, scene, camera }) => gl.render(scene, camera), 2);
   const environment = useMemo(
-    () => ({ ...WORLD, controlsLocked: () => overview }),
-    [overview],
+    () => ({ ...WORLD, controlsLocked: () => overview || controlsLocked }),
+    [overview, controlsLocked],
   );
   return (
     <>

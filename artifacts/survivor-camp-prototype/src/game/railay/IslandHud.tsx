@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Joystick, RunButton, OrbitZone } from "../Hud";
+import { Joystick, RunButton, OrbitZone, TouchButton } from "../Hud";
 import { dbg, clearInput, input } from "../state";
 import { IslandMap } from "./IslandMap";
 import { ZONES } from "./geography";
@@ -9,23 +9,31 @@ export function IslandHud({
   setLow,
   overview,
   setOverview,
+  onBlockedChange,
 }: {
   onMenu: () => void;
   low: boolean;
   setLow: (v: boolean) => void;
   overview: boolean;
   setOverview: (v: boolean) => void;
+  onBlockedChange: (v: boolean) => void;
 }) {
   const [, tick] = useState(0),
     [help, setHelp] = useState(false),
-    [travel, setTravel] = useState(false);
+    [travel, setTravel] = useState(false),
+    [mapOpen, setMapOpen] = useState(false);
+  const blocked = help || mapOpen;
+  useEffect(() => {
+    onBlockedChange(blocked);
+    if (blocked) clearInput();
+  }, [blocked, onBlockedChange]);
   useEffect(() => {
     const t = setInterval(() => tick((x) => x + 1), 250);
     return () => clearInterval(t);
   }, []);
   return (
     <div className="island-hud">
-      {!overview && <OrbitZone allowLookUp />}
+      {!overview && !blocked && <OrbitZone allowLookUp />}
       <div className="island-title">
         <span>RAILAY PENINSULA</span>
         <strong data-testid="island-location">
@@ -33,44 +41,56 @@ export function IslandHud({
         </strong>
       </div>
       <div className="island-toolbar">
-        <button data-testid="island-menu" onClick={onMenu}>
+        <TouchButton data-testid="island-menu" onActivate={onMenu}>
           Menu
-        </button>
-        <button
+        </TouchButton>
+        <TouchButton
           data-testid="island-overview"
-          onClick={() => {
+          onActivate={() => {
             clearInput();
             setOverview(!overview);
           }}
         >
           {overview ? "Walk" : "Overview"}
-        </button>
-        <button data-testid="island-travel" onClick={() => setTravel(!travel)}>
+        </TouchButton>
+        <TouchButton
+          data-testid="island-travel"
+          onActivate={() => setTravel(!travel)}
+        >
           Explore ▾
-        </button>
-        <button data-testid="island-quality" onClick={() => setLow(!low)}>
+        </TouchButton>
+        <TouchButton
+          data-testid="island-quality"
+          onActivate={() => setLow(!low)}
+        >
           {low ? "Quality: Low" : "Quality: High"}
-        </button>
-        <button
+        </TouchButton>
+        <TouchButton
           data-testid="island-reset"
-          onClick={() => {
+          onActivate={() => {
             clearInput();
             dbg.resetRequested = true;
             setOverview(false);
           }}
         >
           Reset
-        </button>
-        <button aria-label="Help exploring" onClick={() => setHelp(!help)}>
+        </TouchButton>
+        <TouchButton
+          aria-label="Help exploring"
+          onActivate={() => {
+            clearInput();
+            setHelp(!help);
+          }}
+        >
           ?
-        </button>
+        </TouchButton>
       </div>
-      <IslandMap />
+      <IslandMap onOpenChange={setMapOpen} />
       {travel && (
         <div className="island-travel">
-          <button
+          <TouchButton
             data-testid="travel-tonsai-showcase"
-            onClick={() => {
+            onActivate={() => {
               clearInput();
               dbg.teleportRequested = { x: -670, z: -820 };
               input.yaw = -2.075;
@@ -80,12 +100,12 @@ export function IslandHud({
             }}
           >
             Tonsai · Limestone Cove
-          </button>
+          </TouchButton>
           {ZONES.map((z) => (
-            <button
+            <TouchButton
               key={z.id}
               data-testid={`travel-${z.id}`}
-              onClick={() => {
+              onActivate={() => {
                 clearInput();
                 dbg.teleportRequested = { ...z.spawn };
                 setOverview(false);
@@ -93,7 +113,7 @@ export function IslandHud({
               }}
             >
               {z.name}
-            </button>
+            </TouchButton>
           ))}
         </div>
       )}
@@ -102,7 +122,8 @@ export function IslandHud({
           <strong>Explore the peninsula</strong>
           <p>
             Walk with the left thumb. Drag on the right to look around; tap Run
-            to sprint. On a keyboard, use WASD and Shift.
+            to toggle sprint. Release the stick to stop; Run stays on until
+            tapped again. On a keyboard, use WASD and hold Shift.
           </p>
           <p>
             Follow jungle corridors between beaches. Sheer cliffs and deep water
@@ -115,7 +136,7 @@ export function IslandHud({
           </p>
         </div>
       )}
-      {!overview && (
+      {!overview && !blocked && (
         <div style={{ pointerEvents: "auto" }}>
           <Joystick />
           <RunButton />
