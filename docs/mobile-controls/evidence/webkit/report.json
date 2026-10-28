@@ -1,0 +1,4991 @@
+{
+  "physicalIPhone": false,
+  "viewport": {
+    "width": 932,
+    "height": 430
+  },
+  "methodology": "Trusted browser inspector touches; actual Player + terrain + Survivor; 60 Hz fixed simulation between real WebGL captures. Live RAF sample separate. Not physical Safari or device FPS.",
+  "checks": [
+    {
+      "name": "A: real touch toggles RUN / RUN ON and gameplay latch"
+    },
+    {
+      "name": "B: joystick + second-thumb Run produces actual 3.25 → 6.4 m/s",
+      "walk": 3.249999999877598,
+      "run": 6.399999999878242
+    },
+    {
+      "name": "C: release stops movement, preserves Run, and next gesture resumes sprint",
+      "slowing": {
+        "input": {
+          "joyX": 0,
+          "joyY": 0,
+          "run": true,
+          "yaw": -4.490773688842276e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 2.6103752176293322,
+          "z": -838.9790567396215
+        },
+        "speed": 0,
+        "running": false,
+        "moving": false,
+        "camera": {
+          "yaw": -4.490773688842276e-16,
+          "pitch": 0.34,
+          "distance": 7.6880730722239985,
+          "blocked": false,
+          "x": -670,
+          "y": 6.558948797952167,
+          "z": -831.6913304147928
+        },
+        "locomotion": {
+          "speed": 1.2088038581187632,
+          "running": false,
+          "distance": 18.979056739621456,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.07625728427687059,
+          "spine": 0.19603133935073846,
+          "elbow": -0.7979815403577735
+        }
+      },
+      "idle": {
+        "input": {
+          "joyX": 0,
+          "joyY": 0,
+          "run": true,
+          "yaw": -4.490773688842276e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 2.6103752176293322,
+          "z": -838.9790567396215
+        },
+        "speed": 0,
+        "running": false,
+        "moving": false,
+        "camera": {
+          "yaw": -4.490773688842276e-16,
+          "pitch": 0.34,
+          "distance": 7.400075008883604,
+          "blocked": false,
+          "x": -670,
+          "y": 6.5781746752337735,
+          "z": -832.0025908740022
+        },
+        "locomotion": {
+          "speed": 1.3191383183153251e-8,
+          "running": false,
+          "distance": 18.979056739621456,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.0000029119349977455197,
+          "spine": 0.0223236287656148,
+          "elbow": -0.14916192953849677
+        }
+      },
+      "resumed": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -4.4072510974351456e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 3.2253503604930533,
+          "z": -848.0972801586746
+        },
+        "speed": 6.399999902525588,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -4.4072510974351456e-16,
+          "pitch": 0.34,
+          "distance": 8.010426254788968,
+          "blocked": false,
+          "x": -670,
+          "y": 7.14737300226178,
+          "z": -840.4617883535469
+        },
+        "locomotion": {
+          "speed": 6.399999778651629,
+          "running": true,
+          "distance": 28.097280158674607,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.2598594795642055,
+          "spine": 0.297266958231601,
+          "elbow": -1.2072879643600227
+        }
+      }
+    },
+    {
+      "name": "Actual Survivor rig transitions walk → run → slowing → idle",
+      "walk": {
+        "leg": -0.05813407331529691,
+        "spine": 0.07114391647673653,
+        "elbow": -0.2699999999922452
+      },
+      "run": {
+        "leg": 0.2076462728189315,
+        "spine": 0.2881874032737247,
+        "elbow": -1.199805559610424
+      },
+      "idle": {
+        "leg": -0.0000029119349977455197,
+        "spine": 0.0223236287656148,
+        "elbow": -0.14916192953849677
+      }
+    },
+    {
+      "name": "Eight directions sprint at normalized maximum; diagonals do not exceed 6.4 m/s"
+    },
+    {
+      "name": "D: stick + Run + orbit; extra pointers cannot steal either gesture",
+      "beforeLook": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": 0.0317676634678832,
+          "pitch": 0.34,
+          "looking": true,
+          "lookGrace": 0.85,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 1.364590144525421,
+          "z": -820.0193353863383
+        },
+        "speed": 1.1601231802979532,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": 0.0317676634678832,
+          "pitch": 0.34,
+          "distance": 7.414933467457914,
+          "blocked": false,
+          "x": -669.9691348152097,
+          "y": 5.331312888525964,
+          "z": -813.0267990388156
+        },
+        "locomotion": {
+          "speed": 0.32885859749201557,
+          "running": false,
+          "distance": 113.86240279816923,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 4.992645113282951e-10,
+          "spine": 0.022875720679018708,
+          "elbow": -0.14900033756981737
+        }
+      },
+      "duringLook": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -0.3882323365321168,
+          "pitch": 0.465,
+          "looking": true,
+          "lookGrace": 0.3500000000000284,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 1.545638300026081,
+          "z": -822.8258678051253
+        },
+        "speed": 6.387011643928781,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -0.3882323365321168,
+          "pitch": 0.465,
+          "distance": 7.915415230221001,
+          "blocked": false,
+          "x": -672.4756964849078,
+          "y": 6.313715524141765,
+          "z": -816.0550187860845
+        },
+        "locomotion": {
+          "speed": 6.370769359801393,
+          "running": true,
+          "distance": 116.66893521695624,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.6328252651615895,
+          "spine": 0.2788525459075325,
+          "elbow": -1.1352668939009198
+        }
+      },
+      "tripleWalk": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": false,
+          "yaw": -0.3882323365321168,
+          "pitch": 0.465,
+          "looking": true,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 1.7702808468062095,
+          "z": -826.3120130392324
+        },
+        "speed": 3.2500192744625593,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": -0.3882323365321168,
+          "pitch": 0.465,
+          "distance": 7.669942499740427,
+          "blocked": false,
+          "x": -672.5038512041039,
+          "y": 6.566844554230386,
+          "z": -819.8551240964113
+        },
+        "locomotion": {
+          "speed": 3.2500437620981986,
+          "running": false,
+          "distance": 120.15508045106333,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.4350983834700731,
+          "spine": 0.07779324508866561,
+          "elbow": -0.3802225090446358
+        }
+      },
+      "tripleRun": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -0.3882323365321168,
+          "pitch": 0.465,
+          "looking": true,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 2.1857842248791073,
+          "z": -832.4748915298793
+        },
+        "speed": 6.399980645847245,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -0.3882323365321168,
+          "pitch": 0.465,
+          "distance": 7.935105281811902,
+          "blocked": false,
+          "x": -672.5038546786722,
+          "y": 6.959087209571927,
+          "z": -825.6938816381352
+        },
+        "locomotion": {
+          "speed": 6.399956056945224,
+          "running": true,
+          "distance": 126.31795894171023,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.43751945870403475,
+          "spine": 0.2918097585821008,
+          "elbow": -1.1696206263436926
+        }
+      }
+    },
+    {
+      "name": "Cancelled/dragged Run taps preserve state; six rapid taps toggle exactly six times"
+    },
+    {
+      "name": "E: browser touchCancel releases stick/look without clearing deliberate Run",
+      "cancelled": {
+        "input": {
+          "joyX": 0,
+          "joyY": 0,
+          "run": true,
+          "yaw": -0.38823233653211664,
+          "pitch": 0.3650000000000001,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 2.411739698080591,
+          "z": -835.7815567425687
+        },
+        "speed": 0,
+        "running": false,
+        "moving": false,
+        "camera": {
+          "yaw": -0.38823233653211664,
+          "pitch": 0.3650000000000001,
+          "distance": 7.399999999660311,
+          "blocked": false,
+          "x": -672.6167528613227,
+          "y": 6.553164479478259,
+          "z": -829.3834726870134
+        },
+        "locomotion": {
+          "speed": 2.7189466855000122e-17,
+          "running": false,
+          "distance": 129.6246241543996,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -1.3878414512903422e-10,
+          "spine": 0.034809342169086925,
+          "elbow": -0.14900005211813988
+        }
+      }
+    },
+    {
+      "name": "Keyboard Shift, keyboard Run activation and combined-input maximum preserved"
+    },
+    {
+      "name": "Map lock, reset and focus loss clear capture, sprint and stale contacts"
+    },
+    {
+      "name": "Tonsai camera boom stays finite and bounded during full orbit",
+      "blocked": 1,
+      "positions": 12
+    },
+    {
+      "name": "Real RAF + WebGL sprint moves and animates",
+      "before": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": 0,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 8
+        },
+        "position": {
+          "x": -670,
+          "y": 1.3633333444595306,
+          "z": -820
+        },
+        "speed": 0,
+        "running": false,
+        "moving": false,
+        "camera": {
+          "yaw": 0,
+          "pitch": 0.34,
+          "distance": 7.400000000000039,
+          "blocked": false,
+          "x": -670,
+          "y": 5.331137826301557,
+          "z": -813.0236154750902
+        },
+        "locomotion": {
+          "speed": 4.5198053021178063e-76,
+          "running": false,
+          "distance": 0,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 3.1388953503697937e-46,
+          "spine": 0.03137595313261444,
+          "elbow": -0.14900000000000002
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -4.478488719287788e-9,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 8
+        },
+        "position": {
+          "x": -670,
+          "y": 1.5486929237635658,
+          "z": -822.8740987068487
+        },
+        "speed": 6.386263544702615,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -4.478488719287788e-9,
+          "pitch": 0.34,
+          "distance": 7.90744368929294,
+          "blocked": false,
+          "x": -670.0000000412196,
+          "y": 5.481567438197942,
+          "z": -815.3502175743245
+        },
+        "locomotion": {
+          "speed": 6.373862196500379,
+          "running": true,
+          "distance": 2.874098706848713,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.7959119772937114,
+          "spine": 0.2828672648038324,
+          "elbow": -1.2445080489033944
+        }
+      },
+      "wallMs": 1830,
+      "displacement": 2.874098706848713
+    },
+    {
+      "name": "Scene exit while touching clears inputs"
+    },
+    {
+      "name": "F: camp walking, sprinting, simultaneous look, release and reset",
+      "walk": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": false,
+          "yaw": -4.3404451625014675e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 11
+        },
+        "position": {
+          "x": -46,
+          "y": 0.09610962545191672,
+          "z": -22.1928780159428
+        },
+        "speed": 3.2495989181365927,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": -4.3404451625014675e-16,
+          "pitch": 0.34,
+          "distance": 7.710656522810934,
+          "blocked": false,
+          "x": -46,
+          "y": 4.050056585725615,
+          "z": -14.883133264658369
+        },
+        "locomotion": {
+          "speed": 3.249090447409424,
+          "running": false,
+          "distance": 2.1928780159427994,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.37435220137647274,
+          "spine": 0.07757182471573963,
+          "elbow": -0.3645478369956486
+        }
+      },
+      "run": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -0.28000000000000047,
+          "pitch": 0.41500000000000004,
+          "looking": true,
+          "lookGrace": 0,
+          "epoch": 11
+        },
+        "position": {
+          "x": -46,
+          "y": 0.1483459943408754,
+          "z": -28.35572486327875
+        },
+        "speed": 6.399980643266738,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -0.28000000000000047,
+          "pitch": 0.41500000000000004,
+          "distance": 7.985670982077606,
+          "blocked": false,
+          "x": -47.871211021250474,
+          "y": 4.631859027613423,
+          "z": -21.188566407639588
+        },
+        "locomotion": {
+          "speed": 6.399956051080109,
+          "running": true,
+          "distance": 8.355724863278748,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.41929323108903443,
+          "spine": 0.2922422383153985,
+          "elbow": -1.2298170750869566
+        }
+      }
+    },
+    {
+      "name": "F: tribal walking, sprinting, simultaneous look, release and reset",
+      "walk": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": false,
+          "yaw": -0.060865823514920314,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 17
+        },
+        "position": {
+          "x": 10,
+          "y": 0,
+          "z": 6.807121984021384
+        },
+        "speed": 3.249598918136745,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": -0.060865823514920314,
+          "pitch": 0.34,
+          "distance": 7.70837464438853,
+          "blocked": false,
+          "x": 9.37505172645982,
+          "y": 3.967804481842027,
+          "z": 14.083001336584314
+        },
+        "locomotion": {
+          "speed": 3.2490904474095563,
+          "running": false,
+          "distance": 2.192878015978616,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.3743522013507593,
+          "spine": 0.06292398235076443,
+          "elbow": -0.3645478369891558
+        }
+      },
+      "run": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -0.34086582351492034,
+          "pitch": 0.41500000000000004,
+          "looking": true,
+          "lookGrace": 0,
+          "epoch": 17
+        },
+        "position": {
+          "x": 10,
+          "y": 0,
+          "z": 0.6442751365919581
+        },
+        "speed": 6.399980643266755,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -0.34086582351492034,
+          "pitch": 0.41500000000000004,
+          "distance": 7.9752927738897545,
+          "blocked": false,
+          "x": 7.736347353818465,
+          "y": 4.483541829952909,
+          "z": 7.685556957085634
+        },
+        "locomotion": {
+          "speed": 6.399956051080125,
+          "running": true,
+          "distance": 8.355724863408044,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.419293231266714,
+          "spine": 0.29386013573680764,
+          "elbow": -1.2298170751125075
+        }
+      }
+    },
+    {
+      "name": "Return to Railay has no phantom inputs; landscape controls hit-test with edge margins and no page scrolling",
+      "scrollX": 0,
+      "scrollY": 0,
+      "width": 932,
+      "height": 430,
+      "scrollHeight": 430
+    }
+  ],
+  "events": [
+    {
+      "type": "pointerdown",
+      "id": 102,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 102,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 102,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 103,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 103,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 103,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 104,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 104,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 104,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 105,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 105,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 106,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 106,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 106,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 105,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 105,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 107,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 107,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 107,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 107,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 108,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 108,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 108,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 108,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 109,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 109,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 109,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 109,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 110,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 110,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 110,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 110,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 111,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 111,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 111,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 111,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 112,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 112,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 112,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 112,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 113,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 113,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 113,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 113,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 114,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 114,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 114,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 114,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 115,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 115,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 115,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 115,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 116,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 116,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 117,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 117,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 118,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 118,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 118,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 119,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 119,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 119,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 117,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 117,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 117,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 120,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointercancel",
+      "id": 120,
+      "target": "button-run",
+      "trusted": false,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 120,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 121,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 121,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 121,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 121,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 122,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 122,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 122,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 122,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 117,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 117,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 116,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 116,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 123,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 123,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 123,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 123,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 124,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointercancel",
+      "id": 124,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 125,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 125,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 125,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 126,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 126,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 126,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 127,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 127,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 127,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 128,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 128,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 128,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 129,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 129,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 129,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 130,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 130,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 130,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 131,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 131,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 132,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointercancel",
+      "id": 131,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointercancel",
+      "id": 132,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 133,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 133,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 133,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 134,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 134,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 134,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 134,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "click",
+      "id": -1,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "click",
+      "id": -1,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 135,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 135,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 135,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 136,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 136,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 137,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 138,
+      "target": "island-minimap",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 138,
+      "target": "island-minimap",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 138,
+      "target": "island-map-toggle",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 132,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 136,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 124,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 137,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 136,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 137,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 139,
+      "target": "island-map-close",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 139,
+      "target": "island-map-close",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 139,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 140,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 140,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 140,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 141,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 141,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 142,
+      "target": "island-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 142,
+      "target": "island-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 142,
+      "target": "island-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 141,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 141,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 141,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 143,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 143,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 143,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 144,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 144,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 145,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 144,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 144,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 145,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 144,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 145,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 146,
+      "target": "island-travel",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 146,
+      "target": "island-travel",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 146,
+      "target": "island-travel",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 147,
+      "target": "travel-tonsai-showcase",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 147,
+      "target": "travel-tonsai-showcase",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 147,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 148,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 148,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 148,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 149,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 149,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 149,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 149,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 150,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 150,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 150,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 151,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 151,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 152,
+      "target": "island-menu",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 152,
+      "target": "island-menu",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 152,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 151,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 151,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 153,
+      "target": "explore-island",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 153,
+      "target": "explore-island",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 153,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 154,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 154,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 155,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 155,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 155,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 156,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 156,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 154,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 154,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 156,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 156,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 157,
+      "target": "button-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 157,
+      "target": "button-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 157,
+      "target": "button-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 158,
+      "target": "button-menu",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 158,
+      "target": "button-menu",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 158,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 159,
+      "target": "explore-tribal",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 159,
+      "target": "explore-tribal",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 159,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 160,
+      "target": "skip-tribal-intro",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 160,
+      "target": "skip-tribal-intro",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 160,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 161,
+      "target": "stand-and-explore",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 161,
+      "target": "stand-and-explore",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 161,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 162,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 162,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 163,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 163,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 163,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 164,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 164,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 162,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 162,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 164,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 164,
+      "target": "orbit-zone",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 165,
+      "target": "button-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 165,
+      "target": "button-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 165,
+      "target": "button-reset",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 166,
+      "target": "button-menu",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 166,
+      "target": "button-menu",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 166,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 167,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 167,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 167,
+      "trusted": true,
+      "detail": 0
+    }
+  ],
+  "touchSequence": [
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 100,
+          "x": 245,
+          "y": 234
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 100,
+          "x": 245,
+          "y": 234
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 101,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 101,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 102,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 102,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 103,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 103,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 104,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 104,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 103,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 105,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 105,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 105,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 106,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 106,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 106,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 107,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 107,
+          "x": 114,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 107,
+          "x": 114,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 108,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 108,
+          "x": 114,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 108,
+          "x": 114,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 109,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 109,
+          "x": 114,
+          "y": 408
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 109,
+          "x": 114,
+          "y": 408
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 110,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 110,
+          "x": 68,
+          "y": 408
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 110,
+          "x": 68,
+          "y": 408
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 111,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 111,
+          "x": 22,
+          "y": 408
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 111,
+          "x": 22,
+          "y": 408
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 112,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 112,
+          "x": 22,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 112,
+          "x": 22,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 113,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 113,
+          "x": 22,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 113,
+          "x": 22,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 114,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 114,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 115,
+          "x": 540,
+          "y": 235
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 115,
+          "x": 600,
+          "y": 260
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 116,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 116,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 117,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 117,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 115,
+          "x": 760,
+          "y": 190
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 115,
+          "x": 470,
+          "y": 285
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 115,
+          "x": 600,
+          "y": 240
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 118,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 118,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 119,
+          "x": 700,
+          "y": 240
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 119,
+          "x": 750,
+          "y": 280
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 119,
+          "x": 750,
+          "y": 280
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 120,
+          "x": 38,
+          "y": 387
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 120,
+          "x": 28,
+          "y": 397
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 120,
+          "x": 28,
+          "y": 397
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 115,
+          "x": 600,
+          "y": 240
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 114,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 121,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 121,
+          "x": 782,
+          "y": 300
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 121,
+          "x": 782,
+          "y": 300
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 122,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchCancel",
+      "touchPoints": [
+        {
+          "id": 122,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 123,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 123,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 124,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 124,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 125,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 125,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 126,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 126,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 127,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 127,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 128,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 128,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 129,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 129,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 130,
+          "x": 540,
+          "y": 235
+        }
+      ]
+    },
+    {
+      "type": "touchCancel",
+      "touchPoints": [
+        {
+          "id": 129,
+          "x": 68,
+          "y": 316
+        },
+        {
+          "id": 130,
+          "x": 540,
+          "y": 235
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 131,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 131,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 132,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 132,
+          "x": 114,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 132,
+          "x": 114,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 133,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 133,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 134,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 134,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 135,
+          "x": 540,
+          "y": 235
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 136,
+          "x": 849,
+          "y": 138
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 136,
+          "x": 849,
+          "y": 138
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 134,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 135,
+          "x": 620,
+          "y": 260
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 134,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 135,
+          "x": 620,
+          "y": 260
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 137,
+          "x": 586,
+          "y": 52
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 137,
+          "x": 586,
+          "y": 52
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 138,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 138,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 139,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 139,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 140,
+          "x": 865,
+          "y": 31
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 140,
+          "x": 865,
+          "y": 31
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 139,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 139,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 141,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 141,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 142,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 142,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 143,
+          "x": 540,
+          "y": 235
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 142,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 143,
+          "x": 620,
+          "y": 260
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 142,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 143,
+          "x": 620,
+          "y": 260
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 144,
+          "x": 711,
+          "y": 31
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 144,
+          "x": 711,
+          "y": 31
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 145,
+          "x": 814,
+          "y": 79
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 145,
+          "x": 814,
+          "y": 79
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 146,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 146,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 147,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 147,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 147,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 148,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 148,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 149,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 149,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 150,
+          "x": 573,
+          "y": 31
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 150,
+          "x": 573,
+          "y": 31
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 149,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 149,
+          "x": 68,
+          "y": 322
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 151,
+          "x": 245,
+          "y": 346
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 151,
+          "x": 245,
+          "y": 346
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 152,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 152,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 153,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 153,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 154,
+          "x": 540,
+          "y": 235
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 154,
+          "x": 580,
+          "y": 250
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 152,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 154,
+          "x": 580,
+          "y": 250
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 155,
+          "x": 823,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 155,
+          "x": 823,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 156,
+          "x": 755,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 156,
+          "x": 755,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 157,
+          "x": 245,
+          "y": 293
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 157,
+          "x": 245,
+          "y": 293
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 158,
+          "x": 866,
+          "y": 29
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 158,
+          "x": 866,
+          "y": 29
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 159,
+          "x": 466,
+          "y": 367
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 159,
+          "x": 466,
+          "y": 367
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 160,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 160,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 161,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 161,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 162,
+          "x": 540,
+          "y": 235
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 162,
+          "x": 580,
+          "y": 250
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 160,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 162,
+          "x": 580,
+          "y": 250
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 163,
+          "x": 823,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 163,
+          "x": 823,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 164,
+          "x": 652,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 164,
+          "x": 652,
+          "y": 24
+        }
+      ]
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 165,
+          "x": 245,
+          "y": 234
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": [
+        {
+          "id": 165,
+          "x": 245,
+          "y": 234
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "name": "walk",
+      "before": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": false,
+          "yaw": -4.4034055457190567e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 1.5570054629163046,
+          "z": -823.0053493266967
+        },
+        "speed": 3.249980031309872,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": -4.4034055457190567e-16,
+          "pitch": 0.34,
+          "distance": 7.709450208573005,
+          "blocked": false,
+          "x": -670,
+          "y": 5.5035870299949305,
+          "z": -815.6944081318779
+        },
+        "locomotion": {
+          "speed": 3.2499546616492787,
+          "running": false,
+          "distance": 3.0053493266966598,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.43038777235946846,
+          "spine": 0.062051763498129804,
+          "elbow": -0.26999873786194484
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": false,
+          "yaw": -4.1939621879996656e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 1.7665976079194368,
+          "z": -826.2553478235113
+        },
+        "speed": 3.249999999877598,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": -4.1939621879996656e-16,
+          "pitch": 0.34,
+          "distance": 7.709421734102413,
+          "blocked": false,
+          "x": -670,
+          "y": 5.71264737255493,
+          "z": -818.9442587101728
+        },
+        "locomotion": {
+          "speed": 3.2499999997213385,
+          "running": false,
+          "distance": 6.255347823511329,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.05813407331529691,
+          "spine": 0.07114391647673653,
+          "elbow": -0.2699999999922452
+        }
+      }
+    },
+    {
+      "name": "run",
+      "before": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -4.1117254932490493e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 2.1856133915603926,
+          "z": -832.4723915298897
+        },
+        "speed": 6.399980645730944,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -4.1117254932490493e-16,
+          "pitch": 0.34,
+          "distance": 8.01052140847686,
+          "blocked": false,
+          "x": -670,
+          "y": 6.108392142827654,
+          "z": -824.837039779114
+        },
+        "locomotion": {
+          "speed": 6.39995605667538,
+          "running": true,
+          "distance": 12.472391529889705,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8294489228702844,
+          "spine": 0.2977487978435994,
+          "elbow": -1.1696205129094177
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -4.36356702587351e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 2.603797437647611,
+          "z": -838.8723900729564
+        },
+        "speed": 6.399999999878242,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -4.36356702587351e-16,
+          "pitch": 0.34,
+          "distance": 8.011960567312347,
+          "blocked": false,
+          "x": -670,
+          "y": 6.530879314264396,
+          "z": -831.236894954998
+        },
+        "locomotion": {
+          "speed": 6.399999999729701,
+          "running": true,
+          "distance": 18.872390072956364,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.2076462728189315,
+          "spine": 0.2881874032737247,
+          "elbow": -1.199805559610424
+        }
+      }
+    },
+    {
+      "name": "direction-0-1",
+      "before": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -4.4034055457192973e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 1.7446847140120951,
+          "z": -825.9182263664176
+        },
+        "speed": 6.399960677040008,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -4.4034055457192973e-16,
+          "pitch": 0.34,
+          "distance": 8.01106786900927,
+          "blocked": false,
+          "x": -670,
+          "y": 5.6697354620461615,
+          "z": -818.2830225530716
+        },
+        "locomotion": {
+          "speed": 6.399910718326407,
+          "running": true,
+          "distance": 34.01550652509218,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8355505715806687,
+          "spine": 0.28713917247984433,
+          "elbow": -1.169303731963243
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": true,
+          "yaw": -4.1310018048438023e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 2.065745246230648,
+          "z": -830.7182234066453
+        },
+        "speed": 6.399999995143981,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -4.1310018048438023e-16,
+          "pitch": 0.34,
+          "distance": 8.01066826894513,
+          "blocked": false,
+          "x": -670,
+          "y": 5.988558801538268,
+          "z": -823.0827286229851
+        },
+        "locomotion": {
+          "speed": 6.399999988979834,
+          "running": true,
+          "distance": 38.81550356531989,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.22911552958933495,
+          "spine": 0.2960472158419912,
+          "elbow": -1.2028857103660129
+        }
+      }
+    },
+    {
+      "name": "direction-1-1",
+      "before": {
+        "input": {
+          "joyX": 0.7071067811865476,
+          "joyY": 0.7071067811865476,
+          "run": true,
+          "yaw": -0.7457333248654031,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -665.815182003709,
+          "y": 1.6814520672210371,
+          "z": -824.184817996291
+        },
+        "speed": 6.399960677042421,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -0.7457333248654031,
+          "pitch": 0.34,
+          "distance": 8.008101456910744,
+          "blocked": false,
+          "x": -670.9076089438875,
+          "y": 5.613595350904389,
+          "z": -818.503131992053
+        },
+        "locomotion": {
+          "speed": 6.3999107183260815,
+          "running": true,
+          "distance": 44.73372993173765,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8342940384637659,
+          "spine": 0.28298667698090585,
+          "elbow": -1.169303732211304
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 0.7071067811865476,
+          "joyY": 0.7071067811865476,
+          "run": true,
+          "yaw": -0.7817998452206792,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -662.4210715468888,
+          "y": 1.9529809145562271,
+          "z": -827.5789284531112
+        },
+        "speed": 6.399999995149656,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -0.7817998452206792,
+          "pitch": 0.34,
+          "distance": 8.01295279173034,
+          "blocked": false,
+          "x": -667.7932454556292,
+          "y": 5.8835023701322875,
+          "z": -822.1530897722497
+        },
+        "locomotion": {
+          "speed": 6.399999988978898,
+          "running": true,
+          "distance": 49.53372697196506,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.1980305745386948,
+          "spine": 0.2913839801883646,
+          "elbow": -1.1984237514298193
+        }
+      }
+    },
+    {
+      "name": "direction-1-0",
+      "before": {
+        "input": {
+          "joyX": 1,
+          "joyY": 0,
+          "run": true,
+          "yaw": -1.4991169281221604,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -664.0817736335831,
+          "y": 1.4453037438384444,
+          "z": -820
+        },
+        "speed": 6.39996067704069,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -1.4991169281221604,
+          "pitch": 0.34,
+          "distance": 8.004122585301726,
+          "blocked": false,
+          "x": -671.662487005757,
+          "y": 5.402279047478242,
+          "z": -819.2503097394359
+        },
+        "locomotion": {
+          "speed": 6.399910718326578,
+          "running": true,
+          "distance": 55.45195333838195,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8318034615119528,
+          "spine": 0.2819054151446577,
+          "elbow": -1.1693037322113036
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 1,
+          "joyY": 0,
+          "run": true,
+          "yaw": -1.564293713246702,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -659.2817765933557,
+          "y": 1.5241066757128856,
+          "z": -820
+        },
+        "speed": 6.399999995144663,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -1.564293713246702,
+          "pitch": 0.34,
+          "distance": 8.021069298791241,
+          "blocked": false,
+          "x": -666.9167920610881,
+          "y": 5.481623676193528,
+          "z": -819.9314310868741
+        },
+        "locomotion": {
+          "speed": 6.399999988978303,
+          "running": true,
+          "distance": 60.251950378609315,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.16665270310702196,
+          "spine": 0.2860993317429564,
+          "elbow": -1.1939197470449265
+        }
+      }
+    },
+    {
+      "name": "direction-1--1",
+      "before": {
+        "input": {
+          "joyX": 0.7071067811865476,
+          "joyY": -0.7071067811865476,
+          "run": true,
+          "yaw": -2.2525005313789617,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -665.8151820037095,
+          "y": 1.151683159211853,
+          "z": -815.8151820037095
+        },
+        "speed": 6.3999606770431035,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -2.2525005313789617,
+          "pitch": 0.34,
+          "distance": 7.997117702915568,
+          "blocked": false,
+          "x": -671.8960852858945,
+          "y": 5.142070366767073,
+          "z": -820.373084852986
+        },
+        "locomotion": {
+          "speed": 6.399910718326476,
+          "running": true,
+          "distance": 66.17017674502627,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8280825247566854,
+          "spine": 0.2843807311323834,
+          "elbow": -1.1693037322113033
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 0.7071067811865476,
+          "joyY": -0.7071067811865476,
+          "run": true,
+          "yaw": -2.3467875812727295,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -662.4210715468894,
+          "y": 0.9970184619897083,
+          "z": -812.4210715468894
+        },
+        "speed": 6.399999995150338,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -2.3467875812727295,
+          "pitch": 0.34,
+          "distance": 8.030855111883707,
+          "blocked": false,
+          "x": -667.8896055293442,
+          "y": 4.986858653997768,
+          "z": -817.7493419725591
+        },
+        "locomotion": {
+          "speed": 6.399999988979579,
+          "running": true,
+          "distance": 70.97017378525368,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.13502832778758792,
+          "spine": 0.28256538136837633,
+          "elbow": -1.1893803592977865
+        }
+      }
+    },
+    {
+      "name": "direction-0--1",
+      "before": {
+        "input": {
+          "joyX": 0,
+          "joyY": -1,
+          "run": true,
+          "yaw": -3.0058841346357625,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 0.9851789967462221,
+          "z": -814.0817736335831
+        },
+        "speed": 6.39996067704069,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -3.0058841346357625,
+          "pitch": 0.34,
+          "distance": 7.981048037562291,
+          "blocked": false,
+          "x": -671.3967776873794,
+          "y": 4.994712741863163,
+          "z": -821.5281405498743
+        },
+        "locomotion": {
+          "speed": 6.399910718326578,
+          "running": true,
+          "distance": 76.88840015167057,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8231367320113515,
+          "spine": 0.2893015342058528,
+          "elbow": -1.1693037322113036
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": 0,
+          "joyY": -1,
+          "run": true,
+          "yaw": -3.1292814492987575,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -670,
+          "y": 0.6845125173552584,
+          "z": -809.2817765933557
+        },
+        "speed": 6.399999995144663,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": -3.1292814492987575,
+          "pitch": 0.34,
+          "distance": 8.036631648712433,
+          "blocked": false,
+          "x": -670.1297807118896,
+          "y": 4.6936837449375215,
+          "z": -816.9155610397873
+        },
+        "locomotion": {
+          "speed": 6.399999988978303,
+          "running": true,
+          "distance": 81.68839719189793,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.10320422568829092,
+          "spine": 0.28236840716004064,
+          "elbow": -1.1848123026113209
+        }
+      }
+    },
+    {
+      "name": "direction--1--1",
+      "before": {
+        "input": {
+          "joyX": -0.7071067811865476,
+          "joyY": -0.7071067811865476,
+          "run": true,
+          "yaw": 2.2678010881618467,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -674.1848179962905,
+          "y": 1.0428053409074012,
+          "z": -815.8151820037095
+        },
+        "speed": 6.3999606770431035,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": 2.2678010881618467,
+          "pitch": 0.34,
+          "distance": 8.009464321895456,
+          "blocked": false,
+          "x": -668.1931479985649,
+          "y": 5.046087997760814,
+          "z": -820.5039969181595
+        },
+        "locomotion": {
+          "speed": 6.399910718326476,
+          "running": true,
+          "distance": 87.6066235583149,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8169733988316731,
+          "spine": 0.2944590321354277,
+          "elbow": -1.1693037322113033
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": -0.7071067811865476,
+          "joyY": -0.7071067811865476,
+          "run": true,
+          "yaw": 2.3481756268834357,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -677.5789284531106,
+          "y": 0.7882470296719166,
+          "z": -812.4210715468894
+        },
+        "speed": 6.399999995150338,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": 2.3481756268834357,
+          "pitch": 0.34,
+          "distance": 8.034961341883808,
+          "blocked": false,
+          "x": -672.120546442668,
+          "y": 4.791006746338102,
+          "z": -817.7598788476146
+        },
+        "locomotion": {
+          "speed": 6.399999988979579,
+          "running": true,
+          "distance": 92.4066205985423,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.07122746934232496,
+          "spine": 0.2855968245847573,
+          "elbow": -1.1802223338140272
+        }
+      }
+    },
+    {
+      "name": "direction--1-0",
+      "before": {
+        "input": {
+          "joyX": -1,
+          "joyY": 0,
+          "run": true,
+          "yaw": 1.5144174849050462,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -675.9182263664169,
+          "y": 1.294287358183873,
+          "z": -820
+        },
+        "speed": 6.39996067704069,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": 1.5144174849050462,
+          "pitch": 0.34,
+          "distance": 8.01555302380039,
+          "blocked": false,
+          "x": -668.3174873007132,
+          "y": 5.269778070768949,
+          "z": -819.4085596696654
+        },
+        "locomotion": {
+          "speed": 6.399910718326578,
+          "running": true,
+          "distance": 98.32484696495919,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8096016416950016,
+          "spine": 0.29753818788728725,
+          "elbow": -1.1693037322113036
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": -1,
+          "joyY": 0,
+          "run": true,
+          "yaw": 1.5656817588574088,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -680.7182234066443,
+          "y": 1.2394844227604327,
+          "z": -820
+        },
+        "speed": 6.399999995144663,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": 1.5656817588574088,
+          "pitch": 0.34,
+          "distance": 8.026441675917605,
+          "blocked": false,
+          "x": -673.0830260374191,
+          "y": 5.214281004224986,
+          "z": -819.9460649440891
+        },
+        "locomotion": {
+          "speed": 6.399999988978303,
+          "running": true,
+          "distance": 103.12484400518656,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.039145357080839924,
+          "spine": 0.29080149958548795,
+          "elbow": -1.17561724214562
+        }
+      }
+    },
+    {
+      "name": "direction--1-1",
+      "before": {
+        "input": {
+          "joyX": -0.7071067811865476,
+          "joyY": 0.7071067811865476,
+          "run": true,
+          "yaw": 0.7610338816482441,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -674.1848179962905,
+          "y": 1.5865236307703223,
+          "z": -824.1848179962905
+        },
+        "speed": 6.3999606770431035,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": 0.7610338816482441,
+          "pitch": 0.34,
+          "distance": 8.014315621390027,
+          "blocked": false,
+          "x": -668.9721715345399,
+          "y": 5.529482486402923,
+          "z": -818.6090199571088
+        },
+        "locomotion": {
+          "speed": 6.399910718326476,
+          "running": true,
+          "distance": 109.04307037160352,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": -0.8010323645156182,
+          "spine": 0.2971568662292329,
+          "elbow": -1.1693037322113033
+        }
+      },
+      "after": {
+        "input": {
+          "joyX": -0.7071067811865476,
+          "joyY": 0.7071067811865476,
+          "run": true,
+          "yaw": 0.7831878908313811,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 1
+        },
+        "position": {
+          "x": -677.5789284531106,
+          "y": 1.776139237349366,
+          "z": -827.5789284531106
+        },
+        "speed": 6.399999995150338,
+        "running": true,
+        "moving": true,
+        "camera": {
+          "yaw": 0.7831878908313811,
+          "pitch": 0.34,
+          "distance": 8.0162911484024,
+          "blocked": false,
+          "x": -672.196340395955,
+          "y": 5.7175428009097695,
+          "z": -822.1633750905488
+        },
+        "locomotion": {
+          "speed": 6.399999988979579,
+          "running": true,
+          "distance": 113.84306741183093,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.007005343072087687,
+          "spine": 0.29564621883937336,
+          "elbow": -1.1710038392147948
+        }
+      }
+    },
+    {
+      "name": "camp-walk",
+      "after": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": false,
+          "yaw": -4.3404451625014675e-16,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 11
+        },
+        "position": {
+          "x": -46,
+          "y": 0.09610962545191672,
+          "z": -22.1928780159428
+        },
+        "speed": 3.2495989181365927,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": -4.3404451625014675e-16,
+          "pitch": 0.34,
+          "distance": 7.710656522810934,
+          "blocked": false,
+          "x": -46,
+          "y": 4.050056585725615,
+          "z": -14.883133264658369
+        },
+        "locomotion": {
+          "speed": 3.249090447409424,
+          "running": false,
+          "distance": 2.1928780159427994,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.37435220137647274,
+          "spine": 0.07757182471573963,
+          "elbow": -0.3645478369956486
+        }
+      }
+    },
+    {
+      "name": "tribal-walk",
+      "after": {
+        "input": {
+          "joyX": 0,
+          "joyY": 1,
+          "run": false,
+          "yaw": -0.060865823514920314,
+          "pitch": 0.34,
+          "looking": false,
+          "lookGrace": 0,
+          "epoch": 17
+        },
+        "position": {
+          "x": 10,
+          "y": 0,
+          "z": 6.807121984021384
+        },
+        "speed": 3.249598918136745,
+        "running": false,
+        "moving": true,
+        "camera": {
+          "yaw": -0.060865823514920314,
+          "pitch": 0.34,
+          "distance": 7.70837464438853,
+          "blocked": false,
+          "x": 9.37505172645982,
+          "y": 3.967804481842027,
+          "z": 14.083001336584314
+        },
+        "locomotion": {
+          "speed": 3.2490904474095563,
+          "running": false,
+          "distance": 2.192878015978616,
+          "talking": false,
+          "seated": false
+        },
+        "rig": {
+          "leg": 0.3743522013507593,
+          "spine": 0.06292398235076443,
+          "elbow": -0.3645478369891558
+        }
+      }
+    }
+  ],
+  "browser": "27.2",
+  "webgl": {
+    "version": "WebGL 2.0",
+    "renderer": "Apple GPU"
+  },
+  "isolatedPointerCancel": {
+    "input": {
+      "joyX": 0,
+      "joyY": 1,
+      "run": true,
+      "yaw": -0.38823233653211664,
+      "pitch": 0.3650000000000001,
+      "looking": true,
+      "lookGrace": 0.6833333333333428,
+      "epoch": 1
+    },
+    "position": {
+      "x": -670,
+      "y": 2.411739698080591,
+      "z": -835.7815567425687
+    },
+    "speed": 6.399999960724836,
+    "running": true,
+    "moving": true,
+    "camera": {
+      "yaw": -0.38823233653211664,
+      "pitch": 0.3650000000000001,
+      "distance": 7.426704872920287,
+      "blocked": false,
+      "x": -671.8132138138103,
+      "y": 6.702115595573014,
+      "z": -829.1421288089618
+    },
+    "locomotion": {
+      "speed": 6.399999910805973,
+      "running": true,
+      "distance": 129.6246241543996,
+      "talking": false,
+      "seated": false
+    },
+    "rig": {
+      "leg": -0.7846997400902712,
+      "spine": 0.28557055724613856,
+      "elbow": -1.1699939188836677
+    }
+  },
+  "cameraSweep": {
+    "blocked": 1,
+    "positions": 12
+  },
+  "liveRAF": {
+    "before": {
+      "input": {
+        "joyX": 0,
+        "joyY": 1,
+        "run": true,
+        "yaw": 0,
+        "pitch": 0.34,
+        "looking": false,
+        "lookGrace": 0,
+        "epoch": 8
+      },
+      "position": {
+        "x": -670,
+        "y": 1.3633333444595306,
+        "z": -820
+      },
+      "speed": 0,
+      "running": false,
+      "moving": false,
+      "camera": {
+        "yaw": 0,
+        "pitch": 0.34,
+        "distance": 7.400000000000039,
+        "blocked": false,
+        "x": -670,
+        "y": 5.331137826301557,
+        "z": -813.0236154750902
+      },
+      "locomotion": {
+        "speed": 4.5198053021178063e-76,
+        "running": false,
+        "distance": 0,
+        "talking": false,
+        "seated": false
+      },
+      "rig": {
+        "leg": 3.1388953503697937e-46,
+        "spine": 0.03137595313261444,
+        "elbow": -0.14900000000000002
+      }
+    },
+    "after": {
+      "input": {
+        "joyX": 0,
+        "joyY": 1,
+        "run": true,
+        "yaw": -4.478488719287788e-9,
+        "pitch": 0.34,
+        "looking": false,
+        "lookGrace": 0,
+        "epoch": 8
+      },
+      "position": {
+        "x": -670,
+        "y": 1.5486929237635658,
+        "z": -822.8740987068487
+      },
+      "speed": 6.386263544702615,
+      "running": true,
+      "moving": true,
+      "camera": {
+        "yaw": -4.478488719287788e-9,
+        "pitch": 0.34,
+        "distance": 7.90744368929294,
+        "blocked": false,
+        "x": -670.0000000412196,
+        "y": 5.481567438197942,
+        "z": -815.3502175743245
+      },
+      "locomotion": {
+        "speed": 6.373862196500379,
+        "running": true,
+        "distance": 2.874098706848713,
+        "talking": false,
+        "seated": false
+      },
+      "rig": {
+        "leg": 0.7959119772937114,
+        "spine": 0.2828672648038324,
+        "elbow": -1.2445080489033944
+      }
+    },
+    "wallMs": 1830,
+    "displacement": 2.874098706848713
+  },
+  "status": "passed"
+}

@@ -1,3 +1,4 @@
+import { TouchButton } from "../Hud";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { COAST, ISLETS, LAGOON, KARSTS, ZONES, type P } from "./geography";
 import { heightAt } from "./terrain";
@@ -133,14 +134,21 @@ function MapCanvas({ large = false }: { large?: boolean }) {
     />
   );
 }
-export function IslandMap() {
+export function IslandMap({
+  onOpenChange,
+}: {
+  onOpenChange: (open: boolean) => void;
+}) {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    onOpenChange(open);
+  }, [open, onOpenChange]);
   return (
     <>
-      <button
+      <TouchButton
         className="island-minimap"
         data-testid="island-map-toggle"
-        onClick={() => {
+        onActivate={() => {
           clearInput();
           setOpen(true);
         }}
@@ -148,7 +156,7 @@ export function IslandMap() {
       >
         <MapCanvas />
         <span>MAP ↗</span>
-      </button>
+      </TouchButton>
       {open && (
         <div className="island-map-backdrop" onClick={() => setOpen(false)}>
           <section
@@ -160,13 +168,13 @@ export function IslandMap() {
           >
             <header>
               <strong>Railay Peninsula</strong>
-              <button
+              <TouchButton
                 data-testid="island-map-close"
-                onClick={() => setOpen(false)}
+                onActivate={() => setOpen(false)}
                 aria-label="Close map"
               >
                 ×
-              </button>
+              </TouchButton>
             </header>
             <MapCanvas large />
             <footer>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { camp } from "./CampRuntime";
 import { ACTIVITY_LABEL, personName } from "./simulation/DemoProvider";
-import { input } from "./state";
+import { clearInput } from "./state";
 
 /** Safari/Chromium may suppress a compatibility click after multitouch camera
  * gestures. Complete a deliberate touch on pointerup, while retaining keyboard
@@ -80,8 +80,7 @@ export function ConversationHud() {
   }, []);
   useEffect(() => {
     if (state.conversation) {
-      input.joyX = input.joyY = 0;
-      input.run = false;
+      clearInput();
       leave.current?.focus({ preventScroll: true });
     }
   }, [!!state.conversation]);

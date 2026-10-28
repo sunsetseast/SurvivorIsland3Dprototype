@@ -9,7 +9,7 @@ import { useFrame } from "@react-three/fiber";
 import * as T from "three";
 import { Contestant, type StagedPerson } from "../Contestants";
 import { Survivor } from "../Survivor";
-import { Hud } from "../Hud";
+import { Hud, TouchButton } from "../Hud";
 import { TribalInteractions } from "./TribalInteractions";
 import { tribalInteractions } from "./interactions";
 import { input, dbg } from "../state";
@@ -336,17 +336,21 @@ export function TribalOverlay({ onMenu }: { onMenu: () => void }) {
       <div className="tribal-letterbox top" />
       <div className="tribal-letterbox bottom" />
       <div className="tribal-intro-actions">
-        <button className="btn" data-testid="button-menu" onClick={onMenu}>
+        <TouchButton
+          className="btn"
+          data-testid="button-menu"
+          onActivate={onMenu}
+        >
           MENU
-        </button>
+        </TouchButton>
         {(mode === "intro" || mode === "elimination") && (
-          <button
+          <TouchButton
             className="btn"
             data-testid="skip-tribal-intro"
-            onClick={tribalIntro.skip}
+            onActivate={tribalIntro.skip}
           >
             {mode === "elimination" ? "END REHEARSAL" : "SKIP INTRO"}
-          </button>
+          </TouchButton>
         )}
       </div>
       <div className="tribal-intro-caption">
@@ -359,13 +363,13 @@ export function TribalOverlay({ onMenu }: { onMenu: () => void }) {
               : "The torches are lit. Take it all in."}
         </p>
         {mode === "seated" && (
-          <button
+          <TouchButton
             className="sanctuary-primary"
             data-testid="stand-and-explore"
-            onClick={tribalIntro.stand}
+            onActivate={tribalIntro.stand}
           >
             Stand up and explore →
-          </button>
+          </TouchButton>
         )}
       </div>
     </div>

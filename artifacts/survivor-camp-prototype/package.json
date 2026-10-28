@@ -24,7 +24,9 @@
     "qa:tonsai-loading": "node scripts/tonsai-loading-qa.mjs",
     "qa:tonsai-hero": "node scripts/hero-environment-qa.mjs",
     "qa:tonsai-hero-gameplay": "node scripts/hero-gameplay-qa.mjs",
-    "qa:tonsai-hero-loading": "node scripts/hero-loading-qa.mjs"
+    "qa:tonsai-hero-loading": "node scripts/hero-loading-qa.mjs",
+    "qa:mobile-sprint": "node scripts/mobile-sprint-qa.mjs",
+    "qa:mobile-sprint:webkit": "SPRINT_BROWSER=webkit SPRINT_PORT=5199 SPRINT_EVIDENCE=../../docs/mobile-controls/evidence/webkit node scripts/mobile-sprint-qa.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

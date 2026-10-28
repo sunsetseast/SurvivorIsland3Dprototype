@@ -1,0 +1,36 @@
+name: Mobile gameplay controls
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/**'
+      - 'artifacts/survivor-camp-prototype/scripts/mobile-sprint-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/mobile-input.test.mjs'
+      - 'artifacts/survivor-camp-prototype/package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/mobile-controls.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  touch-gameplay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+      - run: pnpm --filter @workspace/survivor-camp-prototype typecheck
+      - run: pnpm --filter @workspace/survivor-camp-prototype test
+      - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium webkit
+      - run: pnpm --filter @workspace/survivor-camp-prototype qa:mobile-sprint
+      - run: pnpm --filter @workspace/survivor-camp-prototype qa:mobile-sprint:webkit
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-sprint-webgl-evidence
+          path: docs/mobile-controls/evidence/

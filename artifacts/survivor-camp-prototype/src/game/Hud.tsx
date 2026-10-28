@@ -6,7 +6,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { BOUNDS, LANDMARKS, PATH, baseHeight, shorelineX } from "./world";
-import { dbg, input } from "./state";
+import { clearInput, dbg, input, sprint } from "./state";
 import { camp } from "./CampRuntime";
 import { tribalAudio } from "./tribal/audio";
 import { tribalInteractions } from "./tribal/interactions";
@@ -16,23 +16,71 @@ const safe = (side: string) => `max(12px, env(safe-area-inset-${side}))`;
 const JOY = 112,
   KNOB = 46;
 
-export function Joystick() {
-  const id = useRef<number | null>(null);
-  const [k, setK] = useState({ x: 0, y: 0 });
+/** Each control owns one pointer. A reset also releases browser capture, so an
+ * interrupted gesture cannot revive when its old finger moves again. */
+function useControlPointer(
+  onRelease: () => void,
+  onMove?: (e: PointerEvent, target: Element) => void,
+) {
+  const owner = useRef<{ id: number; target: Element } | null>(null);
+  const callback = useRef(onRelease);
+  callback.current = onRelease;
+  const moveCallback = useRef(onMove);
+  moveCallback.current = onMove;
+  const release = () => {
+    const held = owner.current;
+    owner.current = null;
+    if (held?.target.hasPointerCapture(held.id))
+      held.target.releasePointerCapture(held.id);
+    callback.current();
+  };
   useEffect(() => {
-    const clear = () => {
-      id.current = null;
-      setK({ x: 0, y: 0 });
+    // Retain ownership even on WebKit surfaces that do not retarget an
+    // out-of-bounds touch to its capture element. Only our pointer is handled.
+    const move = (e: PointerEvent) => {
+      if (owner.current?.id !== e.pointerId || !moveCallback.current) return;
+      e.preventDefault();
+      moveCallback.current(e, owner.current.target);
     };
-    window.addEventListener("survivor-input-clear", clear);
+    const end = (e: PointerEvent) => {
+      if (owner.current?.id === e.pointerId) release();
+    };
+    window.addEventListener("survivor-input-clear", release);
+    window.addEventListener("pointermove", move, { passive: false });
+    window.addEventListener("pointerup", end);
+    window.addEventListener("pointercancel", end);
     return () => {
-      window.removeEventListener("survivor-input-clear", clear);
-      id.current = null;
-      input.looking = false;
+      window.removeEventListener("survivor-input-clear", release);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", end);
+      window.removeEventListener("pointercancel", end);
+      release();
     };
   }, []);
-  const upd = (e: React.PointerEvent) => {
-    const r = e.currentTarget.getBoundingClientRect();
+  return {
+    acquire: (e: React.PointerEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (owner.current || (e.pointerType === "mouse" && e.button !== 0))
+        return false;
+      owner.current = { id: e.pointerId, target: e.currentTarget };
+      e.currentTarget.setPointerCapture(e.pointerId);
+      return true;
+    },
+    end: (e: React.PointerEvent) => {
+      if (owner.current?.id !== e.pointerId) return false;
+      e.preventDefault();
+      e.stopPropagation();
+      release();
+      return true;
+    },
+  };
+}
+
+export function Joystick() {
+  const [k, setK] = useState({ x: 0, y: 0 });
+  const upd = (e: { clientX: number; clientY: number }, target: Element) => {
+    const r = target.getBoundingClientRect();
     let dx = e.clientX - (r.left + r.width / 2),
       dy = e.clientY - (r.top + r.height / 2);
     const max = r.width / 2 - KNOB / 2 + 4,
@@ -45,14 +93,10 @@ export function Joystick() {
     input.joyX = dx / max;
     input.joyY = -dy / max;
   };
-  const end = (e: React.PointerEvent) => {
-    if (e.pointerId !== id.current) return;
-    id.current = null;
+  const pointer = useControlPointer(() => {
     setK({ x: 0, y: 0 });
-    input.joyX = 0;
-    input.joyY = 0;
-    input.run = false;
-  };
+    input.joyX = input.joyY = 0;
+  }, upd);
   return (
     <div
       data-testid="joystick"
@@ -63,20 +107,16 @@ export function Joystick() {
         width: JOY,
         height: JOY,
         touchAction: "none",
+        pointerEvents: "auto",
         zIndex: 5,
       }}
       onPointerDown={(e) => {
-        if (id.current !== null) return;
-        id.current = e.pointerId;
-        e.currentTarget.setPointerCapture(e.pointerId);
-        upd(e);
+        if (pointer.acquire(e)) upd(e, e.currentTarget);
       }}
-      onPointerMove={(e) => {
-        if (e.pointerId === id.current) upd(e);
-      }}
-      onPointerUp={end}
-      onPointerCancel={end}
-      onLostPointerCapture={end}
+      onPointerUp={pointer.end}
+      onPointerCancel={pointer.end}
+      onLostPointerCapture={pointer.end}
+      onContextMenu={(e) => e.preventDefault()}
     >
       <div
         className="joy-knob absolute"
@@ -92,18 +132,63 @@ export function Joystick() {
   );
 }
 
-export function RunButton() {
-  const [, tick] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => tick((n) => n + 1), 120);
-    return () => clearInterval(id);
-  }, []);
+/** Complete HUD taps on their own pointer, including a non-primary finger.
+ * Compatibility click can be absent after multitouch in mobile browsers. */
+export function TouchButton({
+  onActivate,
+  children,
+  ...props
+}: Omit<React.ComponentProps<"button">, "onClick"> & {
+  onActivate: () => void;
+}) {
+  const start = useRef({ x: 0, y: 0 });
+  const pointer = useControlPointer(() => {});
   return (
     <button
+      {...props}
+      type="button"
+      onPointerDown={(e) => {
+        if (!props.disabled && pointer.acquire(e))
+          start.current = { x: e.clientX, y: e.clientY };
+      }}
+      onPointerUp={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        const tap =
+          Math.hypot(e.clientX - start.current.x, e.clientY - start.current.y) <
+          16;
+        if (
+          pointer.end(e) &&
+          !props.disabled &&
+          tap &&
+          e.clientX >= r.left &&
+          e.clientX <= r.right &&
+          e.clientY >= r.top &&
+          e.clientY <= r.bottom
+        )
+          onActivate();
+      }}
+      onPointerCancel={pointer.end}
+      onLostPointerCapture={pointer.end}
+      // Pointer activation is complete on pointerup, even when a multitouch
+      // sequence suppresses compatibility click. Keep keyboard/AT activation.
+      onClick={(e) => {
+        if (e.detail === 0 && !props.disabled) onActivate();
+      }}
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function RunButton() {
+  const running = useSyncExternalStore(sprint.subscribe, sprint.getSnapshot);
+  return (
+    <TouchButton
       data-testid="button-run"
-      aria-pressed={input.run}
+      aria-pressed={running}
       aria-label="Toggle running"
-      className={`btn absolute ${input.run ? "on" : ""}`}
+      className={`btn absolute ${running ? "on" : ""}`}
       style={{
         right: safe("right"),
         bottom: safe("bottom"),
@@ -112,39 +197,34 @@ export function RunButton() {
         zIndex: 5,
         fontSize: 13,
         touchAction: "none",
+        pointerEvents: "auto",
       }}
-      onClick={() => {
-        input.run = !input.run;
-        tick((n) => n + 1);
-      }}
-      onPointerCancel={() => {
-        input.run = false;
-        tick((n) => n + 1);
-      }}
-      onContextMenu={(e) => e.preventDefault()}
+      onActivate={sprint.toggle}
     >
-      {input.run ? "RUN ON" : "RUN"}
-    </button>
+      {running ? "RUN ON" : "RUN"}
+    </TouchButton>
   );
 }
 
 export function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
-  const id = useRef<number | null>(null);
   const last = useRef({ x: 0, y: 0 });
-  const end = (e: React.PointerEvent) => {
-    if (e.pointerId === id.current) {
-      id.current = null;
+  const pointer = useControlPointer(
+    () => {
       input.looking = false;
+    },
+    (e) => {
       input.lookGrace = 0.85;
-    }
+      input.yaw -= (e.clientX - last.current.x) * 0.007;
+      input.pitch = Math.max(
+        allowLookUp ? -0.25 : 0.12,
+        Math.min(1.15, input.pitch + (e.clientY - last.current.y) * 0.005),
+      );
+      last.current = { x: e.clientX, y: e.clientY };
+    },
+  );
+  const end = (e: React.PointerEvent) => {
+    if (pointer.end(e)) input.lookGrace = 0.85;
   };
-  useEffect(() => {
-    const clear = () => {
-      id.current = null;
-    };
-    window.addEventListener("survivor-input-clear", clear);
-    return () => window.removeEventListener("survivor-input-clear", clear);
-  }, []);
   return (
     <div
       data-testid="orbit-zone"
@@ -159,21 +239,9 @@ export function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
         zIndex: 1,
       }}
       onPointerDown={(e) => {
-        if (id.current !== null) return;
-        id.current = e.pointerId;
+        if (!pointer.acquire(e)) return;
         input.looking = true;
         input.lookGrace = 0.85;
-        e.currentTarget.setPointerCapture(e.pointerId);
-        last.current = { x: e.clientX, y: e.clientY };
-      }}
-      onPointerMove={(e) => {
-        if (e.pointerId !== id.current) return;
-        input.lookGrace = 0.85;
-        input.yaw -= (e.clientX - last.current.x) * 0.007;
-        input.pitch = Math.max(
-          allowLookUp ? -0.25 : 0.12,
-          Math.min(1.15, input.pitch + (e.clientY - last.current.y) * 0.005),
-        );
         last.current = { x: e.clientX, y: e.clientY };
       }}
       onPointerUp={end}
@@ -359,21 +427,21 @@ export function Hud({
       >
         <div className="flex gap-1">
           {onMenu && (
-            <button
+            <TouchButton
               data-testid="button-menu"
               className="btn"
               style={{ padding: "3px 10px", fontSize: 11 }}
-              onClick={onMenu}
+              onActivate={onMenu}
             >
               MENU
-            </button>
+            </TouchButton>
           )}
           {tribal && (
-            <button
+            <TouchButton
               data-testid="button-audio"
               className="btn"
               style={{ padding: "3px 9px", fontSize: 11 }}
-              onClick={async () => {
+              onActivate={async () => {
                 if (audio) {
                   tribalAudio.stop();
                   setAudio(false);
@@ -381,34 +449,35 @@ export function Hud({
               }}
             >
               SOUND {audio ? "ON" : "OFF"}
-            </button>
+            </TouchButton>
           )}
-          <button
+          <TouchButton
             data-testid="button-reset"
             className="btn"
             style={{ padding: "3px 11px", fontSize: 11 }}
-            onClick={() => {
+            onActivate={() => {
+              clearInput();
               dbg.resetRequested = true;
             }}
           >
             RESET
-          </button>
-          <button
+          </TouchButton>
+          <TouchButton
             data-testid="button-debug"
             className={`btn ${dbgOpen ? "on" : ""}`}
             style={{ width: 28, fontSize: 10 }}
-            onClick={() => setDbgOpen((d) => !d)}
+            onActivate={() => setDbgOpen((d) => !d)}
           >
             DB
-          </button>
-          <button
+          </TouchButton>
+          <TouchButton
             data-testid="button-help"
             className={`btn ${help ? "on" : ""}`}
             style={{ width: 28, fontSize: 13 }}
-            onClick={() => setHelp((h) => !h)}
+            onActivate={() => setHelp((h) => !h)}
           >
             ?
-          </button>
+          </TouchButton>
         </div>
         {!tribal && !social.conversation && <Minimap />}
       </div>
@@ -432,7 +501,7 @@ export function Hud({
           <b style={{ color: "#f6c35a" }}>How to explore</b>
           <div>
             Joystick or WASD to walk, tap RUN to latch sprint, or hold Shift.
-            Release the joystick to stop sprinting.
+            Release the joystick to stop; tap RUN ON to return to walking.
           </div>
           <div>
             Drag the right side to orbit while walking or running. Movement

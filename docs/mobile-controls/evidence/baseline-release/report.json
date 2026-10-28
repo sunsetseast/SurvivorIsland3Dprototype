@@ -1,0 +1,269 @@
+{
+  "physicalIPhone": false,
+  "viewport": {
+    "width": 932,
+    "height": 430
+  },
+  "methodology": "Trusted browser inspector touches; actual Player + terrain + Survivor; 60 Hz fixed simulation between real WebGL captures. Live RAF sample separate. Not physical Safari or device FPS.",
+  "checks": [
+    {
+      "name": "A: real touch toggles RUN / RUN ON and gameplay latch"
+    }
+  ],
+  "events": [
+    {
+      "type": "pointermove",
+      "id": 1,
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerdown",
+      "id": 2,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 2,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 2,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "click",
+      "id": 2,
+      "target": "explore-railay",
+      "trusted": true,
+      "detail": 1
+    },
+    {
+      "type": "pointerdown",
+      "id": 3,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 3,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 3,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "click",
+      "id": 3,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 1
+    },
+    {
+      "type": "pointerdown",
+      "id": 4,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 4,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 4,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "click",
+      "id": 4,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 2
+    },
+    {
+      "type": "pointerdown",
+      "id": 5,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 5,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 5,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "click",
+      "id": 5,
+      "target": "button-run",
+      "trusted": true,
+      "detail": 3
+    },
+    {
+      "type": "pointerdown",
+      "id": 6,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointermove",
+      "id": 6,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "pointerup",
+      "id": 6,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    },
+    {
+      "type": "lostpointercapture",
+      "id": 6,
+      "target": "joystick",
+      "trusted": true,
+      "detail": 0
+    }
+  ],
+  "touchSequence": [
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 90,
+          "x": 245,
+          "y": 234
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": []
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 90,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": []
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 90,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": []
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 90,
+          "x": 882,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": []
+    },
+    {
+      "type": "touchStart",
+      "touchPoints": [
+        {
+          "id": 1,
+          "x": 68,
+          "y": 362
+        }
+      ]
+    },
+    {
+      "type": "touchMove",
+      "touchPoints": [
+        {
+          "id": 1,
+          "x": 68,
+          "y": 316
+        }
+      ]
+    },
+    {
+      "type": "touchEnd",
+      "touchPoints": []
+    }
+  ],
+  "errors": [],
+  "samples": [],
+  "browser": "153.0.8010.0",
+  "webgl": {
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "status": "failed",
+  "failureSnapshot": {
+    "input": {
+      "joyX": 0,
+      "joyY": 0,
+      "run": false,
+      "yaw": -1.3368501400821609,
+      "pitch": 0.34,
+      "looking": false,
+      "lookGrace": 0,
+      "epoch": 1
+    },
+    "position": {
+      "x": -10.741942936940301,
+      "y": 1.033159156023756,
+      "z": -23.535147196828053
+    }
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at enabled (file:///tmp/sprint-baseline/artifacts/survivor-camp-prototype/scripts/mobile-sprint-qa.mjs:240:12)\n    at async file:///tmp/sprint-baseline/artifacts/survivor-camp-prototype/scripts/mobile-sprint-qa.mjs:300:7"
+}
