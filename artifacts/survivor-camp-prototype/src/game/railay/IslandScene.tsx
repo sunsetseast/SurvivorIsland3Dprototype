@@ -8,6 +8,10 @@ import { useFrame, useThree } from "@react-three/fiber";
 import * as T from "three";
 import { Player, type ExplorationWorld } from "../Player";
 import { dbg } from "../state";
+import { validateSpawn } from "../locations/spawn";
+import { walkable } from "./terrain";
+import type { Pose } from "../locations/registry";
+import { TrailMarker } from "../locations/TrailMarker";
 import { ZONES, zoneAt } from "./geography";
 import {
   heightAt,
@@ -20,6 +24,7 @@ import { Vegetation } from "./Vegetation";
 import { Ocean } from "./Ocean";
 import { Geology } from "./Geology";
 export const WORLD: ExplorationWorld = {
+  locationId: "railay_trails",
   spawn: ZONES[1].spawn,
   yaw: -1.35,
   height: heightAt,
@@ -28,15 +33,18 @@ export const WORLD: ExplorationWorld = {
 };
 export function IslandScene({
   low,
+  arrival,
   overview,
   controlsLocked,
   onReady,
 }: {
   low: boolean;
+  arrival?: Pose;
   overview: boolean;
   controlsLocked: boolean;
   onReady: () => void;
 }) {
+  const spawn = useMemo(() => arrival && validateSpawn(arrival, {height:heightAt,walkable}), [arrival]);
   const { gl, scene, camera, invalidate } = useThree();
   useEffect(() => {
     if (!overview) return;
@@ -117,7 +125,8 @@ export function IslandScene({
         <Ocean />
         <Vegetation low={low} />
         <Geology />
-        <Player environment={environment} />
+        <TrailMarker connectionId="trail_to_camp" height={heightAt} />
+        <Player environment={environment} arrival={spawn} />
       </group>
     </>
   );

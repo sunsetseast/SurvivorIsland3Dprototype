@@ -1,3 +1,4 @@
+import { LOCATIONS } from "../locations/registry";
 import { TouchButton } from "../Hud";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { COAST, ISLETS, LAGOON, KARSTS, ZONES, type P } from "./geography";
@@ -66,6 +67,11 @@ function drawBase(width: number, height: number, large: boolean) {
     g.fill();
     g.fillText(text, x + dx * (large ? 1 : 0.45), y + dz * (large ? 1 : 0.45));
   });
+  if (large) for (const loc of Object.values(LOCATIONS)) {
+    const x=sx(loc.anchor.x), y=sz(loc.anchor.z);
+    g.fillStyle=loc.status==='playable'?'#f4c16d':'#c9c6b6';g.fillRect(x-3,y-3,6,6);
+    g.font='600 10px system-ui';g.fillText(loc.id, x+45, y+12);
+  }
   g.shadowBlur = 0;
   g.fillStyle = "#e9edcf";
   g.font = `700 ${large ? 15 : 10}px system-ui`;

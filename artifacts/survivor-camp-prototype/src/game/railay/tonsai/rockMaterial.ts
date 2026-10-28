@@ -23,6 +23,8 @@ export function limestoneMaterial() {
   textures.add(albedo.value);
   textures.add(normals.value);
   let active = true;
+  let loaded = 0;
+  m.userData.assetReady = false;
   if (typeof document !== "undefined")
     for (const [url, uniform, srgb] of [
       [diffuseUrl, albedo, true],
@@ -40,6 +42,7 @@ export function limestoneMaterial() {
           t.anisotropy = 2;
           if (srgb) t.colorSpace = T.SRGBColorSpace;
           uniform.value = t;
+          if (++loaded === 2) m.userData.assetReady = true;
         },
         undefined,
         () => {},

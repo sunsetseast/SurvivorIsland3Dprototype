@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Joystick, RunButton, OrbitZone, TouchButton } from "../Hud";
 import { dbg, clearInput, input } from "../state";
 import { IslandMap } from "./IslandMap";
+import { developerTravel } from "../locations/TravelHud";
 import { ZONES } from "./geography";
 export function IslandHud({
   onMenu,
@@ -53,12 +54,12 @@ export function IslandHud({
         >
           {overview ? "Walk" : "Overview"}
         </TouchButton>
-        <TouchButton
+        {developerTravel && <TouchButton
           data-testid="island-travel"
           onActivate={() => setTravel(!travel)}
         >
           Explore ▾
-        </TouchButton>
+        </TouchButton>}
         <TouchButton
           data-testid="island-quality"
           onActivate={() => setLow(!low)}
