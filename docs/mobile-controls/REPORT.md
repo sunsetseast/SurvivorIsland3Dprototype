@@ -47,13 +47,21 @@ Native cancellation and the control interactions use trusted browser input. One 
 
 ## Validation and evidence
 
-- **79 unit tests passed**, application TypeScript passed, production build passed. The existing large-chunk build warning remains; no failing application checks were found.
+- **79 unit tests passed**, application TypeScript passed, production build passed. The existing large-chunk build warning remains; these local checks passed.
 - Existing Camp WebGL suite: **6 check groups passed**, conversations/approaches/routes and portrait views; zero recorded errors. [Raw report](evidence/camp-regression.json).
 - Existing Tribal Council WebGL suite: **71 checks passed**, including practice ballot, voting camera, ceremony and navigation; zero recorded errors. [Raw report](evidence/tribal-regression.json).
 - [Chromium structured report](evidence/report.json) · [WebKit structured report](evidence/webkit/report.json) · [unit output](evidence/unit-tests.txt) · [build output](evidence/build.txt).
 - [Walking](evidence/02-walking.jpg) · [Running](evidence/03-running.jpg) · [Idle with Run latched](evidence/04-idle-run-latched.jpg) · [Three simultaneous contacts](evidence/05-three-touch-running-and-look.jpg) · [Camp](evidence/regression-camp.jpg) · [Tribal Council](evidence/regression-tribal.jpg). Corresponding WebKit captures are in [its evidence directory](evidence/webkit).
 
 ![Actual WebGL sprint while looking](evidence/05-three-touch-running-and-look.jpg)
+
+## GitHub CI and pre-existing failure
+
+The [new mobile-controls workflow](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40661269952) passed on code commit `86c6d9f`, including both browser suites, TypeScript, all 79 unit tests and the build.
+
+**The legacy Tonsai workflow remains red for a confirmed pre-existing test timeout.** Its [PR #12 run](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40654824232) and [this PR's run](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40661269920) both fail after 180 seconds at `scripts/hero-gameplay-qa.mjs:318:14`. That wait requires at least two textures with image width exactly 512 after returning to Railay. It is an asset-specific readiness check, after the movement/touch assertions. Neither the legacy script nor environmental assets were changed here. The legacy workflow consequently skipped its later loading/environment steps. [CI comparison and exact error excerpts](evidence/ci-status.json).
+
+The [existing Living Camp workflow](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/40661269824) also passed in full, including Camp, characters, Tribal Council, assets and standalone packaging. The legacy Tonsai readiness timeout is the only red workflow.
 
 ## Reproduction and limits
 
