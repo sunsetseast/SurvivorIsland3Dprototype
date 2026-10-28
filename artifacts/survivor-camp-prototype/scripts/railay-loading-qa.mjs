@@ -75,7 +75,7 @@ try {
     }
     return route.continue();
   });
-  await page.goto("http://127.0.0.1:5197/");
+  await page.goto("http://127.0.0.1:5197/?devTravel=1");
   await page.getByTestId("explore-railay").click();
   await page.waitForFunction(() => window.__RAILAY__);
   await page.waitForTimeout(1000);

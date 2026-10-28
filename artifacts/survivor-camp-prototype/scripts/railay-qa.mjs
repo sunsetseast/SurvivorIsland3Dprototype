@@ -56,7 +56,7 @@ try {
   page.on("console", (m) => {
     if (m.type() === "error") report.errors.push(m.text());
   });
-  await page.goto("http://127.0.0.1:5195/");
+  await page.goto("http://127.0.0.1:5195/?devTravel=1");
   const enter = Date.now();
   await page.getByTestId("explore-railay").click();
   await page.waitForFunction(() => window.__RAILAY__);

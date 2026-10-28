@@ -1,0 +1,49 @@
+{
+  "method": "Comparable menu entry / default poses; Chromium software WebGL; 932x430 DPR1 low; host wall time includes 2.5s settle; not journey spawn timings",
+  "browser": "153.0.8010.0",
+  "phase": "after-equivalent",
+  "results": [
+    {
+      "label": "initial camp",
+      "hostEntryPlusSettleMs": 5944,
+      "calls": 219,
+      "triangles": 325419,
+      "geometries": 103,
+      "textures": 8,
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "jsHeap": 56800000
+    },
+    {
+      "label": "Railay default entry",
+      "hostEntryPlusSettleMs": 6320,
+      "calls": 113,
+      "triangles": 264256,
+      "geometries": 58,
+      "textures": 7,
+      "position": {
+        "x": -16.516494639559415,
+        "y": 0.6789279779238733,
+        "z": -22.239016046852274
+      },
+      "jsHeap": 56800000
+    },
+    {
+      "label": "camp reentry",
+      "hostEntryPlusSettleMs": 2525,
+      "calls": 219,
+      "triangles": 325419,
+      "geometries": 103,
+      "textures": 8,
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "jsHeap": 56800000
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+name: Connected island journeys
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/**'
+      - 'artifacts/survivor-camp-prototype/tests/**'
+      - 'artifacts/survivor-camp-prototype/scripts/connected-world-qa.mjs'
+      - '.github/workflows/connected-world.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  journey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+      - run: pnpm --filter @workspace/survivor-camp-prototype typecheck
+      - run: pnpm --filter @workspace/survivor-camp-prototype test
+      - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
+      - run: pnpm --filter @workspace/survivor-camp-prototype qa:connected-world
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: connected-world-webgl-evidence
+          path: docs/connected-world/evidence/

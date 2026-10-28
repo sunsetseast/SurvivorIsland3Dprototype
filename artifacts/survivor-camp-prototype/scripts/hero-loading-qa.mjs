@@ -79,7 +79,7 @@ try {
     }
     return route.continue();
   });
-  await page.goto("http://127.0.0.1:5194/");
+  await page.goto("http://127.0.0.1:5194/?devTravel=1");
   await page.getByTestId("explore-railay").click();
   await page.waitForFunction(() => window.__RAILAY__);
   await page.waitForTimeout(1000);
@@ -112,7 +112,7 @@ try {
       binaries.push(r.url().split("/").pop());
   });
   mobile.on("pageerror", (e) => report.errors.push(e.message));
-  await mobile.goto("http://127.0.0.1:5194/?quality=low");
+  await mobile.goto("http://127.0.0.1:5194/?devTravel=1&quality=low");
   await mobile.getByTestId("explore-railay").click();
   await mobile.waitForFunction(() =>
     window.__RAILAY__?.scene.getObjectByName("tonsai-karsts-ready"),

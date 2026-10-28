@@ -1,0 +1,293 @@
+{
+  "renderer": "Chrome 142 headless shell / ANGLE SwiftShader, host software WebGL; physical iPhone Safari UNVERIFIED",
+  "errors": [],
+  "captures": [
+    {
+      "name": "05-cliff-hero",
+      "view": {
+        "p": [
+          -535,
+          13,
+          -697
+        ],
+        "t": [
+          -336,
+          68,
+          -649
+        ]
+      },
+      "hostRenderSubmissionMs": 166.80000000004657,
+      "calls": 163,
+      "triangles": 940431,
+      "geometries": 155,
+      "textures": 17,
+      "programs": 24,
+      "quality": "high",
+      "breakdown": {
+        "unnamed": 284500,
+        "botanical-canopy-far": 200464,
+        "tonsai-northwest-wall": 104984,
+        "tonsai-talus-driftwood": 81930,
+        "terrain": 73986,
+        "tonsai-tonsai-divider": 61832,
+        "andaman-water": 28800,
+        "botanical-ficus-far": 28160,
+        "botanical-palm-near": 13888,
+        "diamond-ridge": 13440,
+        "southern-massif": 13352,
+        "tonsai-anchored-cliff-gardens": 12285,
+        "distant-mainland-context": 9080,
+        "botanical-canopy-near": 4936,
+        "railay-geology-ready": 4240,
+        "botanical-ficus-near": 2544,
+        "botanical-palm-far": 1604,
+        "andaman-sky": 352,
+        "connection-trail_to_camp": 40,
+        "botanical-litter-far": 14
+      }
+    },
+    {
+      "name": "11-understory",
+      "view": {
+        "p": [
+          -542,
+          9,
+          -974
+        ],
+        "t": [
+          -527,
+          10,
+          -1000
+        ]
+      },
+      "hostRenderSubmissionMs": 20,
+      "calls": 121,
+      "triangles": 752915,
+      "geometries": 176,
+      "textures": 20,
+      "programs": 25,
+      "quality": "high",
+      "breakdown": {
+        "unnamed": 195086,
+        "botanical-canopy-near": 120932,
+        "tonsai-northwest-wall": 104984,
+        "botanical-canopy-far": 98560,
+        "terrain": 56862,
+        "botanical-ficus-near": 48336,
+        "tonsai-talus-driftwood": 38730,
+        "andaman-water": 28800,
+        "botanical-ficus-far": 21648,
+        "botanical-pandanus-near": 16302,
+        "distant-mainland-context": 9080,
+        "botanical-fern-far": 5040,
+        "railay-geology-ready": 4240,
+        "botanical-fern-near": 2099,
+        "botanical-litter-far": 644,
+        "botanical-aroid-far": 630,
+        "botanical-litter-near": 506,
+        "andaman-sky": 352,
+        "botanical-aroid-near": 84
+      }
+    },
+    {
+      "name": "12-palms",
+      "view": {
+        "p": [
+          -700,
+          6,
+          -817
+        ],
+        "t": [
+          -730,
+          17,
+          -856
+        ]
+      },
+      "hostRenderSubmissionMs": 3.300000000046566,
+      "calls": 85,
+      "triangles": 567876,
+      "geometries": 181,
+      "textures": 20,
+      "programs": 25,
+      "quality": "high",
+      "breakdown": {
+        "tonsai-northwest-wall": 104984,
+        "botanical-canopy-near": 88848,
+        "tonsai-talus-driftwood": 81930,
+        "unnamed": 61860,
+        "botanical-canopy-far": 55968,
+        "botanical-palm-near": 30528,
+        "andaman-water": 28800,
+        "botanical-pandanus-near": 28652,
+        "terrain": 24070,
+        "botanical-ficus-near": 22896,
+        "botanical-ficus-far": 13552,
+        "distant-mainland-context": 9080,
+        "botanical-fern-far": 5920,
+        "railay-geology-ready": 4240,
+        "botanical-palm-far": 3368,
+        "botanical-fern-near": 1400,
+        "botanical-pandanus-far": 644,
+        "botanical-aroid-far": 420,
+        "andaman-sky": 352,
+        "botanical-litter-far": 350
+      }
+    },
+    {
+      "name": "16-iphone-landscape",
+      "view": {
+        "p": [
+          -565,
+          5,
+          -683
+        ],
+        "t": [
+          -370,
+          65,
+          -785
+        ],
+        "mobile": true
+      },
+      "hostRenderSubmissionMs": 4.7000000001862645,
+      "calls": 176,
+      "triangles": 1128383,
+      "geometries": 183,
+      "textures": 20,
+      "programs": 25,
+      "quality": "high",
+      "breakdown": {
+        "unnamed": 341866,
+        "botanical-canopy-far": 290576,
+        "tonsai-northwest-wall": 104984,
+        "terrain": 86636,
+        "tonsai-talus-driftwood": 81930,
+        "tonsai-tonsai-divider": 61832,
+        "botanical-ficus-far": 51568,
+        "botanical-palm-near": 30016,
+        "andaman-water": 28800,
+        "diamond-ridge": 13440,
+        "tonsai-anchored-cliff-gardens": 12285,
+        "distant-mainland-context": 9080,
+        "botanical-palm-far": 5132,
+        "railay-geology-ready": 4240,
+        "botanical-canopy-near": 2468,
+        "botanical-pandanus-far": 2070,
+        "botanical-pandanus-near": 988,
+        "andaman-sky": 352,
+        "botanical-fern-far": 80,
+        "connection-trail_to_camp": 40
+      }
+    },
+    {
+      "name": "19-benchmark",
+      "view": {
+        "p": [
+          -670,
+          3.063333344,
+          -820
+        ],
+        "t": [
+          -313,
+          77,
+          -623
+        ],
+        "fov": 62
+      },
+      "hostRenderSubmissionMs": 5.5,
+      "calls": 220,
+      "triangles": 1063513,
+      "geometries": 186,
+      "textures": 20,
+      "programs": 25,
+      "quality": "high",
+      "breakdown": {
+        "unnamed": 296688,
+        "botanical-canopy-far": 214192,
+        "tonsai-northwest-wall": 104984,
+        "terrain": 96686,
+        "tonsai-talus-driftwood": 81930,
+        "tonsai-tonsai-divider": 61832,
+        "botanical-palm-near": 41664,
+        "botanical-ficus-far": 31328,
+        "andaman-water": 28800,
+        "botanical-palm-far": 23416,
+        "botanical-canopy-near": 14808,
+        "diamond-ridge": 13440,
+        "southern-massif": 13352,
+        "tonsai-anchored-cliff-gardens": 12285,
+        "distant-mainland-context": 9080,
+        "railay-geology-ready": 4240,
+        "thaiwand": 4160,
+        "botanical-pandanus-near": 3952,
+        "lagoon-rim": 1640,
+        "mapped-islet-1": 1280
+      },
+      "synchronizedHostFrameMs": [
+        5,
+        2.8999999999068677,
+        2.6000000000931323
+      ]
+    },
+    {
+      "name": "20-benchmark-low",
+      "view": {
+        "p": [
+          -670,
+          3.063333344,
+          -820
+        ],
+        "t": [
+          -313,
+          77,
+          -623
+        ],
+        "fov": 62,
+        "low": true
+      },
+      "hostRenderSubmissionMs": 5.100000000093132,
+      "calls": 149,
+      "triangles": 479565,
+      "geometries": 184,
+      "textures": 17,
+      "programs": 24,
+      "quality": "low",
+      "breakdown": {
+        "botanical-canopy-far": 110000,
+        "terrain": 88366,
+        "unnamed": 60100,
+        "tonsai-northwest-wall": 33575,
+        "tonsai-talus-driftwood": 32720,
+        "andaman-water": 28800,
+        "tonsai-tonsai-divider": 17146,
+        "botanical-palm-near": 16896,
+        "botanical-ficus-far": 15136,
+        "diamond-ridge": 13440,
+        "southern-massif": 13352,
+        "botanical-palm-far": 13312,
+        "distant-mainland-context": 9080,
+        "tonsai-anchored-cliff-gardens": 6240,
+        "botanical-canopy-near": 4936,
+        "railay-geology-ready": 4240,
+        "thaiwand": 4160,
+        "botanical-pandanus-near": 1976,
+        "lagoon-rim": 1640,
+        "mapped-islet-1": 1280
+      },
+      "synchronizedHostFrameMs": [
+        2.199999999953434,
+        1.1999999999534339,
+        1.4000000001396984
+      ]
+    }
+  ],
+  "performance": [],
+  "checks": [
+    "Live minimap and expandable geographical map open / close correctly."
+  ],
+  "initialEntryHostWallMs": 5851,
+  "resourceStats": {
+    "geometryBytes": 6883402,
+    "textureBytesEstimate": 27044543.999999996,
+    "note": "CPU attributes; uncompressed mip estimate, not driver allocation"
+  }
+}

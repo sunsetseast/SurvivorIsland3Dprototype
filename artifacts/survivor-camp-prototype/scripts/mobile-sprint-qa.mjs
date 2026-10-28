@@ -87,7 +87,7 @@ try {
         true,
       );
   });
-  await page.goto(`http://127.0.0.1:${process.env.PORT}/?quality=low`);
+  await page.goto(`http://127.0.0.1:${process.env.PORT}/?devTravel=1&quality=low`);
   // Playwright exposes CDP for Chromium. Its in-process WebKit page proxy
   // supplies the equivalent inspector touch command for this optional check.
   // This dev-only adapter is covered by the event log (every pointer is trusted).
@@ -143,6 +143,8 @@ try {
     await up(90);
   };
   const connect = async () => {
+    // Location controls appear only after the destination has passed readiness.
+    await page.getByTestId("button-run").waitFor();
     await page.evaluate(async () => {
       window.sprintModules = {
         f: await import("/node_modules/.vite/deps/@react-three_fiber.js"),

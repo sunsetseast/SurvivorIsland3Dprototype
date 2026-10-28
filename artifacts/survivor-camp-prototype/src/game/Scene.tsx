@@ -6,10 +6,15 @@ import { Shelter } from './Shelter';
 import { Ocean, Sky, SUN_DIR, Terrain } from './Terrain';
 import { Player } from './Player';
 import { Contestants } from './Contestants';
+import { validateSpawn } from './locations/spawn';
+import { groundHeight, isWalkable } from './world';
+import type { Pose } from './locations/registry';
+import { TrailMarker } from './locations/TrailMarker';
 
 const TARGET: [number, number, number] = [-6, 0, -30];
 
-export function Scene() {
+export function Scene({ arrival }: { arrival?: Pose }) {
+  const spawn = useMemo(() => arrival && validateSpawn(arrival, {height:groundHeight,walkable:isWalkable}), [arrival]);
   const pos = [TARGET[0] + SUN_DIR.x * 70, SUN_DIR.y * 70, TARGET[2] + SUN_DIR.z * 70] as [number, number, number];
   const target = useMemo(() => { const o = new THREE.Object3D(); o.position.set(...TARGET); return o; }, []);
   return (
@@ -33,7 +38,8 @@ export function Scene() {
       <Trough />
       <Shelter />
       <Signs />
-      <Player />
+      <TrailMarker connectionId="camp_to_trail" height={groundHeight} />
+      <Player arrival={spawn} />
       <Contestants />
     </>
   );

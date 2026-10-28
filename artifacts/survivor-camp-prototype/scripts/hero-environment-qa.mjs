@@ -62,7 +62,7 @@ try {
   await page.addInitScript(() =>
     Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 }),
   );
-  await page.goto("http://127.0.0.1:5195/");
+  await page.goto("http://127.0.0.1:5195/?devTravel=1");
   const enter = Date.now();
   await page.getByTestId("explore-railay").click();
   await page.waitForFunction(() => window.__RAILAY__);
@@ -77,8 +77,7 @@ try {
     let ready = false;
     window.__RAILAY__.scene.traverse((o) => {
       if (o.material?.name === "tonsai-mineral-limestone") {
-        const maps = [...(o.material.userData.textureResources || [])];
-        if (maps.filter((t) => t.image?.width === 1024).length >= 2)
+        if (o.material.userData.assetReady === true)
           ready = true;
       }
     });

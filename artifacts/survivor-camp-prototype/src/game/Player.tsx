@@ -12,6 +12,8 @@ import {
 import { Survivor } from "./Survivor";
 import { dbg, input, clearInput } from "./state";
 import { camp } from "./CampRuntime";
+import { worldTravel } from "./locations/travel";
+import type { LocationId, Pose } from "./locations/registry";
 import { distance as physicalDistance } from "./navigation";
 
 import {
@@ -24,6 +26,9 @@ import { VOTING } from "./tribal/votingAnchors";
 
 /** Locomotion and camera are independent from the art/rig and simulation. */
 export type ExplorationWorld = {
+  locationId?: LocationId;
+  facing?: number;
+  camp?: boolean;
   voting?: { suppressed: () => boolean; release: () => void };
   standFrom?: Point & { facing: number };
   controlsLocked?: () => boolean;
@@ -35,6 +40,8 @@ export type ExplorationWorld = {
   location: (x: number, z: number) => string;
 };
 const islandWorld: ExplorationWorld = {
+  camp: true,
+  locationId: "camp_tribe_a",
   spawn: SPAWN,
   yaw: -0.48,
   height: islandHeight,
@@ -43,10 +50,14 @@ const islandWorld: ExplorationWorld = {
 };
 export function Player({
   environment = islandWorld,
+  arrival,
 }: {
   environment?: ExplorationWorld;
+  arrival?: Pose;
 }) {
-  const isCamp = environment === islandWorld;
+  const isCamp = environment.camp === true;
+  const spawn = arrival ?? environment.spawn;
+  const yaw = arrival?.yaw ?? environment.yaw;
   const groundHeight = environment.height;
   const root = useRef<THREE.Group>(null);
   const heading = useRef<THREE.Group>(null);
@@ -58,8 +69,8 @@ export function Player({
     seated: !!environment.standFrom,
   });
   const state = useRef({
-    pos: { ...(environment.standFrom || environment.spawn) },
-    face: environment.standFrom?.facing ?? Math.PI,
+    pos: { ...(environment.standFrom || spawn) },
+    face: environment.standFrom?.facing ?? arrival?.facing ?? environment.facing ?? Math.PI,
     entryTime: 0,
     velocity: 0,
     initialized: false,
@@ -70,7 +81,7 @@ export function Player({
     obstacles: [] as THREE.Object3D[],
     moving: false,
     locked: false,
-    moveYaw: environment.yaw,
+    moveYaw: yaw,
     voting: false,
     blend: 0,
   });
@@ -103,7 +114,7 @@ export function Player({
     const dt = Math.min(Math.max(rawDt, 0.001), 0.05);
     const s = state.current;
     if (s.firstFrame) {
-      input.yaw = environment.yaw;
+      input.yaw = yaw;
       s.firstFrame = false;
     }
     if (dbg.teleportRequested) {
@@ -125,7 +136,7 @@ export function Player({
       s.pos = { ...(environment.resetSpawn || environment.spawn) };
       s.velocity = 0;
       s.initialized = false;
-      input.yaw = environment.yaw;
+      input.yaw = yaw;
       input.pitch = 0.34;
       motion.current.distance = 0;
     }
@@ -145,6 +156,7 @@ export function Player({
     let ix = input.joyX + Number(!!keys.right) - Number(!!keys.left);
     let iy = input.joyY + Number(!!keys.forward) - Number(!!keys.back);
     const locked =
+      worldTravel.blocked ||
       standing ||
       !!environment.controlsLocked?.() ||
       (isCamp && !!camp.conversation);
@@ -203,7 +215,7 @@ export function Player({
     motion.current.running = wantsRun && actualSpeed > 3.6;
     motion.current.distance += traveled;
     const y = groundHeight(s.pos.x, s.pos.z);
-    if (isCamp) camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
+    if (isCamp && !worldTravel.blocked) camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
     motion.current.talking = isCamp && !!camp.conversation;
     if (isCamp && camp.conversation) {
       const npc = camp.npc(camp.conversation.actorId)!;
@@ -354,6 +366,7 @@ export function Player({
       s.fpsTime = 0;
       s.fpsFrames = 0;
     }
+    if (environment.locationId) worldTravel.recordPose(environment.locationId, { ...s.pos, facing: s.face, yaw: input.yaw });
     Object.assign(dbg, {
       face: s.face,
       cameraOwner:

@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { baseHeight, shorelineX } from './world';
@@ -21,6 +21,7 @@ export function Terrain() {
     g.computeVertexNormals();
     return { geo: g, tex: bakeGround(X0, X1, Z0, Z1, 896, 896) };
   }, []);
+  useEffect(() => () => tex.dispose(), [tex]);
   return <mesh geometry={geo} receiveShadow><meshLambertMaterial map={tex} /></mesh>;
 }
 
@@ -85,6 +86,7 @@ export function Ocean() {
   const rip = useMemo(rippleTexture, []);
   const ft = useMemo(foamTexture, []);
   const geos = useMemo(() => BANDS.map(b => foamGeo(b.off, b.w, b.ph)), []);
+  useEffect(() => () => { rip.dispose(); ft.dispose(); }, [rip, ft]);
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
     rip.offset.set(t * 0.0016, t * 0.0009);
@@ -136,6 +138,7 @@ export function Sky() {
     g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
     return new THREE.CanvasTexture(c);
   }, []);
+  useEffect(() => () => glow.dispose(), [glow]);
   useFrame(({ camera }) => { dome.current?.position.copy(camera.position); });
   return (
     <group ref={dome}>

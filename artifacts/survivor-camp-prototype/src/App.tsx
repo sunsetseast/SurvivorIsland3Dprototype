@@ -1,4 +1,10 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { Canvas } from "@react-three/fiber";
 import { KeyboardControls } from "@react-three/drei";
 import { Scene } from "@/game/Scene";
@@ -6,6 +12,14 @@ import { Hud, TouchButton } from "@/game/Hud";
 import { dbg, input, clearInput as releaseInput } from "@/game/state";
 import { TribalOverlay } from "@/game/tribal/TribalIntro";
 import { camp } from "@/game/CampRuntime";
+import { worldTravel } from "@/game/locations/travel";
+import { LOCATIONS } from "@/game/locations/registry";
+import { TravelHud, developerTravel } from "@/game/locations/TravelHud";
+import {
+  SceneLifecycle,
+  LocationErrorBoundary,
+  waitForSceneRelease,
+} from "@/game/locations/SceneLifecycle";
 
 const IslandScene = lazy(() =>
   import("@/game/railay/IslandScene").then((m) => ({ default: m.IslandScene })),
@@ -26,9 +40,25 @@ const keyMap = [
 ];
 
 function App() {
-  const [mode, setMode] = useState<"menu" | "camp" | "tribal" | "railay">(
-    "menu",
+  const travel = useSyncExternalStore(
+    worldTravel.subscribe,
+    worldTravel.getSnapshot,
   );
+  const mode =
+    travel.phase === "menu"
+      ? "menu"
+      : travel.active
+        ? LOCATIONS[travel.active].scene
+        : null;
+  useEffect(() => {
+    if (travel.phase === "unloading")
+      void waitForSceneRelease().then(() =>
+        worldTravel.loadPending(travel.token),
+      );
+  }, [travel.phase, travel.token]);
+  const sceneQuality =
+    LOCATIONS[travel.active ?? travel.target ?? worldTravel.session.locationId]
+      .quality;
   const [low, setLow] = useState(
     () =>
       new URLSearchParams(location.search).get("quality") === "low" ||
@@ -37,6 +67,13 @@ function App() {
   const [overview, setOverview] = useState(false);
   const [islandControlsLocked, setIslandControlsLocked] = useState(false);
   const [islandReady, setIslandReady] = useState(false);
+  useEffect(() => {
+    if (travel.phase === "fading") {
+      setOverview(false);
+      setIslandControlsLocked(false);
+      setIslandReady(false);
+    }
+  }, [travel.phase, travel.token]);
   const enter = (next: "menu" | "camp" | "tribal" | "railay") => {
     setOverview(false);
     setIslandControlsLocked(false);
@@ -45,7 +82,11 @@ function App() {
     input.pitch = 0.34;
     dbg.resetRequested = false;
     dbg.teleportRequested = null;
-    setMode(next);
+    if (next === "menu") worldTravel.menu();
+    else if (next === "camp")
+      worldTravel.enter("camp_tribe_a", developerTravel);
+    else if (next === "tribal") worldTravel.enter("tribal_council", true);
+    else if (developerTravel) worldTravel.enter("railay_trails", true);
   };
   useEffect(() => {
     const clearInput = () => {
@@ -153,10 +194,13 @@ function App() {
       >
         {mode !== "menu" && (
           <Canvas
-            key={`canvas-${mode}`}
-            frameloop={mode === "railay" && overview ? "demand" : "always"}
-            shadows={mode !== "railay"}
-            dpr={mode === "railay" && low ? 1 : [1, 1.5]}
+            frameloop={
+              mode === "railay" && overview && travel.phase === "ready"
+                ? "demand"
+                : "always"
+            }
+            shadows={sceneQuality.shadows}
+            dpr={low ? 1 : [1, sceneQuality.mobileDpr]}
             gl={{ antialias: true, powerPreference: "high-performance" }}
             camera={{
               fov: 55,
@@ -166,20 +210,34 @@ function App() {
             }}
             style={{ pointerEvents: "none" }}
           >
-            <Suspense fallback={null}>
-              {mode === "railay" ? (
-                <IslandScene
-                  low={low}
-                  overview={overview}
-                  controlsLocked={islandControlsLocked}
-                  onReady={() => setIslandReady(true)}
-                />
-              ) : mode === "tribal" ? (
-                <TribalScene />
-              ) : (
-                <Scene />
-              )}
-            </Suspense>
+            {travel.active && (
+              <LocationErrorBoundary
+                key={
+                  travel.phase === "fading" ? travel.token - 1 : travel.token
+                }
+                token={travel.token}
+              >
+                <SceneLifecycle id={travel.active} token={travel.token}>
+                  <Suspense fallback={null}>
+                    {mode === "railay" ? (
+                      <IslandScene
+                        arrival={travel.entry ?? undefined}
+                        low={low}
+                        overview={overview}
+                        controlsLocked={
+                          islandControlsLocked || worldTravel.blocked
+                        }
+                        onReady={() => setIslandReady(true)}
+                      />
+                    ) : mode === "tribal" ? (
+                      <TribalScene />
+                    ) : (
+                      <Scene arrival={travel.entry ?? undefined} />
+                    )}
+                  </Suspense>
+                </SceneLifecycle>
+              </LocationErrorBoundary>
+            )}
           </Canvas>
         )}
         {mode === "railay" && !islandReady && (
@@ -187,7 +245,7 @@ function App() {
             Preparing the Railay peninsula…
           </div>
         )}
-        {mode !== "menu" &&
+        {travel.phase === "ready" &&
           (mode === "railay" ? (
             <Suspense
               fallback={
@@ -208,6 +266,7 @@ function App() {
           ) : (
             <Hud onMenu={() => enter("menu")} />
           ))}
+        <TravelHud blocked={mode === "railay" && islandControlsLocked} />
         {mode === "menu" && (
           <main className="sanctuary-menu">
             <div className="sanctuary-menu-inner">
@@ -220,33 +279,35 @@ function App() {
                 <em>Survival.</em>
               </h1>
               <p className="sanctuary-intro">
-                Beyond the jungle, the torches are burning.
+                Camp life, strategy, and journeys beyond the palms.
                 <br />
-                Explore the forgotten island sanctuary.
+                Your tribe is waiting at camp.
               </p>
               <TouchButton
-                data-testid="explore-railay"
+                data-testid="explore-island"
                 className="sanctuary-primary"
-                onActivate={() => enter("railay")}
+                onActivate={() => enter("camp")}
               >
-                Explore Island <span>→</span>
+                Continue Survivor Session <span>→</span>
               </TouchButton>
               <TouchButton
                 data-testid="explore-tribal"
-                className="sanctuary-primary"
+                className="sanctuary-secondary"
                 onActivate={() => enter("tribal")}
               >
-                Explore Tribal Council <span>→</span>
+                Rehearse Tribal Council
               </TouchButton>
-              <TouchButton
-                data-testid="explore-island"
-                className="sanctuary-secondary"
-                onActivate={() => enter("camp")}
-              >
-                Return to the Island Camp
-              </TouchButton>
+              {developerTravel && (
+                <TouchButton
+                  data-testid="explore-railay"
+                  className="sanctuary-secondary"
+                  onActivate={() => enter("railay")}
+                >
+                  Development · Explore Island
+                </TouchButton>
+              )}
               <p className="sanctuary-footnote">
-                Walk freely · Drag to look · Landscape recommended
+                Camp life · Authorized journeys · Landscape recommended
               </p>
             </div>
             <div className="sanctuary-menu-mark" aria-hidden="true">
