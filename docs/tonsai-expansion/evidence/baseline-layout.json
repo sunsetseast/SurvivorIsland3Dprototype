@@ -1,0 +1,18 @@
+{
+  "sha": "0b709054dfc2a9b3d3ae4b837fdadc1699043c01",
+  "method": "1m centre samples, same isWalkable method as expanded estimate",
+  "walkableAreaEstimate": 7460,
+  "bounds": {
+    "minX": -60,
+    "maxX": 34,
+    "minZ": -60,
+    "maxZ": 34
+  },
+  "vegetation": {
+    "PALMS": 78,
+    "BROADLEAF": 54,
+    "FERNS": 239,
+    "SHRUBS": 205,
+    "ROCKS": 72
+  }
+}

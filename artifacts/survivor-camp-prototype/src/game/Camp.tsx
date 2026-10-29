@@ -253,62 +253,58 @@ export function BeachProps() {
   return <Static geo={geo} blocker />;
 }
 
-/* ---------------- Well ---------------- */
+/* ---------------- Freshwater spring ---------------- */
+/** Retains the semantic waterWell contract while presenting a natural spring. */
 export function Well() {
-  const { x, z } = LANDMARKS.well, y = baseHeight(x, z);
-  const { body, roof, water } = useMemo(() => {
-    const r = rng(23), p: Geo[] = [], rp: Geo[] = [];
-    const courses = [{ R: 1.28, n: 12, h: 0.3 }, { R: 1.22, n: 11, h: 0.3 }, { R: 1.18, n: 11, h: 0.28 }, { R: 1.2, n: 12, h: 0.14 }];
-    let yy = 0;
-    courses.forEach((c, ci) => {
-      for (let i = 0; i < c.n; i++) {
-        const a = ((i + (ci % 2) * 0.5) / c.n) * Math.PI * 2, arc = ((Math.PI * 2 * c.R) / c.n) * (0.92 + r() * 0.12);
-        p.push(mk(new THREE.BoxGeometry(0.36 + r() * 0.06, c.h * (0.95 + r() * 0.1), arc), M(Math.cos(a) * c.R, yy + c.h / 2, Math.sin(a) * c.R, 0, -a + Math.PI / 2 * 0 + 0, 0), pick(GREYS, r()), 0.1, '#d3cab5', yy, yy + c.h));
-      }
-      yy += c.h;
-    });
-    p.push(mk(new THREE.CylinderGeometry(1.0, 1.0, 0.9, 14, 1, true), M(0, 0.45, 0), '#1c2124', 0.05));
-    p.push(mk(new THREE.CylinderGeometry(0.96, 0.96, 0.02, 14), M(0, 0.34, 0), '#2a6f7a', 0.05));
-    for (const s of [-1, 1]) {
-      p.push(limb(V(0.1, -0.1, s * 1.5), V(0.1, 2.75, s * 1.5), 0.1, 0.08, '#6b4423'));
-      for (const ly of [0.9, 2.5]) p.push(mk(new THREE.CylinderGeometry(0.13, 0.13, 0.08, 8), M(0.1, ly, s * 1.5), ROPE, 0.05));
-      p.push(limb(V(0.1, 0.2, s * 1.5), V(0.1 + 0.9, 0.2, s * 2.0), 0.05, 0.05, '#5a3b1c'));
+  const { x, z } = LANDMARKS.well,
+    y = baseHeight(x, z);
+  const geo = useMemo(() => {
+    const parts: Geo[] = [],
+      r = rng(23);
+    for (let i = 0; i < 15; i++) {
+      const a = (i / 15) * Math.PI * 2;
+      parts.push(
+        stone(
+          Math.cos(a) * 1.65,
+          0.15,
+          Math.sin(a) * 1.35,
+          0.23 + r() * 0.22,
+          r,
+        ),
+      );
     }
-    p.push(limb(V(0.1, 2.1, -1.55), V(0.1, 2.1, 1.55), 0.07, 0.07, '#5a3b1c'));
-    p.push(mk(new THREE.CylinderGeometry(0.16, 0.16, 1.0, 8), M(0.1, 2.0, 0, Math.PI / 2, 0, 0), '#6b4423', 0.05));
-    p.push(mk(new THREE.CylinderGeometry(0.2, 0.2, 0.6, 8), M(0.1, 2.0, 0, Math.PI / 2, 0, 0), ROPE, 0.08));
-    p.push(limb(V(0.1, 2.0, 0.65), V(0.1 + 0.5, 2.0 - 0.3, 1.0), 0.04, 0.04, '#5a3b1c'));
-    p.push(mk(new THREE.SphereGeometry(0.07, 5, 5), M(0.6, 1.7, 1.0), '#3a2a1a'));
-    p.push(limb(V(0.1, 1.8, 0.0), V(0.1, 1.05, 0.0), 0.015, 0.015, ROPE));
-    p.push(mk(new THREE.CylinderGeometry(0.2, 0.15, 0.3, 10), M(0.1, 0.9, 0), '#7a5230', 0.1, '#9a7040', 0.75, 1.05));
-    p.push(mk(new THREE.TorusGeometry(0.19, 0.015, 4, 12), M(0.1, 0.96, 0, Math.PI / 2, 0, 0), '#2e2a28', 0.05));
-    for (let k = 0; k < 6; k++) { const a = r() * 6.28, d = 1.9 + r() * 0.8; p.push(stone(Math.cos(a) * d, 0.1, Math.sin(a) * d, 0.18 + r() * 0.22, r)); }
-    rp.push(...thatchRoof({ cx: 0.1, cy: 2.75, cz: 0, half: 1.9, rise: 1.15, len: 3.6, rows: 5, bw: 0.45, seed: 8 }));
-    return { body: merge(p), roof: merge(rp), water: null };
+    // Rock-fed seep and one improvised bamboo catch, without a constructed well.
+    parts.push(stone(1.2, 0.5, 0.7, 0.8, r));
+    parts.push(stone(0.7, 0.3, 1.2, 0.5, r));
+    parts.push(
+      limb(V(1.3, 0.68, 0.6), V(-0.4, 0.28, 0.2), 0.075, 0.065, "#927b41"),
+    );
+    parts.push(
+      mk(
+        new THREE.CylinderGeometry(0.26, 0.2, 0.4, 10),
+        M(-2.5, 0.2, 1.9),
+        "#7a5c36",
+      ),
+    );
+    return merge(parts);
   }, []);
-  void water;
   return (
-    <group position={[x, y, z]}>
-      <Static geo={body} blocker />
-      <Static geo={roof} blocker />
+    <group name="remote-freshwater-spring" position={[x, y, z]}>
+      <Static geo={geo} blocker />
+      <mesh
+        rotation-x={-Math.PI / 2}
+        position={[0, 0.075, 0]}
+        scale={[1.6, 1.3, 1]}
+      >
+        <circleGeometry args={[1, 32]} />
+        <meshStandardMaterial
+          color="#407f71"
+          roughness={0.23}
+          metalness={0.15}
+        />
+      </mesh>
     </group>
   );
-}
-
-export function Trough() {
-  const t = PROPS.trough, ty = gh(t.x, t.z);
-  const geo = useMemo(() => {
-    const p: Geo[] = [], r = rng(61);
-    p.push(mk(new THREE.BoxGeometry(2.0, 0.12, 0.9), M(t.x, ty + 0.35, t.z), '#7a5230', 0.1));
-    for (const s of [-1, 1]) p.push(mk(new THREE.BoxGeometry(2.0, 0.28, 0.1), M(t.x, ty + 0.5, t.z + s * 0.4), pick(WOODS, r()), 0.1));
-    for (const s of [-1, 1]) p.push(mk(new THREE.BoxGeometry(0.1, 0.28, 0.9), M(t.x + s * 0.95, ty + 0.5, t.z), pick(WOODS, r()), 0.1));
-    p.push(mk(new THREE.BoxGeometry(1.8, 0.02, 0.7), M(t.x, ty + 0.55, t.z), '#2a6f7a', 0.05));
-    for (const s of [-1, 1]) p.push(limb(V(t.x + s * 0.8, ty, t.z), V(t.x + s * 0.8, ty + 0.35, t.z), 0.07, 0.07, '#5a3b1c'));
-    p.push(mk(new THREE.CylinderGeometry(0.2, 0.15, 0.3, 10), M(-35.2, gh(-35.2, 12.2) + 0.15, 12.2), '#7a5230', 0.1));
-    for (let k = 0; k < 8; k++) p.push(stone(-31.5 + r() * 2.5, gh(-31, 3) + 0.1, 3.2 + r() * 1.5, 0.2 + r() * 0.25, r));
-    return merge(p);
-  }, [t.x, t.z, ty]);
-  return <Static geo={geo} />;
 }
 
 /* ---------------- Signs ---------------- */

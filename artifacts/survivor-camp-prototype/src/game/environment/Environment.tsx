@@ -11,6 +11,9 @@ import {
   groundHeight,
   type Veg,
 } from "../world";
+import { NaturalLandmarks } from "./Landmarks";
+import { NATURAL_LANDMARKS, cliffTopHeight } from "./geography";
+import { makeShrub } from "../flora";
 import { Flora } from "../Flora";
 import { useEnvironmentKit, meshPart } from "./assets";
 import { BACKDROP_TREES, CLIFF_MASSES } from "./composition";
@@ -97,7 +100,7 @@ function Batch({
       culling.sphere.radius = Math.max(2, p.scale * 5);
       if (
         (far ? d >= near : d < near) &&
-        d < (low ? 155 : 190) &&
+        d < (low ? 110 : 150) &&
         culling.frustum.intersectsSphere(culling.sphere)
       ) {
         m.setMatrixAt(n, matrix);
@@ -155,10 +158,35 @@ export function Environment({ low }: { low: boolean }) {
       ],
       palms: veg(PALMS, 0.81),
       ferns: veg(FERNS, 3.2),
-      shrubs: veg(SHRUBS, 0.48),
+      shrubs: veg(
+        SHRUBS.filter((p) => p.variant !== 99),
+        0.48,
+      ),
+      boundary: veg(
+        SHRUBS.filter((p) => p.variant === 99),
+        1.25,
+      ),
       stones: veg(ROCKS, 0.85),
     }),
     [],
+  );
+  const boundaryMesh = useMemo(
+    () => ({
+      geometry: makeShrub(),
+      material: new T.MeshLambertMaterial({
+        vertexColors: true,
+        color: "#71844d",
+        side: T.DoubleSide,
+      }),
+    }),
+    [],
+  );
+  useEffect(
+    () => () => {
+      boundaryMesh.geometry.dispose();
+      boundaryMesh.material.dispose();
+    },
+    [boundaryMesh],
   );
   const ledges = useMemo(() => {
     const rock = meshPart(kit.rock, low ? "limestone-far" : "limestone-near");
@@ -192,6 +220,14 @@ export function Environment({ low }: { low: boolean }) {
           });
       }
     });
+    for (const x of [-29, -13, 5, 23, 34])
+      out.push({
+        x,
+        z: 112,
+        y: baseHeight(x, 98) + cliffTopHeight(x) - 0.1,
+        scale: 1.5,
+        rotation: x * 0.4,
+      });
     return out;
   }, [kit.rock, low]);
   const rock = meshPart(kit.rock, low ? "limestone-far" : "limestone-near");
@@ -226,6 +262,11 @@ export function Environment({ low }: { low: boolean }) {
       }
       userData={{ failures: kit.failures }}
     >
+      <NaturalLandmarks
+        low={low}
+        rockMaterial={rock?.material}
+        barkMaterial={meshPart(kit.tree, "coastal-trunk-near")?.material}
+      />
       {rock && (
         <>
           {CLIFF_MASSES.map((p, i) => (
@@ -269,7 +310,7 @@ export function Environment({ low }: { low: boolean }) {
                     mesh={m}
                     items={plants.trees}
                     low={low}
-                    near={low ? 24 : 42}
+                    near={low ? 24 : 36}
                     far={level === "far"}
                     cast={
                       part === "trunk" ||
@@ -288,7 +329,28 @@ export function Environment({ low }: { low: boolean }) {
                 <Batch
                   key={part}
                   mesh={m}
-                  items={ledges}
+                  items={
+                    part === "leaves"
+                      ? [
+                          ...ledges,
+                          ...NATURAL_LANDMARKS.filter((l) =>
+                            [
+                              "buttress",
+                              "roots",
+                              "strangler",
+                              "leaning",
+                            ].includes(l.kind),
+                          ).map((l) => ({
+                            ...l,
+                            y:
+                              baseHeight(l.x, l.z) +
+                              (l.kind === "buttress" ? 19 : 9),
+                            scale: l.kind === "buttress" ? 4 : 2.5,
+                            rotation: 1.2,
+                          })),
+                        ]
+                      : ledges
+                  }
                   low={low}
                   near={190}
                 />
@@ -316,7 +378,7 @@ export function Environment({ low }: { low: boolean }) {
                         (_, i) => PALMS[i]!.variant === v,
                       )}
                       low={low}
-                      near={low ? 26 : 48}
+                      near={low ? 26 : 42}
                       far={level === "far"}
                       cast={part === "wood" || (!low && level === "near")}
                       blocker={part === "wood"}
@@ -327,6 +389,12 @@ export function Environment({ low }: { low: boolean }) {
             </group>
           )),
         )}
+      <Batch
+        mesh={boundaryMesh}
+        items={plants.boundary}
+        low={low}
+        near={low ? 65 : 95}
+      />
       {kit.fern &&
         ["a", "b", "c", "d"].map((v, i) => {
           const fern = meshPart(kit.fern, `fern_02_${v}`);

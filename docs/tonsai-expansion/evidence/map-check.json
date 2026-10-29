@@ -1,0 +1,14 @@
+{
+  "result": "PASS",
+  "method": "Trusted W key held for 60 real Player ticks while expanded map is open",
+  "before": {
+    "x": -6,
+    "y": 1.002931652379349,
+    "z": -24
+  },
+  "position": {
+    "x": -6,
+    "z": -24
+  },
+  "controlsLocked": true
+}

@@ -1,6 +1,7 @@
+import { TERRAIN_EXTENT } from "./geography";
 import * as T from "three";
 import {
-  pathDistance,
+  trailWear,
   shorelineX,
   smoothstep,
   noise2,
@@ -15,16 +16,37 @@ import litterNormalUrl from "../../assets/camp/brown_mud_leaves_01-normal.jpg?ur
 /** One continuous terrain skin. World coordinates, continuous zone weights,
  * scanned microdetail. No coplanar ground decals or intersecting zone planes. */
 export function campGroundMaterial() {
-  const size = 256,
+  const shadeGrid = new Map<string, typeof SHADE>();
+  for (const s of SHADE)
+    for (
+      let x = Math.floor((s.x - s.r) / 12);
+      x <= Math.floor((s.x + s.r) / 12);
+      x++
+    )
+      for (
+        let z = Math.floor((s.z - s.r) / 12);
+        z <= Math.floor((s.z + s.r) / 12);
+        z++
+      ) {
+        const k = x + "," + z,
+          a = shadeGrid.get(k) ?? [];
+        a.push(s);
+        shadeGrid.set(k, a);
+      }
+  const size = 512,
     bytes = new Uint8Array(size * size * 4);
   for (let j = 0; j < size; j++)
     for (let i = 0; i < size; i++) {
-      const x = -92 + ((i + 0.5) / size) * 152,
-        z = -86 + ((j + 0.5) / size) * 146,
+      const x =
+          TERRAIN_EXTENT.minX +
+          ((i + 0.5) / size) * (TERRAIN_EXTENT.maxX - TERRAIN_EXTENT.minX),
+        z =
+          TERRAIN_EXTENT.minZ +
+          ((j + 0.5) / size) * (TERRAIN_EXTENT.maxZ - TERRAIN_EXTENT.minZ),
         d = x - shorelineX(z),
         n = noise2(x * 0.11, z * 0.11);
       const jungle = smoothstep(14, 31, d + (n - 0.5) * 8),
-        path = 1 - smoothstep(0.9, 2.5, pathDistance(x, z, 3));
+        path = trailWear(x, z);
       const clearing =
         1 -
         smoothstep(
@@ -40,7 +62,9 @@ export function campGroundMaterial() {
           Math.hypot(Math.max(5 - x, 0, x - 19), Math.max(-50 - z, 0, z + 31)),
         );
       let shade = 1;
-      for (const s of SHADE) {
+      for (const s of shadeGrid.get(
+        Math.floor(x / 12) + "," + Math.floor(z / 12),
+      ) ?? []) {
         const t = Math.max(0, 1 - Math.hypot(x - s.x, z - s.z) / s.r);
         shade -= s.s * t * t * 0.24;
       }
@@ -123,7 +147,7 @@ export function campGroundMaterial() {
         "#include <common>",
         `#include <common>
    varying vec3 vCampGround;uniform sampler2D campSand,campLitter,campNormal,campForestNormal,campMask;
-   vec4 campWeights(){return texture2D(campMask,(vCampGround.xz+vec2(92.,86.))/vec2(152.,146.));}
+   vec4 campWeights(){return texture2D(campMask,(vCampGround.xz+vec2(94.,88.))/vec2(259.,236.));}
   `,
       )
       .replace(

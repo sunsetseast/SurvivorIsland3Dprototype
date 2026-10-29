@@ -28,7 +28,9 @@
     "qa:mobile-sprint": "node scripts/mobile-sprint-qa.mjs",
     "qa:mobile-sprint:webkit": "SPRINT_BROWSER=webkit SPRINT_PORT=5199 SPRINT_EVIDENCE=../../docs/mobile-controls/evidence/webkit node scripts/mobile-sprint-qa.mjs",
     "qa:connected-world": "node scripts/connected-world-qa.mjs",
-    "qa:flagship-camp": "node scripts/flagship-camp-qa.mjs"
+    "qa:flagship-camp": "node scripts/flagship-camp-qa.mjs",
+    "qa:expansion": "node scripts/expansion-qa.mjs",
+    "qa:expansion-metrics": "node --import tsx scripts/expansion-metrics.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

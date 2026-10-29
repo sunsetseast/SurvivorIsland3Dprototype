@@ -44,14 +44,17 @@ export const SPOTS: Record<Place, Point[]> = {
     { x: -48, z: -24.5 },
   ],
   waterWell: [
-    { x: -31.5, z: 8 },
-    { x: -32, z: 11.6 },
-    { x: -35.7, z: 6 },
+    { x: 104, z: 36 },
+    { x: 106, z: 39 },
+    { x: 110, z: 33 },
   ],
   jungleTrail: [
     { x: 8, z: 15 },
-    { x: 12.2, z: 8.5 },
-    { x: -19, z: 17.7 },
+    { x: 38, z: 5 },
+    { x: 53, z: 36 },
+    { x: -17, z: 91 },
+    { x: 43, z: 80 },
+    { x: 30, z: 91 },
   ],
 };
 export type NpcState = PhysicalPerson & {

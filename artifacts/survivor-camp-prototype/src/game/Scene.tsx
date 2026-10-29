@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import * as THREE from "three";
 import { Environment } from "./environment/Environment";
-import { BeachProps, CampProps, Fire, Logs, Signs, Trough, Well } from "./Camp";
+import { BeachProps, CampProps, Fire, Logs, Signs, Well } from "./Camp";
 import { Shelter } from "./Shelter";
 import { Ocean, Sky, SUN_DIR, Terrain } from "./Terrain";
 import { Player } from "./Player";
@@ -59,7 +59,7 @@ export function Scene({
         shadow-normalBias={0.12}
       />
       <Sky />
-      <Terrain />
+      <Terrain low={low} />
       <Ocean />
       <Environment low={low} />
       <Fire />
@@ -67,7 +67,6 @@ export function Scene({
       <CampProps />
       <BeachProps />
       <Well />
-      <Trough />
       <Shelter />
       <Signs />
       <TrailMarker connectionId="camp_to_trail" height={groundHeight} />

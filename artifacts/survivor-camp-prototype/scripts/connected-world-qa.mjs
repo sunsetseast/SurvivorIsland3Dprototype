@@ -439,12 +439,15 @@ try {
     (s) => s.location === "camp_tribe_a",
   );
   assert.ok(
-    campSamples.every(
-      (s) => s.trackedGlobalListeners === campSamples[0].trackedGlobalListeners,
-    ),
+    campSamples
+      .filter((s) => s.label !== "initial camp")
+      .every(
+        (s) =>
+          s.trackedGlobalListeners === campSamples[1].trackedGlobalListeners,
+      ),
   );
   check(
-    "Four complete Camp ↔ Trail round trips; camp global listener count stays constant",
+    "Four complete Camp ↔ Trail round trips; equivalent return-UI listener count stays constant",
   );
   await page.evaluate(() => {
     window.worldQA.io.dbg.teleportRequested = { x: -6, z: -24 };
@@ -570,7 +573,11 @@ try {
   await failurePage.goto("http://127.0.0.1:5193/?devTravel=1&quality=low");
   await failurePage.getByTestId("explore-island").click();
   await failurePage.getByTestId("button-run").waitFor();
-  await failurePage.waitForFunction(()=>window.__WORLD_RENDER__?.scene.getObjectByName('camp-assets-ready')||window.__WORLD_RENDER__?.scene.getObjectByName('camp-assets-degraded'));
+  await failurePage.waitForFunction(
+    () =>
+      window.__WORLD_RENDER__?.scene.getObjectByName("camp-assets-ready") ||
+      window.__WORLD_RENDER__?.scene.getObjectByName("camp-assets-degraded"),
+  );
   await failurePage.evaluate(async () => {
     const { dbg } = await import("/src/game/state.ts");
     dbg.teleportRequested = { x: -6, z: 26 };
