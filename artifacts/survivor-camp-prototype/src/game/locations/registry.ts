@@ -48,7 +48,7 @@ const pose = (x: number, z: number, facing: number): Pose => ({
   yaw: facing - Math.PI,
 });
 const campAnchor = ZONES[0].spawn;
-// The compact camp's south-facing jungle path corresponds to the eastbound Tonsai trail.
+// The journey gate retains its PR14 world anchor. Camp axes now preserve west water and the southern headland; local paths are compressed artistic spaces.
 const trailEntry = { x: campAnchor.x + 50, z: campAnchor.z };
 const planned = (
   id: LocationId,
@@ -78,8 +78,8 @@ export const LOCATIONS: Record<LocationId, LocationDefinition> = {
     scene: "camp",
     status: "playable",
     space: {
-      origin: { x: campAnchor.x + 24, z: campAnchor.z - 6 },
-      rotation: -Math.PI / 2,
+      origin: { x: trailEntry.x + 6, z: trailEntry.z - 26 },
+      rotation: 0,
     },
     spawns: {
       default: { ...pose(-6, -24, Math.PI), yaw: -0.48 },

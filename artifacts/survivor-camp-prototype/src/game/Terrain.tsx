@@ -1,41 +1,56 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { TERRAIN_EXTENT } from "./environment/geography";
 import { baseHeight, shorelineX } from "./world";
 import { campGroundMaterial } from "./environment/ground";
 
-const X0 = -92,
-  X1 = 60,
-  Z0 = -86,
-  Z1 = 60;
-
-export function Terrain() {
-  const { geo, mat } = useMemo(() => {
-    const step = 1.25,
-      nx = Math.round((X1 - X0) / step),
-      nz = Math.round((Z1 - Z0) / step);
-    const g = new THREE.PlaneGeometry(X1 - X0, Z1 - Z0, nx, nz);
-    g.rotateX(-Math.PI / 2);
-    g.translate((X0 + X1) / 2, 0, (Z0 + Z1) / 2);
-    const p = g.attributes.position!,
-      uv = g.attributes.uv!;
-    for (let i = 0; i < p.count; i++) {
-      const x = p.getX(i),
-        z = p.getZ(i);
-      p.setY(i, baseHeight(x, z));
-      uv.setXY(i, (x - X0) / (X1 - X0), 1 - (z - Z0) / (Z1 - Z0));
-    }
-    g.computeVertexNormals();
-    return { geo: g, mat: campGroundMaterial() };
-  }, []);
+const { minX: X0, maxX: X1, minZ: Z0, maxZ: Z1 } = TERRAIN_EXTENT;
+export function Terrain({ low = false }: { low?: boolean }) {
+  const mat = useMemo(campGroundMaterial, []);
+  const chunks = useMemo(() => {
+    const out: THREE.BufferGeometry[] = [];
+    for (let x = X0; x < X1; x += 48)
+      for (let z = Z0; z < Z1; z += 48) {
+        const w = Math.min(48, X1 - x),
+          d = Math.min(48, Z1 - z),
+          step = low ? 2.5 : 1.5;
+        const g = new THREE.PlaneGeometry(
+          w,
+          d,
+          Math.ceil(w / step),
+          Math.ceil(d / step),
+        );
+        g.rotateX(-Math.PI / 2);
+        g.translate(x + w / 2, 0, z + d / 2);
+        const p = g.attributes.position!,
+          uv = g.attributes.uv!;
+        for (let i = 0; i < p.count; i++) {
+          const xx = p.getX(i),
+            zz = p.getZ(i);
+          p.setY(i, baseHeight(xx, zz));
+          uv.setXY(i, (xx - X0) / (X1 - X0), 1 - (zz - Z0) / (Z1 - Z0));
+        }
+        g.computeVertexNormals();
+        g.computeBoundingSphere();
+        out.push(g);
+      }
+    return out;
+  }, [low]);
+  useEffect(() => () => chunks.forEach((g) => g.dispose()), [chunks]);
   useEffect(() => () => mat.dispose(), [mat]);
   return (
-    <mesh
-      name="tonsai-continuous-ground"
-      geometry={geo}
-      material={mat}
-      receiveShadow
-    />
+    <group name="tonsai-continuous-ground">
+      {chunks.map((g, i) => (
+        <mesh
+          key={i}
+          name={"terrain-chunk-" + i}
+          geometry={g}
+          material={mat}
+          receiveShadow
+        />
+      ))}
+    </group>
   );
 }
 
@@ -106,7 +121,7 @@ const BANDS = [
 ];
 function foamGeo(off: number, w: number, ph: number) {
   const zs: number[] = [];
-  for (let z = -52; z <= 54; z += 1.5) zs.push(z);
+  for (let z = -68; z <= 110; z += 1.5) zs.push(z);
   const pos: number[] = [],
     uv: number[] = [],
     idx: number[] = [];
@@ -160,10 +175,10 @@ export function Ocean() {
       <mesh
         ref={water}
         rotation-x={-Math.PI / 2}
-        position={[-220, 0, -10]}
+        position={[-200, 0, -10]}
         renderOrder={1}
       >
-        <planeGeometry args={[360, 520]} />
+        <planeGeometry args={[420, 520]} />
         <meshPhongMaterial
           map={rip}
           color="#39b7ae"

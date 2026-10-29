@@ -1,0 +1,131 @@
+{
+  "method": "Node performance.now CPU observations; 1m area sample excludes solids and water. Terrain counts from exact chunk tessellation; not GPU submitted counts.",
+  "importMs": 75.047473,
+  "buildMs": 2992.5584989999998,
+  "nodes": 24878,
+  "directedEdges": 187272,
+  "searches": [
+    {
+      "goal": {
+        "x": 104,
+        "z": 36
+      },
+      "reachable": true,
+      "coldMs": 12.274246999999832,
+      "warmMs": 0.055793999999878,
+      "metres": 148.56417428618738,
+      "waypoints": 59
+    },
+    {
+      "goal": {
+        "x": -17,
+        "z": 91
+      },
+      "reachable": true,
+      "coldMs": 11.588300999999774,
+      "warmMs": 0.06538799999998446,
+      "metres": 127.32248570948728,
+      "waypoints": 51
+    },
+    {
+      "goal": {
+        "x": 11,
+        "z": 104
+      },
+      "reachable": true,
+      "coldMs": 13.755111999999826,
+      "warmMs": 0.0658290000001216,
+      "metres": 162.56732069923225,
+      "waypoints": 65
+    },
+    {
+      "goal": {
+        "x": 16,
+        "z": 65
+      },
+      "reachable": true,
+      "coldMs": 8.54705100000001,
+      "warmMs": 0.025988999999754014,
+      "metres": 116.20664092423432,
+      "waypoints": 46
+    },
+    {
+      "goal": {
+        "x": 43,
+        "z": 80
+      },
+      "reachable": true,
+      "coldMs": 17.523419999999987,
+      "warmMs": 0.03007500000012442,
+      "metres": 149.75203899372505,
+      "waypoints": 59
+    },
+    {
+      "goal": {
+        "x": 30,
+        "z": 91
+      },
+      "reachable": true,
+      "coldMs": 15.477742999999919,
+      "warmMs": 0.03075600000011036,
+      "metres": 164.64496122071722,
+      "waypoints": 65
+    },
+    {
+      "goal": {
+        "x": 38,
+        "z": 5
+      },
+      "reachable": true,
+      "coldMs": 5.137474000000111,
+      "warmMs": 0.018517999999858148,
+      "metres": 71.1728150674602,
+      "waypoints": 27
+    }
+  ],
+  "walkableAreaEstimate": 24877,
+  "terrain": {
+    "low": {
+      "chunks": 30,
+      "vertices": 11742,
+      "triangles": 21168
+    },
+    "high": {
+      "chunks": 30,
+      "vertices": 29177,
+      "triangles": 54668
+    }
+  },
+  "vegetation": {
+    "PALMS": 100,
+    "BROADLEAF": 210,
+    "FERNS": 959,
+    "SHRUBS": 900,
+    "ROCKS": 87,
+    "BAMBOO": 24,
+    "GRASS": 730
+  },
+  "hidingCandidates": 39,
+  "hidingDistribution": {
+    "buttress-root": 3,
+    "root-pocket": 6,
+    "hollow-log": 6,
+    "rock-crevice": 6,
+    "cave-recess": 3,
+    "overhang": 3,
+    "hollow-stump": 3,
+    "behind-boulder": 3,
+    "fallen-branch": 3,
+    "spring-rock": 3
+  },
+  "trailMetres": 837.7686912009374,
+  "assetBytes": {
+    "limestone.glb": 724020,
+    "coastal-tree.glb": 1704456,
+    "palms.glb": 901244,
+    "sand_02-diff.jpg": 331641,
+    "sand_02-normal.jpg": 59004,
+    "brown_mud_leaves_01-diff.jpg": 423030,
+    "brown_mud_leaves_01-normal.jpg": 120547
+  }
+}

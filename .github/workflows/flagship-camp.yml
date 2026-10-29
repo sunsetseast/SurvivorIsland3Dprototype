@@ -13,7 +13,7 @@ permissions:
 jobs:
   visual-camp:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,8 +27,11 @@ jobs:
       - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
       - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
       - run: pnpm --filter @workspace/survivor-camp-prototype qa:flagship-camp
+      - run: pnpm --filter @workspace/survivor-camp-prototype qa:expansion
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: flagship-camp-webgl
-          path: docs/flagship-camp/evidence/after/
+          path: |
+            docs/flagship-camp/evidence/after/
+            docs/tonsai-expansion/evidence/

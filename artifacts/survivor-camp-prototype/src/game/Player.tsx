@@ -70,7 +70,11 @@ export function Player({
   });
   const state = useRef({
     pos: { ...(environment.standFrom || spawn) },
-    face: environment.standFrom?.facing ?? arrival?.facing ?? environment.facing ?? Math.PI,
+    face:
+      environment.standFrom?.facing ??
+      arrival?.facing ??
+      environment.facing ??
+      Math.PI,
     entryTime: 0,
     velocity: 0,
     initialized: false,
@@ -157,6 +161,7 @@ export function Player({
     let iy = input.joyY + Number(!!keys.forward) - Number(!!keys.back);
     const locked =
       worldTravel.blocked ||
+      input.mapOpen ||
       standing ||
       !!environment.controlsLocked?.() ||
       (isCamp && !!camp.conversation);
@@ -215,7 +220,8 @@ export function Player({
     motion.current.running = wantsRun && actualSpeed > 3.6;
     motion.current.distance += traveled;
     const y = groundHeight(s.pos.x, s.pos.z);
-    if (isCamp && !worldTravel.blocked) camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
+    if (isCamp && !worldTravel.blocked)
+      camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
     motion.current.talking = isCamp && !!camp.conversation;
     if (isCamp && camp.conversation) {
       const npc = camp.npc(camp.conversation.actorId)!;
@@ -366,7 +372,12 @@ export function Player({
       s.fpsTime = 0;
       s.fpsFrames = 0;
     }
-    if (environment.locationId) worldTravel.recordPose(environment.locationId, { ...s.pos, facing: s.face, yaw: input.yaw });
+    if (environment.locationId)
+      worldTravel.recordPose(environment.locationId, {
+        ...s.pos,
+        facing: s.face,
+        yaw: input.yaw,
+      });
     Object.assign(dbg, {
       face: s.face,
       cameraOwner:

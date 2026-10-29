@@ -3,7 +3,9 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 import { createServer } from "vite";
 const phase = process.env.CAMP_PHASE || "after",
-  out = `../../docs/flagship-camp/evidence/${phase}`;
+  out =
+    process.env.FLAGSHIP_EVIDENCE ||
+    `../../docs/flagship-camp/evidence/${phase}`;
 await mkdir(out, { recursive: true });
 process.env.PORT = "5196";
 process.env.BASE_PATH = "/";
@@ -165,6 +167,7 @@ try {
         io: await import("/src/game/state.ts"),
         world: await import("/src/game/world.ts"),
         camp: (await import("/src/game/CampRuntime.ts")).camp,
+        spots: (await import("/src/game/CampRuntime.ts")).SPOTS,
       };
     });
     await advance(150, true);
@@ -284,26 +287,13 @@ try {
       await page.evaluate(() => {
         const q = window.campQA;
         return {
-          qualityAnchors: [
-            "campfire",
-            "shelter",
-            "beach",
-            "waterWell",
-            "jungleTrail",
-          ].map((k) => ({
-            place: k,
-            reachable:
-              q.camp.navigation.route(
-                q.world.SPAWN,
-                {
-                  campfire: { x: -6.5, z: -28.1 },
-                  shelter: { x: 11, z: -43.1 },
-                  beach: { x: -46.2, z: -26.6 },
-                  waterWell: { x: -31.5, z: 8 },
-                  jungleTrail: { x: 8, z: 15 },
-                }[k],
-              ) !== null,
-          })),
+          qualityAnchors: Object.entries(q.spots).flatMap(([place, points]) =>
+            points.map((p) => ({
+              place,
+              position: p,
+              reachable: q.camp.navigation.route(q.world.SPAWN, p) !== null,
+            })),
+          ),
         };
       }),
     );
@@ -379,6 +369,9 @@ try {
     report.reentryWallMs = Date.now() - start;
     report.checks.push("Warm menu reentry restores complete environment");
   }
+  for (const check of report.checks)
+    for (const anchor of check.qualityAnchors ?? [])
+      assert.equal(anchor.reachable, true, JSON.stringify(anchor));
   assert.deepEqual(report.errors, []);
   report.result = "PASS";
   console.log(

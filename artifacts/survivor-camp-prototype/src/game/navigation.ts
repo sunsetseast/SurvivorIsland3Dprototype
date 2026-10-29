@@ -2,7 +2,6 @@ import {
   BOUNDS,
   groundHeight,
   isWalkable,
-  movePlayer,
   pathDistance,
   type Point,
 } from "./world.ts";
@@ -15,6 +14,11 @@ function avoidsSegment(a: Point, b: Point, avoid: Avoid[]) {
     dz = b.z - a.z,
     len2 = dx * dx + dz * dz || 1;
   return avoid.every((q) => {
+    const start = distance(a, q);
+    if (start < q.radius)
+      return (
+        distance(b, q) > start && (a.x - q.x) * dx + (a.z - q.z) * dz >= -1e-8
+      );
     const t = Math.max(
       0,
       Math.min(1, ((q.x - a.x) * dx + (q.z - a.z) * dz) / len2),
@@ -26,18 +30,32 @@ function avoidsSegment(a: Point, b: Point, avoid: Avoid[]) {
 export function clearSegment(a: Point, b: Point, avoid: Avoid[] = []): boolean {
   if (!avoidsSegment(a, b, avoid)) return false;
   const len = distance(a, b),
-    n = Math.max(1, Math.ceil(len / 0.18));
+    n = Math.max(1, Math.ceil(len / 0.12));
   let prev = a;
   for (let i = 1; i <= n; i++) {
     const p = {
       x: a.x + ((b.x - a.x) * i) / n,
       z: a.z + ((b.z - a.z) * i) / n,
     };
-    if (!isWalkable(p.x, p.z) || avoid.some((q) => distance(p, q) < q.radius))
-      return false;
-    const step = movePlayer(prev, p.x - prev.x, p.z - prev.z);
     if (
-      distance(step, p) > 0.001 ||
+      !isWalkable(p.x, p.z) ||
+      avoid.some(
+        (q) =>
+          distance(p, q) < q.radius &&
+          !(
+            distance(a, q) < q.radius && distance(p, q) + 1e-8 >= distance(a, q)
+          ),
+      )
+    )
+      return false;
+    // The player splits X/Z at <=0.12 m. Validate that intermediate body
+    // position explicitly; avoid recursively resampling the same segment.
+    if (
+      !isWalkable(prev.x, p.z) ||
+      !isWalkable(p.x, prev.z) ||
+      Math.abs(groundHeight(p.x, prev.z) - groundHeight(prev.x, prev.z)) >=
+        0.22 ||
+      Math.abs(groundHeight(p.x, p.z) - groundHeight(p.x, prev.z)) >= 0.22 ||
       Math.abs(groundHeight(p.x, p.z) - groundHeight(prev.x, prev.z)) > 0.18
     )
       return false;
@@ -46,6 +64,10 @@ export function clearSegment(a: Point, b: Point, avoid: Avoid[] = []): boolean {
   return true;
 }
 
+const staticGraphs = new Map<
+  number,
+  { nodes: Node[]; grid: Map<string, number> }
+>();
 type Node = Point & { id: number; edges: number[]; trail: number };
 /** Rebuilt from world geometry once. A* is not tied to a fixed route itinerary. */
 export class CampNavigation {
@@ -53,6 +75,12 @@ export class CampNavigation {
   private grid = new Map<string, number>();
   private cache = new Map<string, Point[]>();
   constructor(readonly step = 1) {
+    const saved = staticGraphs.get(step);
+    if (saved) {
+      this.nodes = saved.nodes;
+      this.grid = saved.grid;
+      return;
+    }
     for (let x = Math.ceil(BOUNDS.minX + 1); x < BOUNDS.maxX; x += step) {
       for (let z = Math.ceil(BOUNDS.minZ + 1); z < BOUNDS.maxZ; z += step) {
         if (!isWalkable(x, z)) continue;
@@ -64,29 +92,42 @@ export class CampNavigation {
     for (const a of this.nodes)
       for (const [dx, dz] of [
         [1, 0],
-        [-1, 0],
         [0, 1],
-        [0, -1],
         [1, 1],
-        [-1, 1],
         [1, -1],
-        [-1, -1],
       ]) {
         const id = this.grid.get(`${a.x + dx! * step},${a.z + dz! * step}`);
-        if (id !== undefined && clearSegment(a, this.nodes[id]!))
+        if (id !== undefined && clearSegment(a, this.nodes[id]!)) {
           a.edges.push(id);
+          this.nodes[id]!.edges.push(a.id);
+        }
       }
+    staticGraphs.set(step, { nodes: this.nodes, grid: this.grid });
   }
   private nearest(p: Point, avoid: Avoid[]) {
-    return this.nodes
-      .filter(
-        (n) =>
+    const candidates: Node[] = [];
+    const x0 = Math.ceil(BOUNDS.minX + 1),
+      z0 = Math.ceil(BOUNDS.minZ + 1),
+      gx = x0 + Math.round((p.x - x0) / this.step) * this.step,
+      gz = z0 + Math.round((p.z - z0) / this.step) * this.step;
+    for (let dx = -2; dx <= 2; dx++)
+      for (let dz = -2; dz <= 2; dz++) {
+        const id = this.grid.get(
+          `${gx + dx * this.step},${gz + dz * this.step}`,
+        );
+        if (id === undefined) continue;
+        const n = this.nodes[id]!;
+        if (
           distance(n, p) < 2.1 * this.step &&
-          !avoid.some((q) => distance(n, q) < q.radius),
-      )
+          !avoid.some((q) => distance(n, q) < q.radius)
+        )
+          candidates.push(n);
+      }
+    return candidates
       .sort((a, b) => distance(a, p) - distance(b, p))
       .find((n) => clearSegment(p, n, avoid));
   }
+
   route(start: Point, goal: Point, avoid: Avoid[] = []): Point[] | null {
     if (!isWalkable(start.x, start.z) || !isWalkable(goal.x, goal.z))
       return null;

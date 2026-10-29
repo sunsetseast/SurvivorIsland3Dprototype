@@ -1,3 +1,11 @@
+import { createPortal } from "react-dom";
+import {
+  TERRITORY,
+  NATURAL_LANDMARKS,
+  territoryContains,
+  cliffSolid,
+} from "./environment/geography";
+import { CONNECTIONS } from "./locations/registry";
 import {
   useEffect,
   useMemo,
@@ -5,7 +13,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { BOUNDS, LANDMARKS, PATH, baseHeight, shorelineX } from "./world";
+import { BOUNDS, LANDMARKS, TRAILS, baseHeight, shorelineX } from "./world";
 import { clearInput, dbg, input, sprint } from "./state";
 import { camp } from "./CampRuntime";
 import { tribalAudio } from "./tribal/audio";
@@ -252,9 +260,17 @@ export function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
   );
 }
 
-const MW = 104,
-  MH = 100;
+const MW = 360,
+  MH = 340;
 function Minimap() {
+  const [expanded, setExpanded] = useState(false);
+  useEffect(() => {
+    input.mapOpen = expanded;
+    if (expanded) clearInput();
+    return () => {
+      input.mapOpen = false;
+    };
+  }, [expanded]);
   const ref = useRef<HTMLCanvasElement>(null);
   const bg = useMemo(() => {
     const c = document.createElement("canvas");
@@ -269,16 +285,19 @@ function Minimap() {
           z = BOUNDS.minZ + (py / MH) * (BOUNDS.maxZ - BOUNDS.minZ);
         const d = x - shorelineX(z),
           h = baseHeight(x, z);
-        const col =
-          h < 0
-            ? h < -1.2
-              ? [27, 100, 130]
-              : [60, 170, 178]
-            : d < 14
-              ? [236, 208, 148]
-              : h > 2.5
-                ? [70, 100, 60]
-                : [66, 130, 62];
+        const col = cliffSolid(x, z)
+          ? [137, 131, 108]
+          : !territoryContains(x, z) && h >= 0
+            ? [49, 75, 46]
+            : h < 0
+              ? h < -1.2
+                ? [27, 100, 130]
+                : [60, 170, 178]
+              : d < 14
+                ? [236, 208, 148]
+                : h > 2.5
+                  ? [70, 100, 60]
+                  : [66, 130, 62];
         const o = (py * MW + px) * 4;
         img.data[o] = col[0]!;
         img.data[o + 1] = col[1]!;
@@ -300,10 +319,23 @@ function Minimap() {
       g.strokeStyle = "#c9a063";
       g.lineWidth = 2;
       g.beginPath();
-      PATH.forEach((p, i) =>
+      for (const trail of TRAILS) {
+        g.beginPath();
+        trail.points.forEach((p, i) =>
+          i ? g.lineTo(sx(p.x), sz(p.z)) : g.moveTo(sx(p.x), sz(p.z)),
+        );
+        g.stroke();
+      }
+      g.strokeStyle = "rgba(236,217,163,.45)";
+      g.lineWidth = 1;
+      g.setLineDash([3, 3]);
+      g.beginPath();
+      TERRITORY.forEach((p, i) =>
         i ? g.lineTo(sx(p.x), sz(p.z)) : g.moveTo(sx(p.x), sz(p.z)),
       );
+      g.closePath();
       g.stroke();
+      g.setLineDash([]);
       const dot = (p: { x: number; z: number }, c: string, r = 3) => {
         g.fillStyle = c;
         g.beginPath();
@@ -314,6 +346,23 @@ function Minimap() {
       dot(LANDMARKS.campfire, "#ff7a1c");
       dot(LANDMARKS.shelter, "#e8b84a", 4);
       dot(LANDMARKS.well, "#7fe0ff");
+      dot(CONNECTIONS.camp_to_trail!.exit, "#d2a9ff");
+      for (const l of NATURAL_LANDMARKS) dot(l, "#b9c685", 2);
+      g.font = "bold 11px Georgia";
+      g.fillStyle = "#fff1c9";
+      g.shadowColor = "#13251c";
+      g.shadowBlur = 3;
+      for (const [p, label, dx, dz] of [
+        [LANDMARKS.campfire, "Camp", -7, -10],
+        [LANDMARKS.shelter, "Shelter", 0, -10],
+        [LANDMARKS.well, "Spring", -7, -10],
+        [{ x: -17, z: 91 }, "Southern limestone", -30, 18],
+        [{ x: 43, z: 80 }, "Fern bowl", -10, -10],
+        [CONNECTIONS.camp_to_trail!.exit, "Journey", -35, 18],
+      ] as const)
+        g.fillText(label, sx(p.x) + dx, sz(p.z) + dz);
+      g.fillText("N ↑", MW - 32, 18);
+      g.shadowBlur = 0;
       const px = sx(dbg.x),
         pz = sz(dbg.z),
         vx = -Math.sin(input.yaw),
@@ -336,16 +385,58 @@ function Minimap() {
     const t = setInterval(draw, 120);
     return () => clearInterval(t);
   }, [bg]);
-  return (
-    <canvas
-      ref={ref}
-      data-testid="minimap"
-      width={MW}
-      height={MH}
-      className="chip"
-      style={{ width: MW, height: MH, padding: 2 }}
-    />
+  const panel = (
+    <div
+      style={
+        expanded
+          ? {
+              position: "fixed",
+              inset: 0,
+              zIndex: 1000,
+              pointerEvents: "auto",
+              background: "rgba(8,20,14,.88)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: 8,
+            }
+          : {}
+      }
+    >
+      <button
+        aria-label={expanded ? "Close camp map" : "Expand camp map"}
+        onClick={() => setExpanded(!expanded)}
+        style={{
+          border: 0,
+          padding: 0,
+          background: "transparent",
+          color: "#f4ddb0",
+          cursor: "pointer",
+        }}
+      >
+        <canvas
+          ref={ref}
+          data-testid="minimap"
+          width={MW}
+          height={MH}
+          className="chip"
+          style={{
+            width: expanded ? "min(76vh, 86vw, 560px)" : 112,
+            height: expanded ? "auto" : 106,
+            padding: 2,
+            objectFit: "contain",
+          }}
+        />
+        {expanded && (
+          <div>
+            Tonsai tribe territory · trails / spring / limestone · tap to close
+          </div>
+        )}
+      </button>
+    </div>
   );
+  return expanded ? createPortal(panel, document.body) : panel;
 }
 
 const DIRS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
@@ -509,7 +600,7 @@ export function Hud({
             start a new gesture to use the new view.{" "}
             {tribal
               ? "Follow the torches to Council. Explore the jury gallery, private voting chamber and front voting entrance and the last-walk exit."
-              : "Follow the trail between the beach, campfire, shelter and well."}
+              : "Follow connected trails inland to freshwater or south to the limestone roof."}
           </div>
           {!tribal && (
             <div>

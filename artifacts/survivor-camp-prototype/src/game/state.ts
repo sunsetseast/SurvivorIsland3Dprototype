@@ -16,6 +16,7 @@ export const sprint = {
   },
 };
 export const input = {
+  mapOpen: false,
   joyX: 0,
   joyY: 0,
   get run() {

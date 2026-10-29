@@ -1,0 +1,466 @@
+{
+  "method": "Real Chromium WebGL / ANGLE SwiftShader, 932x430 DPR1. Identical poses before/after. Manual 60Hz simulation avoids conflating software raster cost with input. Render submission wall timings are NOT GPU or iPhone FPS.",
+  "phase": "expansion",
+  "browser": "156.0.8078.4",
+  "errors": [],
+  "samples": [
+    {
+      "label": "high default",
+      "calls": 224,
+      "triangles": 755207,
+      "geometries": 107,
+      "textures": 28,
+      "programs": 36,
+      "sceneGeometries": 138,
+      "materials": 50,
+      "sceneTextures": 34,
+      "geometryBytes": 15833360,
+      "textureBytesEstimate": 47164096.00000002,
+      "softwareRenderFinishMs": [
+        3.400000000023283,
+        2,
+        3.199999999953434,
+        2.1000000000931323,
+        1.599999999976717
+      ],
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "resources": [
+        {
+          "name": "sand_02-normal.jpg?import&url",
+          "transferSize": 735,
+          "encodedBodySize": 435,
+          "duration": 26.099999999976717
+        },
+        {
+          "name": "sand_02-diff.jpg?import&url",
+          "transferSize": 725,
+          "encodedBodySize": 425,
+          "duration": 27
+        },
+        {
+          "name": "brown_mud_leaves_01-diff.jpg?import&url",
+          "transferSize": 773,
+          "encodedBodySize": 473,
+          "duration": 25.5
+        },
+        {
+          "name": "brown_mud_leaves_01-normal.jpg?import&url",
+          "transferSize": 779,
+          "encodedBodySize": 479,
+          "duration": 26.599999999976717
+        },
+        {
+          "name": "limestone.glb?import&url",
+          "transferSize": 702,
+          "encodedBodySize": 402,
+          "duration": 20
+        },
+        {
+          "name": "coastal-tree.glb?import&url",
+          "transferSize": 725,
+          "encodedBodySize": 425,
+          "duration": 18.800000000046566
+        },
+        {
+          "name": "palms.glb?import&url",
+          "transferSize": 686,
+          "encodedBodySize": 386,
+          "duration": 21.900000000023283
+        },
+        {
+          "name": "fern_02.glb?import&url",
+          "transferSize": 698,
+          "encodedBodySize": 398,
+          "duration": 22.300000000046566
+        },
+        {
+          "name": "sand_02-diff.jpg",
+          "transferSize": 331941,
+          "encodedBodySize": 331641,
+          "duration": 10.399999999906868
+        },
+        {
+          "name": "sand_02-normal.jpg",
+          "transferSize": 59304,
+          "encodedBodySize": 59004,
+          "duration": 7.199999999953434
+        },
+        {
+          "name": "brown_mud_leaves_01-diff.jpg",
+          "transferSize": 423330,
+          "encodedBodySize": 423030,
+          "duration": 10.599999999976717
+        },
+        {
+          "name": "brown_mud_leaves_01-normal.jpg",
+          "transferSize": 120847,
+          "encodedBodySize": 120547,
+          "duration": 8.300000000046566
+        },
+        {
+          "name": "limestone.glb",
+          "transferSize": 724320,
+          "encodedBodySize": 724020,
+          "duration": 12.399999999906868
+        },
+        {
+          "name": "coastal-tree.glb",
+          "transferSize": 1704756,
+          "encodedBodySize": 1704456,
+          "duration": 16.29999999993015
+        },
+        {
+          "name": "palms.glb",
+          "transferSize": 901544,
+          "encodedBodySize": 901244,
+          "duration": 12.900000000023283
+        },
+        {
+          "name": "fern_02.glb",
+          "transferSize": 481780,
+          "encodedBodySize": 481480,
+          "duration": 9.400000000023283
+        }
+      ],
+      "entryWallMs": 7339
+    }
+  ],
+  "checks": [
+    {
+      "qualityAnchors": [
+        {
+          "place": "campfire",
+          "position": {
+            "x": -9,
+            "z": -34.15
+          },
+          "reachable": true
+        },
+        {
+          "place": "campfire",
+          "position": {
+            "x": -6.5,
+            "z": -28.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "campfire",
+          "position": {
+            "x": -11.3,
+            "z": -28.4
+          },
+          "reachable": true
+        },
+        {
+          "place": "campfire",
+          "position": {
+            "x": -2.6,
+            "z": -33.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "position": {
+            "x": 11,
+            "z": -43.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "position": {
+            "x": 13.4,
+            "z": -44.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "position": {
+            "x": 10.1,
+            "z": -46
+          },
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "position": {
+            "x": -46.2,
+            "z": -26.6
+          },
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "position": {
+            "x": -45,
+            "z": -29
+          },
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "position": {
+            "x": -48,
+            "z": -24.5
+          },
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "position": {
+            "x": 104,
+            "z": 36
+          },
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "position": {
+            "x": 106,
+            "z": 39
+          },
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "position": {
+            "x": 110,
+            "z": 33
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 8,
+            "z": 15
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 38,
+            "z": 5
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 53,
+            "z": 36
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": -17,
+            "z": 91
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 43,
+            "z": 80
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 30,
+            "z": 91
+          },
+          "reachable": true
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "label": "Spawn to campfire",
+      "start": {
+        "x": -6,
+        "z": -24
+      },
+      "end": {
+        "x": -2.6037646713617573,
+        "z": -33.08077374567332
+      },
+      "run": false,
+      "waypoints": 4,
+      "hostWallMs": 177
+    },
+    {
+      "label": "Campfire to shelter",
+      "start": {
+        "x": -2.6037646713617573,
+        "z": -33.08077374567332
+      },
+      "end": {
+        "x": 11.004445696235946,
+        "z": -43.09494444120372
+      },
+      "run": false,
+      "waypoints": 10,
+      "hostWallMs": 8903
+    },
+    {
+      "label": "Shelter to remote spring",
+      "start": {
+        "x": 11.004445696235946,
+        "z": -43.09494444120372
+      },
+      "end": {
+        "x": 103.97775303665647,
+        "z": 35.988876550798594
+      },
+      "run": false,
+      "waypoints": 57,
+      "hostWallMs": 14726
+    },
+    {
+      "label": "Spring alternate loop return",
+      "start": {
+        "x": 103.97775303665647,
+        "z": 35.988876550798594
+      },
+      "end": {
+        "x": -6.000086303724739,
+        "z": -24.038820899613285
+      },
+      "run": true,
+      "waypoints": 94,
+      "hostWallMs": 18541
+    },
+    {
+      "label": "Camp to southern limestone",
+      "start": {
+        "x": -6.000086303724739,
+        "z": -24.038820899613285
+      },
+      "end": {
+        "x": -16.999999996809272,
+        "z": 91.00038662064372
+      },
+      "run": false,
+      "waypoints": 54,
+      "hostWallMs": 16184
+    },
+    {
+      "label": "Southern limestone to cave",
+      "start": {
+        "x": -16.999999996809272,
+        "z": 91.00038662064372
+      },
+      "end": {
+        "x": 11.000000001906649,
+        "z": 103.963547194523
+      },
+      "run": false,
+      "waypoints": 16,
+      "hostWallMs": 5890
+    },
+    {
+      "label": "Cave to cliff to beach",
+      "start": {
+        "x": 11.000000001906649,
+        "z": 103.963547194523
+      },
+      "end": {
+        "x": -47.000000000000014,
+        "z": -26.97311757096676
+      },
+      "run": true,
+      "waypoints": 68,
+      "hostWallMs": 8957
+    },
+    {
+      "label": "Beach to main camp",
+      "start": {
+        "x": -47.000000000000014,
+        "z": -26.97311757096676
+      },
+      "end": {
+        "x": -5.998851950610164,
+        "z": -23.998852045620822
+      },
+      "run": false,
+      "waypoints": 15,
+      "hostWallMs": 1020
+    },
+    {
+      "label": "Camp jungle loop and return",
+      "start": {
+        "x": -5.998851950610164,
+        "z": -23.998852045620822
+      },
+      "end": {
+        "x": -5.999941985959709,
+        "z": -23.98839970700013
+      },
+      "run": true,
+      "waypoints": 157,
+      "hostWallMs": 34478
+    },
+    {
+      "label": "Follow water-collecting NPC 0",
+      "start": {
+        "x": -5.999941985959709,
+        "z": -23.98839970700013
+      },
+      "end": {
+        "x": 39.75176853203757,
+        "z": 9.857276826471816
+      },
+      "run": true,
+      "waypoints": 31,
+      "hostWallMs": 4000
+    },
+    {
+      "label": "Follow water-collecting NPC 1",
+      "start": {
+        "x": 39.75176853203757,
+        "z": 9.857276826471816
+      },
+      "end": {
+        "x": 57.68991336988355,
+        "z": 17.472839201290178
+      },
+      "run": true,
+      "waypoints": 9,
+      "hostWallMs": 1830
+    }
+  ],
+  "npcTrailObservation": {
+    "x": 61.12531150840568,
+    "z": 18.562324920333403,
+    "traveling": true,
+    "routeIndex": 40,
+    "destination": "waterWell",
+    "distanceAdvanced": 102.64583333296514
+  },
+  "result": "PASS"
+}

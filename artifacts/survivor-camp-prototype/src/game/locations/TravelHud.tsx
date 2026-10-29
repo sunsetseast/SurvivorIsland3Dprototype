@@ -79,6 +79,8 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
       </div>
       {route &&
         !blocked &&
+        (near ||
+          (p && Math.hypot(p.x - route.exit.x, p.z - route.exit.z) < 18)) &&
         !(
           session.locationId === "camp_tribe_a" &&
           (social.conversation ||
@@ -110,7 +112,7 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
               <small>
                 {route.permission === "return"
                   ? "Return to the wooden camp sign to head home."
-                  : "Jungle trail · follow the camp path south to its edge."}
+                  : "Journey departure · take the short western fork at the root crossing."}
               </small>
             )}
             {session.locationId === "camp_tribe_a" && developerTravel && (

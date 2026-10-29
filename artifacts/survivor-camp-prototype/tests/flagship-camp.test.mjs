@@ -7,6 +7,7 @@ import { CampNavigation, clearSegment } from "../src/game/navigation.ts";
 import { SPOTS } from "../src/game/CampRuntime.ts";
 import {
   SPAWN,
+  BOUNDS,
   BROADLEAF,
   COLLIDERS,
   isWalkable,
@@ -116,8 +117,13 @@ test("solid cliff scan has three-dimensional mass; tree roots are centered at co
   }
   assert.equal(
     COLLIDERS.filter((c) => c.kind === "tree").length,
-    BROADLEAF.filter((p) => p.x > -63 && p.x < 37 && p.z > -63 && p.z < 37)
-      .length,
+    BROADLEAF.filter(
+      (p) =>
+        p.x > BOUNDS.minX - 3 &&
+        p.x < BOUNDS.maxX + 3 &&
+        p.z > BOUNDS.minZ - 3 &&
+        p.z < BOUNDS.maxZ + 3,
+    ).length,
   );
 });
 test("all simulation anchors, private strategy spaces, shelter ramp and departure remain physically connected", () => {
