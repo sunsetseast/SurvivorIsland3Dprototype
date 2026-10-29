@@ -1,0 +1,5 @@
+Reconstruction kit 4806100 29
+(node:5) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Reconstruction kit 2980604 17

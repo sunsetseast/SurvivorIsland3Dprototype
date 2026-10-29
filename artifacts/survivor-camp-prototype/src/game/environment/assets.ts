@@ -1,3 +1,5 @@
+import forestLow from "../../assets/camp/reconstruction-low.glb?url";
+import forest from "../../assets/camp/reconstruction.glb?url";
 import landmarksLow from "../../assets/camp/landmarks-low.glb?url";
 import landmarks from "../../assets/camp/landmarks.glb?url";
 import { recordStage } from "./profile";
@@ -11,6 +13,7 @@ import fern from "../../assets/tonsai/fern_02.glb?url";
 
 export type EnvironmentKit = {
   landmarks?: T.Group;
+  forest?: T.Group;
   rock?: T.Group;
   tree?: T.Group;
   botanical?: T.Group;
@@ -42,10 +45,11 @@ export function useEnvironmentKit(low = false) {
   useEffect(() => {
     setKit({ settled: false, failures: [] });
     let active = true,
-      pending = 5;
+      pending = 6;
     const owned: T.Group[] = [],
       timers: ReturnType<typeof setTimeout>[] = [];
     for (const [id, url] of Object.entries({
+      forest: low ? forestLow : forest,
       rock,
       tree,
       botanical,
@@ -62,6 +66,7 @@ export function useEnvironmentKit(low = false) {
         complete = true;
         recordStage("asset-load-parse:" + id, loadStart);
         pending--;
+        let textureFailure = false;
         if (scene) {
           owned.push(scene);
           scene.updateMatrixWorld(true);
@@ -70,6 +75,7 @@ export function useEnvironmentKit(low = false) {
             if (!m.isMesh) return;
             // Bake glTF node transforms once for instanced consumers.
             m.geometry.applyMatrix4(m.matrixWorld);
+            m.geometry.name = m.name;
             m.matrix.identity();
             m.position.set(0, 0, 0);
             m.rotation.set(0, 0, 0);
@@ -110,6 +116,23 @@ export function useEnvironmentKit(low = false) {
                 p.transparent = false;
                 p.depthWrite = true;
               }
+              if (id === "forest") {
+                p.vertexColors = true;
+                p.side = T.DoubleSide;
+                if (/shelter-thatch/.test(m.name)) {
+                  p.emissive.set("#80744b");
+                  p.emissiveIntensity = 0.28;
+                }
+                if (/crown/.test(m.name)) {
+                  if (!p.map) textureFailure = true;
+                  p.alphaTest = 0.4;
+                  p.transparent = false;
+                  p.depthWrite = true;
+                  p.emissive.set("#92af6d");
+                  p.emissiveIntensity = 0.4;
+                  p.emissiveMap = p.map;
+                }
+              }
               if (id === "tree" && /leaves/.test(m.name)) {
                 p.color.setRGB(1.05, 1.14, 0.96);
                 p.emissive.set("#708d42");
@@ -124,7 +147,7 @@ export function useEnvironmentKit(low = false) {
           ...prev,
           ...(scene ? { [id]: scene } : {}),
           settled: pending === 0,
-          failures: scene ? prev.failures : [...prev.failures, id],
+          failures: scene && !textureFailure ? prev.failures : [...prev.failures, textureFailure ? id + ":texture" : id],
         }));
       };
       const timer = setTimeout(() => finish(), 12000);

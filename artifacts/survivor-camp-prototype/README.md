@@ -95,10 +95,22 @@ Rendering uses instanced foliage/rocks, distance/frustum-limited undergrowth,
 merged static props, one directional 1024 shadow map, capped 1.5 pixel ratio,
 no postprocessing, and no external runtime assets.
 
+## Tonsai camp reconstruction
+
+The current camp combines a lashed communal shelter, layered tropical forest,
+revised limestone, continuous coastal water and habitat ground materials.
+See the [implementation and visual review](../../docs/tonsai-reconstruction/REPORT.md),
+[production WebGL gallery](../../docs/tonsai-reconstruction/GALLERY.md),
+[gameplay checks](../../docs/tonsai-reconstruction/GAMEPLAY.md) and
+[performance observations](../../docs/tonsai-reconstruction/PERFORMANCE.md).
+`pnpm qa:reconstruction` captures the reconstructed production scene;
+`pnpm assets:reconstruction` rebuilds its original authored geometry/atlas.
+
 ## Asset provenance
 
-All scenery, the survivor, signs, and textures are authored procedurally in this
-prototype. No Outlaster/Roblox models, downloaded asset packs, original-game art,
-remote models, or external texture downloads are used. Third-party runtime
-libraries (React, Three.js, React Three Fiber and Drei) retain their own package
-licenses; this does not assign a new license to the project's original art/code.
+The current camp combines original authored geometry with the existing licensed
+CC0 scan/material kit. Source URLs, derivatives, hashes, authoring commands and
+license information are in the [asset register](../../docs/tonsai-reconstruction/ASSETS.md)
+and `src/assets/camp/provenance.json`. No reference photographs are redistributed
+as textures. Third-party runtime libraries (React, Three.js, React Three Fiber
+and Drei) retain their own package licenses.

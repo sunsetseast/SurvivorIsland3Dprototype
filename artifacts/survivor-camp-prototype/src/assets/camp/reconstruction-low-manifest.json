@@ -1,0 +1,98 @@
+{
+  "method": "Original offline control-point geometry, folded leaf meshes, textured canopy sprays; no Blender or hand-sculpting claim",
+  "bytes": 2980604,
+  "sha256": "d7958f0ce546f2338fffcf4687fd331e1d8580ea5d49e5d65c939f30ce52b30f",
+  "sourcesSha256": {
+    "tools/camp/reconstruction/build.mts": "39d299ef58a46a22762284c79407a6fd4f0af7181e51e8c1cf3865bd60e6cec9",
+    "tools/camp/reconstruction/textures.py": "a57ab617ae80ab5b938b351a056a042e1a3b6ae5b04b719aaaf01722f871f6a7",
+    "artifacts/survivor-camp-prototype/src/assets/camp/coastal-tree.glb": "648eec872550a4772cd66a34acc2f22afa5257e1bb5ca3469464a219159bcd46",
+    "artifacts/survivor-camp-prototype/src/assets/camp/canopy-spray.png": "9dbe9735dbb492072aee0a62dc25de076843170d9559b622613e5b70ce3518d4"
+  },
+  "meshes": [
+    {
+      "name": "forest-0-wood-far",
+      "vertices": 574,
+      "triangles": 840
+    },
+    {
+      "name": "forest-0-crown-far",
+      "vertices": 900,
+      "triangles": 540
+    },
+    {
+      "name": "forest-1-wood-far",
+      "vertices": 532,
+      "triangles": 780
+    },
+    {
+      "name": "forest-1-crown-far",
+      "vertices": 900,
+      "triangles": 540
+    },
+    {
+      "name": "forest-2-wood-far",
+      "vertices": 574,
+      "triangles": 840
+    },
+    {
+      "name": "forest-2-crown-far",
+      "vertices": 900,
+      "triangles": 540
+    },
+    {
+      "name": "understory-0-wood-far",
+      "vertices": 135,
+      "triangles": 150
+    },
+    {
+      "name": "understory-0-leaves-far",
+      "vertices": 672,
+      "triangles": 672
+    },
+    {
+      "name": "understory-1-wood-far",
+      "vertices": 224,
+      "triangles": 312
+    },
+    {
+      "name": "understory-1-leaves-far",
+      "vertices": 425,
+      "triangles": 255
+    },
+    {
+      "name": "understory-2-wood-far",
+      "vertices": 135,
+      "triangles": 150
+    },
+    {
+      "name": "understory-2-leaves-far",
+      "vertices": 672,
+      "triangles": 672
+    },
+    {
+      "name": "shelter-timber",
+      "vertices": 17954,
+      "triangles": 15298
+    },
+    {
+      "name": "shelter-lashings",
+      "vertices": 1920,
+      "triangles": 3840
+    },
+    {
+      "name": "shelter-thatch",
+      "vertices": 18610,
+      "triangles": 6297
+    },
+    {
+      "name": "shelter-deck",
+      "vertices": 1324,
+      "triangles": 1128
+    },
+    {
+      "name": "shelter-supplies",
+      "vertices": 504,
+      "triangles": 252
+    }
+  ]
+}

@@ -486,17 +486,17 @@
       "site": "southern-cliff",
       "kind": "rock",
       "lod": "near",
-      "triangles": 13186,
-      "vertices": 10752,
+      "triangles": 11686,
+      "vertices": 8532,
       "bounds": {
         "min": [
           -40,
           -0.235825315117836,
-          92.14327239990234
+          92.45360565185547
         ],
         "max": [
           42,
-          76.54767608642578,
+          66.48384857177734,
           127
         ]
       }
@@ -506,27 +506,27 @@
       "site": "southern-cliff",
       "kind": "rock",
       "lod": "far",
-      "triangles": 4750,
-      "vertices": 3408,
+      "triangles": 4666,
+      "vertices": 3099,
       "bounds": {
         "min": [
           -40,
           -0.235825315117836,
-          92.23526763916016
+          92.45360565185547
         ],
         "max": [
           42,
-          76.54767608642578,
+          66.48384857177734,
           127
         ]
       }
     }
   ],
-  "bytes": 3959084,
-  "sha256": "426ca255ba6eac2a78d356a8c564219e2832e3f5153ffaa3c79d854e6b573abb",
+  "bytes": 3838264,
+  "sha256": "f4b11832435d402fa784b9742011c7bedc8b1c7348e44103b9a3bfab450b6499",
   "sourceSha256": {
     "tools/camp/refinement/model.mts": "21edf11b452088597894c72283881001d235366e5a4027092f91fb996637f672",
     "tools/camp/refinement/build.mts": "a15c387ccb67e59d94f1728561942c83a2f2813c150e4da72d6dd0cb9e7d6c31",
-    "artifacts/survivor-camp-prototype/src/game/environment/limestone.ts": "39c621e71e8fc40a2a4d22f65f0d7aa7cf2c598156da26a2d9ba5c57612b59e4"
+    "artifacts/survivor-camp-prototype/src/game/environment/limestone.ts": "d5bb715963c64dd5c700a94592f0caad9f8bba22f774b3415273c7b64c1a45f8"
   }
 }

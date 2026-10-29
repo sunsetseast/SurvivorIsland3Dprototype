@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import * as THREE from "three";
 import { Environment } from "./environment/Environment";
 import { BeachProps, CampProps, Fire, Logs, Signs, Well } from "./Camp";
-import { Shelter } from "./Shelter";
 import { Ocean, Sky, SUN_DIR, Terrain } from "./Terrain";
 import { Player } from "./Player";
 import { Contestants } from "./Contestants";
@@ -40,12 +39,12 @@ export function Scene({
     <>
       <primitive object={target} />
       <color attach="background" args={["#d6e2db"]} />
-      <fog attach="fog" args={["#d6e2db", 85, 210]} />
-      <hemisphereLight args={["#cbe6ed", "#7b7150", 1.65]} />
+      <fog attach="fog" args={["#c8d9d4", 110, 250]} />
+      <hemisphereLight args={["#cbe6ed", "#777b61", 1.55]} />
       <directionalLight
         position={pos}
         target={target}
-        intensity={2.3}
+        intensity={2.65}
         color="#fff0d1"
         castShadow
         shadow-mapSize={low ? [1024, 1024] : [2048, 2048]}
@@ -67,7 +66,6 @@ export function Scene({
       <CampProps />
       <BeachProps />
       <Well />
-      <Shelter />
       <Signs />
       <TrailMarker connectionId="camp_to_trail" height={groundHeight} />
       <Player arrival={spawn} />

@@ -1,0 +1,351 @@
+{
+  "label": "before",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 1536x620 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "153.0.8010.0",
+  "errors": [],
+  "samples": [
+    {
+      "softwareFrameFinishMs": [],
+      "quality": "high",
+      "documentToMenuMs": 236,
+      "readyMs": 2577,
+      "calls": 231,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 28.399999999441206,
+          "totalMs": 28.399999999441206,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 19.40000000037253,
+          "totalMs": 19.40000000037253,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 38.60000000055879,
+          "totalMs": 38.60000000055879,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 237.5,
+          "totalMs": 237.5,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 46.80000000074506,
+          "totalMs": 46.80000000074506,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 983.2999999998137,
+          "totalMs": 983.2999999998137,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 1036.5999999996275,
+          "totalMs": 1036.5999999996275,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1198.2999999998137,
+          "totalMs": 1198.2999999998137,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1203.5,
+          "totalMs": 1203.5,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1208.0999999996275,
+          "totalMs": 1208.0999999996275,
+          "runs": 1
+        }
+      },
+      "triangles": 807865,
+      "geometries": 109,
+      "textures": 28,
+      "programs": 37,
+      "geometryBytes": 15222660,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 85,
+          "duration": 107
+        },
+        {
+          "start": 584.7000000001863,
+          "duration": 457
+        },
+        {
+          "start": 1042.5999999996275,
+          "duration": 506
+        },
+        {
+          "start": 2425.2999999998137,
+          "duration": 52
+        },
+        {
+          "start": 2600.0999999996275,
+          "duration": 118
+        },
+        {
+          "start": 2810.2999999998137,
+          "duration": 677
+        },
+        {
+          "start": 3530.4000000003725,
+          "duration": 125
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 18.90000000037253,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 19.299999999813735,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 16.299999999813735,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 16.90000000037253,
+          "bytes": 120547
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 17.5,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 27.40000000037253,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 22.799999999813735,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 19.700000000186265,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-4XjNdUMb.glb",
+          "duration": 950.7000000001863,
+          "bytes": 3959084
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.09999999962747097,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "habitatBatches": [],
+      "frameIntervalsMs": []
+    }
+  ],
+  "poses": [],
+  "checks": [
+    {
+      "diagnosticEye": "shelter",
+      "camera": [
+        12,
+        3.45,
+        -44
+      ],
+      "heading": 0.5,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Inspection camera applied before every frame subscriber, including late-mounted foliage culling. Eye-height mesh rays do not test texture alpha and supplement visual inspection; not a device result."
+    },
+    {
+      "diagnosticEye": "fire",
+      "camera": [
+        -9,
+        2.678675385515437,
+        -31
+      ],
+      "heading": 1.57,
+      "distances": [
+        null,
+        null,
+        8.93959932127672,
+        null,
+        28.9472605134656,
+        null,
+        21.619440498114635,
+        10.71254983932984,
+        10.585617768869271,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0.38461538461538464,
+      "method": "Inspection camera applied before every frame subscriber, including late-mounted foliage culling. Eye-height mesh rays do not test texture alpha and supplement visual inspection; not a device result."
+    },
+    {
+      "diagnosticEye": "edge",
+      "camera": [
+        -5,
+        2.3536546858338774,
+        -12
+      ],
+      "heading": 1.57,
+      "distances": [
+        34.949035887565636,
+        33.47005216863201,
+        null,
+        null,
+        null,
+        null,
+        28.239952128928817,
+        null,
+        32.54614087588256,
+        28.109404770281706,
+        27.27780853260486,
+        26.99435270602422,
+        null
+      ],
+      "blockedFraction": 0.5384615384615384,
+      "method": "Inspection camera applied before every frame subscriber, including late-mounted foliage culling. Eye-height mesh rays do not test texture alpha and supplement visual inspection; not a device result."
+    },
+    {
+      "diagnosticEye": "trail",
+      "camera": [
+        26,
+        2.9355578405901355,
+        -9
+      ],
+      "heading": 0.8,
+      "distances": [
+        null,
+        30.44275277975066,
+        5.654107130844213,
+        15.880352085549113,
+        15.222508827640201,
+        null,
+        14.195925382466696,
+        null,
+        null,
+        null,
+        null,
+        null,
+        12.392155775336166
+      ],
+      "blockedFraction": 0.46153846153846156,
+      "method": "Inspection camera applied before every frame subscriber, including late-mounted foliage culling. Eye-height mesh rays do not test texture alpha and supplement visual inspection; not a device result."
+    },
+    {
+      "diagnosticEye": "deep",
+      "camera": [
+        53,
+        5.143756739670891,
+        36
+      ],
+      "heading": 0,
+      "distances": [
+        null,
+        null,
+        null,
+        6.1780495671672595,
+        null,
+        null,
+        7.213838329744597,
+        7.0379768376708,
+        7.309210330726555,
+        null,
+        16.196720862635786,
+        10.615985074748012,
+        null
+      ],
+      "blockedFraction": 0.46153846153846156,
+      "method": "Inspection camera applied before every frame subscriber, including late-mounted foliage culling. Eye-height mesh rays do not test texture alpha and supplement visual inspection; not a device result."
+    },
+    {
+      "diagnosticEye": "spring",
+      "camera": [
+        104,
+        11.159039465716502,
+        36
+      ],
+      "heading": -2.3,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        42.918926122421446,
+        null,
+        null,
+        null,
+        null,
+        39.91923409513588,
+        38.19799885191131
+      ],
+      "blockedFraction": 0.23076923076923078,
+      "method": "Inspection camera applied before every frame subscriber, including late-mounted foliage culling. Eye-height mesh rays do not test texture alpha and supplement visual inspection; not a device result."
+    },
+    {
+      "diagnosticEye": "cliff",
+      "camera": [
+        -17,
+        2.2137414435988063,
+        91
+      ],
+      "heading": 1.3,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        8.819198714092284,
+        9.00847011253027,
+        null,
+        18.903373475003818,
+        15.024229403594832,
+        9.550359243715375,
+        12.599508859198433,
+        23.888685829297934
+      ],
+      "blockedFraction": 0.5384615384615384,
+      "method": "Inspection camera applied before every frame subscriber, including late-mounted foliage culling. Eye-height mesh rays do not test texture alpha and supplement visual inspection; not a device result."
+    }
+  ],
+  "result": "PASS"
+}

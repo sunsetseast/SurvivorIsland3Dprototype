@@ -32,6 +32,34 @@ export function NaturalLandmarks({
       rock.onBeforeCompile = source.onBeforeCompile;
       rock.customProgramCacheKey = source.customProgramCacheKey;
     }
+    const sourceCompile = source?.onBeforeCompile;
+    rock.onBeforeCompile = (shader, renderer) => {
+      sourceCompile?.call(source, shader, renderer);
+      shader.vertexShader = shader.vertexShader
+        .replace(
+          "#include <common>",
+          "#include <common>\nvarying vec3 vNaturalRock;",
+        )
+        .replace(
+          "#include <begin_vertex>",
+          "#include <begin_vertex>\nvNaturalRock=(modelMatrix*vec4(position,1.)).xyz;",
+        );
+      shader.fragmentShader = shader.fragmentShader
+        .replace(
+          "#include <common>",
+          "#include <common>\nvarying vec3 vNaturalRock;",
+        )
+        .replace(
+          "#include <map_fragment>",
+          `#ifdef USE_MAP
+        vec3 blend=pow(abs(normalize(cross(dFdx(vNaturalRock),dFdy(vNaturalRock)))),vec3(3.));blend/=max(.001,blend.x+blend.y+blend.z);
+        vec3 mineral=texture2D(map,vNaturalRock.yz*.11).rgb*blend.x+texture2D(map,vNaturalRock.xz*.11).rgb*blend.y+texture2D(map,vNaturalRock.xy*.11).rgb*blend.z;
+        diffuseColor.rgb*=mineral;
+      #endif`,
+        );
+    };
+    rock.customProgramCacheKey = () => "natural-karst-triplanar-v1";
+    rock.normalScale.set(0.35, 0.35);
     rock.vertexColors = true;
     rock.side = T.DoubleSide;
     rock.color.setRGB(1.35, 1.33, 1.25);

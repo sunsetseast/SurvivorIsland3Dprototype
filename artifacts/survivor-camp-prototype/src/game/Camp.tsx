@@ -41,8 +41,8 @@ export function Fire() {
   const { base, flames, embers, sparkGeo, glowTex, spit } = useMemo(() => {
     const r = rng(5), parts: Geo[] = [];
     parts.push(mk(new THREE.CylinderGeometry(1.0, 1.1, 0.05, 10), M(0, 0.02, 0), '#2b2420', 0.15));
-    for (let i = 0; i < 13; i++) {
-      const a = (i / 13) * Math.PI * 2 + (r() - 0.5) * 0.2, rad = 0.98 + (r() - 0.5) * 0.14;
+    for (let i = 0; i < 11; i++) {
+      const a = (i / 11) * Math.PI * 2 + (r() - 0.5) * 0.30, rad = 0.98 + (r() - 0.5) * 0.42;
       parts.push(stone(Math.cos(a) * rad, 0.12, Math.sin(a) * rad, 0.17 + r() * 0.13, r));
     }
     for (let i = 0; i < 6; i++) {
@@ -124,7 +124,7 @@ export function Logs() {
     for (const l of SEATING_LOGS) {
       const b = new Builder(), gy = gh(l.x, l.z), half = l.len / 2, c = Math.cos(l.yaw), s = Math.sin(l.yaw);
       const bark = col('#6d4a2c'), bark2 = col('#52371f');
-      tube(b, t => V(l.x + c * (t * l.len - half), gy + 0.4, l.z - s * (t * l.len - half)), t => 0.4 + 0.04 * Math.sin(t * 9) + (t < 0.05 || t > 0.95 ? -0.03 : 0), 10, 9, (_t, k) => (k % 2 ? bark : bark2));
+      tube(b, t => V(l.x + c * (t * l.len - half), gy + 0.4 + Math.sin(t*3.14)*.05, l.z - s * (t * l.len - half) + Math.sin(t*6)*.04), t => 0.4 + 0.04 * Math.sin(t * 9) + (t < 0.05 || t > 0.95 ? -0.03 : 0), 10, 9, (_t, k) => (k % 2 ? bark : bark2));
       parts.push(b.build());
       for (const e of [-1, 1]) {
         const cap = new THREE.CylinderGeometry(0.37, 0.37, 0.03, 12);

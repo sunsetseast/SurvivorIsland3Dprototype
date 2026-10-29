@@ -1,0 +1,1255 @@
+{
+  "label": "before",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 1536x620 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "153.0.8010.0",
+  "errors": [],
+  "samples": [
+    {
+      "quality": "low",
+      "documentToMenuMs": 520,
+      "readyMs": 7336,
+      "calls": 224,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 48.09999999962747,
+          "totalMs": 48.09999999962747,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 37.700000000186265,
+          "totalMs": 37.700000000186265,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 79.39999999990687,
+          "totalMs": 79.39999999990687,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 366.10000000009313,
+          "totalMs": 366.10000000009313,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 50.799999999813735,
+          "totalMs": 50.799999999813735,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 1534.8000000002794,
+          "totalMs": 1534.8000000002794,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 1713.1000000000931,
+          "totalMs": 1713.1000000000931,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 2233.4000000003725,
+          "totalMs": 2233.4000000003725,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 2243.7000000001863,
+          "totalMs": 2243.7000000001863,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 2283.1999999997206,
+          "totalMs": 2283.1999999997206,
+          "runs": 1
+        }
+      },
+      "triangles": 540907,
+      "geometries": 107,
+      "textures": 28,
+      "programs": 36,
+      "geometryBytes": 11368104,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 199.09999999962747,
+          "duration": 211
+        },
+        {
+          "start": 740.3999999999069,
+          "duration": 60
+        },
+        {
+          "start": 958.7999999998137,
+          "duration": 1056
+        },
+        {
+          "start": 2020.5999999996275,
+          "duration": 3422
+        },
+        {
+          "start": 6745.699999999721,
+          "duration": 120
+        },
+        {
+          "start": 7029.799999999814,
+          "duration": 105
+        },
+        {
+          "start": 7224.799999999814,
+          "duration": 346
+        },
+        {
+          "start": 7736.699999999721,
+          "duration": 107
+        },
+        {
+          "start": 7844.699999999721,
+          "duration": 1352
+        },
+        {
+          "start": 9229.69999999972,
+          "duration": 68
+        },
+        {
+          "start": 9298.399999999907,
+          "duration": 283
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 81.8000000002794,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 82.29999999981374,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 60.60000000009313,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 62.5,
+          "bytes": 120547
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 54.799999999813735,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 71.20000000018626,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 57.89999999990687,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 39.5,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-low-DhkU7APY.glb",
+          "duration": 60.8000000002794,
+          "bytes": 1000480
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "frameIntervalsMs": []
+    },
+    {
+      "quality": "high",
+      "documentToMenuMs": 355,
+      "readyMs": 3233,
+      "calls": 231,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 39.40000000037253,
+          "totalMs": 39.40000000037253,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 29.299999999813735,
+          "totalMs": 29.299999999813735,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 52.799999999813735,
+          "totalMs": 52.799999999813735,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 309.89999999990687,
+          "totalMs": 309.89999999990687,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 54.60000000009313,
+          "totalMs": 54.60000000009313,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 1342.6999999997206,
+          "totalMs": 1342.6999999997206,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 1447.5,
+          "totalMs": 1447.5,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1707.8000000002794,
+          "totalMs": 1707.8000000002794,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1708.1000000000931,
+          "totalMs": 1708.1000000000931,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1729.3999999999069,
+          "totalMs": 1729.3999999999069,
+          "runs": 1
+        }
+      },
+      "triangles": 807865,
+      "geometries": 110,
+      "textures": 28,
+      "programs": 37,
+      "geometryBytes": 15222660,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 153.5,
+          "duration": 137
+        },
+        {
+          "start": 452,
+          "duration": 73
+        },
+        {
+          "start": 685.3000000002794,
+          "duration": 582
+        },
+        {
+          "start": 1270.2000000001863,
+          "duration": 462
+        },
+        {
+          "start": 2894.5,
+          "duration": 80
+        },
+        {
+          "start": 3118.100000000093,
+          "duration": 51
+        },
+        {
+          "start": 3195.399999999907,
+          "duration": 139
+        },
+        {
+          "start": 3492.2000000001863,
+          "duration": 91
+        },
+        {
+          "start": 3583.8000000002794,
+          "duration": 1107
+        },
+        {
+          "start": 4734.600000000093,
+          "duration": 175
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 3.5,
+          "bytes": 0
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 2.6000000000931323,
+          "bytes": 0
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 4,
+          "bytes": 0
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 4,
+          "bytes": 0
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 13.399999999906868,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 16.199999999720603,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 14.799999999813735,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 12.899999999906868,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-4XjNdUMb.glb",
+          "duration": 1281.4000000003725,
+          "bytes": 3959084
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "frameIntervalsMs": []
+    }
+  ],
+  "poses": [
+    {
+      "quality": "low",
+      "name": "west-beach",
+      "x": -52,
+      "z": -13,
+      "yaw": -2.72,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.39999999990686774,
+        "x": -55.013056544526904,
+        "y": 2.3979100176988046,
+        "z": -19.718311779068966,
+        "yaw": -2.72,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "low",
+      "name": "shelter",
+      "x": 12,
+      "z": -32,
+      "yaw": 0,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.8000000002793968,
+        "x": 12,
+        "y": 3.5483083055508247,
+        "z": -24.66244198651057,
+        "yaw": 0,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "low",
+      "name": "shelter-from-fire",
+      "x": -11,
+      "z": -28,
+      "yaw": -1.06,
+      "pitch": 0.22,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.5,
+        "x": -17.29983822696231,
+        "y": 4.14357459631387,
+        "z": -24.469541268748927,
+        "yaw": -1.06,
+        "pitch": 0.22
+      }
+    },
+    {
+      "quality": "low",
+      "name": "shelter-interior",
+      "x": 12,
+      "z": -44,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 5.100000000093132,
+        "x": 12,
+        "y": 3.55759604474422,
+        "z": -47.21307839878477,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "low",
+      "name": "communal-camp",
+      "x": -29,
+      "z": -27,
+      "yaw": -1.1,
+      "pitch": 0.34,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.900000000372529,
+        "x": -35.21740523521828,
+        "y": 5.048079836790301,
+        "z": -23.835539037927514,
+        "yaw": -1.1,
+        "pitch": 0.34
+      }
+    },
+    {
+      "quality": "low",
+      "name": "fire-pit",
+      "x": -14,
+      "z": -25,
+      "yaw": -2.7,
+      "pitch": 0.15,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.20000000018626451,
+        "x": -17.127098400015655,
+        "y": 3.682095328938989,
+        "z": -31.615010859316758,
+        "yaw": -2.7,
+        "pitch": 0.15
+      }
+    },
+    {
+      "quality": "low",
+      "name": "camp-edge",
+      "x": -5,
+      "z": -12,
+      "yaw": 3.141592653589793,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.39999999990686774,
+        "x": -4.999999999999999,
+        "y": 2.9424219690204056,
+        "z": -19.363030823057393,
+        "yaw": 3.141592653589793,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "low",
+      "name": "first-trail",
+      "x": 26,
+      "z": -9,
+      "yaw": 3.141592653589793,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.2999999998137355,
+        "x": 26,
+        "y": 3.5243251237766646,
+        "z": -16.363030823057393,
+        "yaw": 3.141592653589793,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "low",
+      "name": "deep-jungle",
+      "x": 53,
+      "z": 36,
+      "yaw": 3.141592653589793,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.5,
+        "x": 53,
+        "y": 5.732524022857421,
+        "z": 28.636969176942607,
+        "yaw": 3.141592653589793,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "low",
+      "name": "spring",
+      "x": 104,
+      "z": 36,
+      "yaw": -1.4,
+      "pitch": 0.18,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.20000000018626451,
+        "x": 96.8254890895741,
+        "y": 12.333858309067601,
+        "z": 37.237436151274785,
+        "yaw": -1.4,
+        "pitch": 0.18
+      }
+    },
+    {
+      "quality": "low",
+      "name": "limestone-approach",
+      "x": -25,
+      "z": 75,
+      "yaw": 3.141592653589793,
+      "pitch": 0.05,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2.1999999997206032,
+        "x": -25,
+        "y": 2.4764917483011475,
+        "z": 67.60924807307725,
+        "yaw": 3.141592653589793,
+        "pitch": 0.05
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cliff-base",
+      "x": -17,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.8999999999068677,
+        "x": -17,
+        "y": 3.0230340989845486,
+        "z": 83.66244198651057,
+        "yaw": 3.141592653589793,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cave-entrance",
+      "x": 11,
+      "z": 94,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2.5,
+        "x": 11.000000000000002,
+        "y": 4.226393231848579,
+        "z": 86.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cave-interior",
+      "x": 11,
+      "z": 104,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2.1000000000931323,
+        "x": 11.000000000000002,
+        "y": 4.305633204281073,
+        "z": 96.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "low",
+      "name": "ancient-tree",
+      "x": 38,
+      "z": 5,
+      "yaw": -1.5,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.6999999997206032,
+        "x": 30.655413667789126,
+        "y": 4.0863725981898265,
+        "z": 5.520840196216123,
+        "yaw": -1.5,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "low",
+      "name": "fallen-giant",
+      "x": 63,
+      "z": 59,
+      "yaw": 0,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": 63,
+        "y": 9.146123852114163,
+        "z": 66.06949001952948,
+        "yaw": 0,
+        "pitch": 0.3
+      }
+    },
+    {
+      "quality": "low",
+      "name": "shoreline",
+      "x": -50,
+      "z": 12,
+      "yaw": 2.1,
+      "pitch": 0.22,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.39999999990686774,
+        "x": -43.76621173828317,
+        "y": 3.3779961993405747,
+        "z": 8.354182609202152,
+        "yaw": 2.1,
+        "pitch": 0.22
+      }
+    },
+    {
+      "quality": "low",
+      "name": "ocean",
+      "x": -51,
+      "z": 0,
+      "yaw": 1.5707963267948966,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -43.662441986510565,
+        "y": 2.5268378604207533,
+        "z": 4.492958467388922e-16,
+        "yaw": 1.5707963267948966,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "low",
+      "name": "forest-floor",
+      "x": 53,
+      "z": 36,
+      "yaw": 3.141592653589793,
+      "pitch": 0.78,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.3000000002793968,
+        "x": 53,
+        "y": 10.198024441753926,
+        "z": 30.739239818709148,
+        "yaw": 3.141592653589793,
+        "pitch": 0.78
+      }
+    },
+    {
+      "quality": "high",
+      "name": "west-beach",
+      "x": -52,
+      "z": -13,
+      "yaw": -2.72,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.3000000002793968,
+        "x": -55.013056544526904,
+        "y": 2.3979100176988046,
+        "z": -19.718311779068966,
+        "yaw": -2.72,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "high",
+      "name": "shelter",
+      "x": 12,
+      "z": -32,
+      "yaw": 0,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2.7999999998137355,
+        "x": 12,
+        "y": 3.5483083055508247,
+        "z": -24.66244198651057,
+        "yaw": 0,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "high",
+      "name": "shelter-from-fire",
+      "x": -11,
+      "z": -28,
+      "yaw": -1.06,
+      "pitch": 0.22,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.8999999999068677,
+        "x": -17.29983822696231,
+        "y": 4.14357459631387,
+        "z": -24.469541268748927,
+        "yaw": -1.06,
+        "pitch": 0.22
+      }
+    },
+    {
+      "quality": "high",
+      "name": "shelter-interior",
+      "x": 12,
+      "z": -44,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 5.600000000093132,
+        "x": 12,
+        "y": 3.55759604474422,
+        "z": -47.21307839878477,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "high",
+      "name": "communal-camp",
+      "x": -29,
+      "z": -27,
+      "yaw": -1.1,
+      "pitch": 0.34,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 4,
+        "x": -35.21740523521828,
+        "y": 5.048079836790301,
+        "z": -23.835539037927514,
+        "yaw": -1.1,
+        "pitch": 0.34
+      }
+    },
+    {
+      "quality": "high",
+      "name": "fire-pit",
+      "x": -14,
+      "z": -25,
+      "yaw": -2.7,
+      "pitch": 0.15,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -17.127098400015655,
+        "y": 3.682095328938989,
+        "z": -31.615010859316758,
+        "yaw": -2.7,
+        "pitch": 0.15
+      }
+    },
+    {
+      "quality": "high",
+      "name": "camp-edge",
+      "x": -5,
+      "z": -12,
+      "yaw": 3.141592653589793,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.40000000037252903,
+        "x": -4.999999999999999,
+        "y": 2.9424219690204056,
+        "z": -19.363030823057393,
+        "yaw": 3.141592653589793,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "high",
+      "name": "first-trail",
+      "x": 26,
+      "z": -9,
+      "yaw": 3.141592653589793,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.2999999998137355,
+        "x": 26,
+        "y": 3.5243251237766646,
+        "z": -16.363030823057393,
+        "yaw": 3.141592653589793,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "high",
+      "name": "deep-jungle",
+      "x": 53,
+      "z": 36,
+      "yaw": 3.141592653589793,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.8999999999068677,
+        "x": 53,
+        "y": 5.732524022857421,
+        "z": 28.636969176942607,
+        "yaw": 3.141592653589793,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "high",
+      "name": "spring",
+      "x": 104,
+      "z": 36,
+      "yaw": -1.4,
+      "pitch": 0.18,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": 96.8254890895741,
+        "y": 12.333858309067601,
+        "z": 37.237436151274785,
+        "yaw": -1.4,
+        "pitch": 0.18
+      }
+    },
+    {
+      "quality": "high",
+      "name": "limestone-approach",
+      "x": -25,
+      "z": 75,
+      "yaw": 3.141592653589793,
+      "pitch": 0.05,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.3000000002793968,
+        "x": -25,
+        "y": 2.4764917483011475,
+        "z": 67.60924807307725,
+        "yaw": 3.141592653589793,
+        "pitch": 0.05
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cliff-base",
+      "x": -17,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.8999999999068677,
+        "x": -17,
+        "y": 3.0230340989845486,
+        "z": 83.66244198651057,
+        "yaw": 3.141592653589793,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cave-entrance",
+      "x": 11,
+      "z": 94,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 10.199999999720603,
+        "x": 11.000000000000002,
+        "y": 4.226393231848579,
+        "z": 86.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cave-interior",
+      "x": 11,
+      "z": 104,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 5.900000000372529,
+        "x": 11.000000000000002,
+        "y": 4.305633204281073,
+        "z": 96.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "high",
+      "name": "ancient-tree",
+      "x": 38,
+      "z": 5,
+      "yaw": -1.5,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 3.900000000372529,
+        "x": 30.655413667789126,
+        "y": 4.0863725981898265,
+        "z": 5.520840196216123,
+        "yaw": -1.5,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "high",
+      "name": "fallen-giant",
+      "x": 63,
+      "z": 59,
+      "yaw": 0,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.19999999972060323,
+        "x": 63,
+        "y": 9.146123852114163,
+        "z": 66.06949001952948,
+        "yaw": 0,
+        "pitch": 0.3
+      }
+    },
+    {
+      "quality": "high",
+      "name": "shoreline",
+      "x": -50,
+      "z": 12,
+      "yaw": 2.1,
+      "pitch": 0.22,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -43.76621173828317,
+        "y": 3.3779961993405747,
+        "z": 8.354182609202152,
+        "yaw": 2.1,
+        "pitch": 0.22
+      }
+    },
+    {
+      "quality": "high",
+      "name": "ocean",
+      "x": -51,
+      "z": 0,
+      "yaw": 1.5707963267948966,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -43.662441986510565,
+        "y": 2.5268378604207533,
+        "z": 4.492958467388922e-16,
+        "yaw": 1.5707963267948966,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "high",
+      "name": "forest-floor",
+      "x": 53,
+      "z": 36,
+      "yaw": 3.141592653589793,
+      "pitch": 0.78,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.6000000000931323,
+        "x": 53,
+        "y": 10.198024441753926,
+        "z": 30.739239818709148,
+        "yaw": 3.141592653589793,
+        "pitch": 0.78
+      }
+    }
+  ],
+  "checks": [
+    {
+      "diagnosticEye": "shelter",
+      "camera": [
+        12,
+        3.45,
+        -44
+      ],
+      "heading": 0.5,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Eye-height actual mesh ray intersections, no texture-alpha test; supplemental to visual inspection, not a device result"
+    },
+    {
+      "diagnosticEye": "fire",
+      "camera": [
+        -9,
+        2.678675385515437,
+        -31
+      ],
+      "heading": 1.57,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Eye-height actual mesh ray intersections, no texture-alpha test; supplemental to visual inspection, not a device result"
+    },
+    {
+      "diagnosticEye": "edge",
+      "camera": [
+        -5,
+        2.3536546858338774,
+        -12
+      ],
+      "heading": 1.57,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Eye-height actual mesh ray intersections, no texture-alpha test; supplemental to visual inspection, not a device result"
+    },
+    {
+      "diagnosticEye": "trail",
+      "camera": [
+        26,
+        2.9355578405901355,
+        -9
+      ],
+      "heading": 0.8,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Eye-height actual mesh ray intersections, no texture-alpha test; supplemental to visual inspection, not a device result"
+    },
+    {
+      "diagnosticEye": "deep",
+      "camera": [
+        53,
+        5.143756739670891,
+        36
+      ],
+      "heading": 0,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Eye-height actual mesh ray intersections, no texture-alpha test; supplemental to visual inspection, not a device result"
+    },
+    {
+      "diagnosticEye": "spring",
+      "camera": [
+        104,
+        11.159039465716502,
+        36
+      ],
+      "heading": -2.3,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Eye-height actual mesh ray intersections, no texture-alpha test; supplemental to visual inspection, not a device result"
+    },
+    {
+      "diagnosticEye": "cliff",
+      "camera": [
+        -17,
+        2.2137414435988063,
+        91
+      ],
+      "heading": 1.3,
+      "distances": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "blockedFraction": 0,
+      "method": "Eye-height actual mesh ray intersections, no texture-alpha test; supplemental to visual inspection, not a device result"
+    }
+  ],
+  "result": "PASS"
+}
