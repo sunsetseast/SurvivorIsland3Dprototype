@@ -27,7 +27,8 @@ jobs:
       - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
       - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
       - run: pnpm --filter @workspace/survivor-camp-prototype qa:flagship-camp
-      - run: pnpm --filter @workspace/survivor-camp-prototype qa:expansion
+      - run: REFINEMENT_APPROACHES=1 pnpm --filter @workspace/survivor-camp-prototype qa:expansion
+      - run: pnpm --filter @workspace/survivor-camp-prototype qa:refinement
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -35,3 +36,4 @@ jobs:
           path: |
             docs/flagship-camp/evidence/after/
             docs/tonsai-expansion/evidence/
+            docs/tonsai-refinement/evidence/after/

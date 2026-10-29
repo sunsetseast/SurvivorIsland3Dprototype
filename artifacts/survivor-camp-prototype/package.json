@@ -30,7 +30,10 @@
     "qa:connected-world": "node scripts/connected-world-qa.mjs",
     "qa:flagship-camp": "node scripts/flagship-camp-qa.mjs",
     "qa:expansion": "node scripts/expansion-qa.mjs",
-    "qa:expansion-metrics": "node --import tsx scripts/expansion-metrics.mjs"
+    "qa:expansion-metrics": "node --import tsx scripts/expansion-metrics.mjs",
+    "assets:refine": "node --import tsx ../../tools/camp/refinement/build.mts && node --import tsx ../../tools/camp/refinement/migrate.mts",
+    "world:bake-camp": "node --import tsx scripts/bake-camp-navigation.mjs",
+    "qa:refinement": "node scripts/refinement-qa.mjs"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

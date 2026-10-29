@@ -1,0 +1,720 @@
+{
+  "method": "Real Chromium WebGL / ANGLE SwiftShader, 932x430 DPR1. Identical poses before/after. Manual 60Hz simulation avoids conflating software raster cost with input. Render submission wall timings are NOT GPU or iPhone FPS.",
+  "routes": [
+    {
+      "label": "Spawn to campfire",
+      "start": {
+        "x": -6,
+        "z": -24
+      },
+      "end": {
+        "x": -2.6037646713617573,
+        "z": -33.08077374567332
+      },
+      "run": false,
+      "waypoints": 4,
+      "hostWallMs": 22304
+    },
+    {
+      "label": "Campfire to shelter",
+      "start": {
+        "x": -2.6037646713617573,
+        "z": -33.08077374567332
+      },
+      "end": {
+        "x": 11.004445696235946,
+        "z": -43.09494444120372
+      },
+      "run": false,
+      "waypoints": 10,
+      "hostWallMs": 2026
+    },
+    {
+      "label": "Shelter to remote spring",
+      "start": {
+        "x": 11.004445696235946,
+        "z": -43.09494444120372
+      },
+      "end": {
+        "x": 103.98507823414597,
+        "z": 35.99253880519741
+      },
+      "run": false,
+      "waypoints": 54,
+      "hostWallMs": 12453
+    },
+    {
+      "label": "Spring alternate loop return",
+      "start": {
+        "x": 103.98507823414597,
+        "z": 35.99253880519741
+      },
+      "end": {
+        "x": -5.999985077183601,
+        "z": -24.04103421079852
+      },
+      "run": true,
+      "waypoints": 93,
+      "hostWallMs": 8535
+    },
+    {
+      "label": "Camp to southern limestone",
+      "start": {
+        "x": -5.999985077183601,
+        "z": -24.04103421079852
+      },
+      "end": {
+        "x": -15.51545802147584,
+        "z": 90.96908671457348
+      },
+      "run": false,
+      "waypoints": 55,
+      "hostWallMs": 4361
+    },
+    {
+      "label": "Southern limestone to cave",
+      "start": {
+        "x": -15.51545802147584,
+        "z": 90.96908671457348
+      },
+      "end": {
+        "x": 10.999999999636598,
+        "z": 104.00155539634174
+      },
+      "run": false,
+      "waypoints": 16,
+      "hostWallMs": 10994
+    },
+    {
+      "label": "Cave to cliff to beach",
+      "start": {
+        "x": 10.999999999636598,
+        "z": 104.00155539634174
+      },
+      "end": {
+        "x": -46.99999999999999,
+        "z": -26.974094440111955
+      },
+      "run": true,
+      "waypoints": 68,
+      "hostWallMs": 27910
+    },
+    {
+      "label": "Beach to main camp",
+      "start": {
+        "x": -46.99999999999999,
+        "z": -26.974094440111955
+      },
+      "end": {
+        "x": -6.002255539955414,
+        "z": -24.002254564345467
+      },
+      "run": false,
+      "waypoints": 16,
+      "hostWallMs": 1593
+    },
+    {
+      "label": "Camp jungle loop and return",
+      "start": {
+        "x": -6.002255539955414,
+        "z": -24.002254564345467
+      },
+      "end": {
+        "x": -6.000007622587475,
+        "z": -23.96431121960556
+      },
+      "run": true,
+      "waypoints": 160,
+      "hostWallMs": 10363
+    },
+    {
+      "label": "Hiding approach tonsai-ancient-fig-1",
+      "start": {
+        "x": -6.000007622587475,
+        "z": -23.96431121960556
+      },
+      "end": {
+        "x": 48.06483119354996,
+        "z": 6.226327719528731
+      },
+      "run": true,
+      "waypoints": 34,
+      "hostWallMs": 3236
+    },
+    {
+      "label": "Hiding approach tonsai-ancient-fig-2",
+      "start": {
+        "x": 48.06483119354996,
+        "z": 6.226327719528731
+      },
+      "end": {
+        "x": 38.73188733237581,
+        "z": 9.126011655902659
+      },
+      "run": true,
+      "waypoints": 5,
+      "hostWallMs": 969
+    },
+    {
+      "label": "Hiding approach tonsai-ancient-fig-3",
+      "start": {
+        "x": 38.73188733237581,
+        "z": 9.126011655902659
+      },
+      "end": {
+        "x": 41.26238960553309,
+        "z": -0.48551006295264915
+      },
+      "run": true,
+      "waypoints": 5,
+      "hostWallMs": 886
+    },
+    {
+      "label": "Hiding approach tonsai-root-crown-1",
+      "start": {
+        "x": 41.26238960553309,
+        "z": -0.48551006295264915
+      },
+      "end": {
+        "x": 80.78499264066092,
+        "z": 24.724043984583197
+      },
+      "run": true,
+      "waypoints": 25,
+      "hostWallMs": 3775
+    },
+    {
+      "label": "Hiding approach tonsai-root-crown-2",
+      "start": {
+        "x": 80.78499264066092,
+        "z": 24.724043984583197
+      },
+      "end": {
+        "x": 71.22782046178756,
+        "z": 24.735091987912764
+      },
+      "run": true,
+      "waypoints": 5,
+      "hostWallMs": 769
+    },
+    {
+      "label": "Hiding approach tonsai-root-crown-3",
+      "start": {
+        "x": 71.22782046178756,
+        "z": 24.735091987912764
+      },
+      "end": {
+        "x": 75.9774968654766,
+        "z": 18.011254823472697
+      },
+      "run": true,
+      "waypoints": 4,
+      "hostWallMs": 716
+    },
+    {
+      "label": "Hiding approach tonsai-fallen-giant-1",
+      "start": {
+        "x": 75.9774968654766,
+        "z": 18.011254823472697
+      },
+      "end": {
+        "x": 68.71482069053454,
+        "z": 55.99831070057339
+      },
+      "run": true,
+      "waypoints": 16,
+      "hostWallMs": 2683
+    },
+    {
+      "label": "Hiding approach tonsai-fallen-giant-2",
+      "start": {
+        "x": 68.71482069053454,
+        "z": 55.99831070057339
+      },
+      "end": {
+        "x": 57.29519789724408,
+        "z": 55.98294851737433
+      },
+      "run": true,
+      "waypoints": 6,
+      "hostWallMs": 704
+    },
+    {
+      "label": "Hiding approach tonsai-fallen-giant-3",
+      "start": {
+        "x": 57.29519789724408,
+        "z": 55.98294851737433
+      },
+      "end": {
+        "x": 63.999666952375506,
+        "z": 58.492738574048026
+      },
+      "run": true,
+      "waypoints": 4,
+      "hostWallMs": 470
+    },
+    {
+      "label": "Hiding approach tonsai-moss-gates-1",
+      "start": {
+        "x": 63.999666952375506,
+        "z": 58.492738574048026
+      },
+      "end": {
+        "x": 15.999989590868644,
+        "z": 65.00368536251104
+      },
+      "run": true,
+      "waypoints": 30,
+      "hostWallMs": 4794
+    },
+    {
+      "label": "Hiding approach tonsai-moss-gates-2",
+      "start": {
+        "x": 15.999989590868644,
+        "z": 65.00368536251104
+      },
+      "end": {
+        "x": 15.999999800317573,
+        "z": 66.96170391751886
+      },
+      "run": true,
+      "waypoints": 1,
+      "hostWallMs": 262
+    },
+    {
+      "label": "Hiding approach tonsai-moss-gates-3",
+      "start": {
+        "x": 15.999999800317573,
+        "z": 66.96170391751886
+      },
+      "end": {
+        "x": 15.999999993265037,
+        "z": 68.15823427913917
+      },
+      "run": true,
+      "waypoints": 1,
+      "hostWallMs": 235
+    },
+    {
+      "label": "Hiding approach tonsai-southern-cave-1",
+      "start": {
+        "x": 15.999999993265037,
+        "z": 68.15823427913917
+      },
+      "end": {
+        "x": 9.018657932457808,
+        "z": 102.98127808965732
+      },
+      "run": true,
+      "waypoints": 14,
+      "hostWallMs": 3469
+    },
+    {
+      "label": "Hiding approach tonsai-southern-cave-2",
+      "start": {
+        "x": 9.018657932457808,
+        "z": 102.98127808965732
+      },
+      "end": {
+        "x": 12.983845353635644,
+        "z": 105.98384819359579
+      },
+      "run": true,
+      "waypoints": 2,
+      "hostWallMs": 877
+    },
+    {
+      "label": "Hiding approach tonsai-southern-cave-3",
+      "start": {
+        "x": 12.983845353635644,
+        "z": 105.98384819359579
+      },
+      "end": {
+        "x": 11.016434962688367,
+        "z": 108.98344252876514
+      },
+      "run": true,
+      "waypoints": 2,
+      "hostWallMs": 748
+    },
+    {
+      "label": "Hiding approach tonsai-roof-shelter-1",
+      "start": {
+        "x": 11.016434962688367,
+        "z": 108.98344252876514
+      },
+      "end": {
+        "x": -20.98460994908924,
+        "z": 97.16239755281136
+      },
+      "run": true,
+      "waypoints": 18,
+      "hostWallMs": 14425
+    },
+    {
+      "label": "Hiding approach tonsai-roof-shelter-2",
+      "start": {
+        "x": -20.98460994908924,
+        "z": 97.16239755281136
+      },
+      "end": {
+        "x": -18.005132702961397,
+        "z": 95.85690359169737
+      },
+      "run": true,
+      "waypoints": 2,
+      "hostWallMs": 1542
+    },
+    {
+      "label": "Hiding approach tonsai-roof-shelter-3",
+      "start": {
+        "x": -18.005132702961397,
+        "z": 95.85690359169737
+      },
+      "end": {
+        "x": -14.995551542825023,
+        "z": 95.76525128691152
+      },
+      "run": true,
+      "waypoints": 2,
+      "hostWallMs": 1280
+    },
+    {
+      "label": "Hiding approach tonsai-hollow-stump-1",
+      "start": {
+        "x": -14.995551542825023,
+        "z": 95.76525128691152
+      },
+      "end": {
+        "x": 30.959888416167157,
+        "z": -9.09591226289533
+      },
+      "run": true,
+      "waypoints": 52,
+      "hostWallMs": 15535
+    },
+    {
+      "label": "Hiding approach tonsai-hollow-stump-2",
+      "start": {
+        "x": 30.959888416167157,
+        "z": -9.09591226289533
+      },
+      "end": {
+        "x": 32.598729802338916,
+        "z": -5.190560061479412
+      },
+      "run": true,
+      "waypoints": 3,
+      "hostWallMs": 331
+    },
+    {
+      "label": "Hiding approach tonsai-hollow-stump-3",
+      "start": {
+        "x": 32.598729802338916,
+        "z": -5.190560061479412
+      },
+      "end": {
+        "x": 29.440413251415226,
+        "z": -5.186833078306723
+      },
+      "run": true,
+      "waypoints": 2,
+      "hostWallMs": 200
+    },
+    {
+      "label": "Hiding approach tonsai-leaning-tamarind-1",
+      "start": {
+        "x": 29.440413251415226,
+        "z": -5.186833078306723
+      },
+      "end": {
+        "x": -2.003738346218663,
+        "z": 47.70056754487692
+      },
+      "run": true,
+      "waypoints": 30,
+      "hostWallMs": 2975
+    },
+    {
+      "label": "Hiding approach tonsai-leaning-tamarind-2",
+      "start": {
+        "x": -2.003738346218663,
+        "z": 47.70056754487692
+      },
+      "end": {
+        "x": -6.711627062553516,
+        "z": 43.04276952901315
+      },
+      "run": true,
+      "waypoints": 4,
+      "hostWallMs": 444
+    },
+    {
+      "label": "Hiding approach tonsai-leaning-tamarind-3",
+      "start": {
+        "x": -6.711627062553516,
+        "z": 43.04276952901315
+      },
+      "end": {
+        "x": -2.037126780191014,
+        "z": 38.294743220574645
+      },
+      "run": true,
+      "waypoints": 4,
+      "hostWallMs": 572
+    },
+    {
+      "label": "Hiding approach tonsai-strangler-stone-1",
+      "start": {
+        "x": -2.037126780191014,
+        "z": 38.294743220574645
+      },
+      "end": {
+        "x": 90.49272451947688,
+        "z": 61.01514663967025
+      },
+      "run": true,
+      "waypoints": 55,
+      "hostWallMs": 5681
+    },
+    {
+      "label": "Hiding approach tonsai-strangler-stone-2",
+      "start": {
+        "x": 90.49272451947688,
+        "z": 61.01514663967025
+      },
+      "end": {
+        "x": 99.50211887881196,
+        "z": 61.00866161432189
+      },
+      "run": true,
+      "waypoints": 7,
+      "hostWallMs": 4098
+    },
+    {
+      "label": "Hiding approach tonsai-strangler-stone-3",
+      "start": {
+        "x": 99.50211887881196,
+        "z": 61.00866161432189
+      },
+      "end": {
+        "x": 95.0001340826043,
+        "z": 65.49307042261063
+      },
+      "run": true,
+      "waypoints": 4,
+      "hostWallMs": 762
+    },
+    {
+      "label": "Hiding approach tonsai-fern-bowl-1",
+      "start": {
+        "x": 95.0001340826043,
+        "z": 65.49307042261063
+      },
+      "end": {
+        "x": 41.50517858492628,
+        "z": 80.9965660286436
+      },
+      "run": true,
+      "waypoints": 24,
+      "hostWallMs": 3662
+    },
+    {
+      "label": "Hiding approach tonsai-fern-bowl-2",
+      "start": {
+        "x": 41.50517858492628,
+        "z": 80.9965660286436
+      },
+      "end": {
+        "x": 42.969719484519445,
+        "z": 80.99993043823044
+      },
+      "run": true,
+      "waypoints": 1,
+      "hostWallMs": 32
+    },
+    {
+      "label": "Hiding approach tonsai-fern-bowl-3",
+      "start": {
+        "x": 42.969719484519445,
+        "z": 80.99993043823044
+      },
+      "end": {
+        "x": 44.456131257906684,
+        "z": 80.99999800586409
+      },
+      "run": true,
+      "waypoints": 1,
+      "hostWallMs": 83
+    },
+    {
+      "label": "Hiding approach tonsai-root-bridge-1",
+      "start": {
+        "x": 44.456131257906684,
+        "z": 80.99999800586409
+      },
+      "end": {
+        "x": 83.2857085358063,
+        "z": 1.0004921683342847
+      },
+      "run": true,
+      "waypoints": 47,
+      "hostWallMs": 4203
+    },
+    {
+      "label": "Hiding approach tonsai-root-bridge-2",
+      "start": {
+        "x": 83.2857085358063,
+        "z": 1.0004921683342847
+      },
+      "end": {
+        "x": 94.70172446125055,
+        "z": 0.9975860555481101
+      },
+      "run": true,
+      "waypoints": 6,
+      "hostWallMs": 924
+    },
+    {
+      "label": "Hiding approach tonsai-root-bridge-3",
+      "start": {
+        "x": 94.70172446125055,
+        "z": 0.9975860555481101
+      },
+      "end": {
+        "x": 89.99632859229075,
+        "z": 3.5009169888503124
+      },
+      "run": true,
+      "waypoints": 3,
+      "hostWallMs": 389
+    },
+    {
+      "label": "Hiding approach tonsai-quiet-alcove-1",
+      "start": {
+        "x": 89.99632859229075,
+        "z": 3.5009169888503124
+      },
+      "end": {
+        "x": 29.00289125665743,
+        "z": 91.99421679902223
+      },
+      "run": true,
+      "waypoints": 55,
+      "hostWallMs": 5634
+    },
+    {
+      "label": "Hiding approach tonsai-quiet-alcove-2",
+      "start": {
+        "x": 29.00289125665743,
+        "z": 91.99421679902223
+      },
+      "end": {
+        "x": 30.963207077438533,
+        "z": 91.99989345554346
+      },
+      "run": true,
+      "waypoints": 1,
+      "hostWallMs": 742
+    },
+    {
+      "label": "Hiding approach tonsai-quiet-alcove-3",
+      "start": {
+        "x": 30.963207077438533,
+        "z": 91.99989345554346
+      },
+      "end": {
+        "x": 30.002792867763535,
+        "z": 92.19941978092734
+      },
+      "run": true,
+      "waypoints": 1,
+      "hostWallMs": 581
+    },
+    {
+      "label": "Hiding approach tonsai-spring-seep-1",
+      "start": {
+        "x": 30.002792867763535,
+        "z": 92.19941978092734
+      },
+      "end": {
+        "x": 111.2871370440067,
+        "z": 36.808988500007864
+      },
+      "run": true,
+      "waypoints": 48,
+      "hostWallMs": 7292
+    },
+    {
+      "label": "Hiding approach tonsai-spring-seep-2",
+      "start": {
+        "x": 111.2871370440067,
+        "z": 36.808988500007864
+      },
+      "end": {
+        "x": 108.79751720617774,
+        "z": 39.102276014324055
+      },
+      "run": true,
+      "waypoints": 2,
+      "hostWallMs": 204
+    },
+    {
+      "label": "Hiding approach tonsai-spring-seep-3",
+      "start": {
+        "x": 108.79751720617774,
+        "z": 39.102276014324055
+      },
+      "end": {
+        "x": 104.70991701381038,
+        "z": 36.03200900148852
+      },
+      "run": true,
+      "waypoints": 3,
+      "hostWallMs": 343
+    },
+    {
+      "label": "Follow water-collecting NPC 0",
+      "start": {
+        "x": 104.70991701381038,
+        "z": 36.03200900148852
+      },
+      "end": {
+        "x": 51.63364003809494,
+        "z": 16.50068045028909
+      },
+      "run": true,
+      "waypoints": 27,
+      "hostWallMs": 2255
+    },
+    {
+      "label": "Follow water-collecting NPC 1",
+      "start": {
+        "x": 51.63364003809494,
+        "z": 16.50068045028909
+      },
+      "end": {
+        "x": 70.22323619587513,
+        "z": 26.65756631612762
+      },
+      "run": true,
+      "waypoints": 10,
+      "hostWallMs": 571
+    },
+    {
+      "label": "Follow water-collecting NPC 2",
+      "start": {
+        "x": 70.22323619587513,
+        "z": 26.65756631612762
+      },
+      "end": {
+        "x": 77.2279561860292,
+        "z": 30.21243827269653
+      },
+      "run": true,
+      "waypoints": 3,
+      "hostWallMs": 392
+    }
+  ],
+  "status": "in progress"
+}

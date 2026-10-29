@@ -1,3 +1,6 @@
+import landmarksLow from "../../assets/camp/landmarks-low.glb?url";
+import landmarks from "../../assets/camp/landmarks.glb?url";
+import { recordStage } from "./profile";
 import { useEffect, useState } from "react";
 import * as T from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -7,6 +10,7 @@ import botanical from "../../assets/camp/palms.glb?url";
 import fern from "../../assets/tonsai/fern_02.glb?url";
 
 export type EnvironmentKit = {
+  landmarks?: T.Group;
   rock?: T.Group;
   tree?: T.Group;
   botanical?: T.Group;
@@ -30,24 +34,33 @@ export function disposeAsset(root: T.Object3D) {
   });
   resources.forEach((r) => r.dispose());
 }
-export function useEnvironmentKit() {
+export function useEnvironmentKit(low = false) {
   const [kit, setKit] = useState<EnvironmentKit>({
     settled: false,
     failures: [],
   });
   useEffect(() => {
+    setKit({ settled: false, failures: [] });
     let active = true,
-      pending = 4;
+      pending = 5;
     const owned: T.Group[] = [],
       timers: ReturnType<typeof setTimeout>[] = [];
-    for (const [id, url] of Object.entries({ rock, tree, botanical, fern })) {
+    for (const [id, url] of Object.entries({
+      rock,
+      tree,
+      botanical,
+      fern,
+      landmarks: low ? landmarksLow : landmarks,
+    })) {
       let complete = false;
+      const loadStart = performance.now();
       const finish = (scene?: T.Group) => {
         if (complete || !active) {
           if (scene) disposeAsset(scene);
           return;
         }
         complete = true;
+        recordStage("asset-load-parse:" + id, loadStart);
         pending--;
         if (scene) {
           owned.push(scene);
@@ -98,9 +111,9 @@ export function useEnvironmentKit() {
                 p.depthWrite = true;
               }
               if (id === "tree" && /leaves/.test(m.name)) {
-                p.color.setRGB(1.15, 1.4, 1.05);
+                p.color.setRGB(1.05, 1.14, 0.96);
                 p.emissive.set("#708d42");
-                p.emissiveIntensity = 0.32;
+                p.emissiveIntensity = 0.2;
                 p.emissiveMap = p.map;
               }
               if (p.map) p.map.anisotropy = 4;
@@ -134,7 +147,7 @@ export function useEnvironmentKit() {
       timers.forEach(clearTimeout);
       owned.forEach(disposeAsset);
     };
-  }, []);
+  }, [low]);
   return kit;
 }
 export function meshPart(group: T.Group | undefined, name: string) {

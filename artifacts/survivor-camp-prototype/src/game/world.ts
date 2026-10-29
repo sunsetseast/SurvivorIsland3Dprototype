@@ -1,3 +1,5 @@
+import { recordStage } from "./environment/profile";
+const worldStageStart = performance.now();
 import {
   CAMP_EXTENT,
   TRAILS,
@@ -14,7 +16,12 @@ import {
  * +X east, +Z south, ocean to the west. One unit is about one metre.
  */
 export type Point = { x: number; z: number };
-export type Collider = Point & { hx: number; hz: number; kind: string };
+export type Collider = Point & {
+  hx: number;
+  hz: number;
+  kind: string;
+  polygon?: number[][];
+};
 export type Veg = Point & {
   scale: number;
   lean: number;
@@ -585,6 +592,13 @@ export const FLOWERS: Veg[] = SHRUBS.filter(
   variant: s.variant - 4,
 }));
 
+// Cave is a rock habitat, not an open patch eligible for generic forest scatter.
+for (const list of [BROADLEAF, PALMS, FERNS, SHRUBS]) {
+  const filtered = list.filter(
+    (p) => !(p.x > 4 && p.x < 18 && p.z > 91 && p.z < 113),
+  );
+  list.splice(0, list.length, ...filtered);
+}
 export const COLLIDERS: Collider[] = [
   ...FEATURE_SOLIDS,
   ...ROOT_SOLIDS,
@@ -656,6 +670,12 @@ export const COLLIDERS: Collider[] = [
 
 /** Soft ground-contact darkening baked into the terrain texture. */
 export const SHADE: { x: number; z: number; r: number; s: number }[] = [
+  ...NATURAL_LANDMARKS.map((l) => ({
+    x: l.x,
+    z: l.z,
+    r: l.kind === "buttress" ? 9 : 5,
+    s: 0.7,
+  })),
   ...PALMS.map((p) => ({ x: p.x, z: p.z, r: 1.5 * p.scale, s: 0.4 })),
   ...BROADLEAF.map((p) => ({ x: p.x, z: p.z, r: 3.4 * p.scale, s: 0.34 })),
   ...BAMBOO.map((p) => ({ x: p.x, z: p.z, r: 2.2 * p.scale, s: 0.4 })),
@@ -691,6 +711,33 @@ function nearbyColliders(x: number, z: number) {
     ) ?? []
   );
 }
+/** Convex scan footprints plus a body-radius edge envelope; boxes retain legacy props. */
+export function colliderContains(c: Collider, x: number, z: number, r = 0) {
+  if (Math.abs(x - c.x) >= c.hx + r || Math.abs(z - c.z) >= c.hz + r)
+    return false;
+  if (!c.polygon) return true;
+  let inside = false;
+  for (let i = 0, j = c.polygon.length - 1; i < c.polygon.length; j = i++) {
+    const a = c.polygon[j]!,
+      b = c.polygon[i]!,
+      dx = b[0]! - a[0]!,
+      dz = b[1]! - a[1]!,
+      t = Math.max(
+        0,
+        Math.min(
+          1,
+          ((x - a[0]!) * dx + (z - a[1]!) * dz) / (dx * dx + dz * dz),
+        ),
+      );
+    if (Math.hypot(x - a[0]! - t * dx, z - a[1]! - t * dz) < r) return true;
+    if (
+      a[1]! > z !== b[1]! > z &&
+      x < ((b[0]! - a[0]!) * (z - a[1]!)) / (b[1]! - a[1]!) + a[0]!
+    )
+      inside = !inside;
+  }
+  return inside;
+}
 export function isWalkable(x: number, z: number): boolean {
   const r = PLAYER_RADIUS;
   if (
@@ -706,9 +753,7 @@ export function isWalkable(x: number, z: number): boolean {
     cliffSolid(x, z)
   )
     return false;
-  return !nearbyColliders(x, z).some(
-    (c) => Math.abs(x - c.x) < c.hx + r && Math.abs(z - c.z) < c.hz + r,
-  );
+  return !nearbyColliders(x, z).some((c) => colliderContains(c, x, z, r));
 }
 export function movePlayer(pos: Point, dx: number, dz: number): Point {
   if (![pos.x, pos.z, dx, dz].every(Number.isFinite)) return { ...SPAWN };
@@ -743,3 +788,5 @@ export function locationAt(x: number, z: number): string {
         ? "Jungle footpath"
         : "Jungle clearing";
 }
+
+recordStage("world-tables-and-scatter", worldStageStart);

@@ -1,3 +1,4 @@
+import { recordStage } from "./profile";
 import { TERRAIN_EXTENT } from "./geography";
 import * as T from "three";
 import {
@@ -13,9 +14,12 @@ import sandNormalUrl from "../../assets/camp/sand_02-normal.jpg?url";
 import litterUrl from "../../assets/camp/brown_mud_leaves_01-diff.jpg?url";
 import litterNormalUrl from "../../assets/camp/brown_mud_leaves_01-normal.jpg?url";
 
+let cachedMask: Uint8Array | undefined;
+
 /** One continuous terrain skin. World coordinates, continuous zone weights,
  * scanned microdetail. No coplanar ground decals or intersecting zone planes. */
 export function campGroundMaterial() {
+  const stageStart = performance.now();
   const shadeGrid = new Map<string, typeof SHADE>();
   for (const s of SHADE)
     for (
@@ -34,46 +38,52 @@ export function campGroundMaterial() {
         shadeGrid.set(k, a);
       }
   const size = 512,
-    bytes = new Uint8Array(size * size * 4);
-  for (let j = 0; j < size; j++)
-    for (let i = 0; i < size; i++) {
-      const x =
-          TERRAIN_EXTENT.minX +
-          ((i + 0.5) / size) * (TERRAIN_EXTENT.maxX - TERRAIN_EXTENT.minX),
-        z =
-          TERRAIN_EXTENT.minZ +
-          ((j + 0.5) / size) * (TERRAIN_EXTENT.maxZ - TERRAIN_EXTENT.minZ),
-        d = x - shorelineX(z),
-        n = noise2(x * 0.11, z * 0.11);
-      const jungle = smoothstep(14, 31, d + (n - 0.5) * 8),
-        path = trailWear(x, z);
-      const clearing =
-        1 -
-        smoothstep(
-          6,
-          13,
-          Math.hypot(x - LANDMARKS.campfire.x, z - LANDMARKS.campfire.z),
-        );
-      const shelter =
-        1 -
-        smoothstep(
-          0,
-          4,
-          Math.hypot(Math.max(5 - x, 0, x - 19), Math.max(-50 - z, 0, z + 31)),
-        );
-      let shade = 1;
-      for (const s of shadeGrid.get(
-        Math.floor(x / 12) + "," + Math.floor(z / 12),
-      ) ?? []) {
-        const t = Math.max(0, 1 - Math.hypot(x - s.x, z - s.z) / s.r);
-        shade -= s.s * t * t * 0.24;
+    bytes = cachedMask ?? new Uint8Array(size * size * 4);
+  if (!cachedMask)
+    for (let j = 0; j < size; j++)
+      for (let i = 0; i < size; i++) {
+        const x =
+            TERRAIN_EXTENT.minX +
+            ((i + 0.5) / size) * (TERRAIN_EXTENT.maxX - TERRAIN_EXTENT.minX),
+          z =
+            TERRAIN_EXTENT.minZ +
+            ((j + 0.5) / size) * (TERRAIN_EXTENT.maxZ - TERRAIN_EXTENT.minZ),
+          d = x - shorelineX(z),
+          n = noise2(x * 0.11, z * 0.11);
+        const jungle = smoothstep(14, 31, d + (n - 0.5) * 8),
+          path = trailWear(x, z);
+        const clearing =
+          1 -
+          smoothstep(
+            6,
+            13,
+            Math.hypot(x - LANDMARKS.campfire.x, z - LANDMARKS.campfire.z),
+          );
+        const shelter =
+          1 -
+          smoothstep(
+            0,
+            4,
+            Math.hypot(
+              Math.max(5 - x, 0, x - 19),
+              Math.max(-50 - z, 0, z + 31),
+            ),
+          );
+        let shade = 1 - smoothstep(28, 70, d) * 0.12;
+        for (const s of shadeGrid.get(
+          Math.floor(x / 12) + "," + Math.floor(z / 12),
+        ) ?? []) {
+          const t = Math.max(0, 1 - Math.hypot(x - s.x, z - s.z) / s.r);
+          shade -= s.s * t * t * 0.24;
+        }
+        const a = (j * size + i) * 4;
+        bytes[a] = jungle * 255;
+        bytes[a + 1] = Math.max(path, clearing, shelter) * 255;
+        bytes[a + 2] = Math.max(0.62, shade) * 255;
+        bytes[a + 3] = smoothstep(0.2, 4.4, d) * 255;
       }
-      const a = (j * size + i) * 4;
-      bytes[a] = jungle * 255;
-      bytes[a + 1] = Math.max(path, clearing, shelter) * 255;
-      bytes[a + 2] = Math.max(0.62, shade) * 255;
-      bytes[a + 3] = smoothstep(0.2, 4.4, d) * 255;
-    }
+  cachedMask = bytes;
+  recordStage("terrain-mask", stageStart);
   const mask = new T.DataTexture(bytes, size, size);
   mask.needsUpdate = true;
   mask.magFilter = mask.minFilter = T.LinearFilter;
@@ -159,6 +169,10 @@ export function campGroundMaterial() {
    vec3 earth=mix(forest*.83,mix(forest,beach,.52),cw.g);
    vec3 albedo=mix(beach,earth,cw.r);
    albedo*=mix(vec3(.58,.65,.62),vec3(1.08,1.025,.91),cw.a)*cw.b;
+   float sedimentNoise=sin(vCampGround.x*3.17+sin(vCampGround.z*2.3))*sin(vCampGround.z*2.1)*.14;
+   float caveFloor=smoothstep(96.,100.,vCampGround.z)*(1.-smoothstep(110.5,112.,vCampGround.z))*smoothstep(6.8,7.8,vCampGround.x+sedimentNoise)*(1.-smoothstep(14.2,15.2,vCampGround.x+sedimentNoise));
+   vec3 caveSediment=mix(vec3(.15,.128,.10),beach*.38,.50)*(1.+sedimentNoise*.75);
+   albedo=mix(albedo,caveSediment,caveFloor*.88);
    diffuseColor.rgb*=albedo;
   `,
       )
@@ -167,7 +181,7 @@ export function campGroundMaterial() {
         "mix(texture2D(campNormal,vCampGround.xz*.31).xyz,texture2D(campForestNormal,vCampGround.xz*.2294).xyz,campWeights().r*(1.-campWeights().g*.55))",
       );
   };
-  mat.customProgramCacheKey = () => "camp-ground-v1";
+  mat.customProgramCacheKey = () => "camp-ground-v2-cave-sediment";
   mat.addEventListener("dispose", () => {
     active = false;
     resources.forEach((t) => t.dispose());

@@ -1,0 +1,272 @@
+{
+  "method": "Original offline loft/section-authored wood; CC0 Poly Haven boulder derivative rock. No Blender sculpt or new photogrammetry claim.",
+  "meshes": [
+    {
+      "name": "ancient-fig-wood-far",
+      "site": "ancient-fig",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 1536,
+      "vertices": 1008,
+      "bounds": {
+        "min": [
+          -9.039689064025879,
+          -0.5352120995521545,
+          -7.061647415161133
+        ],
+        "max": [
+          8.054248809814453,
+          29.028396606445312,
+          9.051143646240234
+        ]
+      }
+    },
+    {
+      "name": "root-crown-wood-far",
+      "site": "root-crown",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 1152,
+      "vertices": 756,
+      "bounds": {
+        "min": [
+          -4.69633674621582,
+          -0.6226187348365784,
+          -4.997024059295654
+        ],
+        "max": [
+          6.121844291687012,
+          16.746572494506836,
+          4.141019344329834
+        ]
+      }
+    },
+    {
+      "name": "fallen-giant-wood-far",
+      "site": "fallen-giant",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 1200,
+      "vertices": 749,
+      "bounds": {
+        "min": [
+          -4.495638847351074,
+          -0.7570244073867798,
+          -1.6193757057189941
+        ],
+        "max": [
+          4.495638847351074,
+          3.063091516494751,
+          1.6837791204452515
+        ]
+      }
+    },
+    {
+      "name": "moss-gates-rock-far",
+      "site": "moss-gates",
+      "kind": "rock",
+      "lod": "far",
+      "triangles": 3080,
+      "vertices": 3748,
+      "bounds": {
+        "min": [
+          -6.059000492095947,
+          -0.2193886637687683,
+          -2.8623359203338623
+        ],
+        "max": [
+          6.133938789367676,
+          2.9534740447998047,
+          10.199926376342773
+        ]
+      }
+    },
+    {
+      "name": "hollow-stump-wood-far",
+      "site": "hollow-stump",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 816,
+      "vertices": 497,
+      "bounds": {
+        "min": [
+          -2.5319666862487793,
+          -0.16534601151943207,
+          -2.5717251300811768
+        ],
+        "max": [
+          2.901982069015503,
+          2.69563889503479,
+          2.772928476333618
+        ]
+      }
+    },
+    {
+      "name": "leaning-tamarind-wood-far",
+      "site": "leaning-tamarind",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 1152,
+      "vertices": 756,
+      "bounds": {
+        "min": [
+          -4.691688537597656,
+          -0.18153579533100128,
+          -4.997024059295654
+        ],
+        "max": [
+          9.321844100952148,
+          16.746572494506836,
+          4.141019344329834
+        ]
+      }
+    },
+    {
+      "name": "strangler-stone-wood-far",
+      "site": "strangler-stone",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 1248,
+      "vertices": 819,
+      "bounds": {
+        "min": [
+          -4.941789627075195,
+          -0.29614436626434326,
+          -4.998844146728516
+        ],
+        "max": [
+          5.014382362365723,
+          16.020973205566406,
+          3.9875762462615967
+        ]
+      }
+    },
+    {
+      "name": "strangler-stone-rock-far",
+      "site": "strangler-stone",
+      "kind": "rock",
+      "lod": "far",
+      "triangles": 770,
+      "vertices": 937,
+      "bounds": {
+        "min": [
+          -2.0166468620300293,
+          -0.11918339133262634,
+          -2.305004596710205
+        ],
+        "max": [
+          2.6682305335998535,
+          2.657071590423584,
+          1.9268807172775269
+        ]
+      }
+    },
+    {
+      "name": "fern-bowl-wood-far",
+      "site": "fern-bowl",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 480,
+      "vertices": 315,
+      "bounds": {
+        "min": [
+          -2.0460927486419678,
+          0.0381171852350235,
+          1.957849144935608
+        ],
+        "max": [
+          1.6153817176818848,
+          0.19813944399356842,
+          3.411586284637451
+        ]
+      }
+    },
+    {
+      "name": "root-bridge-wood-far",
+      "site": "root-bridge",
+      "kind": "wood",
+      "lod": "far",
+      "triangles": 1200,
+      "vertices": 749,
+      "bounds": {
+        "min": [
+          -4.495638847351074,
+          -0.7570244073867798,
+          -1.6193757057189941
+        ],
+        "max": [
+          4.495638847351074,
+          3.063091516494751,
+          1.6837791204452515
+        ]
+      }
+    },
+    {
+      "name": "quiet-alcove-rock-far",
+      "site": "quiet-alcove",
+      "kind": "rock",
+      "lod": "far",
+      "triangles": 2310,
+      "vertices": 2811,
+      "bounds": {
+        "min": [
+          -5.810673713684082,
+          -0.23754334449768066,
+          -1.4787116050720215
+        ],
+        "max": [
+          5.753629684448242,
+          2.5445663928985596,
+          6.345592498779297
+        ]
+      }
+    },
+    {
+      "name": "spring-seep-rock-far",
+      "site": "spring-seep",
+      "kind": "rock",
+      "lod": "far",
+      "triangles": 2310,
+      "vertices": 2811,
+      "bounds": {
+        "min": [
+          -1.8249154090881348,
+          -0.11988334357738495,
+          -0.28798532485961914
+        ],
+        "max": [
+          1.8819177150726318,
+          0.7230395078659058,
+          1.5264825820922852
+        ]
+      }
+    },
+    {
+      "name": "southern-cliff-rock-far",
+      "site": "southern-cliff",
+      "kind": "rock",
+      "lod": "far",
+      "triangles": 4750,
+      "vertices": 3408,
+      "bounds": {
+        "min": [
+          -40,
+          -0.235825315117836,
+          92.23526763916016
+        ],
+        "max": [
+          42,
+          76.54767608642578,
+          127
+        ]
+      }
+    }
+  ],
+  "bytes": 1000480,
+  "sha256": "9d5c6beaeff82612df0a016f11a5b9b8fba92824cc553f2a52c977bed0041d43",
+  "sourceSha256": {
+    "tools/camp/refinement/model.mts": "21edf11b452088597894c72283881001d235366e5a4027092f91fb996637f672",
+    "tools/camp/refinement/build.mts": "a15c387ccb67e59d94f1728561942c83a2f2813c150e4da72d6dd0cb9e7d6c31",
+    "artifacts/survivor-camp-prototype/src/game/environment/limestone.ts": "39c621e71e8fc40a2a4d22f65f0d7aa7cf2c598156da26a2d9ba5c57612b59e4"
+  }
+}

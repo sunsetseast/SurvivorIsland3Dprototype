@@ -1,3 +1,4 @@
+import { recordStage } from "./environment/profile";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -9,6 +10,7 @@ const { minX: X0, maxX: X1, minZ: Z0, maxZ: Z1 } = TERRAIN_EXTENT;
 export function Terrain({ low = false }: { low?: boolean }) {
   const mat = useMemo(campGroundMaterial, []);
   const chunks = useMemo(() => {
+    const stageStart = performance.now();
     const out: THREE.BufferGeometry[] = [];
     for (let x = X0; x < X1; x += 48)
       for (let z = Z0; z < Z1; z += 48) {
@@ -35,6 +37,7 @@ export function Terrain({ low = false }: { low?: boolean }) {
         g.computeBoundingSphere();
         out.push(g);
       }
+    recordStage("terrain-meshes", stageStart);
     return out;
   }, [low]);
   useEffect(() => () => chunks.forEach((g) => g.dispose()), [chunks]);

@@ -1,0 +1,13 @@
+✔ offline kit hashes, mobile-only payload, and editable model source remain synchronized (17.276804ms)
+✔ baked graph matches independently reconstructed body-valid edges and costs exactly (5476.688026ms)
+✔ 39 stable future candidates have real mesh anchors, independent reachable approaches and unburied positions (1002.024969ms)
+✔ new rock passages use scan footprints and release original invisible corners (141.236578ms)
+✔ wood lofts have outward normals, open log ends and a genuine stump cavity (3.222391ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7363.065946

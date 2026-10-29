@@ -587,6 +587,18 @@ try {
       ],
       true,
     );
+    if (process.env.REFINEMENT_APPROACHES === "1") {
+      const candidates = await page.evaluate(async () =>
+        (
+          await import("/src/game/environment/hidingSpots.ts")
+        ).HIDING_CANDIDATES.map((c) => ({
+          id: c.id,
+          p: c.interactionPosition,
+        })),
+      );
+      for (const c of candidates)
+        await go("Hiding approach " + c.id, [c.p], true);
+    }
     await page.evaluate(() => {
       const q = window.campQA;
       const n = q.camp.npcs
