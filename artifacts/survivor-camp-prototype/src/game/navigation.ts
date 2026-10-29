@@ -1,3 +1,5 @@
+import { CAMP_NAV_BAKE } from "./environment/navigationBake";
+import { recordStage } from "./environment/profile";
 import {
   BOUNDS,
   groundHeight,
@@ -69,16 +71,51 @@ const staticGraphs = new Map<
   { nodes: Node[]; grid: Map<string, number> }
 >();
 type Node = Point & { id: number; edges: number[]; trail: number };
-/** Rebuilt from world geometry once. A* is not tied to a fixed route itinerary. */
+/** Default graph is baked from the body solver; custom grids build once. A* remains dynamic. */
 export class CampNavigation {
   readonly nodes: Node[] = [];
   private grid = new Map<string, number>();
   private cache = new Map<string, Point[]>();
-  constructor(readonly step = 1) {
-    const saved = staticGraphs.get(step);
+  constructor(
+    readonly step = 1,
+    useBaked = true,
+  ) {
+    const stageStart = performance.now();
+    const saved = useBaked ? staticGraphs.get(step) : undefined;
     if (saved) {
       this.nodes = saved.nodes;
       this.grid = saved.grid;
+      return;
+    }
+    if (useBaked && step === CAMP_NAV_BAKE.step && CAMP_NAV_BAKE.count) {
+      const b = CAMP_NAV_BAKE,
+        bytes = Uint8Array.from(atob(b.data), (c) => c.charCodeAt(0)),
+        view = new DataView(bytes.buffer);
+      for (let i = 0; i < b.count; i++) {
+        const k = i * 11,
+          x = b.x0 + bytes[k]!,
+          z = b.z0 + bytes[k + 1]!,
+          trail = view.getFloat64(k + 3, true);
+        this.nodes.push({ id: i, x, z, trail, edges: [] });
+        this.grid.set(`${x},${z}`, i);
+      }
+      for (const a of this.nodes) {
+        const mask = bytes[a.id * 11 + 2]!;
+        [
+          [1, 0],
+          [0, 1],
+          [1, 1],
+          [1, -1],
+        ].forEach(([dx, dz], i) => {
+          if (mask & (1 << i)) {
+            const id = this.grid.get(`${a.x + dx!},${a.z + dz!}`)!;
+            a.edges.push(id);
+            this.nodes[id]!.edges.push(a.id);
+          }
+        });
+      }
+      staticGraphs.set(step, { nodes: this.nodes, grid: this.grid });
+      recordStage("navigation-hydrate", stageStart);
       return;
     }
     for (let x = Math.ceil(BOUNDS.minX + 1); x < BOUNDS.maxX; x += step) {
@@ -102,7 +139,9 @@ export class CampNavigation {
           this.nodes[id]!.edges.push(a.id);
         }
       }
-    staticGraphs.set(step, { nodes: this.nodes, grid: this.grid });
+    if (useBaked)
+      staticGraphs.set(step, { nodes: this.nodes, grid: this.grid });
+    recordStage("navigation-construct", stageStart);
   }
   private nearest(p: Point, avoid: Avoid[]) {
     const candidates: Node[] = [];

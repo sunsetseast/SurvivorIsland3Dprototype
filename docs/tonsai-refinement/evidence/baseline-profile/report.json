@@ -1,0 +1,285 @@
+{
+  "label": "before",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "156.0.8078.4",
+  "errors": [],
+  "samples": [
+    {
+      "quality": "low",
+      "documentToMenuMs": 7819,
+      "readyMs": 4111,
+      "calls": 220,
+      "triangles": 521401,
+      "geometries": 107,
+      "textures": 28,
+      "programs": 35,
+      "geometryBytes": 13798376,
+      "textureBytesEstimate": 47164096.000000015,
+      "materials": 50,
+      "stages": {
+        "navigationMs": 7182.800000000279
+      },
+      "longTasks": [
+        {
+          "start": 261,
+          "duration": 7428
+        },
+        {
+          "start": 8214.100000000093,
+          "duration": 1011
+        },
+        {
+          "start": 9225.80000000028,
+          "duration": 891
+        },
+        {
+          "start": 10168.400000000373,
+          "duration": 78
+        },
+        {
+          "start": 10279.600000000093,
+          "duration": 71
+        },
+        {
+          "start": 10351,
+          "duration": 74
+        },
+        {
+          "start": 10519.400000000373,
+          "duration": 305
+        },
+        {
+          "start": 10921.600000000093,
+          "duration": 81
+        },
+        {
+          "start": 11003.400000000373,
+          "duration": 292
+        },
+        {
+          "start": 11332.100000000093,
+          "duration": 567
+        },
+        {
+          "start": 11913.400000000373,
+          "duration": 308
+        },
+        {
+          "start": 12254.100000000093,
+          "duration": 210
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 30.299999999813735,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 32.799999999813735,
+          "bytes": 423030
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 25.399999999906868,
+          "bytes": 120547
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 24,
+          "bytes": 59004
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 60.8000000002794,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 62.299999999813735,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 54.39999999990687,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 50.5,
+          "bytes": 481480
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "frameIntervalsMs": [
+        16.562000000001717,
+        16.700000000000728,
+        16.599999999998545,
+        16.700000000000728,
+        16.700000000000728,
+        16.599999999998545,
+        16.700000000000728,
+        16.700000000000728,
+        16.69999999999709,
+        16.600000000002183,
+        16.700000000000728,
+        16.69999999999709,
+        16.600000000002183,
+        16.700000000000728,
+        16.69999999999709,
+        16.700000000000728,
+        16.600000000002183,
+        16.69999999999709,
+        33.30000000000291,
+        16.599999999998545,
+        16.700000000000728,
+        16.700000000000728,
+        16.599999999998545,
+        16.700000000000728
+      ]
+    },
+    {
+      "quality": "high",
+      "documentToMenuMs": 41084,
+      "readyMs": 2033,
+      "calls": 224,
+      "triangles": 755207,
+      "geometries": 107,
+      "textures": 28,
+      "programs": 36,
+      "geometryBytes": 15833360,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {
+        "navigationMs": 6076.5
+      },
+      "longTasks": [
+        {
+          "start": 34739.299999999814,
+          "duration": 6242
+        },
+        {
+          "start": 41443.39999999991,
+          "duration": 727
+        },
+        {
+          "start": 42172.799999999814,
+          "duration": 429
+        },
+        {
+          "start": 42636,
+          "duration": 103
+        },
+        {
+          "start": 42860.799999999814,
+          "duration": 126
+        },
+        {
+          "start": 43041.700000000186,
+          "duration": 61
+        },
+        {
+          "start": 43103.5,
+          "duration": 855
+        },
+        {
+          "start": 43999.299999999814,
+          "duration": 179
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 5.600000000093132,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 10.299999999813735,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 8.699999999720603,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 9.099999999627471,
+          "bytes": 120547
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 10.899999999906868,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 25.799999999813735,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 24.5,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 22,
+          "bytes": 481480
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "frameIntervalsMs": [
+        16.599999999998545,
+        16.69999999999709,
+        16.700000000004366,
+        16.599999999998545,
+        16.69999999999709,
+        16.700000000004366,
+        16.599999999998545,
+        16.69999999999709,
+        16.700000000004366,
+        16.599999999998545,
+        16.69999999999709,
+        16.700000000004366,
+        16.599999999998545,
+        16.69999999999709,
+        16.60000000000582,
+        133.29999999999563,
+        16.700000000004366,
+        383.3999999999942,
+        250,
+        266.6000000000058,
+        30198.800000000003,
+        16.59999999999127,
+        16.69999999999709,
+        33.40000000000873
+      ]
+    }
+  ],
+  "poses": [],
+  "checks": [],
+  "result": "PASS"
+}

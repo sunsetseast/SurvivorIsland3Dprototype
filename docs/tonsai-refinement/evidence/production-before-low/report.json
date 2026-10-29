@@ -1,0 +1,119 @@
+{
+  "label": "before",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "156.0.8078.4",
+  "errors": [],
+  "samples": [
+    {
+      "quality": "low",
+      "documentToMenuMs": 5993,
+      "readyMs": 2828,
+      "calls": 220,
+      "triangles": 521401,
+      "geometries": 107,
+      "textures": 28,
+      "programs": 35,
+      "geometryBytes": 13798376,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {
+        "navigationMs": 5588.5
+      },
+      "longTasks": [
+        {
+          "start": 114,
+          "duration": 5752
+        },
+        {
+          "start": 6165.100000000093,
+          "duration": 55
+        },
+        {
+          "start": 6387.799999999814,
+          "duration": 1125
+        },
+        {
+          "start": 7512.899999999907,
+          "duration": 700
+        },
+        {
+          "start": 8265.19999999972,
+          "duration": 87
+        },
+        {
+          "start": 8455.899999999907,
+          "duration": 232
+        },
+        {
+          "start": 8757,
+          "duration": 52
+        },
+        {
+          "start": 8809,
+          "duration": 923
+        },
+        {
+          "start": 9772.5,
+          "duration": 118
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 21.40000000037253,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 21.799999999813735,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 14.900000000372529,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 17.800000000279397,
+          "bytes": 120547
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 42.5,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 47.89999999990687,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 40.10000000009313,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 34.89999999990687,
+          "bytes": 481480
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "frameIntervalsMs": []
+    }
+  ],
+  "poses": [],
+  "checks": [],
+  "result": "PASS"
+}

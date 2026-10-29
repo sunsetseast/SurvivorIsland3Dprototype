@@ -1,0 +1,1407 @@
+{
+  "label": "after",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "156.0.8078.4",
+  "errors": [],
+  "samples": [
+    {
+      "quality": "low",
+      "documentToMenuMs": 463,
+      "readyMs": 3311,
+      "calls": 219,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 45.3000000002794,
+          "totalMs": 45.3000000002794,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 39.299999999813735,
+          "totalMs": 39.299999999813735,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 71.79999999981374,
+          "totalMs": 71.79999999981374,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 297,
+          "totalMs": 297,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 50.6999999997206,
+          "totalMs": 50.6999999997206,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 1264.2000000001863,
+          "totalMs": 1264.2000000001863,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 1317.7000000001863,
+          "totalMs": 1317.7000000001863,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1595.3999999999069,
+          "totalMs": 1595.3999999999069,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1600.2000000001863,
+          "totalMs": 1600.2000000001863,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1604.1999999997206,
+          "totalMs": 1604.1999999997206,
+          "runs": 1
+        }
+      },
+      "triangles": 507015,
+      "geometries": 105,
+      "textures": 28,
+      "programs": 36,
+      "geometryBytes": 11368104,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 135.29999999981374,
+          "duration": 239
+        },
+        {
+          "start": 826.3999999999069,
+          "duration": 613
+        },
+        {
+          "start": 1440.2999999998137,
+          "duration": 649
+        },
+        {
+          "start": 3160.899999999907,
+          "duration": 89
+        },
+        {
+          "start": 3436.2000000001863,
+          "duration": 202
+        },
+        {
+          "start": 3705.7000000001863,
+          "duration": 55
+        },
+        {
+          "start": 3760.7000000001863,
+          "duration": 1603
+        },
+        {
+          "start": 5387.899999999907,
+          "duration": 127
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 17.09999999962747,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 17.299999999813735,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 11.399999999906868,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 18.199999999720603,
+          "bytes": 120547
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 22.399999999906868,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 31.899999999906868,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 29.100000000093132,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 19.799999999813735,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-low-DhkU7APY.glb",
+          "duration": 29.199999999720603,
+          "bytes": 1000480
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "frameIntervalsMs": []
+    },
+    {
+      "quality": "high",
+      "documentToMenuMs": 469,
+      "readyMs": 2425,
+      "calls": 225,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 51.5,
+          "totalMs": 51.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 40.6999999997206,
+          "totalMs": 40.6999999997206,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 50.5,
+          "totalMs": 50.5,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 213.5,
+          "totalMs": 213.5,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 62.10000000009313,
+          "totalMs": 62.10000000009313,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 879.8999999999069,
+          "totalMs": 879.8999999999069,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 934.8999999999069,
+          "totalMs": 934.8999999999069,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1143.8999999999069,
+          "totalMs": 1143.8999999999069,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1149.3000000002794,
+          "totalMs": 1149.3000000002794,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1154,
+          "totalMs": 1154,
+          "runs": 1
+        }
+      },
+      "triangles": 746503,
+      "geometries": 107,
+      "textures": 28,
+      "programs": 37,
+      "geometryBytes": 15222660,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 260.29999999981374,
+          "duration": 160
+        },
+        {
+          "start": 778.1000000000931,
+          "duration": 470
+        },
+        {
+          "start": 1250.5,
+          "duration": 427
+        },
+        {
+          "start": 2419.600000000093,
+          "duration": 67
+        },
+        {
+          "start": 2631.2999999998137,
+          "duration": 86
+        },
+        {
+          "start": 2890.5,
+          "duration": 816
+        },
+        {
+          "start": 3761,
+          "duration": 151
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 3.1000000000931323,
+          "bytes": 0
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 4.099999999627471,
+          "bytes": 0
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 9.700000000186265,
+          "bytes": 0
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 10.399999999906868,
+          "bytes": 0
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 6,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 17.300000000279397,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 9.199999999720603,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 7.699999999720603,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-4XjNdUMb.glb",
+          "duration": 852.1000000000931,
+          "bytes": 3959084
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.20000000018626451,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "frameIntervalsMs": []
+    }
+  ],
+  "poses": [
+    {
+      "quality": "low",
+      "name": "moss-replacement",
+      "x": 16,
+      "z": 65,
+      "yaw": 3.141592653589793,
+      "pitch": 0.25,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 4.899999999906868,
+        "x": 16,
+        "y": 5.37040898988905,
+        "z": 57.830048079341225,
+        "yaw": 3.141592653589793,
+        "pitch": 0.25
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cliff-base",
+      "x": -17,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.1000000000931323,
+        "x": -17,
+        "y": 3.0230340989845486,
+        "z": 83.66244198651057,
+        "yaw": 3.141592653589793,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cave-entrance",
+      "x": 11,
+      "z": 94,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2.3999999999068677,
+        "x": 11.000000000000002,
+        "y": 4.226393231848579,
+        "z": 86.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cave-interior",
+      "x": 11,
+      "z": 104,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2,
+        "x": 11.000000000000002,
+        "y": 4.305633204281073,
+        "z": 96.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "low",
+      "name": "ancient-tree",
+      "x": 38,
+      "z": 5,
+      "yaw": -1.5,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.7999999998137355,
+        "x": 30.655413667789126,
+        "y": 4.0863725981898265,
+        "z": 5.520840196216123,
+        "yaw": -1.5,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "low",
+      "name": "fallen-giant",
+      "x": 63,
+      "z": 59,
+      "yaw": 0,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": 63,
+        "y": 9.146123852114163,
+        "z": 66.06949001952948,
+        "yaw": 0,
+        "pitch": 0.3
+      }
+    },
+    {
+      "quality": "low",
+      "name": "intertwined-roots",
+      "x": 72,
+      "z": 25,
+      "yaw": -1.5,
+      "pitch": 0.15,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.7000000001862645,
+        "x": 64.70142297076187,
+        "y": 8.026491401497076,
+        "z": 25.51757745365934,
+        "yaw": -1.5,
+        "pitch": 0.15
+      }
+    },
+    {
+      "quality": "low",
+      "name": "hollow-stump",
+      "x": 28,
+      "z": -8,
+      "yaw": -1.5,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.8000000002793968,
+        "x": 20.948219147671942,
+        "y": 4.988043204752267,
+        "z": -7.49992405880073,
+        "yaw": -1.5,
+        "pitch": 0.3
+      }
+    },
+    {
+      "quality": "low",
+      "name": "strangler-stone",
+      "x": 95,
+      "z": 65,
+      "yaw": 0,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.5,
+        "x": 95,
+        "y": 11.335915182062969,
+        "z": 72.33755801348943,
+        "yaw": 0,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "low",
+      "name": "jungle-trail",
+      "x": -8,
+      "z": 57,
+      "yaw": 3.141592653589793,
+      "pitch": 0.25,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -7.999999999999999,
+        "y": 4.925922124072276,
+        "z": 49.830048079341225,
+        "yaw": 3.141592653589793,
+        "pitch": 0.25
+      }
+    },
+    {
+      "quality": "low",
+      "name": "freshwater",
+      "x": 104,
+      "z": 36,
+      "yaw": -1.4,
+      "pitch": 0.33,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": 97.10114892729102,
+        "y": 13.406957875838527,
+        "z": 37.18989124502205,
+        "yaw": -1.4,
+        "pitch": 0.33
+      }
+    },
+    {
+      "quality": "low",
+      "name": "rock-alcove",
+      "x": 30,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.25,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2.599999999627471,
+        "x": 30,
+        "y": 6.442808510070668,
+        "z": 83.83004807934122,
+        "yaw": 3.141592653589793,
+        "pitch": 0.25
+      }
+    },
+    {
+      "quality": "low",
+      "name": "coastal-camp",
+      "x": -6,
+      "z": -24,
+      "yaw": -0.48,
+      "pitch": 0.34,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      }
+    },
+    {
+      "quality": "low",
+      "name": "dense-forest",
+      "x": 53,
+      "z": 36,
+      "yaw": 3.141592653589793,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1,
+        "x": 53,
+        "y": 7.180606268964805,
+        "z": 28.930509980470514,
+        "yaw": 3.141592653589793,
+        "pitch": 0.3
+      }
+    },
+    {
+      "quality": "high",
+      "name": "moss-replacement",
+      "x": 16,
+      "z": 65,
+      "yaw": 3.141592653589793,
+      "pitch": 0.25,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 5.5,
+        "x": 16,
+        "y": 5.37040898988905,
+        "z": 57.830048079341225,
+        "yaw": 3.141592653589793,
+        "pitch": 0.25
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cliff-base",
+      "x": -17,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1,
+        "x": -17,
+        "y": 3.0230340989845486,
+        "z": 83.66244198651057,
+        "yaw": 3.141592653589793,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cave-entrance",
+      "x": 11,
+      "z": 94,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 6.400000000372529,
+        "x": 11.000000000000002,
+        "y": 4.226393231848579,
+        "z": 86.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cave-interior",
+      "x": 11,
+      "z": 104,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 10.700000000186265,
+        "x": 11.000000000000002,
+        "y": 4.305633204281073,
+        "z": 96.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      }
+    },
+    {
+      "quality": "high",
+      "name": "ancient-tree",
+      "x": 38,
+      "z": 5,
+      "yaw": -1.5,
+      "pitch": 0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 3.1000000000931323,
+        "x": 30.655413667789126,
+        "y": 4.0863725981898265,
+        "z": 5.520840196216123,
+        "yaw": -1.5,
+        "pitch": 0.1
+      }
+    },
+    {
+      "quality": "high",
+      "name": "fallen-giant",
+      "x": 63,
+      "z": 59,
+      "yaw": 0,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": 63,
+        "y": 9.146123852114163,
+        "z": 66.06949001952948,
+        "yaw": 0,
+        "pitch": 0.3
+      }
+    },
+    {
+      "quality": "high",
+      "name": "intertwined-roots",
+      "x": 72,
+      "z": 25,
+      "yaw": -1.5,
+      "pitch": 0.15,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 3.5,
+        "x": 64.70142297076187,
+        "y": 8.026491401497076,
+        "z": 25.51757745365934,
+        "yaw": -1.5,
+        "pitch": 0.15
+      }
+    },
+    {
+      "quality": "high",
+      "name": "hollow-stump",
+      "x": 28,
+      "z": -8,
+      "yaw": -1.5,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.6999999997206032,
+        "x": 20.948219147671942,
+        "y": 4.988043204752267,
+        "z": -7.49992405880073,
+        "yaw": -1.5,
+        "pitch": 0.3
+      }
+    },
+    {
+      "quality": "high",
+      "name": "strangler-stone",
+      "x": 95,
+      "z": 65,
+      "yaw": 0,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.8000000002793968,
+        "x": 95,
+        "y": 11.335915182062969,
+        "z": 72.33755801348943,
+        "yaw": 0,
+        "pitch": 0.13
+      }
+    },
+    {
+      "quality": "high",
+      "name": "jungle-trail",
+      "x": -8,
+      "z": 57,
+      "yaw": 3.141592653589793,
+      "pitch": 0.25,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -7.999999999999999,
+        "y": 4.925922124072276,
+        "z": 49.830048079341225,
+        "yaw": 3.141592653589793,
+        "pitch": 0.25
+      }
+    },
+    {
+      "quality": "high",
+      "name": "freshwater",
+      "x": 104,
+      "z": 36,
+      "yaw": -1.4,
+      "pitch": 0.33,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": 97.10114892729102,
+        "y": 13.406957875838527,
+        "z": 37.18989124502205,
+        "yaw": -1.4,
+        "pitch": 0.33
+      }
+    },
+    {
+      "quality": "high",
+      "name": "rock-alcove",
+      "x": 30,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.25,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 6,
+        "x": 30,
+        "y": 6.442808510070668,
+        "z": 83.83004807934122,
+        "yaw": 3.141592653589793,
+        "pitch": 0.25
+      }
+    },
+    {
+      "quality": "high",
+      "name": "coastal-camp",
+      "x": -6,
+      "z": -24,
+      "yaw": -0.48,
+      "pitch": 0.34,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      }
+    },
+    {
+      "quality": "high",
+      "name": "dense-forest",
+      "x": 53,
+      "z": 36,
+      "yaw": 3.141592653589793,
+      "pitch": 0.3,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.099999999627471,
+        "x": 53,
+        "y": 7.180606268964805,
+        "z": 28.930509980470514,
+        "yaw": 3.141592653589793,
+        "pitch": 0.3
+      }
+    }
+  ],
+  "checks": [
+    {
+      "cameraOrbit": "cave",
+      "samples": [
+        {
+          "camera": [
+            11,
+            4.264979483200026,
+            110.86924567518624
+          ],
+          "distance": 6.891286031868808,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            13.83684623213683,
+            6.247979853640487,
+            108.91356298137133
+          ],
+          "distance": 6.213735701453326,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            14.573601607192124,
+            4.0450856984660595,
+            106.06321985034239
+          ],
+          "distance": 4.139679611237871,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            14.088218365502861,
+            5.0933780078728645,
+            104.00000000000293
+          ],
+          "distance": 3.382165996278429,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            14.553355318655182,
+            4.04321142609214,
+            101.9484693504385
+          ],
+          "distance": 4.116226199730186,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            13.749805888961582,
+            6.170239858410756,
+            99.23719684381173
+          ],
+          "distance": 6.023084047678737,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            11.000003769871372,
+            4.305635760580508,
+            96.62367095640259
+          ],
+          "distance": 7.399996632705036,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            8.320637456274994,
+            6.107324024596734,
+            99.35920733684911
+          ],
+          "distance": 5.868788138972057,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            7.469496670793381,
+            4.041095934857264,
+            101.96166295219273
+          ],
+          "distance": 4.089754330658073,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            7.9372694468930245,
+            5.081995850592327,
+            103.99999999999758
+          ],
+          "distance": 3.354252163057484,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            7.3916236332030465,
+            4.048304923620039,
+            106.083297066439
+          ],
+          "distance": 4.179962882236583,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            8.398655806826573,
+            6.037642163326549,
+            108.50566015795215
+          ],
+          "distance": 5.697898646100209,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        }
+      ]
+    },
+    {
+      "cameraOrbit": "cliff",
+      "samples": [
+        {
+          "camera": [
+            -17,
+            2.5334257923023316,
+            96.85852409560513
+          ],
+          "distance": 5.87732149590296,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -14.29014541452183,
+            4.4840347996281125,
+            95.69360621525016
+          ],
+          "distance": 5.9355767291402755,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -10.611913601278536,
+            2.6551126863515107,
+            94.68816769173668
+          ],
+          "distance": 7.399996534232656,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -10.243142347259912,
+            5.081165470215957,
+            91.00000505632701
+          ],
+          "distance": 7.399998182150068,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -10.61190805300291,
+            2.655113504993229,
+            87.31183874301236
+          ],
+          "distance": 7.399998182150561,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -13.621566794719802,
+            5.081165470217082,
+            85.1483921511353
+          ],
+          "distance": 7.399998182151673,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -16.999995368306298,
+            2.655113504993229,
+            83.6236694636959
+          ],
+          "distance": 7.3999981821505605,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -20.378424447461146,
+            5.081165470217081,
+            85.14838709480611
+          ],
+          "distance": 7.3999981821516725,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -23.388084103736333,
+            2.6551120931228285,
+            87.31183418247255
+          ],
+          "distance": 7.39999357155837,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -23.756857652736944,
+            5.081165470215145,
+            90.99999494367555
+          ],
+          "distance": 7.3999981821468666,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -23.388091946997086,
+            2.655113504993229,
+            94.68816125698766
+          ],
+          "distance": 7.399998182150565,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            -20.378433205280196,
+            5.081165470217081,
+            96.8516078488647
+          ],
+          "distance": 7.3999981821516725,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        }
+      ]
+    },
+    {
+      "cameraOrbit": "ancient-tree",
+      "samples": [
+        {
+          "camera": [
+            38,
+            3.938974050375176,
+            12.376332626639385
+          ],
+          "distance": 7.400000000000002,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            41.378424447467495,
+            6.365029341617013,
+            10.851612905196756
+          ],
+          "distance": 7.399998182154979,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            40.8603440622335,
+            3.6123977129155334,
+            6.651420414316385
+          ],
+          "distance": 3.3134381770552865,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            40.82750793633303,
+            4.6102927337712885,
+            5.000000000000246
+          ],
+          "distance": 3.096640219260421,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            41.622908839680825,
+            3.682991093242011,
+            2.9083126063281948
+          ],
+          "distance": 4.196797378207316,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            41.378429414327286,
+            6.365028990674851,
+            -0.8516056601643562
+          ],
+          "distance": 7.399994577576565,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            38.000004631688505,
+            3.93897737639724,
+            -2.376330536301097
+          ],
+          "distance": 7.399998182147534,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            34.62157555253886,
+            6.3650293416215735,
+            -0.8516129051938908
+          ],
+          "distance": 7.399998182151673,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            31.61191268469661,
+            3.938977376397721,
+            1.3118307206835431
+          ],
+          "distance": 7.399998182150564,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            31.243142347258658,
+            6.3650293416215735,
+            4.999994943670814
+          ],
+          "distance": 7.3999981821516725,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            31.611908053002914,
+            3.938977376397721,
+            8.688161256987643
+          ],
+          "distance": 7.399998182150559,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            34.6215667947198,
+            6.365029341621572,
+            10.851607848864703
+          ],
+          "distance": 7.399998182151675,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        }
+      ]
+    },
+    {
+      "cameraOrbit": "fissure",
+      "samples": [
+        {
+          "camera": [
+            16,
+            4.026087542702255,
+            71.06787012687492
+          ],
+          "distance": 6.087339225553829,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            19.378424447467502,
+            6.557043574204473,
+            70.8516111113482
+          ],
+          "distance": 7.399996705011768,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            18.684056673129618,
+            3.788092527935147,
+            66.54964084275343
+          ],
+          "distance": 3.1092259031138685,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            22.756851998337297,
+            6.557043135512215,
+            65.00000188806995
+          ],
+          "distance": 7.399992781650711,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            22.38809194698934,
+            4.130991752799204,
+            61.31183874300802
+          ],
+          "distance": 7.399998182145972,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            19.378433205280192,
+            6.557043718023854,
+            59.1483921511353
+          ],
+          "distance": 7.399998182151671,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            16.000004631693702,
+            4.130991752800003,
+            57.623669463695904
+          ],
+          "distance": 7.3999981821505605,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            12.621575552538854,
+            6.557043718023856,
+            59.148387094806104
+          ],
+          "distance": 7.399998182151679,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            13.086192568305515,
+            3.809361386897706,
+            63.317712494860295
+          ],
+          "distance": 3.3753704361498085,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            9.243162488162618,
+            6.557037605328575,
+            64.99999964352672
+          ],
+          "distance": 7.399977299197364,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            13.62022050945521,
+            3.759924488337484,
+            66.37396632947795
+          ],
+          "distance": 2.756749553678742,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        },
+        {
+          "camera": [
+            12.621572915700915,
+            6.557043057787212,
+            70.85160417993171
+          ],
+          "distance": 7.399992217192243,
+          "firstSurface": null,
+          "mesh": null,
+          "clear": true
+        }
+      ]
+    }
+  ],
+  "result": "PASS"
+}

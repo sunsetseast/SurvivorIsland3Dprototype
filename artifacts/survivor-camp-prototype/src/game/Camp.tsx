@@ -259,23 +259,8 @@ export function Well() {
   const { x, z } = LANDMARKS.well,
     y = baseHeight(x, z);
   const geo = useMemo(() => {
-    const parts: Geo[] = [],
-      r = rng(23);
-    for (let i = 0; i < 15; i++) {
-      const a = (i / 15) * Math.PI * 2;
-      parts.push(
-        stone(
-          Math.cos(a) * 1.65,
-          0.15,
-          Math.sin(a) * 1.35,
-          0.23 + r() * 0.22,
-          r,
-        ),
-      );
-    }
-    // Rock-fed seep and one improvised bamboo catch, without a constructed well.
-    parts.push(stone(1.2, 0.5, 0.7, 0.8, r));
-    parts.push(stone(0.7, 0.3, 1.2, 0.5, r));
+    const parts: Geo[] = [];
+    // The shared scanned kit supplies the rim and seep; keep the bamboo catch.
     parts.push(
       limb(V(1.3, 0.68, 0.6), V(-0.4, 0.28, 0.2), 0.075, 0.065, "#927b41"),
     );

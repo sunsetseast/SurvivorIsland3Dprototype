@@ -8,11 +8,13 @@ import {
   SHRUBS,
   ROCKS,
   baseHeight,
+  pathDistance,
+  isWalkable,
   groundHeight,
   type Veg,
 } from "../world";
 import { NaturalLandmarks } from "./Landmarks";
-import { NATURAL_LANDMARKS, cliffTopHeight } from "./geography";
+import { NATURAL_LANDMARKS, SPRING, cliffTopHeight } from "./geography";
 import { makeShrub } from "../flora";
 import { Flora } from "../Flora";
 import { useEnvironmentKit, meshPart } from "./assets";
@@ -133,7 +135,7 @@ const veg = (ps: Veg[], factor = 1): Placement[] =>
   ps.map((p) => ({ ...p, scale: p.scale * factor }));
 
 export function Environment({ low }: { low: boolean }) {
-  const kit = useEnvironmentKit();
+  const kit = useEnvironmentKit(low);
   const palmMaterial = useMemo(
     () =>
       new T.MeshStandardMaterial({
@@ -167,6 +169,27 @@ export function Environment({ low }: { low: boolean }) {
         1.25,
       ),
       stones: veg(ROCKS, 0.85),
+      springRim: Array.from({ length: 11 }, (_, i) => {
+        const a = (i * 6.283) / 11;
+        return {
+          x: SPRING.x + Math.cos(a) * 1.65,
+          z: SPRING.z + Math.sin(a) * 1.35,
+          scale: 0.25 + (i % 3) * 0.055,
+          rotation: i * 2.399,
+        };
+      }),
+      // Ankle-height scattered fragments use the scan without blocking a trail.
+      litterStones: SHRUBS.filter(
+        (p, i) =>
+          i % 5 === 0 &&
+          p.variant !== 99 &&
+          pathDistance(p.x, p.z) > 2.7 &&
+          isWalkable(p.x, p.z),
+      ).map((p, i) => ({
+        ...p,
+        scale: 0.12 + (i % 4) * 0.035,
+        rotation: i * 2.399,
+      })),
     }),
     [],
   );
@@ -264,6 +287,7 @@ export function Environment({ low }: { low: boolean }) {
     >
       <NaturalLandmarks
         low={low}
+        landmarks={kit.landmarks}
         rockMaterial={rock?.material}
         barkMaterial={meshPart(kit.tree, "coastal-trunk-near")?.material}
       />
@@ -284,6 +308,26 @@ export function Environment({ low }: { low: boolean }) {
               dispose={null}
             />
           ))}
+          {rubble && (
+            <Batch
+              mesh={rubble}
+              items={plants.springRim}
+              low={low}
+              near={low ? 38 : 50}
+              burial={0.05}
+              tint="#b6b5a4"
+            />
+          )}
+          {rubble && (
+            <Batch
+              mesh={rubble}
+              items={plants.litterStones}
+              low={low}
+              near={low ? 22 : 35}
+              burial={0.06}
+              tint="#b8af93"
+            />
+          )}
           {rubble && (
             <Batch
               mesh={rubble}
@@ -340,14 +384,30 @@ export function Environment({ low }: { low: boolean }) {
                               "strangler",
                               "leaning",
                             ].includes(l.kind),
-                          ).map((l) => ({
-                            ...l,
-                            y:
-                              baseHeight(l.x, l.z) +
-                              (l.kind === "buttress" ? 19 : 9),
-                            scale: l.kind === "buttress" ? 4 : 2.5,
-                            rotation: 1.2,
-                          })),
+                          ).flatMap((l, i) => {
+                            const giant = l.kind === "buttress",
+                              lean = l.kind === "leaning" ? 4.3 : 0;
+                            return (
+                              giant
+                                ? [
+                                    [0, 0, 0, 3.1],
+                                    [-5, 1, -3, 1.6],
+                                    [4, 2, 4, 1.8],
+                                    [1, 3, -5, 1.5],
+                                  ]
+                                : [
+                                    [lean, 0, 0, 2.1],
+                                    [lean - 3, 1, 2, 1.2],
+                                    [lean + 3, 2, -1, 1.1],
+                                  ]
+                            ).map(([dx, dy, dz, scale], j) => ({
+                              x: l.x + dx!,
+                              z: l.z + dz!,
+                              y: baseHeight(l.x, l.z) + (giant ? 21 : 10) + dy!,
+                              scale: scale!,
+                              rotation: i * 1.73 + j * 2.399,
+                            }));
+                          }),
                         ]
                       : ledges
                   }

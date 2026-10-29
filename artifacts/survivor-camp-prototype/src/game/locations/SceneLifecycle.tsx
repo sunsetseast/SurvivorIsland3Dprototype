@@ -1,3 +1,4 @@
+import { environmentStages } from "../environment/profile";
 import { Component, useEffect, useRef, type ReactNode } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as T from "three";
@@ -98,6 +99,7 @@ export function SceneLifecycle({
       lifecycle,
       stats: () => ({
         calls: gl.info.render.calls,
+        environmentStages,
         triangles: gl.info.render.triangles,
         ...gl.info.memory,
         programs: gl.info.programs?.length,

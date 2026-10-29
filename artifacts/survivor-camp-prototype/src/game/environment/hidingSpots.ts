@@ -1,3 +1,4 @@
+import migratedSurfaces from "./candidate-surfaces.json";
 import { baseHeight } from "../world";
 import { NATURAL_LANDMARKS, SPRING } from "./geography";
 export type HidingCategory =
@@ -30,6 +31,7 @@ export type HidingCandidate = {
   };
   eligibleFor: readonly ["idol", "clue"];
   enabled: boolean;
+  surfaceAnchor?: { x: number; y: number; z: number; mesh: string };
 };
 // Hand-authored offsets: hide dx/dz/height, player dx/dz. No spawned items,
 // search markers, ownership state or discovery events are created by this data.
@@ -159,42 +161,75 @@ const sites: Record<
     ],
   },
 };
-export const HIDING_CANDIDATES: readonly HidingCandidate[] = Object.entries(
-  sites,
-).flatMap(([landmarkId, s]) => {
-  const l =
-    landmarkId === "spring-seep"
-      ? SPRING
-      : NATURAL_LANDMARKS.find((l) => l.id === landmarkId)!;
-  return s.offsets.map(([dx, dz, h, ix, iz], i) => {
-    const x = l.x + dx!,
-      z = l.z + dz!,
-      px = l.x + ix!,
-      pz = l.z + iz!,
-      d = Math.hypot(x - px, z - pz) || 1;
-    return {
-      id: `tonsai-${landmarkId}-${i + 1}`,
-      landmarkId,
-      category: s.category,
-      position: { x, y: baseHeight(x, z) + h!, z },
-      interactionPosition: { x: px, y: baseHeight(px, pz), z: pz },
-      collision: {
-        inspectRadius: 2.8,
-        clearanceHeight: 2.1,
-        surface: s.surface,
-        requiresClimbing: false as const,
-      },
-      visibility: {
-        exposure: (s.category.includes("hollow") || s.category === "cave-recess"
-          ? "recessed"
-          : "partly-screened") as "recessed" | "partly-screened",
-        approachDirection: { x: (x - px) / d, z: (z - pz) / d },
-      },
-      eligibleFor: ["idol", "clue"] as const,
-      enabled: true,
-    };
+export function createHidingCandidates(
+  useMigrated = true,
+): readonly HidingCandidate[] {
+  return Object.entries(sites).flatMap(([landmarkId, s]) => {
+    const l =
+      landmarkId === "spring-seep"
+        ? SPRING
+        : NATURAL_LANDMARKS.find((l) => l.id === landmarkId)!;
+    return s.offsets.map(([dx, dz, h, ix, iz], i) => {
+      const x = l.x + dx!,
+        z = l.z + dz!,
+        px = l.x + ix!,
+        pz = l.z + iz!,
+        d = Math.hypot(x - px, z - pz) || 1;
+      const id = `tonsai-${landmarkId}-${i + 1}`;
+      const migrated = useMigrated
+        ? (
+            migratedSurfaces as Record<
+              string,
+              {
+                position: { x: number; y: number; z: number };
+                interactionPosition?: { x: number; y: number; z: number };
+                surfaceAnchor: {
+                  x: number;
+                  y: number;
+                  z: number;
+                  mesh: string;
+                };
+              }
+            >
+          )[id]
+        : undefined;
+      const target = migrated?.position ?? { x, y: baseHeight(x, z) + h!, z },
+        approach = migrated?.interactionPosition ?? {
+          x: px,
+          y: baseHeight(px, pz),
+          z: pz,
+        },
+        len = Math.hypot(target.x - approach.x, target.z - approach.z) || 1;
+      return {
+        id,
+        landmarkId,
+        category: s.category,
+        position: target,
+        surfaceAnchor: migrated?.surfaceAnchor,
+        interactionPosition: approach,
+        collision: {
+          inspectRadius: 2.8,
+          clearanceHeight: 2.1,
+          surface: s.surface,
+          requiresClimbing: false as const,
+        },
+        visibility: {
+          exposure: (s.category.includes("hollow") ||
+          s.category === "cave-recess"
+            ? "recessed"
+            : "partly-screened") as "recessed" | "partly-screened",
+          approachDirection: {
+            x: (target.x - approach.x) / len,
+            z: (target.z - approach.z) / len,
+          },
+        },
+        eligibleFor: ["idol", "clue"] as const,
+        enabled: true,
+      };
+    });
   });
-});
+}
+export const HIDING_CANDIDATES = createHidingCandidates();
 export function eligibleHidingCandidates(kind: "idol" | "clue") {
   return HIDING_CANDIDATES.filter(
     (s) => s.enabled && s.eligibleFor.includes(kind),

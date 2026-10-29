@@ -1,3 +1,5 @@
+import { recordStage } from "./profile";
+import rockCollision from "./rockCollision.json";
 /** Authored local metres; +X inland/east, +Z toward the southern Tonsai Wall &
  * Roof headland. A compressed fictional camp, not a survey. */
 export type SitePoint = { x: number; z: number };
@@ -50,10 +52,12 @@ const SDF_X = -100,
   SDF_Z = -90,
   SDF_W = 272,
   SDF_H = 242;
+const territoryStageStart = performance.now();
 const sdf = new Float32Array(SDF_W * SDF_H);
 for (let z = 0; z < SDF_H; z++)
   for (let x = 0; x < SDF_W; x++)
     sdf[z * SDF_W + x] = exactTerritoryDistance(SDF_X + x, SDF_Z + z);
+recordStage("territory-distance-field", territoryStageStart);
 export function territoryDistance(x: number, z: number) {
   const fx = x - SDF_X,
     fz = z - SDF_Z,
@@ -190,7 +194,7 @@ export const TRAILS: Trail[] = [
   },
   {
     id: "moss-spur",
-    label: "Moss gate passage",
+    label: "Limestone fissure passage",
     width: 1.9,
     points: [p(6, 58), p(16, 61), p(16, 65)],
   },
@@ -260,7 +264,13 @@ export const NATURAL_LANDMARKS: {
     x: 63,
     z: 56,
   },
-  { id: "moss-gates", label: "Moss gates", kind: "boulders", x: 16, z: 65 },
+  {
+    id: "moss-gates",
+    label: "Limestone fissure",
+    kind: "boulders",
+    x: 16,
+    z: 65,
+  },
   {
     id: "southern-cave",
     label: "Southern limestone cave",
@@ -326,7 +336,14 @@ export function cliffSolid(x: number, z: number) {
   if (x < -40 || x > 42 || z < cliffFaceZ(x, 1.8) - 0.25) return false;
   return !(x > CAVE.minX + 0.4 && x < CAVE.maxX - 0.4 && z < CAVE.backZ - 0.4);
 }
-export const FEATURE_SOLIDS = NATURAL_LANDMARKS.flatMap((l) => {
+export const FEATURE_SOLIDS: {
+  x: number;
+  z: number;
+  hx: number;
+  hz: number;
+  kind: string;
+  polygon?: number[][];
+}[] = NATURAL_LANDMARKS.flatMap((l) => {
   const box = (dx: number, dz: number, hx: number, hz: number) => ({
     x: l.x + dx,
     z: l.z + dz,
@@ -346,11 +363,8 @@ export const FEATURE_SOLIDS = NATURAL_LANDMARKS.flatMap((l) => {
   if (l.kind === "fallen" || l.kind === "bridge")
     return [box(0, 0, 4.4, l.kind === "bridge" ? 0.58 : 0.95)];
   if (l.kind === "stump" || l.kind === "leaning") return [box(0, 0, 1, 1)];
-  if (l.kind === "strangler") return [box(0, 0, 2.1, 2.1)];
-  if (l.kind === "boulders")
-    return [box(-4, 0, 2.2, 3), box(4, 2, 2.2, 3), box(0, 7, 2.6, 2.2)];
-  if (l.kind === "alcove")
-    return [box(-4, 1, 1.5, 2.5), box(4, 1, 1.5, 2.5), box(0, 4, 3, 1.2)];
+  if (["strangler", "boulders", "alcove"].includes(l.kind))
+    return rockCollision.filter((c) => c.kind === "landmark:" + l.id);
   return [];
 });
 

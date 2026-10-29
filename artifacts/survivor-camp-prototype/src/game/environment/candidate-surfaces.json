@@ -1,0 +1,704 @@
+{
+  "tonsai-ancient-fig-1": {
+    "interactionPosition": {
+      "x": 48.1,
+      "y": 2.8539989360990545,
+      "z": 6.2
+    },
+    "position": {
+      "x": 46.1,
+      "y": 3.16517406691862,
+      "z": 5.7
+    },
+    "surfaceAnchor": {
+      "x": 46.1,
+      "y": 3.1101740669186198,
+      "z": 5.7,
+      "mesh": "ancient-fig-wood-near"
+    }
+  },
+  "tonsai-ancient-fig-2": {
+    "interactionPosition": {
+      "x": 38.7,
+      "y": 1.8835969086386517,
+      "z": 9.1
+    },
+    "position": {
+      "x": 40.66945246159962,
+      "y": 2.3074847108108236,
+      "z": 7.767723334800256
+    },
+    "surfaceAnchor": {
+      "x": 40.71500804932165,
+      "y": 2.3074847108108236,
+      "z": 7.736906319576525,
+      "mesh": "ancient-fig-wood-near"
+    }
+  },
+  "tonsai-ancient-fig-3": {
+    "interactionPosition": {
+      "x": 41.3,
+      "y": 2.233813362309932,
+      "z": -0.5
+    },
+    "position": {
+      "x": 41.884471035896446,
+      "y": 2.567588560536633,
+      "z": 1.545648625637571
+    },
+    "surfaceAnchor": {
+      "x": 41.8995806979308,
+      "y": 2.567588560536633,
+      "z": 1.5985324427578163,
+      "mesh": "ancient-fig-wood-near"
+    }
+  },
+  "tonsai-root-crown-1": {
+    "interactionPosition": {
+      "x": 80.8,
+      "y": 6.651280780557473,
+      "z": 24.7
+    },
+    "position": {
+      "x": 78.83413598357878,
+      "y": 6.602506831846798,
+      "z": 23.241455729751998
+    },
+    "surfaceAnchor": {
+      "x": 78.78996559202592,
+      "y": 6.602506831846798,
+      "z": 23.20868414892246,
+      "mesh": "root-crown-wood-near"
+    }
+  },
+  "tonsai-root-crown-2": {
+    "interactionPosition": {
+      "x": 71.2,
+      "y": 5.313967188286764,
+      "z": 24.7
+    },
+    "position": {
+      "x": 73.25187014556619,
+      "y": 5.92943897024587,
+      "z": 23.058503883547047
+    },
+    "surfaceAnchor": {
+      "x": 73.29481793008556,
+      "y": 5.92943897024587,
+      "z": 23.024145655931555,
+      "mesh": "root-crown-wood-near"
+    }
+  },
+  "tonsai-root-crown-3": {
+    "interactionPosition": {
+      "x": 76,
+      "y": 6.0330630768599995,
+      "z": 18
+    },
+    "position": {
+      "x": 75.10123113785872,
+      "y": 6.235355022755616,
+      "z": 20.446648569162363
+    },
+    "surfaceAnchor": {
+      "x": 75.08226617741134,
+      "y": 6.235355022755616,
+      "z": 20.498275405935782,
+      "mesh": "root-crown-wood-near"
+    }
+  },
+  "tonsai-fallen-giant-1": {
+    "interactionPosition": {
+      "x": 68.7,
+      "y": 5.902067682103228,
+      "z": 56
+    },
+    "position": {
+      "x": 67.5437550049601,
+      "y": 6.802969247806035,
+      "z": 56
+    },
+    "surfaceAnchor": {
+      "x": 67.4887550049601,
+      "y": 6.802969247806035,
+      "z": 56,
+      "mesh": "fallen-giant-wood-near"
+    }
+  },
+  "tonsai-fallen-giant-2": {
+    "interactionPosition": {
+      "x": 57.3,
+      "y": 4.660930786905344,
+      "z": 56
+    },
+    "position": {
+      "x": 58.7,
+      "y": 5.767330932752684,
+      "z": 56
+    },
+    "surfaceAnchor": {
+      "x": 58.7,
+      "y": 5.7123309327526846,
+      "z": 56,
+      "mesh": "fallen-giant-wood-near"
+    }
+  },
+  "tonsai-fallen-giant-3": {
+    "interactionPosition": {
+      "x": 64,
+      "y": 5.533939423974542,
+      "z": 58.5
+    },
+    "position": {
+      "x": 64,
+      "y": 5.917199443561156,
+      "z": 56.827836650199686
+    },
+    "surfaceAnchor": {
+      "x": 64,
+      "y": 5.917199443561156,
+      "z": 56.772836650199686,
+      "mesh": "fallen-giant-wood-near"
+    }
+  },
+  "tonsai-moss-gates-1": {
+    "interactionPosition": {
+      "x": 16,
+      "y": 2.0396196914048614,
+      "z": 65
+    },
+    "position": {
+      "x": 13.989532058629738,
+      "y": 2.5637777383466513,
+      "z": 65.80418717654811
+    },
+    "surfaceAnchor": {
+      "x": 13.938465840631048,
+      "y": 2.5637777383466513,
+      "z": 65.82461366374758,
+      "mesh": "moss-gates-rock-near"
+    }
+  },
+  "tonsai-moss-gates-2": {
+    "interactionPosition": {
+      "x": 16,
+      "y": 2.0743173250025,
+      "z": 67
+    },
+    "position": {
+      "x": 18.06519586912362,
+      "y": 2.6194421488083144,
+      "z": 67
+    },
+    "surfaceAnchor": {
+      "x": 18.12019586912362,
+      "y": 2.6194421488083144,
+      "z": 67,
+      "mesh": "moss-gates-rock-near"
+    }
+  },
+  "tonsai-moss-gates-3": {
+    "interactionPosition": {
+      "x": 16,
+      "y": 2.0968511468793456,
+      "z": 68.2
+    },
+    "position": {
+      "x": 16,
+      "y": 2.432246449349389,
+      "z": 70.47006268023553
+    },
+    "surfaceAnchor": {
+      "x": 16,
+      "y": 2.432246449349389,
+      "z": 70.52506268023554,
+      "mesh": "moss-gates-rock-near"
+    }
+  },
+  "tonsai-southern-cave-1": {
+    "interactionPosition": {
+      "x": 9,
+      "y": 2.097532420051306,
+      "z": 103
+    },
+    "position": {
+      "x": 7.041344276747457,
+      "y": 2.726354503190321,
+      "z": 103
+    },
+    "surfaceAnchor": {
+      "x": 6.986344276747458,
+      "y": 2.726354503190321,
+      "z": 103,
+      "mesh": "southern-cliff-rock-near"
+    }
+  },
+  "tonsai-southern-cave-2": {
+    "interactionPosition": {
+      "x": 13,
+      "y": 2.3832800332606925,
+      "z": 106
+    },
+    "position": {
+      "x": 14.975431436913256,
+      "y": 3.3554443654139194,
+      "z": 106
+    },
+    "surfaceAnchor": {
+      "x": 15.030431436913256,
+      "y": 3.3554443654139194,
+      "z": 106,
+      "mesh": "southern-cliff-rock-near"
+    }
+  },
+  "tonsai-southern-cave-3": {
+    "interactionPosition": {
+      "x": 11,
+      "y": 2.3070883086084395,
+      "z": 109
+    },
+    "position": {
+      "x": 11,
+      "y": 2.8852346132367357,
+      "z": 111.19454556310697
+    },
+    "surfaceAnchor": {
+      "x": 11,
+      "y": 2.8852346132367357,
+      "z": 111.24954556310698,
+      "mesh": "southern-cliff-rock-near"
+    }
+  },
+  "tonsai-roof-shelter-1": {
+    "interactionPosition": {
+      "x": -21,
+      "y": 0.6263031845435814,
+      "z": 97.18053651184685
+    },
+    "position": {
+      "x": -21,
+      "y": 1.4811557894241205,
+      "z": 98.84211982273685
+    },
+    "surfaceAnchor": {
+      "x": -21,
+      "y": 1.4811557894241205,
+      "z": 98.89711982273685,
+      "mesh": "southern-cliff-rock-near"
+    }
+  },
+  "tonsai-roof-shelter-2": {
+    "interactionPosition": {
+      "x": -18,
+      "y": 0.6360340598564419,
+      "z": 95.85118215714621
+    },
+    "position": {
+      "x": -18,
+      "y": 1.5661636704559232,
+      "z": 97.53157353375548
+    },
+    "surfaceAnchor": {
+      "x": -18,
+      "y": 1.5661636704559232,
+      "z": 97.58657353375548,
+      "mesh": "southern-cliff-rock-near"
+    }
+  },
+  "tonsai-roof-shelter-3": {
+    "interactionPosition": {
+      "x": -15,
+      "y": 0.7592603515102115,
+      "z": 95.76629640035107
+    },
+    "position": {
+      "x": -15,
+      "y": 1.6857922288931495,
+      "z": 97.48499696250316
+    },
+    "surfaceAnchor": {
+      "x": -15,
+      "y": 1.6857922288931495,
+      "z": 97.53999696250317,
+      "mesh": "southern-cliff-rock-near"
+    }
+  },
+  "tonsai-hollow-stump-1": {
+    "interactionPosition": {
+      "x": 31,
+      "y": 1.3536779702707593,
+      "z": -9.1
+    },
+    "position": {
+      "x": 31,
+      "y": 3.788501922272376,
+      "z": -6.49315602526843
+    },
+    "surfaceAnchor": {
+      "x": 31,
+      "y": 3.788501922272376,
+      "z": -6.43815602526843,
+      "mesh": "hollow-stump-wood-near"
+    }
+  },
+  "tonsai-hollow-stump-2": {
+    "interactionPosition": {
+      "x": 32.6,
+      "y": 1.4401911786445354,
+      "z": -5.2
+    },
+    "position": {
+      "x": 31.638188909899217,
+      "y": 1.7080529935053153,
+      "z": -6.257992199110864
+    },
+    "surfaceAnchor": {
+      "x": 31.60119190622942,
+      "y": 1.7080529935053153,
+      "z": -6.2986889031476405,
+      "mesh": "hollow-stump-wood-near"
+    }
+  },
+  "tonsai-hollow-stump-3": {
+    "interactionPosition": {
+      "x": 29.4,
+      "y": 1.2978114360325848,
+      "z": -5.2
+    },
+    "position": {
+      "x": 30.352101623478255,
+      "y": 1.6581038938003634,
+      "z": -6.247311785826082
+    },
+    "surfaceAnchor": {
+      "x": 30.38909862714805,
+      "y": 1.6581038938003634,
+      "z": -6.288008489862859,
+      "mesh": "hollow-stump-wood-near"
+    }
+  },
+  "tonsai-leaning-tamarind-1": {
+    "interactionPosition": {
+      "x": -2,
+      "y": 1.174317436561276,
+      "z": 47.7
+    },
+    "position": {
+      "x": -1.0327167569193862,
+      "y": 1.4286462503153667,
+      "z": 45.33552985024739
+    },
+    "surfaceAnchor": {
+      "x": -1.0118919504047585,
+      "y": 1.4286462503153667,
+      "z": 45.28462476765608,
+      "mesh": "leaning-tamarind-wood-near"
+    }
+  },
+  "tonsai-leaning-tamarind-2": {
+    "interactionPosition": {
+      "x": -6.7,
+      "y": 1.3572334768380037,
+      "z": 43
+    },
+    "position": {
+      "x": -4.840762701674827,
+      "y": 1.4955147748889313,
+      "z": 43
+    },
+    "surfaceAnchor": {
+      "x": -4.785762701674828,
+      "y": 1.4955147748889313,
+      "z": 43,
+      "mesh": "leaning-tamarind-wood-near"
+    }
+  },
+  "tonsai-leaning-tamarind-3": {
+    "interactionPosition": {
+      "x": -2,
+      "y": 1.1914854901847538,
+      "z": 38.3
+    },
+    "position": {
+      "x": -2.8442601903953166,
+      "y": 1.483612283573593,
+      "z": 40.59826385163169
+    },
+    "surfaceAnchor": {
+      "x": -2.8632251508426956,
+      "y": 1.483612283573593,
+      "z": 40.649890688405115,
+      "mesh": "leaning-tamarind-wood-near"
+    }
+  },
+  "tonsai-strangler-stone-1": {
+    "interactionPosition": {
+      "x": 90.5,
+      "y": 8.21732312716401,
+      "z": 61
+    },
+    "position": {
+      "x": 93.15401208605348,
+      "y": 9.093841463196686,
+      "z": 61
+    },
+    "surfaceAnchor": {
+      "x": 93.20901208605349,
+      "y": 9.093841463196686,
+      "z": 61,
+      "mesh": "strangler-stone-rock-near"
+    }
+  },
+  "tonsai-strangler-stone-2": {
+    "interactionPosition": {
+      "x": 99.5,
+      "y": 9.25110832422844,
+      "z": 61
+    },
+    "position": {
+      "x": 97.1,
+      "y": 9.850484357057397,
+      "z": 61
+    },
+    "surfaceAnchor": {
+      "x": 97.1,
+      "y": 9.795484357057397,
+      "z": 61,
+      "mesh": "strangler-stone-rock-near"
+    }
+  },
+  "tonsai-strangler-stone-3": {
+    "interactionPosition": {
+      "x": 95,
+      "y": 8.902912164941684,
+      "z": 65.5
+    },
+    "position": {
+      "x": 94.64057758665554,
+      "y": 10.04331164730774,
+      "z": 62.86423563547396
+    },
+    "surfaceAnchor": {
+      "x": 94.6331463603952,
+      "y": 10.04331164730774,
+      "z": 62.809739976231526,
+      "mesh": "strangler-stone-wood-near"
+    }
+  },
+  "tonsai-fern-bowl-1": {
+    "interactionPosition": {
+      "x": 41.5,
+      "y": 3.6674545277900577,
+      "z": 81
+    },
+    "position": {
+      "x": 41.704798671209026,
+      "y": 3.859957168474515,
+      "z": 82.09225957978148
+    },
+    "surfaceAnchor": {
+      "x": 41.71493454063679,
+      "y": 3.859957168474515,
+      "z": 82.14631755006288,
+      "mesh": "fern-bowl-wood-near"
+    }
+  },
+  "tonsai-fern-bowl-2": {
+    "interactionPosition": {
+      "x": 43,
+      "y": 3.7966951271450906,
+      "z": 81
+    },
+    "position": {
+      "x": 42.740992105130594,
+      "y": 3.9515999023297974,
+      "z": 82.38137543930351
+    },
+    "surfaceAnchor": {
+      "x": 42.73085623570283,
+      "y": 3.9515999023297974,
+      "z": 82.4354334095849,
+      "mesh": "fern-bowl-wood-near"
+    }
+  },
+  "tonsai-fern-bowl-3": {
+    "interactionPosition": {
+      "x": 44.5,
+      "y": 3.935322055218415,
+      "z": 81
+    },
+    "position": {
+      "x": 44.2,
+      "y": 4.011010497324838,
+      "z": 82.8
+    },
+    "surfaceAnchor": {
+      "x": 44.2,
+      "y": 3.956010497324838,
+      "z": 82.8,
+      "mesh": "fern-bowl-wood-near"
+    }
+  },
+  "tonsai-root-bridge-1": {
+    "interactionPosition": {
+      "x": 83.3,
+      "y": 6.886248847445989,
+      "z": 1
+    },
+    "position": {
+      "x": 84.7,
+      "y": 7.47362388933117,
+      "z": 1
+    },
+    "surfaceAnchor": {
+      "x": 84.7,
+      "y": 7.418623889331171,
+      "z": 1,
+      "mesh": "root-bridge-wood-near"
+    }
+  },
+  "tonsai-root-bridge-2": {
+    "interactionPosition": {
+      "x": 94.7,
+      "y": 7.963242567363887,
+      "z": 1
+    },
+    "position": {
+      "x": 93.3,
+      "y": 8.259134729822387,
+      "z": 1
+    },
+    "surfaceAnchor": {
+      "x": 93.3,
+      "y": 8.204134729822387,
+      "z": 1,
+      "mesh": "root-bridge-wood-near"
+    }
+  },
+  "tonsai-root-bridge-3": {
+    "interactionPosition": {
+      "x": 90,
+      "y": 7.462258852447769,
+      "z": 3.5
+    },
+    "position": {
+      "x": 90,
+      "y": 7.84325447375801,
+      "z": 1.6571438451046507
+    },
+    "surfaceAnchor": {
+      "x": 90,
+      "y": 7.84325447375801,
+      "z": 1.6021438451046508,
+      "mesh": "root-bridge-wood-near"
+    }
+  },
+  "tonsai-quiet-alcove-1": {
+    "interactionPosition": {
+      "x": 29,
+      "y": 3.0981245916769717,
+      "z": 92
+    },
+    "position": {
+      "x": 27.17167550865227,
+      "y": 3.5461166422637334,
+      "z": 92.3428108421277
+    },
+    "surfaceAnchor": {
+      "x": 27.117617538370883,
+      "y": 3.5461166422637334,
+      "z": 92.35294671155546,
+      "mesh": "quiet-alcove-rock-near"
+    }
+  },
+  "tonsai-quiet-alcove-2": {
+    "interactionPosition": {
+      "x": 31,
+      "y": 3.176260081628823,
+      "z": 92
+    },
+    "position": {
+      "x": 32.37672484663313,
+      "y": 3.6185967921606315,
+      "z": 92.25813590874371
+    },
+    "surfaceAnchor": {
+      "x": 32.430782816914515,
+      "y": 3.6185967921606315,
+      "z": 92.26827177817147,
+      "mesh": "quiet-alcove-rock-near"
+    }
+  },
+  "tonsai-quiet-alcove-3": {
+    "interactionPosition": {
+      "x": 30,
+      "y": 3.1387878338961936,
+      "z": 92.2
+    },
+    "position": {
+      "x": 29.535002039334795,
+      "y": 3.43253805765898,
+      "z": 94.31832404303039
+    },
+    "surfaceAnchor": {
+      "x": 29.523209638118452,
+      "y": 3.43253805765898,
+      "z": 94.37204498190484,
+      "mesh": "quiet-alcove-rock-near"
+    }
+  },
+  "tonsai-spring-seep-1": {
+    "interactionPosition": {
+      "x": 111.3,
+      "y": 9.511694885456683,
+      "z": 36.8
+    },
+    "position": {
+      "x": 109.80779645108396,
+      "y": 9.761694885456683,
+      "z": 36.8
+    },
+    "surfaceAnchor": {
+      "x": 109.75279645108395,
+      "y": 9.761694885456683,
+      "z": 36.8,
+      "mesh": "spring-seep-rock-near"
+    }
+  },
+  "tonsai-spring-seep-2": {
+    "interactionPosition": {
+      "x": 108.8,
+      "y": 9.511694885456683,
+      "z": 39.1
+    },
+    "position": {
+      "x": 108.8,
+      "y": 9.711694885456682,
+      "z": 37.57977955268251
+    },
+    "surfaceAnchor": {
+      "x": 108.8,
+      "y": 9.711694885456682,
+      "z": 37.52477955268251,
+      "mesh": "spring-seep-rock-near"
+    }
+  },
+  "tonsai-spring-seep-3": {
+    "interactionPosition": {
+      "x": 104.7,
+      "y": 9.511694885456683,
+      "z": 36
+    },
+    "position": {
+      "x": 106.31573572613858,
+      "y": 9.711694885456682,
+      "z": 36
+    },
+    "surfaceAnchor": {
+      "x": 106.37073572613859,
+      "y": 9.711694885456682,
+      "z": 36,
+      "mesh": "spring-seep-rock-near"
+    }
+  }
+}
