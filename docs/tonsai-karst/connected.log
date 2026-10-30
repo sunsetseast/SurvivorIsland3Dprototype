@@ -1,0 +1,15 @@
+PASS Normal menu has no unrestricted island scene selector
+PASS Camp NPC runtime advances
+PASS Unauthorized departure denied at real exit
+PASS Denied travel leaves movement usable
+PASS Camp visual tree unloads, camp simulation retains exact state while paused
+PASS Run toggles while joystick and camera remain held; latch survives release
+PASS Camp NPC progress, social-memory owner and original instance survive return
+PASS Four complete Camp ↔ Trail round trips; equivalent return-UI listener count stays constant
+PASS Interrupted destination recovers to preserved source
+PASS Failed destination can retry and complete return; overview does not persist into travel
+PASS Existing camp conversation opens and closes after repeated journeys
+PASS At most one detailed scene; observed geometry/material/texture disposal
+PASS Existing sanctuary scene, intro and mobile HUD load through adapter
+PASS Existing practice ballot folds and deposits after the world adapter
+PASS Actual aborted destination module request returns safely to camp

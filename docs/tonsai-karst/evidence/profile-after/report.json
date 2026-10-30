@@ -1,0 +1,860 @@
+{
+  "label": "after",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "153.0.8010.0",
+  "errors": [],
+  "samples": [
+    {
+      "softwareFrameFinishMs": [
+        4.400000000372529,
+        5,
+        4.099999999627471,
+        3.2000000001862645,
+        4.2000000001862645,
+        4,
+        4.7999999998137355,
+        4,
+        5.1000000005587935,
+        4.7999999998137355,
+        4,
+        4.5
+      ],
+      "quality": "low",
+      "documentToMenuMs": 434,
+      "readyMs": 3226,
+      "calls": 234,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 47.39999999944121,
+          "totalMs": 47.39999999944121,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 32.09999999962747,
+          "totalMs": 32.09999999962747,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 57.799999999813735,
+          "totalMs": 57.799999999813735,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 351,
+          "totalMs": 351,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 44.59999999962747,
+          "totalMs": 44.59999999962747,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 1054.5999999996275,
+          "totalMs": 1054.5999999996275,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 1098.7999999998137,
+          "totalMs": 1098.7999999998137,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1415.4000000003725,
+          "totalMs": 1415.4000000003725,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1417.5999999996275,
+          "totalMs": 1417.5999999996275,
+          "runs": 1
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 1425.2000000001863,
+          "totalMs": 1425.2000000001863,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1434.2999999998137,
+          "totalMs": 1434.2999999998137,
+          "runs": 1
+        }
+      },
+      "triangles": 680644,
+      "geometries": 122,
+      "textures": 30,
+      "programs": 37,
+      "renderer": {
+        "toneMapping": 4,
+        "exposure": 0.96,
+        "outputColorSpace": "srgb",
+        "msaa": 4
+      },
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "materials": 49,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 124.79999999981374,
+          "duration": 241
+        },
+        {
+          "start": 800.2000000001863,
+          "duration": 554
+        },
+        {
+          "start": 1354.2000000001863,
+          "duration": 502
+        },
+        {
+          "start": 2753.9000000003725,
+          "duration": 68
+        },
+        {
+          "start": 2998.100000000559,
+          "duration": 209
+        },
+        {
+          "start": 3305.2000000001863,
+          "duration": 327
+        },
+        {
+          "start": 3632.600000000559,
+          "duration": 1196
+        },
+        {
+          "start": 4829.299999999814,
+          "duration": 52
+        },
+        {
+          "start": 4902.600000000559,
+          "duration": 90
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 16.59999999962747,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 27.40000000037253,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 22,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 26.199999999254942,
+          "bytes": 120547
+        },
+        {
+          "name": "reconstruction-low-CH-YyoQr.glb",
+          "duration": 856.4000000003725,
+          "bytes": 2963136
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 51.299999999813735,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 68.09999999962747,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 53.89999999944121,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 44.700000000186265,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-low-CEeeFMXX.glb",
+          "duration": 62.10000000055879,
+          "bytes": 1006012
+        },
+        {
+          "name": "tropical-clouds-20pSrmJI.png",
+          "duration": 56.59999999962747,
+          "bytes": 120785
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.20000000018626451,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "habitatBatches": [
+        {
+          "mesh": "limestone-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 3,
+          "triangles": 6600
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 10,
+          "triangles": 22000
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 9,
+          "triangles": 4860
+        },
+        {
+          "mesh": "forest-1-wood-far",
+          "count": 12,
+          "triangles": 9360
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 9,
+          "triangles": 4860
+        },
+        {
+          "mesh": "forest-2-wood-far",
+          "count": 16,
+          "triangles": 13440
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 10,
+          "triangles": 5400
+        },
+        {
+          "mesh": "coastal-trunk-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-branches-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-trunk-far",
+          "count": 14,
+          "triangles": 8400
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "understory-0-wood-far",
+          "count": 160,
+          "triangles": 24000
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 179,
+          "triangles": 80192
+        },
+        {
+          "mesh": "understory-1-wood-far",
+          "count": 207,
+          "triangles": 64584
+        },
+        {
+          "mesh": "understory-1-leaves-far",
+          "count": 219,
+          "triangles": 55845
+        },
+        {
+          "mesh": "understory-2-wood-far",
+          "count": 113,
+          "triangles": 16950
+        },
+        {
+          "mesh": "understory-2-leaves-far",
+          "count": 136,
+          "triangles": 60928
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 5,
+          "triangles": 4220
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 3,
+          "triangles": 2280
+        },
+        {
+          "mesh": "palm-1-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-1-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-1-far-wood",
+          "count": 4,
+          "triangles": 3536
+        },
+        {
+          "mesh": "palm-1-far-leaves",
+          "count": 1,
+          "triangles": 800
+        },
+        {
+          "mesh": "palm-2-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-far-wood",
+          "count": 2,
+          "triangles": 1848
+        },
+        {
+          "mesh": "palm-2-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "fern_02_a",
+          "count": 13,
+          "triangles": 9100
+        },
+        {
+          "mesh": "fern_02_b",
+          "count": 4,
+          "triangles": 2796
+        },
+        {
+          "mesh": "fern_02_c",
+          "count": 8,
+          "triangles": 5600
+        },
+        {
+          "mesh": "fern_02_d",
+          "count": 5,
+          "triangles": 3500
+        }
+      ],
+      "frameIntervalsMs": []
+    },
+    {
+      "softwareFrameFinishMs": [
+        4.599999999627471,
+        5.900000000372529,
+        6.7999999998137355,
+        4,
+        4.599999999627471,
+        4.7999999998137355,
+        4.3999999994412065,
+        4.5,
+        6.2000000001862645,
+        2.400000000372529,
+        1.7999999998137355,
+        1.7999999998137355
+      ],
+      "quality": "high",
+      "documentToMenuMs": 21718,
+      "readyMs": 2974,
+      "calls": 251,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 33.09999999962747,
+          "totalMs": 33.09999999962747,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 27.5,
+          "totalMs": 27.5,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 53.200000000186265,
+          "totalMs": 53.200000000186265,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 197.5,
+          "totalMs": 197.5,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 56.799999999813735,
+          "totalMs": 56.799999999813735,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 1008.1000000005588,
+          "totalMs": 1008.1000000005588,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 1083.0999999996275,
+          "totalMs": 1083.0999999996275,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1262.2000000001863,
+          "totalMs": 1262.2000000001863,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1273.8999999994412,
+          "totalMs": 1273.8999999994412,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1363.5,
+          "totalMs": 1363.5,
+          "runs": 1
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 1604.9000000003725,
+          "totalMs": 1604.9000000003725,
+          "runs": 1
+        }
+      },
+      "triangles": 980009,
+      "geometries": 136,
+      "textures": 30,
+      "programs": 39,
+      "renderer": {
+        "toneMapping": 4,
+        "exposure": 0.96,
+        "outputColorSpace": "srgb",
+        "msaa": 4
+      },
+      "geometryBytes": 26447300,
+      "textureBytesEstimate": 55031152.00000003,
+      "materials": 49,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 21511.400000000373,
+          "duration": 151
+        },
+        {
+          "start": 22063.10000000056,
+          "duration": 391
+        },
+        {
+          "start": 22454.60000000056,
+          "duration": 310
+        },
+        {
+          "start": 23594.799999999814,
+          "duration": 87
+        },
+        {
+          "start": 23893.10000000056,
+          "duration": 80
+        },
+        {
+          "start": 24046.200000000186,
+          "duration": 84
+        },
+        {
+          "start": 24144.299999999814,
+          "duration": 226
+        },
+        {
+          "start": 24401.900000000373,
+          "duration": 283
+        },
+        {
+          "start": 24685.5,
+          "duration": 660
+        },
+        {
+          "start": 25386.400000000373,
+          "duration": 116
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 18.700000000186265,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 18.700000000186265,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 14.900000000372529,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 15.900000000372529,
+          "bytes": 120547
+        },
+        {
+          "name": "reconstruction-Ce29Uv-T.glb",
+          "duration": 986.2000000001863,
+          "bytes": 4788628
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 17.200000000186265,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 33,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 24,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 16.90000000037253,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-DhHzGEx2.glb",
+          "duration": 949.6000000005588,
+          "bytes": 3841196
+        },
+        {
+          "name": "tropical-clouds-20pSrmJI.png",
+          "duration": 21,
+          "bytes": 120785
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.20000000018626451,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "habitatBatches": [
+        {
+          "mesh": "limestone-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 3,
+          "triangles": 6600
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 10,
+          "triangles": 22000
+        },
+        {
+          "mesh": "forest-0-crown-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 11,
+          "triangles": 5940
+        },
+        {
+          "mesh": "forest-1-wood-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-crown-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-wood-far",
+          "count": 14,
+          "triangles": 10920
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 10,
+          "triangles": 5400
+        },
+        {
+          "mesh": "forest-2-wood-near",
+          "count": 1,
+          "triangles": 1248
+        },
+        {
+          "mesh": "forest-2-crown-near",
+          "count": 2,
+          "triangles": 1800
+        },
+        {
+          "mesh": "forest-2-wood-far",
+          "count": 17,
+          "triangles": 14280
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 10,
+          "triangles": 5400
+        },
+        {
+          "mesh": "coastal-trunk-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-branches-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-trunk-far",
+          "count": 17,
+          "triangles": 10200
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "understory-0-wood-near",
+          "count": 11,
+          "triangles": 1650
+        },
+        {
+          "mesh": "understory-0-leaves-near",
+          "count": 13,
+          "triangles": 21840
+        },
+        {
+          "mesh": "understory-0-wood-far",
+          "count": 184,
+          "triangles": 27600
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 203,
+          "triangles": 90944
+        },
+        {
+          "mesh": "understory-1-wood-near",
+          "count": 7,
+          "triangles": 3948
+        },
+        {
+          "mesh": "understory-1-leaves-near",
+          "count": 12,
+          "triangles": 5040
+        },
+        {
+          "mesh": "understory-1-wood-far",
+          "count": 248,
+          "triangles": 77376
+        },
+        {
+          "mesh": "understory-1-leaves-far",
+          "count": 260,
+          "triangles": 66300
+        },
+        {
+          "mesh": "understory-2-wood-near",
+          "count": 1,
+          "triangles": 150
+        },
+        {
+          "mesh": "understory-2-leaves-near",
+          "count": 1,
+          "triangles": 1680
+        },
+        {
+          "mesh": "understory-2-wood-far",
+          "count": 150,
+          "triangles": 22500
+        },
+        {
+          "mesh": "understory-2-leaves-far",
+          "count": 178,
+          "triangles": 79744
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 9,
+          "triangles": 7596
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 4,
+          "triangles": 3040
+        },
+        {
+          "mesh": "palm-1-near-wood",
+          "count": 1,
+          "triangles": 992
+        },
+        {
+          "mesh": "palm-1-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-1-far-wood",
+          "count": 4,
+          "triangles": 3536
+        },
+        {
+          "mesh": "palm-1-far-leaves",
+          "count": 1,
+          "triangles": 800
+        },
+        {
+          "mesh": "palm-2-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-far-wood",
+          "count": 4,
+          "triangles": 3696
+        },
+        {
+          "mesh": "palm-2-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "fern_02_a",
+          "count": 21,
+          "triangles": 14700
+        },
+        {
+          "mesh": "fern_02_b",
+          "count": 10,
+          "triangles": 6990
+        },
+        {
+          "mesh": "fern_02_c",
+          "count": 16,
+          "triangles": 11200
+        },
+        {
+          "mesh": "fern_02_d",
+          "count": 16,
+          "triangles": 11200
+        }
+      ],
+      "frameIntervalsMs": []
+    }
+  ],
+  "poses": [],
+  "checks": [],
+  "result": "PASS"
+}

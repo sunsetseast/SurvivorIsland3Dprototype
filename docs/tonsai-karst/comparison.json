@@ -1,0 +1,191 @@
+{
+  "base": "5d54f29294833ef47494381b973c9db0d49f53c9",
+  "camera_pairs": 22,
+  "max_native_camera_error": 0,
+  "viewport": [
+    932,
+    430
+  ],
+  "quality": {
+    "low": {
+      "before": {
+        "calls": 234,
+        "triangles": 680644,
+        "geometryBytes": 20800150,
+        "textureBytesEstimate": 55031152.00000003,
+        "readyMs": 5577,
+        "host_frame_finish_median_ms": 7.399999999906868
+      },
+      "after": {
+        "calls": 234,
+        "triangles": 680644,
+        "geometryBytes": 20819754,
+        "textureBytesEstimate": 55031152.00000003,
+        "readyMs": 4998,
+        "host_frame_finish_median_ms": 3.449999999953434
+      },
+      "views": {
+        "south-beach": {
+          "before": {
+            "calls": 147,
+            "triangles": 289899
+          },
+          "after": {
+            "calls": 147,
+            "triangles": 291979
+          }
+        },
+        "north-offshore": {
+          "before": {
+            "calls": 250,
+            "triangles": 567180
+          },
+          "after": {
+            "calls": 250,
+            "triangles": 567180
+          }
+        },
+        "waterline": {
+          "before": {
+            "calls": 173,
+            "triangles": 417965
+          },
+          "after": {
+            "calls": 173,
+            "triangles": 420493
+          }
+        },
+        "cliff-beside": {
+          "before": {
+            "calls": 130,
+            "triangles": 190080
+          },
+          "after": {
+            "calls": 130,
+            "triangles": 191712
+          }
+        },
+        "distant-silhouette": {
+          "before": {
+            "calls": 160,
+            "triangles": 432528
+          },
+          "after": {
+            "calls": 160,
+            "triangles": 434160
+          }
+        }
+      }
+    },
+    "high": {
+      "before": {
+        "calls": 251,
+        "triangles": 980009,
+        "geometryBytes": 26444460,
+        "textureBytesEstimate": 55031152.00000003,
+        "readyMs": 2818,
+        "host_frame_finish_median_ms": 4.5
+      },
+      "after": {
+        "calls": 251,
+        "triangles": 980009,
+        "geometryBytes": 26447300,
+        "textureBytesEstimate": 55031152.00000003,
+        "readyMs": 3817,
+        "host_frame_finish_median_ms": 11.149999999674037
+      },
+      "views": {
+        "south-beach": {
+          "before": {
+            "calls": 166,
+            "triangles": 439433
+          },
+          "after": {
+            "calls": 166,
+            "triangles": 443563
+          }
+        },
+        "north-offshore": {
+          "before": {
+            "calls": 263,
+            "triangles": 1037149
+          },
+          "after": {
+            "calls": 263,
+            "triangles": 1037149
+          }
+        },
+        "waterline": {
+          "before": {
+            "calls": 187,
+            "triangles": 803801
+          },
+          "after": {
+            "calls": 187,
+            "triangles": 807931
+          }
+        },
+        "cliff-beside": {
+          "before": {
+            "calls": 143,
+            "triangles": 308048
+          },
+          "after": {
+            "calls": 143,
+            "triangles": 311282
+          }
+        },
+        "distant-silhouette": {
+          "before": {
+            "calls": 174,
+            "triangles": 620004
+          },
+          "after": {
+            "calls": 174,
+            "triangles": 622532
+          }
+        }
+      }
+    }
+  },
+  "payload": {
+    "landmarks.glb": {
+      "before": 3838264,
+      "after": 3841196
+    },
+    "landmarks-low.glb": {
+      "before": 986360,
+      "after": 1006012
+    }
+  },
+  "isolated_profile": {
+    "before": {
+      "low": {
+        "host_frame_finish_median_ms": 4.850000000093132,
+        "readyMs": 3010,
+        "calls": 234,
+        "triangles": 680644
+      },
+      "high": {
+        "host_frame_finish_median_ms": 4.4500000001862645,
+        "readyMs": 5287,
+        "calls": 251,
+        "triangles": 980009
+      }
+    },
+    "after": {
+      "low": {
+        "host_frame_finish_median_ms": 4.300000000279397,
+        "readyMs": 3226,
+        "calls": 234,
+        "triangles": 680644
+      },
+      "high": {
+        "host_frame_finish_median_ms": 4.5499999998137355,
+        "readyMs": 2974,
+        "calls": 251,
+        "triangles": 980009
+      }
+    }
+  }
+}

@@ -37,6 +37,13 @@ for file in ['landmarks.glb','landmarks-low.glb']:
  rel='artifacts/survivor-camp-prototype/src/assets/camp/'+file
  before=subprocess.check_output(['git','show',summary['base']+':'+rel],cwd=root)
  summary['payload'][file]={'before':len(before),'after':(root/rel).stat().st_size}
+isolated={}
+for phase in ['before','after']:
+ p=doc/f'evidence/profile-{phase}/report.json'
+ if p.exists():
+  r=json.loads(p.read_text());assert r['result']=='PASS' and not r['errors']
+  isolated[phase]={v['quality']:{'host_frame_finish_median_ms':statistics.median(v['softwareFrameFinishMs']),'readyMs':v['readyMs'],'calls':v['calls'],'triangles':v['triangles']} for v in r['samples']}
+if isolated:summary['isolated_profile']=isolated
 (doc/'comparison.json').write_text(json.dumps(summary,indent=2)+'\n')
 # A labeled contact sheet, assembled only from real production WebGL captures.
 items=[('south-beach','Native third-person beach'),('coast-eye','Eye-height inspection'),('waterline','Native shoreline'),('elevated-overview','Elevated inspection')]

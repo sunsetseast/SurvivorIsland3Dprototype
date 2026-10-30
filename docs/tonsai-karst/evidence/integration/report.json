@@ -1,0 +1,115 @@
+{
+  "method": "Minified production bundle; real software WebGL. Not physical iPhone Safari.",
+  "checks": [
+    {
+      "name": "midday sun, sky, ocean and filtered foliage agree",
+      "detail": {
+        "sunError": 5.551115123125783e-17,
+        "waterSunError": 0,
+        "skyError": 0,
+        "cloud": [
+          1024,
+          512
+        ],
+        "animated": true,
+        "hashed": [],
+        "covered": 14,
+        "exposure": 0.96
+      }
+    },
+    {
+      "name": "midday cloud resources released; exposure restored",
+      "detail": {
+        "disposed": {
+          "geometry": 2,
+          "material": 2,
+          "texture": 2
+        },
+        "memory": {
+          "geometries": 0,
+          "textures": 5
+        }
+      }
+    },
+    {
+      "name": "afternoon sun, sky, ocean and filtered foliage agree",
+      "detail": {
+        "sunError": 1.2412670766236366e-16,
+        "waterSunError": 0,
+        "skyError": 0,
+        "cloud": [
+          1024,
+          512
+        ],
+        "animated": true,
+        "hashed": [],
+        "covered": 14,
+        "exposure": 0.96
+      }
+    },
+    {
+      "name": "afternoon cloud resources released; exposure restored",
+      "detail": {
+        "disposed": {
+          "geometry": 2,
+          "material": 2,
+          "texture": 2
+        },
+        "memory": {
+          "geometries": 0,
+          "textures": 5
+        }
+      }
+    },
+    {
+      "name": "golden sun, sky, ocean and filtered foliage agree",
+      "detail": {
+        "sunError": 6.206335383118183e-17,
+        "waterSunError": 0,
+        "skyError": 0,
+        "cloud": [
+          1024,
+          512
+        ],
+        "animated": true,
+        "hashed": [],
+        "covered": 14,
+        "exposure": 0.96
+      }
+    },
+    {
+      "name": "golden cloud resources released; exposure restored",
+      "detail": {
+        "disposed": {
+          "geometry": 2,
+          "material": 2,
+          "texture": 2
+        },
+        "memory": {
+          "geometries": 0,
+          "textures": 5
+        }
+      }
+    },
+    {
+      "name": "missing cloud atlas retains blue-sky fallback and player movement",
+      "detail": {
+        "fallback": {
+          "sky": "fallback",
+          "position": {
+            "x": -6,
+            "y": 1.002931652379349,
+            "z": -24
+          }
+        },
+        "moved": {
+          "x": -4.9873745977348936,
+          "y": 1.026149100637225,
+          "z": -25.94507166641556
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "result": "PASS"
+}
