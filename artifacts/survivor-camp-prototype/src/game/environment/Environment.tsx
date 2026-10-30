@@ -13,6 +13,9 @@ import {
   groundHeight,
   type Veg,
 } from "../world";
+import { GroundDetail } from "./GroundDetail";
+import { Shelter } from "../Shelter";
+import { FOREST_PLANTS } from "./forest";
 import { NaturalLandmarks } from "./Landmarks";
 import { NATURAL_LANDMARKS, SPRING, cliffTopHeight } from "./geography";
 import { makeShrub } from "../flora";
@@ -30,7 +33,7 @@ type Placement = {
 };
 /** One draw per material/LOD. Distance compaction is done four times/sec;
  * no per-frame React updates, no foliage alpha blending or sorting. */
-function Batch({
+export function Batch({
   mesh,
   items,
   low,
@@ -94,12 +97,8 @@ function Batch({
     );
     for (const { p, m: matrix } of data) {
       const d = Math.hypot(camera.position.x - p.x, camera.position.z - p.z);
-      culling.sphere.center.set(
-        p.x,
-        (p.y ?? groundHeight(p.x, p.z)) + p.scale * 2,
-        p.z,
-      );
-      culling.sphere.radius = Math.max(2, p.scale * 5);
+      if (!mesh.geometry.boundingSphere) mesh.geometry.computeBoundingSphere();
+      culling.sphere.copy(mesh.geometry.boundingSphere!).applyMatrix4(matrix);
       if (
         (far ? d >= near : d < near) &&
         d < (low ? 110 : 150) &&
@@ -122,12 +121,18 @@ function Batch({
   }, [mesh.geometry, mesh.material, items.length]);
   return (
     <instancedMesh
+      name="habitat-instance-batch"
       ref={ref}
       args={[mesh.geometry, mesh.material, Math.max(1, items.length)]}
       dispose={null}
       castShadow={cast}
       receiveShadow
-      userData={{ cameraBlocker: blocker }}
+      userData={{
+        cameraBlocker: blocker,
+        visualFoliage: /understory.*leaves|forest.*crown/.test(
+          mesh.geometry.name,
+        ),
+      }}
     />
   );
 }
@@ -152,6 +157,65 @@ export function Environment({ low }: { low: boolean }) {
     },
     [palmMaterial],
   );
+  const forestBark = useMemo(() => {
+    const source = meshPart(kit.tree, "coastal-branches-near")?.material;
+    if (!source) return undefined;
+    const m = (
+      Array.isArray(source) ? source[0] : source
+    ).clone() as T.MeshStandardMaterial;
+    m.vertexColors = false;
+    m.color.setRGB(1.4, 1.38, 1.22);
+    m.roughness = 1;
+    return m;
+  }, [kit.tree]);
+  useEffect(() => () => forestBark?.dispose(), [forestBark]);
+  const forestLeaf = useMemo(() => {
+    const source = meshPart(kit.tree, "coastal-leaves-near")?.material;
+    if (!source) return undefined;
+    const m = (
+      Array.isArray(source) ? source[0] : source
+    ).clone() as T.MeshStandardMaterial;
+    m.vertexColors = true;
+    m.color.setRGB(1.1, 1.2, 1.04);
+    m.roughness = 0.96;
+    m.normalScale.set(0.22, 0.22);
+    m.emissive.set("#556b42");
+    m.emissiveIntensity = 0.22;
+    m.emissiveMap = m.map;
+    m.alphaHash = true;
+    m.alphaTest = 0.3;
+    m.transparent = false;
+    m.onBeforeCompile = (s) => {
+      s.fragmentShader = s.fragmentShader.replace(
+        "#include <alphahash_fragment>",
+        "diffuseColor.a*=smoothstep(1.0,3.0,length(vViewPosition));\n#include <alphahash_fragment>",
+      );
+    };
+    m.customProgramCacheKey = () => "cupped-leaves-camera-dither-v1";
+    return m;
+  }, [kit.tree]);
+  useEffect(() => () => forestLeaf?.dispose(), [forestLeaf]);
+  const midstoryLeaf = useMemo(() => {
+    const source = meshPart(kit.forest, "understory-1-leaves-far")?.material;
+    if (!source) return undefined;
+    const m = (
+      Array.isArray(source) ? source[0] : source
+    ).clone() as T.MeshStandardMaterial;
+    m.alphaHash = true;
+    m.alphaTest = 0.3;
+    m.emissive.set("#708354");
+    m.emissiveIntensity = 0.24;
+    m.emissiveMap = m.map;
+    m.onBeforeCompile = (s) => {
+      s.fragmentShader = s.fragmentShader.replace(
+        "#include <alphahash_fragment>",
+        "diffuseColor.a*=smoothstep(1.5,3.0,length(vViewPosition));\n#include <alphahash_fragment>",
+      );
+    };
+    m.customProgramCacheKey = () => "midstory-camera-dither-v1";
+    return m;
+  }, [kit.forest]);
+  useEffect(() => () => midstoryLeaf?.dispose(), [midstoryLeaf]);
   const plants = useMemo(
     () => ({
       trees: [
@@ -243,16 +307,25 @@ export function Environment({ low }: { low: boolean }) {
           });
       }
     });
-    for (const x of [-29, -13, 5, 23, 34])
-      out.push({
-        x,
-        z: 112,
-        y: baseHeight(x, 98) + cliffTopHeight(x) - 0.1,
-        scale: 1.5,
-        rotation: x * 0.4,
-      });
+    const cliffMesh = meshPart(kit.landmarks, "southern-cliff-rock-far");
+    if (cliffMesh) {
+      const surface = new T.Mesh(cliffMesh.geometry, cliffMesh.material);
+      surface.updateMatrixWorld(true);
+      for (const x of [-29, -13, 5, 23, 34]) {
+        ray.set(new T.Vector3(x, 110, 112), new T.Vector3(0, -1, 0));
+        const hit = ray.intersectObject(surface, false)[0];
+        if (hit)
+          out.push({
+            x,
+            z: 112,
+            y: hit.point.y - 0.1,
+            scale: 1.5,
+            rotation: x * 0.4,
+          });
+      }
+    }
     return out;
-  }, [kit.rock, low]);
+  }, [kit.rock, kit.landmarks, low]);
   const rock = meshPart(kit.rock, low ? "limestone-far" : "limestone-near");
   const rubble = useMemo(() => {
     const m = meshPart(kit.rock, "limestone-far");
@@ -341,82 +414,157 @@ export function Environment({ low }: { low: boolean }) {
           )}
         </>
       )}
-      {kit.tree && (
+      {kit.forest && (
         <>
-          {["trunk", "branches", "leaves"].map((part) =>
-            ["near", "far"].map((level) => {
-              if (part === "branches" && level === "far") return null;
+          <Shelter asset={kit.forest} />
+          <GroundDetail />
+          {[0, 1, 2].flatMap((v) =>
+            ["near", "far"].flatMap((level) =>
+              ["wood", "crown"].map((part) => {
+                if (low && level === "near") return null;
+                const m = meshPart(kit.forest, `forest-${v}-${part}-${level}`);
+                if (v === 0 && part === "wood") return null;
+                return (
+                  m && (
+                    <Batch
+                      key={`tree-${v}-${part}-${level}`}
+                      mesh={
+                        part === "wood" && forestBark
+                          ? { geometry: m.geometry, material: forestBark }
+                          : m
+                      }
+                      items={plants.trees
+                        .filter((_, i) => i % 3 === v)
+                        .map((p) => ({ ...p, scale: p.scale / 3.2 }))}
+                      low={low}
+                      near={low ? 190 : 28}
+                      far={level === "far" && !low}
+                      cast={part === "wood" || (!low && level === "near")}
+                      blocker={part === "wood"}
+                    />
+                  )
+                );
+              }),
+            ),
+          )}
+          {/* Preserve the high quality gnarled CC0 coastal trunk in the coastal fig mix. */}
+          {["near", "far"].flatMap((level) =>
+            ["trunk", "branches"].map((part) => {
+              if (level === "far" && part === "branches") return null;
               const m = meshPart(kit.tree, `coastal-${part}-${level}`);
               return (
                 m && (
                   <Batch
-                    key={part + level}
+                    key={`scanned-fig-${part}-${level}`}
                     mesh={m}
-                    items={plants.trees}
+                    items={plants.trees.filter((_, i) => i % 3 === 0)}
                     low={low}
-                    near={low ? 24 : 36}
+                    near={low ? 18 : 28}
                     far={level === "far"}
-                    cast={
-                      part === "trunk" ||
-                      (!low && level === "near" && part === "leaves")
-                    }
-                    blocker={part === "trunk"}
+                    cast
+                    blocker
                   />
                 )
               );
             }),
           )}
-          {["trunk", "branches", "leaves"].map((part) => {
-            const m = meshPart(kit.tree, `coastal-${part}-far`);
+          {["wood", "leaves"].map((part) => {
+            const m = meshPart(kit.botanical, `palm-0-far-${part}`);
             return (
               m && (
                 <Batch
-                  key={part}
-                  mesh={m}
-                  items={
+                  key={`juvenile-palm-${part}`}
+                  mesh={
                     part === "leaves"
-                      ? [
-                          ...ledges,
-                          ...NATURAL_LANDMARKS.filter((l) =>
-                            [
-                              "buttress",
-                              "roots",
-                              "strangler",
-                              "leaning",
-                            ].includes(l.kind),
-                          ).flatMap((l, i) => {
-                            const giant = l.kind === "buttress",
-                              lean = l.kind === "leaning" ? 4.3 : 0;
-                            return (
-                              giant
-                                ? [
-                                    [0, 0, 0, 3.1],
-                                    [-5, 1, -3, 1.6],
-                                    [4, 2, 4, 1.8],
-                                    [1, 3, -5, 1.5],
-                                  ]
-                                : [
-                                    [lean, 0, 0, 2.1],
-                                    [lean - 3, 1, 2, 1.2],
-                                    [lean + 3, 2, -1, 1.1],
-                                  ]
-                            ).map(([dx, dy, dz, scale], j) => ({
-                              x: l.x + dx!,
-                              z: l.z + dz!,
-                              y: baseHeight(l.x, l.z) + (giant ? 21 : 10) + dy!,
-                              scale: scale!,
-                              rotation: i * 1.73 + j * 2.399,
-                            }));
-                          }),
-                        ]
-                      : ledges
+                      ? { geometry: m.geometry, material: palmMaterial }
+                      : m
                   }
+                  items={FOREST_PLANTS.filter(
+                    (p) => p.variant === 2 && p.zone === "coastal",
+                  ).map((p) => ({ ...p, scale: p.scale * 0.22 }))}
                   low={low}
-                  near={190}
+                  near={low ? 55 : 75}
                 />
               )
             );
           })}
+          {[0, 1, 2].flatMap((v) =>
+            ["near", "far"].flatMap((level) =>
+              ["wood", "leaves"].map((part) => {
+                if (low && level === "near") return null;
+                const m = meshPart(
+                  kit.forest,
+                  `understory-${v}-${part}-${level}`,
+                );
+                return (
+                  m && (
+                    <Batch
+                      key={`under-${v}-${part}-${level}`}
+                      blocker={part === "wood" && v === 1}
+                      mesh={
+                        part === "wood" && v === 1 && forestBark
+                          ? { geometry: m.geometry, material: forestBark }
+                          : part === "leaves" && v === 1 && midstoryLeaf
+                            ? { geometry: m.geometry, material: midstoryLeaf }
+                            : part === "leaves" && forestLeaf
+                              ? { geometry: m.geometry, material: forestLeaf }
+                              : m
+                      }
+                      items={FOREST_PLANTS.filter(
+                        (p) =>
+                          p.variant === v && !(v === 2 && p.zone === "coastal"),
+                      )}
+                      low={low}
+                      near={low ? 190 : 22}
+                      far={level === "far" && !low}
+                      cast={!low && level === "near" && part === "leaves"}
+                    />
+                  )
+                );
+              }),
+            ),
+          )}
+          {/* Signature figs keep their original physical trunks, with full asymmetric crowns. */}
+          {[0, 1, 2].map((v) => {
+            const m = meshPart(kit.forest, `forest-${v}-crown-far`);
+            return (
+              m && (
+                <Batch
+                  key={`landmark-crown-${v}`}
+                  mesh={m}
+                  items={NATURAL_LANDMARKS.filter((l) =>
+                    ["buttress", "roots", "strangler", "leaning"].includes(
+                      l.kind,
+                    ),
+                  ).flatMap((l, i) => {
+                    if (i % 3 !== v) return [];
+                    const giant = l.kind === "buttress";
+                    return [
+                      {
+                        x: l.x + (l.kind === "leaning" ? 4.3 : 0),
+                        z: l.z,
+                        y: baseHeight(l.x, l.z) + (giant ? 8 : 0),
+                        scale: giant ? 1.75 : 1.18,
+                        rotation: i * 2.399,
+                      },
+                    ];
+                  })}
+                  low={low}
+                  near={190}
+                  burial={0}
+                />
+              )
+            );
+          })}
+          {/* Small rooted shrubs crown only real rock ledges. */}
+          {meshPart(kit.forest, "understory-0-leaves-far") && (
+            <Batch
+              mesh={meshPart(kit.forest, "understory-0-leaves-far")!}
+              items={ledges.map((p) => ({ ...p, scale: p.scale * 0.65 }))}
+              low={low}
+              near={190}
+            />
+          )}
         </>
       )}
       {kit.botanical &&
@@ -449,12 +597,6 @@ export function Environment({ low }: { low: boolean }) {
             </group>
           )),
         )}
-      <Batch
-        mesh={boundaryMesh}
-        items={plants.boundary}
-        low={low}
-        near={low ? 65 : 95}
-      />
       {kit.fern &&
         ["a", "b", "c", "d"].map((v, i) => {
           const fern = meshPart(kit.fern, `fern_02_${v}`);
@@ -466,21 +608,6 @@ export function Environment({ low }: { low: boolean }) {
                 items={plants.ferns.filter((_, j) => j % 4 === i)}
                 low={low}
                 near={low ? 36 : 55}
-              />
-            )
-          );
-        })}
-      {kit.tree &&
-        ["trunk", "leaves"].map((part) => {
-          const m = meshPart(kit.tree, `coastal-${part}-far`);
-          return (
-            m && (
-              <Batch
-                key={part}
-                mesh={m}
-                items={plants.shrubs}
-                low={low}
-                near={low ? 45 : 68}
               />
             )
           );

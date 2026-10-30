@@ -1,0 +1,38 @@
+name: Tonsai reconstruction visual checks
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/game/environment/**'
+      - 'artifacts/survivor-camp-prototype/src/game/Shelter.tsx'
+      - 'artifacts/survivor-camp-prototype/src/assets/camp/**'
+      - 'artifacts/survivor-camp-prototype/scripts/reconstruction-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/reconstruction.test.mjs'
+      - 'tools/camp/reconstruction/**'
+      - '.github/workflows/tonsai-reconstruction.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: artifacts/survivor-camp-prototype
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+        working-directory: .
+      - run: pnpm typecheck && pnpm test
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: ART_DIAGNOSTICS=1 pnpm qa:reconstruction
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tonsai-reconstruction-webgl
+          path: docs/tonsai-reconstruction/evidence/after/

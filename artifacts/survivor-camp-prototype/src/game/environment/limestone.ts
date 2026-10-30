@@ -1,6 +1,6 @@
 import * as T from "three";
 import { mergeVertices } from "three/examples/jsm/utils/BufferGeometryUtils.js";
-import { baseHeight, noise2 } from "../world";
+import { baseHeight, noise2, smoothstep } from "../world";
 import { CAVE, cliffFaceZ, cliffTopHeight } from "./geography";
 /** Shared indexed erosion surface. Continuous flutes replace flat triangle panels.
  * An irregular mouth joins a real, asymmetric vaulted interior; no tunnel prop. */
@@ -22,19 +22,18 @@ export function southernCliffGeometry(low = false) {
     3.0 +
     2.5 * Math.pow(Math.max(0, Math.sin(((x - 7) / 8) * Math.PI)), 0.65) +
     0.33 * Math.sin(x * 3.1);
-  const face = (x: number, h: number) => [
-    x -
-      Math.sign(x - 1) *
-        Math.pow(Math.abs(x - 1) / 41, 4) *
-        (2 + h * 0.07 + 2 * Math.sin(h * 0.16) + 1.5 * Math.sin(h * 0.43)) *
-        Math.min(1, h / 8),
-    baseHeight(x, 98) + h,
-    cliffFaceZ(x, h) +
-      Math.min(1, Math.max(0, (h - 2) / 6)) *
-        (1.8 * (noise2(x * 0.26, h * 0.06) - 0.5) +
-          0.45 * Math.sin(x * 1.9 + 0.18 * Math.sin(h * 0.3)) +
-          0.18 * Math.sin(h * 0.7 + x * 0.8)),
-  ];
+  // The lower undercut/cave envelope remains the established physical surface.
+  // Above it, individually composed shoulders retreat into a broad headland.
+  const face = (x: number, h: number) => {
+    const high=smoothstep(9,28,h),inward=smoothstep(13,64,h);
+    const shoulder=-Math.sign(x)*Math.pow(Math.abs(x)/42,1.8)*inward*14;
+    const blocks=4.2*(noise2(x*.085+3,h*.08)-.5)+2.3*(noise2(x*.24+8,h*.19)-.5);
+    const shelves=2.4*Math.exp(-(((h-24-x*.12)/4)**2))-1.8*Math.exp(-(((h-39+x*.15)/5)**2));
+    return [x+shoulder,
+      baseHeight(x,98)+h,
+      cliffFaceZ(x,h)*(1-high)+high*(102+blocks+shelves+inward*5+2.5*Math.sin(x*.045+h*.10))+
+      Math.min(1,Math.max(0,(h-2)/6))*(.55*(noise2(x*.45,h*.31)-.5))];
+  };
   const columns = [
     ...new Set([
       ...Array.from({ length: Math.ceil(82 / step) + 1 }, (_, i) =>
@@ -73,13 +72,14 @@ export function southernCliffGeometry(low = false) {
       tri(a, b, c);
       tri(a, c, d);
     }
-  for (let x = -40; x < 42; x += step) {
-    const a = face(x, cliffTopHeight(x)),
-      b = face(x + step, cliffTopHeight(x + step)),
-      c = [b[0]!, b[1]!, 127],
-      d = [a[0]!, a[1]!, 127];
-    tri(a, b, c);
-    tri(a, c, d);
+  // Authored crown slopes away from the seaward rim; broken broad shoulders.
+  for(let x=-40;x<42;x+=step)for(let j=0;j<10;j++){
+    const crown=(xx:number,t:number)=>{
+      const p=face(xx,cliffTopHeight(xx));
+      return [p[0]!+(noise2(xx*.12,t*4)-.5)*2*t,p[1]!*(1-.22*t)+Math.sin(t*Math.PI)*3,p[2]!+(127-p[2]!)*t];
+    };
+    const a=crown(x,j/10),b=crown(x+step,j/10),c=crown(x+step,(j+1)/10),d=crown(x,(j+1)/10);
+    tri(a,b,c);tri(a,c,d);
   }
   // Noncircular vault controls; all 7.4..14.6 m body positions stay clear below 2.3 m.
   const section = [
@@ -150,10 +150,10 @@ export function southernCliffGeometry(low = false) {
       z = p.getZ(i),
       interior = x > 6.8 && x < 15.2 && z > 98 && y < floor + 6.2;
     const c = new T.Color("#d9d4c8").multiplyScalar(
-      0.82 + 0.17 * noise2(x * 0.35, y * 0.035),
+      0.84 + 0.16 * noise2(x * 0.17, y * 0.10 + z * .04),
     );
-    const stain = Math.max(0, noise2(x * 0.9 + 8, y * 0.04) - 0.58);
-    c.lerp(new T.Color("#9c7858"), stain * 0.65);
+    const stain = Math.max(0, noise2(x * 0.19 + 8, y * 0.12 + z * .04) - 0.48);
+    c.lerp(new T.Color("#9c7858"), stain * 1.15);
     const damp =
       Math.max(0, 1 - (y - floor) / 2.3) *
       Math.max(0, n.getZ(i)) *

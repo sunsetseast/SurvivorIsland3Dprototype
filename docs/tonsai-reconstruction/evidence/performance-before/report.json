@@ -1,0 +1,329 @@
+{
+  "label": "before",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 1536x620 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "153.0.8010.0",
+  "errors": [],
+  "samples": [
+    {
+      "softwareFrameFinishMs": [
+        4.2999999998137355,
+        3,
+        2.7999999998137355
+      ],
+      "quality": "low",
+      "documentToMenuMs": 260,
+      "readyMs": 2425,
+      "calls": 224,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 33.90000000037253,
+          "totalMs": 33.90000000037253,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 21.59999999962747,
+          "totalMs": 21.59999999962747,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 43.200000000186265,
+          "totalMs": 43.200000000186265,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 220.40000000037253,
+          "totalMs": 220.40000000037253,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 40,
+          "totalMs": 40,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 904,
+          "totalMs": 904,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 921.8999999994412,
+          "totalMs": 921.8999999994412,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1098,
+          "totalMs": 1098,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1098.2000000001863,
+          "totalMs": 1098.2000000001863,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1121.4000000003725,
+          "totalMs": 1121.4000000003725,
+          "runs": 1
+        }
+      },
+      "triangles": 540907,
+      "geometries": 107,
+      "textures": 28,
+      "programs": 36,
+      "geometryBytes": 11368104,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 88.20000000018626,
+          "duration": 119
+        },
+        {
+          "start": 607.9000000003725,
+          "duration": 456
+        },
+        {
+          "start": 1064.0999999996275,
+          "duration": 476
+        },
+        {
+          "start": 2327.2000000001863,
+          "duration": 51
+        },
+        {
+          "start": 2483.0999999996275,
+          "duration": 130
+        },
+        {
+          "start": 2680.5,
+          "duration": 700
+        },
+        {
+          "start": 3406.7000000001863,
+          "duration": 144
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 21.799999999813735,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 21.799999999813735,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 16.799999999813735,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 19.40000000037253,
+          "bytes": 120547
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 19.100000000558794,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 27.799999999813735,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 25,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 19,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-low-DhkU7APY.glb",
+          "duration": 26,
+          "bytes": 1000480
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.09999999962747097,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "habitatBatches": [],
+      "frameIntervalsMs": []
+    },
+    {
+      "softwareFrameFinishMs": [
+        38.200000000186265,
+        19.200000000186265,
+        3.7000000001862645
+      ],
+      "quality": "high",
+      "documentToMenuMs": 7279,
+      "readyMs": 1814,
+      "calls": 231,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.299999999813735,
+          "totalMs": 34.299999999813735,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 20,
+          "totalMs": 20,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 38.39999999944121,
+          "totalMs": 38.39999999944121,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 161.5,
+          "totalMs": 161.5,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 38.799999999813735,
+          "totalMs": 38.799999999813735,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 706.4000000003725,
+          "totalMs": 706.4000000003725,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 739.3000000007451,
+          "totalMs": 739.3000000007451,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 865.4000000003725,
+          "totalMs": 865.4000000003725,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 869.5,
+          "totalMs": 869.5,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 872.5,
+          "totalMs": 872.5,
+          "runs": 1
+        }
+      },
+      "triangles": 807865,
+      "geometries": 110,
+      "textures": 28,
+      "programs": 37,
+      "geometryBytes": 15222660,
+      "textureBytesEstimate": 47164096.00000002,
+      "materials": 50,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 7138.299999999814,
+          "duration": 103
+        },
+        {
+          "start": 7582.0999999996275,
+          "duration": 311
+        },
+        {
+          "start": 7893.700000000186,
+          "duration": 277
+        },
+        {
+          "start": 8928.799999999814,
+          "duration": 79
+        },
+        {
+          "start": 9088.700000000186,
+          "duration": 514
+        },
+        {
+          "start": 9629,
+          "duration": 118
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 5.2999999998137355,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 5.7999999998137355,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 4.7000000001862645,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 5,
+          "bytes": 120547
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 7.2000000001862645,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 7.7999999998137355,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 13,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 12.200000000186265,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-4XjNdUMb.glb",
+          "duration": 612.7000000001863,
+          "bytes": 3959084
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.09999999962747097,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "habitatBatches": [],
+      "frameIntervalsMs": []
+    }
+  ],
+  "poses": [],
+  "checks": [],
+  "result": "PASS"
+}

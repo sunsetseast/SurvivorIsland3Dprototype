@@ -1,0 +1,17 @@
+# Reference register
+
+Accessed October 29, 2026. Linked photographs were viewed/researched as shape and construction references. They are not redistributed as game assets or textures.
+
+| Reference | Observation and decision |
+| --- | --- |
+| [Edge of Extinction episode-one CBS press-photo selection](https://survivingtribal.com/2019/02/13/survivor-edge-extinction-episode-1-press-photos/) | Contestants constructing a bamboo foundation and handling palm material. Use gathered poles and visible connections. |
+| [David vs. Goliath episode-one CBS press photos](https://survivingtribal.com/2018/09/18/survivor-david-goliath-episode-1-photos/) | Open communal shelter with an improvised layered roof; reference for the lean-to's open frontage. |
+| [Sylvia Kwan's Fiji construction interview](https://arccadigest.org/survivor/) | That season's elaborate village had supplied working drawings and materials. It is a special production context, not a universal contestant-built shelter template. |
+| [Dean Kowalski's contestant account](https://www.magazine.columbia.edu/article/how-survive-survivor) | Bamboo sleeping arrangements and difficulty excluding rain reinforce the practical, rough character of camp construction. |
+| [CBS/Paramount historical archive](https://www.paramountpressexpress.com/cbs-entertainment/shows/historic-photo-archive-collection-survivor-seasons-149/photos) | Historical context across Borneo, Australian Outback, Pearl Islands, Palau and later seasons. No production/reward hut is copied. |
+| [Borneo camp-building frame index](https://www.truedorktimes.com/survivor/cast/bb_andersen.htm), [Australian Outback Ogakor gallery](https://survivor.fandom.com/wiki/Ogakor), [Pearl Islands camp-building frames](https://truedorktimes.com/survivor/cast/burton_roberts.htm), [Palau camp setup frames](https://www.truedorktimes.com/survivor/cast/jolanda_jones.htm) | Supplementary historical discovery. The Fandom Camp page did not fully load through the research service, so its contents are not treated as inspected evidence. The concrete model relies chiefly on the accessible CBS construction photos and contestant accounts above. |
+| [Krabi Nature original Railay/Phra Nang photographs](https://krabinature.com/beaches/railay-beach-photos-best-thing-to-do-in-krabi/) and [Ton Sai image page](https://www.pexels.com/photo/view-of-the-ton-sai-beach-and-cliffs-in-krabi-thailand-19595559/) | Broad asymmetric limestone masses, caves/undercuts, localized ledge growth, damp minerals and a natural beach edge. Reference only. |
+| [NASA: Thailand's Krabi Coast](https://science.nasa.gov/earth/earth-observatory/thailands-krabi-coast/) | Regional geological context: tropical chemical weathering of uplifted limestone. The local playable camp remains fictional and compressed. |
+| [NParks Ficus superba](https://www.nparks.gov.sg/florafaunaweb/flora/2/9/2916), [Pandanus odorifer](https://www.nparks.gov.sg/florafaunaweb/flora/3/2/3245), [Cocos nucifera](https://www.nparks.gov.sg/florafaunaweb/flora/5/6/5618) | Coastal fig, screw-pine growth forms and coconut palm context. The kit represents growth forms rather than claiming a species-accurate botanical survey. |
+
+Primary technical source: [Ultra-Water source and README](https://github.com/Humpalumps/Ultra-Water). The project uses the same Three.js major version, but its demo renderer and benchmark are separate systems. See WATER_EVALUATION.md for the integration decision.

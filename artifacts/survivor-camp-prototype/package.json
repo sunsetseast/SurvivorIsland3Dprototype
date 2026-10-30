@@ -33,7 +33,9 @@
     "qa:expansion-metrics": "node --import tsx scripts/expansion-metrics.mjs",
     "assets:refine": "node --import tsx ../../tools/camp/refinement/build.mts && node --import tsx ../../tools/camp/refinement/migrate.mts",
     "world:bake-camp": "node --import tsx scripts/bake-camp-navigation.mjs",
-    "qa:refinement": "node scripts/refinement-qa.mjs"
+    "qa:refinement": "node scripts/refinement-qa.mjs",
+    "qa:reconstruction": "node scripts/reconstruction-qa.mjs",
+    "assets:reconstruction": "python3 ../../tools/camp/reconstruction/textures.py && node --import tsx ../../tools/camp/reconstruction/build.mts"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

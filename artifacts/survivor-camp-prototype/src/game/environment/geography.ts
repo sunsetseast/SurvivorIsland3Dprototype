@@ -385,5 +385,12 @@ export const ROOT_SOLIDS = NATURAL_LANDMARKS.filter((l) =>
   }).flat();
 });
 
-export const cliffTopHeight = (x: number) =>
-  67 + 5 * Math.sin(x * 0.12) + 3 * Math.sin(x * 0.43);
+/** Deliberately unequal broad peaks; not a repeating crenellated extrusion. */
+export const HEADLAND_RIDGE = [[-40,31],[-33,39],[-25,48],[-17,46],[-9,61],[-2,65],[7,55],[17,49],[27,53],[35,39],[42,30]] as const;
+export function cliffTopHeight(x:number){
+ for(let i=1;i<HEADLAND_RIDGE.length;i++){
+  const a=HEADLAND_RIDGE[i-1]!,b=HEADLAND_RIDGE[i]!;
+  if(x<=b[0]){const t=Math.max(0,Math.min(1,(x-a[0])/(b[0]-a[0]))),u=t*t*(3-2*t);return a[1]+(b[1]-a[1])*u;}
+ }
+ return HEADLAND_RIDGE.at(-1)![1];
+}

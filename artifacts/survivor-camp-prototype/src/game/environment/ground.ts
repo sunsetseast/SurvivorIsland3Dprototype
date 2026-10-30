@@ -50,7 +50,7 @@ export function campGroundMaterial() {
             ((j + 0.5) / size) * (TERRAIN_EXTENT.maxZ - TERRAIN_EXTENT.minZ),
           d = x - shorelineX(z),
           n = noise2(x * 0.11, z * 0.11);
-        const jungle = smoothstep(14, 31, d + (n - 0.5) * 8),
+        const jungle = smoothstep(11, 25, d + (n - 0.5) * 12),
           path = trailWear(x, z);
         const clearing =
           1 -
@@ -164,9 +164,10 @@ export function campGroundMaterial() {
         "#include <map_fragment>",
         `
    vec4 cw=campWeights();vec2 groundUV=vCampGround.xz*.31;
-   vec3 beach=texture2D(campSand,groundUV).rgb*2.7+vec3(.15,.125,.087);
+   vec3 beach=texture2D(campSand,groundUV).rgb*2.35+vec3(.12,.098,.068);
+   beach*=.92+.08*sin(vCampGround.x*.19+sin(vCampGround.z*.12));
    vec3 forest=texture2D(campLitter,groundUV*.74).rgb;
-   vec3 earth=mix(forest*.83,mix(forest,beach,.52),cw.g);
+   vec3 earth=mix(forest*.68,mix(forest,beach,.33),cw.g);
    vec3 albedo=mix(beach,earth,cw.r);
    albedo*=mix(vec3(.58,.65,.62),vec3(1.08,1.025,.91),cw.a)*cw.b;
    float sedimentNoise=sin(vCampGround.x*3.17+sin(vCampGround.z*2.3))*sin(vCampGround.z*2.1)*.14;
@@ -181,7 +182,7 @@ export function campGroundMaterial() {
         "mix(texture2D(campNormal,vCampGround.xz*.31).xyz,texture2D(campForestNormal,vCampGround.xz*.2294).xyz,campWeights().r*(1.-campWeights().g*.55))",
       );
   };
-  mat.customProgramCacheKey = () => "camp-ground-v2-cave-sediment";
+  mat.customProgramCacheKey = () => "camp-ground-v3-organic-transition";
   mat.addEventListener("dispose", () => {
     active = false;
     resources.forEach((t) => t.dispose());
