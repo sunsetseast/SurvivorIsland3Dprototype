@@ -313,7 +313,7 @@ for (let v = 0; v < 3; v++)
     parts.push({
       name: `understory-${v}-leaves-${lod}`,
       material: v === 1 ? 1 : 2,
-      geometry: v === 1 ? leaves(701, cs, lod === "near" ? 140 : 85, true, 6, .48) : leaves(700 + v, cs, lod === "near" ? 84 : 56, false, lod === "near" ? 5 : 3),
+      geometry: v === 1 ? leaves(701, cs, lod === "near" ? 140 : 85, true, 6, .48) : leaves(700 + v, cs, lod === "near" ? 84 : 56, false, lod === "near" ? 5 : 2),
     });
   }
 // Handmade communal lean-to, with an open rain-sheltering front and low windward edge.

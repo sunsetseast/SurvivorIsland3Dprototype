@@ -1,0 +1,40 @@
+name: Tonsai atmosphere visual checks
+on:
+  pull_request:
+    paths:
+      - "artifacts/survivor-camp-prototype/src/game/Scene.tsx"
+      - "artifacts/survivor-camp-prototype/src/game/Terrain.tsx"
+      - "artifacts/survivor-camp-prototype/src/game/environment/**"
+      - "artifacts/survivor-camp-prototype/src/assets/camp/**"
+      - "artifacts/survivor-camp-prototype/scripts/atmosphere-*.mjs"
+      - "artifacts/survivor-camp-prototype/tests/atmosphere.test.mjs"
+      - "tools/camp/atmosphere/**"
+      - ".github/workflows/tonsai-atmosphere.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  atmosphere:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: artifacts/survivor-camp-prototype
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+        working-directory: .
+      - run: pnpm typecheck && pnpm test
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: ART_RENDER_TIMING=1 pnpm qa:atmosphere
+      - run: pnpm qa:atmosphere-integration
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tonsai-atmosphere-webgl
+          path: docs/tonsai-atmosphere/evidence/

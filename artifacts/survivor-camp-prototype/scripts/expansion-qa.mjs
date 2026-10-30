@@ -601,14 +601,43 @@ try {
     }
     await page.evaluate(() => {
       const q = window.campQA;
-      const n = q.camp.npcs
-        .filter((n) => Math.hypot(n.x - 108, n.z - 36) > 70)
+      // The long hiding-site expedition advances the living camp for many
+      // simulated minutes. Its NPCs need not remain 70 m from the spring.
+      // Establish the chore's starting condition through real navigation,
+      // rather than assuming an actor is still near the original camp.
+      const n = [...q.camp.npcs]
         .sort(
           (a, b) =>
             Math.hypot(a.x + 9, a.z + 31) - Math.hypot(b.x + 9, b.z + 31),
-        )[0];
+        )
+        .find((actor) =>
+          q.camp.request(actor, {
+            activity: "rest",
+            place: "campfire",
+            duration: 30,
+            reason: "Prepare water chore through real NPC navigation",
+          }),
+        );
+      if (!n)
+        throw Error("No NPC can route to the campfire for chore validation");
+      const start = { x: n.x, z: n.z, distance: n.distance };
+      let ticks = 0;
+      for (; ticks < 18000 && n.traveling; ticks++)
+        q.camp.step(1 / 60, {
+          x: q.io.dbg.x,
+          z: q.io.dbg.z,
+          y: q.io.dbg.y,
+          moving: false,
+        });
+      if (n.traveling || Math.hypot(n.x + 9, n.z + 31) > 18)
+        throw Error("NPC did not physically reach the chore preparation area");
+      q.npcPreparation = {
+        start,
+        arrived: { x: n.x, z: n.z },
+        seconds: ticks / 60,
+        distanceAdvanced: n.distance - start.distance,
+      };
       if (
-        !n ||
         !q.camp.request(n, {
           activity: "collect_water",
           place: "waterWell",
@@ -616,7 +645,9 @@ try {
           reason: "Water chore browser validation",
         })
       )
-        throw Error("NPC chore request failed");
+        throw Error(
+          "NPC water chore request failed after physical preparation",
+        );
       q.followId = n.id;
       q.followDistance = n.distance;
       // Advance the real NPC movement solver while the player waits. No actor
@@ -676,6 +707,9 @@ try {
         distanceAdvanced: n.distance - q.followDistance,
       };
     });
+    report.npcPreparation = await page.evaluate(
+      () => window.campQA.npcPreparation,
+    );
     report.npcTrailObservation = npc;
     assert.equal(npc.traveling, true);
     assert.ok(npc.distanceAdvanced > 60);

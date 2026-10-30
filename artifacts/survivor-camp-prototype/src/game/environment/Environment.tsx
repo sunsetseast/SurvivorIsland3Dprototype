@@ -30,6 +30,7 @@ type Placement = {
   scale: number;
   rotation: number;
   tilt?: number;
+  stretch?: [number, number, number];
 };
 /** One draw per material/LOD. Distance compaction is done four times/sec;
  * no per-frame React updates, no foliage alpha blending or sorting. */
@@ -69,12 +70,22 @@ export function Batch({
     return items.map((p) => {
       o.position.set(p.x, p.y ?? groundHeight(p.x, p.z) - burial, p.z);
       o.rotation.set(p.tilt ?? 0, p.rotation, 0);
-      o.scale.setScalar(p.scale);
+      const foliage = /crown|leaves/.test(mesh.geometry.name);
+      const stretch = foliage ? p.stretch : undefined;
+      o.scale.set(
+        p.scale * (stretch?.[0] ?? 1),
+        p.scale * (stretch?.[1] ?? 1),
+        p.scale * (stretch?.[2] ?? 1),
+      );
       o.updateMatrix();
-      return { p, m: o.matrix.clone() };
+      const color = new T.Color(tint);
+      if (foliage)
+        color.multiplyScalar(
+          0.91 + 0.13 * (0.5 + 0.5 * Math.sin(p.x * 3.17 + p.z * 1.73)),
+        );
+      return { p, m: o.matrix.clone(), color };
     });
-  }, [items, burial]);
-  const color = useMemo(() => new T.Color(tint), [tint]);
+  }, [items, burial, mesh.geometry.name, tint]);
   useLayoutEffect(() => {
     if (ref.current) {
       ref.current.count = 0;
@@ -95,7 +106,7 @@ export function Batch({
         camera.matrixWorldInverse,
       ),
     );
-    for (const { p, m: matrix } of data) {
+    for (const { p, m: matrix, color } of data) {
       const d = Math.hypot(camera.position.x - p.x, camera.position.z - p.z);
       if (!mesh.geometry.boundingSphere) mesh.geometry.computeBoundingSphere();
       culling.sphere.copy(mesh.geometry.boundingSphere!).applyMatrix4(matrix);
@@ -182,16 +193,17 @@ export function Environment({ low }: { low: boolean }) {
     m.emissive.set("#556b42");
     m.emissiveIntensity = 0.22;
     m.emissiveMap = m.map;
-    m.alphaHash = true;
+    m.alphaHash = false;
+    m.alphaToCoverage = true;
     m.alphaTest = 0.3;
     m.transparent = false;
     m.onBeforeCompile = (s) => {
       s.fragmentShader = s.fragmentShader.replace(
-        "#include <alphahash_fragment>",
-        "diffuseColor.a*=smoothstep(1.0,3.0,length(vViewPosition));\n#include <alphahash_fragment>",
+        "#include <alphatest_fragment>",
+        "diffuseColor.a*=smoothstep(.65,1.7,length(vViewPosition));\n#include <alphatest_fragment>",
       );
     };
-    m.customProgramCacheKey = () => "cupped-leaves-camera-dither-v1";
+    m.customProgramCacheKey = () => "cupped-leaves-msaa-coverage-v2";
     return m;
   }, [kit.tree]);
   useEffect(() => () => forestLeaf?.dispose(), [forestLeaf]);
@@ -201,18 +213,19 @@ export function Environment({ low }: { low: boolean }) {
     const m = (
       Array.isArray(source) ? source[0] : source
     ).clone() as T.MeshStandardMaterial;
-    m.alphaHash = true;
+    m.alphaHash = false;
+    m.alphaToCoverage = true;
     m.alphaTest = 0.3;
     m.emissive.set("#708354");
     m.emissiveIntensity = 0.24;
     m.emissiveMap = m.map;
     m.onBeforeCompile = (s) => {
       s.fragmentShader = s.fragmentShader.replace(
-        "#include <alphahash_fragment>",
-        "diffuseColor.a*=smoothstep(1.5,3.0,length(vViewPosition));\n#include <alphahash_fragment>",
+        "#include <alphatest_fragment>",
+        "diffuseColor.a*=smoothstep(.65,1.7,length(vViewPosition));\n#include <alphatest_fragment>",
       );
     };
-    m.customProgramCacheKey = () => "midstory-camera-dither-v1";
+    m.customProgramCacheKey = () => "midstory-msaa-coverage-v2";
     return m;
   }, [kit.forest]);
   useEffect(() => () => midstoryLeaf?.dispose(), [midstoryLeaf]);
@@ -221,7 +234,14 @@ export function Environment({ low }: { low: boolean }) {
       trees: [
         ...veg(BROADLEAF, 3.2),
         ...BACKDROP_TREES.map((p) => ({ ...p, y: baseHeight(p.x, p.z) - 0.2 })),
-      ],
+      ].map((p, i) => ({
+        ...p,
+        stretch: [
+          0.88 + (i % 5) * 0.055,
+          0.93 + (i % 4) * 0.05,
+          0.9 + (i % 3) * 0.08,
+        ] as [number, number, number],
+      })),
       palms: veg(PALMS, 0.81),
       ferns: veg(FERNS, 3.2),
       shrubs: veg(

@@ -1,0 +1,17 @@
+{
+  "method": "Original seeded offline density-volume integration; no external image source",
+  "dimensions": [
+    1024,
+    512
+  ],
+  "formations": 13,
+  "rgbaBytes": 2097152,
+  "bytes": 120785,
+  "sha256": "606f3ed8e5b5980e32f9c2a80d2a4cd3dfc2333096a2c05ff73fbc94902809ab",
+  "sourceSha256": "a8c9f930a7d7c5346c540fc031868fb45d3595a4120054fefb8e7eb812d768df",
+  "dependencies": [
+    "numpy",
+    "scipy",
+    "Pillow"
+  ]
+}
