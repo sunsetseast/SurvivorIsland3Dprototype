@@ -38,6 +38,7 @@
     "assets:reconstruction": "python3 ../../tools/camp/reconstruction/textures.py && node --import tsx ../../tools/camp/reconstruction/build.mts",
     "qa:atmosphere": "node scripts/atmosphere-qa.mjs",
     "qa:atmosphere-integration": "node scripts/atmosphere-integration.mjs",
+    "qa:sky-motion": "node scripts/sky-motion-qa.mjs",
     "assets:clouds": "python3 ../../tools/camp/atmosphere/clouds.py"
   },
   "devDependencies": {
