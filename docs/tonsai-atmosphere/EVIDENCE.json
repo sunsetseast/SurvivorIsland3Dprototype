@@ -1,0 +1,246 @@
+{
+  "method": "Actual minified production WebGL screenshots; originals, no image generation",
+  "base": "76b84bc8b61fb4a1ecdd8bc0c28848492a1878f9",
+  "screenshots": [
+    {
+      "path": "evidence/before/high-campfire-shelter.jpg",
+      "sha256": "b8824085a258f90d03f4b583ad884bd95104ebb7f734d68f99bb69b2d62d91e7",
+      "bytes": 348266
+    },
+    {
+      "path": "evidence/before/high-deep-jungle.jpg",
+      "sha256": "342c7a22701fcd665ad3536fe94c23fb4cd3ce716b81c4a6d20010c6a540800a",
+      "bytes": 370990
+    },
+    {
+      "path": "evidence/before/high-elevated-overview.jpg",
+      "sha256": "b53727c142bb69345004953a197a253065871530b279db1dc866ee5f2773c736",
+      "bytes": 303846
+    },
+    {
+      "path": "evidence/before/high-freshwater-spring.jpg",
+      "sha256": "57cc4fcf76f8c573091a2d6a46d3faa6240f3f0239fc5baa7d6ac9921ee812e3",
+      "bytes": 380595
+    },
+    {
+      "path": "evidence/before/high-jungle-edge.jpg",
+      "sha256": "b1abdcddc34d82c21d3079d14e5756d0575989e42632e534ec306f601c703dbe",
+      "bytes": 317794
+    },
+    {
+      "path": "evidence/before/high-jungle-trail.jpg",
+      "sha256": "d9a124d88f39dcdc97573945cbd692bec976d03ca5b21723ddb6b11702625d3c",
+      "bytes": 284896
+    },
+    {
+      "path": "evidence/before/high-limestone-beach.jpg",
+      "sha256": "fee143ebd408b749576467d7e8acd9b8e07c57fa717e9c9a146636696f3a0553",
+      "bytes": 207161
+    },
+    {
+      "path": "evidence/before/high-limestone-close.jpg",
+      "sha256": "71f62153f2d611eeb9d2a18458b3064c418843af10ac52c2e7c83f20173ede10",
+      "bytes": 330295
+    },
+    {
+      "path": "evidence/before/high-ocean-horizon.jpg",
+      "sha256": "3b5273443fdbf30dd273a970d789fb61a7f962941abfb9e8bf51311812bfd5d1",
+      "bytes": 111954
+    },
+    {
+      "path": "evidence/before/high-shoreline.jpg",
+      "sha256": "3d4f9e78031dbda1d4a661d5f29e717089c4fb9f2b7825c67fcc87bfb6e218cf",
+      "bytes": 138017
+    },
+    {
+      "path": "evidence/before/high-sky-upward.jpg",
+      "sha256": "a633c4c070300c8d2dbab207c06fd8228471539c5dbfec034de6b8748570fc97",
+      "bytes": 96873
+    },
+    {
+      "path": "evidence/before/high-west-beach.jpg",
+      "sha256": "041756d5e905abf2b0a758f14db1d4337fa821dc1a7a987d552d47d3b30a4e7f",
+      "bytes": 264218
+    },
+    {
+      "path": "evidence/before/low-campfire-shelter.jpg",
+      "sha256": "727858ad9488de1727802dbaa333e49017a106094a8ebd1a9f01aee5c456b69d",
+      "bytes": 398568
+    },
+    {
+      "path": "evidence/before/low-deep-jungle.jpg",
+      "sha256": "8c7495f57a17cea2c6809a3aebeba9ca42452beb8ef98a9503ee81d5216a65ec",
+      "bytes": 391686
+    },
+    {
+      "path": "evidence/before/low-elevated-overview.jpg",
+      "sha256": "a5783f2ebe8232685954e208524280d1144de6e88ff34a5d40364ca69829d03f",
+      "bytes": 276987
+    },
+    {
+      "path": "evidence/before/low-freshwater-spring.jpg",
+      "sha256": "d228bdbceabd517f366f006c81da7d73b4f585c56ce574caee8b8e8027e6f4c1",
+      "bytes": 399021
+    },
+    {
+      "path": "evidence/before/low-jungle-edge.jpg",
+      "sha256": "020471e06388282ae3fbbc3af0d1cc03309ed2d4b3d6e4127ffdd3b16274e017",
+      "bytes": 413002
+    },
+    {
+      "path": "evidence/before/low-jungle-trail.jpg",
+      "sha256": "fe65bf3e40e4e04b52d959143867f63f81b923bb1d3171ccc75b6287d77c32e3",
+      "bytes": 382661
+    },
+    {
+      "path": "evidence/before/low-limestone-beach.jpg",
+      "sha256": "d504c83f594be0ae58e5739c01359cc56fb5ceb893db4bb703a9deb581a2eba9",
+      "bytes": 205605
+    },
+    {
+      "path": "evidence/before/low-limestone-close.jpg",
+      "sha256": "c08aaa76fce15d12c5cf2e6586ae766b01a0d29333bb77861764525003808dc0",
+      "bytes": 334969
+    },
+    {
+      "path": "evidence/before/low-ocean-horizon.jpg",
+      "sha256": "c495702811a2f41d068aa20bb768e6570f51030b05a47cce30cc825386a669de",
+      "bytes": 112474
+    },
+    {
+      "path": "evidence/before/low-shoreline.jpg",
+      "sha256": "e56c69015b03c351d7b12503c7c4ffe691b74244be5388d28fc7e56a8834a351",
+      "bytes": 138931
+    },
+    {
+      "path": "evidence/before/low-sky-upward.jpg",
+      "sha256": "37d8896776baad52eef8148e784b42294aa07d327c38a36ddf8068f281adea30",
+      "bytes": 95205
+    },
+    {
+      "path": "evidence/before/low-west-beach.jpg",
+      "sha256": "2927628e438add12672dd0690d4f2f14b357df2b3bab598d15663316408a1dd9",
+      "bytes": 270996
+    },
+    {
+      "path": "evidence/after/high-campfire-shelter.jpg",
+      "sha256": "dadd0c2bb932a5e2be7f493a3d1949e01198b1aa329ac9d1d817cf04946b14f4",
+      "bytes": 330548
+    },
+    {
+      "path": "evidence/after/high-deep-jungle.jpg",
+      "sha256": "7ac078eecddee38128992e8d92f8d44dfe9654f0ea1d7663baf688deba011d4c",
+      "bytes": 348952
+    },
+    {
+      "path": "evidence/after/high-elevated-overview.jpg",
+      "sha256": "e05814564c01f2ac214ac877a94acb30b64736e63ed03a53e70705a48ba8485c",
+      "bytes": 290881
+    },
+    {
+      "path": "evidence/after/high-freshwater-spring.jpg",
+      "sha256": "f6d18d0d50373379ef08b8e2d7f3b2d2b5f65b9336ac3d113146ec96ff393abf",
+      "bytes": 353086
+    },
+    {
+      "path": "evidence/after/high-jungle-edge.jpg",
+      "sha256": "c215792b2d9eccd94f018fe3a21fd18a9a42d101d9f214a71be3a7a521868e4d",
+      "bytes": 298914
+    },
+    {
+      "path": "evidence/after/high-jungle-trail.jpg",
+      "sha256": "337ae93843b6edb022f757e57dd183020ba3a82598b0525550028cc893a2e0fb",
+      "bytes": 233854
+    },
+    {
+      "path": "evidence/after/high-limestone-beach.jpg",
+      "sha256": "cbd1589540a63b8ef1e8cdfa3af412ebdd637383a569ec32927eaee218775839",
+      "bytes": 216778
+    },
+    {
+      "path": "evidence/after/high-limestone-close.jpg",
+      "sha256": "87ebbbc7a6f2ec51db32848f6e4c48fc3d9224f201644bab0e9910c9a45d5179",
+      "bytes": 304158
+    },
+    {
+      "path": "evidence/after/high-ocean-horizon.jpg",
+      "sha256": "1a59e3ddf78c0fafa9736382c02304a312c0a06edd16379a371686b9e85ec639",
+      "bytes": 137816
+    },
+    {
+      "path": "evidence/after/high-shoreline.jpg",
+      "sha256": "e1e9a1cd69d6fd9239cb92bf64c2b189211e635065acb0fa7a950657721d19db",
+      "bytes": 161668
+    },
+    {
+      "path": "evidence/after/high-sky-upward.jpg",
+      "sha256": "c0554f560467fbb85e8ba2ad15838e145b99cce2853f538fc07dad1699259bef",
+      "bytes": 113981
+    },
+    {
+      "path": "evidence/after/high-west-beach.jpg",
+      "sha256": "5ebd3cdfb819592c2f3c9928d025f67c132c4479635930a76fb25a1c09128271",
+      "bytes": 274622
+    },
+    {
+      "path": "evidence/after/low-campfire-shelter.jpg",
+      "sha256": "fbb5b4bdb2876f572c1565053e277d187560dce65d0b9f1b452856d4c5a59537",
+      "bytes": 383212
+    },
+    {
+      "path": "evidence/after/low-deep-jungle.jpg",
+      "sha256": "2b129fc7fd933756f3fdd9c34acd96534a0e44df34b094a0ca91bb6dc69fc886",
+      "bytes": 375088
+    },
+    {
+      "path": "evidence/after/low-elevated-overview.jpg",
+      "sha256": "21c177342d24ac732105a3e9fb845d3c3f0bb77097e9e711896c543249a7de94",
+      "bytes": 263143
+    },
+    {
+      "path": "evidence/after/low-freshwater-spring.jpg",
+      "sha256": "394ac128bd915d78401fc58c49cf78e2c47ec1c1779e39ee99d34d1e9b4565e0",
+      "bytes": 375598
+    },
+    {
+      "path": "evidence/after/low-jungle-edge.jpg",
+      "sha256": "50da107ecb53ebc74657d75b26a9a9f6c49d18eaf1ce8db4e91cf446a03dd0cb",
+      "bytes": 398670
+    },
+    {
+      "path": "evidence/after/low-jungle-trail.jpg",
+      "sha256": "c271f10c0024d2e8f700b3749e4ab7100a3937f01c54364d9db6a74f1d95298a",
+      "bytes": 325406
+    },
+    {
+      "path": "evidence/after/low-limestone-beach.jpg",
+      "sha256": "3095f3cba0141e1be1b640bb564389b255c9b3088c12ed4c7fc733154ebd0cab",
+      "bytes": 212710
+    },
+    {
+      "path": "evidence/after/low-limestone-close.jpg",
+      "sha256": "5e8a312ede1d9e6674b2ae1531d2b8c16ff1d252d0fefa55045d294c89c311c3",
+      "bytes": 309939
+    },
+    {
+      "path": "evidence/after/low-ocean-horizon.jpg",
+      "sha256": "a65615f760f21c26f1fe7228a396bb237f595bec36d3aadabac92e7eadb9c462",
+      "bytes": 135223
+    },
+    {
+      "path": "evidence/after/low-shoreline.jpg",
+      "sha256": "a91e19cf63ea9d2b09ed2c86f9b37fcfc28c60664706fbfd207ee6a59da1282f",
+      "bytes": 162922
+    },
+    {
+      "path": "evidence/after/low-sky-upward.jpg",
+      "sha256": "6d3fdabc6820cf2e97e6d6bca6c345ca8b20455ddbe32ebdacfcbf30f0d573ba",
+      "bytes": 113061
+    },
+    {
+      "path": "evidence/after/low-west-beach.jpg",
+      "sha256": "54f950b9c08c2a50aafc9d41655d85147e797b422a175bc7c7ba67ac0b25adde",
+      "bytes": 281304
+    }
+  ]
+}

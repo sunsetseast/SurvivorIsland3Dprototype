@@ -113,6 +113,7 @@ export function useEnvironmentKit(low = false) {
               if (id === "fern" || /leaves/.test(m.name)) {
                 p.side = T.DoubleSide;
                 p.alphaTest = 0.45;
+                p.alphaToCoverage = true;
                 p.transparent = false;
                 p.depthWrite = true;
               }
@@ -121,15 +122,16 @@ export function useEnvironmentKit(low = false) {
                 p.side = T.DoubleSide;
                 if (/shelter-thatch/.test(m.name)) {
                   p.emissive.set("#80744b");
-                  p.emissiveIntensity = 0.28;
+                  p.emissiveIntensity = 0.18;
                 }
                 if (/crown/.test(m.name)) {
                   if (!p.map) textureFailure = true;
                   p.alphaTest = 0.4;
+                  p.alphaToCoverage = true;
                   p.transparent = false;
                   p.depthWrite = true;
                   p.emissive.set("#92af6d");
-                  p.emissiveIntensity = 0.4;
+                  p.emissiveIntensity = 0.32;
                   p.emissiveMap = p.map;
                 }
               }
@@ -147,7 +149,10 @@ export function useEnvironmentKit(low = false) {
           ...prev,
           ...(scene ? { [id]: scene } : {}),
           settled: pending === 0,
-          failures: scene && !textureFailure ? prev.failures : [...prev.failures, textureFailure ? id + ":texture" : id],
+          failures:
+            scene && !textureFailure
+              ? prev.failures
+              : [...prev.failures, textureFailure ? id + ":texture" : id],
         }));
       };
       const timer = setTimeout(() => finish(), 12000);

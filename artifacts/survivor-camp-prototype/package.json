@@ -35,7 +35,10 @@
     "world:bake-camp": "node --import tsx scripts/bake-camp-navigation.mjs",
     "qa:refinement": "node scripts/refinement-qa.mjs",
     "qa:reconstruction": "node scripts/reconstruction-qa.mjs",
-    "assets:reconstruction": "python3 ../../tools/camp/reconstruction/textures.py && node --import tsx ../../tools/camp/reconstruction/build.mts"
+    "assets:reconstruction": "python3 ../../tools/camp/reconstruction/textures.py && node --import tsx ../../tools/camp/reconstruction/build.mts",
+    "qa:atmosphere": "node scripts/atmosphere-qa.mjs",
+    "qa:atmosphere-integration": "node scripts/atmosphere-integration.mjs",
+    "assets:clouds": "python3 ../../tools/camp/atmosphere/clouds.py"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
