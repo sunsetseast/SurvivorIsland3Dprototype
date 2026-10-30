@@ -1,0 +1,89 @@
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 723 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/scratch/f3cab0a969d9/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/Scene.tsx is dynamically imported by /workspace/scratch/f3cab0a969d9/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/locations/travel.ts but also statically imported by /workspace/scratch/f3cab0a969d9/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/App.tsx, dynamic import will not move module into another chunk.
+
+computing gzip size...
+../../generated-artifacts/karst-after/index.html                                          1.33 kB │ gzip:     0.57 kB
+../../generated-artifacts/karst-after/assets/fern-fWCX6G_p.png                           24.63 kB
+../../generated-artifacts/karst-after/assets/broadleaf-DJo94Nsg.png                      44.58 kB
+../../generated-artifacts/karst-after/assets/sand_02-normal-BLCxg0jx.jpg                 59.00 kB
+../../generated-artifacts/karst-after/assets/brown_mud_leaves_01-normal-Bj8DOn56.jpg    120.55 kB
+../../generated-artifacts/karst-after/assets/tropical-clouds-20pSrmJI.png               120.79 kB
+../../generated-artifacts/karst-after/assets/leaf-sprays-g6mRu1OV.png                   147.36 kB
+../../generated-artifacts/karst-after/assets/geology-BIPUa6jz.glb                       161.58 kB
+../../generated-artifacts/karst-after/assets/coast_rocks_05-vztNENlk.glb                272.24 kB
+../../generated-artifacts/karst-after/assets/sand_02-diff-BQzakbQ5.jpg                  331.64 kB
+../../generated-artifacts/karst-after/assets/brown_mud_leaves_01-diff-Cq1rge4_.jpg      423.03 kB
+../../generated-artifacts/karst-after/assets/fern_02-SrGECGLv.glb                       481.48 kB
+../../generated-artifacts/karst-after/assets/rock_06_nor_gl_1k-JDIemyFe.jpg             703.28 kB
+../../generated-artifacts/karst-after/assets/limestone-CG-3UH2o.glb                     724.02 kB
+../../generated-artifacts/karst-after/assets/palms-Dq4xC_Td.glb                         901.24 kB
+../../generated-artifacts/karst-after/assets/rock_06_diff_1k-D1Qsa8Fl.jpg               913.68 kB
+../../generated-artifacts/karst-after/assets/landmarks-low-CEeeFMXX.glb               1,006.01 kB
+../../generated-artifacts/karst-after/assets/karsts-low-ge9WS8yJ.glb                  1,366.02 kB
+../../generated-artifacts/karst-after/assets/botanical-MY7NnqJm.glb                   1,641.87 kB
+../../generated-artifacts/karst-after/assets/coastal-tree-riod1bi9.glb                1,704.46 kB
+../../generated-artifacts/karst-after/assets/voting-props-C8V7mVEO.glb                1,819.87 kB
+../../generated-artifacts/karst-after/assets/sanctuary-kit-low-Dz1KIqQ9.glb           2,460.07 kB
+../../generated-artifacts/karst-after/assets/reconstruction-low-CH-YyoQr.glb          2,963.14 kB
+../../generated-artifacts/karst-after/assets/landmarks-DhHzGEx2.glb                   3,841.20 kB
+../../generated-artifacts/karst-after/assets/karsts-high-DruJMwkt.glb                 4,436.90 kB
+../../generated-artifacts/karst-after/assets/reconstruction-Ce29Uv-T.glb              4,788.63 kB
+../../generated-artifacts/karst-after/assets/sanctuary-kit-BTU5bH4I.glb               6,883.36 kB
+../../generated-artifacts/karst-after/assets/index-DSkx91JB.css                         109.94 kB │ gzip:    19.36 kB
+../../generated-artifacts/karst-after/assets/IslandHud-D9-nwwoa.js                        6.31 kB │ gzip:     2.78 kB
+../../generated-artifacts/karst-after/assets/TribalScene-WWGtukrw.js                     42.21 kB │ gzip:    16.66 kB
+../../generated-artifacts/karst-after/assets/IslandScene-BjKVdgiP.js                    347.74 kB │ gzip:   113.00 kB
+../../generated-artifacts/karst-after/assets/index-th98S0uQ.js                        1,822.22 kB │ gzip:   541.00 kB
+../../generated-artifacts/karst-after/assets/terrain-CshO8gST.js                      3,705.76 kB │ gzip: 1,047.81 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 9.94s
+SAMPLE low {"readyMs":4998,"calls":234,"triangles":680644,"stages":{}}
+RENDER low south-beach
+CAPTURE low south-beach
+RENDER low north-offshore
+CAPTURE low north-offshore
+RENDER low cliff-beside
+CAPTURE low cliff-beside
+RENDER low cliff-approach
+CAPTURE low cliff-approach
+RENDER low waterline
+CAPTURE low waterline
+RENDER low distant-silhouette
+CAPTURE low distant-silhouette
+RENDER low jungle-limestone
+CAPTURE low jungle-limestone
+RENDER low cave-entrance
+CAPTURE low cave-entrance
+RENDER low camp-limestone
+CAPTURE low camp-limestone
+CAPTURE low coast-eye
+CAPTURE low elevated-overview
+SAMPLE high {"readyMs":3817,"calls":251,"triangles":980009,"stages":{}}
+RENDER high south-beach
+CAPTURE high south-beach
+RENDER high north-offshore
+CAPTURE high north-offshore
+RENDER high cliff-beside
+CAPTURE high cliff-beside
+RENDER high cliff-approach
+CAPTURE high cliff-approach
+RENDER high waterline
+CAPTURE high waterline
+RENDER high distant-silhouette
+CAPTURE high distant-silhouette
+RENDER high jungle-limestone
+CAPTURE high jungle-limestone
+RENDER high cave-entrance
+CAPTURE high cave-entrance
+RENDER high camp-limestone
+CAPTURE high camp-limestone
+CAPTURE high coast-eye
+CAPTURE high elevated-overview

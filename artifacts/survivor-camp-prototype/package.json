@@ -39,7 +39,9 @@
     "qa:atmosphere": "node scripts/atmosphere-qa.mjs",
     "qa:atmosphere-integration": "node scripts/atmosphere-integration.mjs",
     "qa:sky-motion": "node scripts/sky-motion-qa.mjs",
-    "assets:clouds": "python3 ../../tools/camp/atmosphere/clouds.py"
+    "assets:clouds": "python3 ../../tools/camp/atmosphere/clouds.py",
+    "qa:karst": "node scripts/karst-qa.mjs",
+    "assets:karst": "node --import tsx ../../tools/camp/refinement/build.mts"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

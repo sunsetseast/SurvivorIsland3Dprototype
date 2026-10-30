@@ -1,0 +1,8 @@
+SAMPLE high {"readyMs":5292,"calls":251,"triangles":980009,"stages":{}}
+RENDER high waterline
+CAPTURE high waterline
+CAPTURE high coast-eye
+SAMPLE high {"readyMs":4426,"calls":253,"triangles":982361,"stages":{}}
+RENDER high waterline
+CAPTURE high waterline
+CAPTURE high coast-eye

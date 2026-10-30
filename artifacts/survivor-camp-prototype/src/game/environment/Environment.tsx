@@ -17,7 +17,8 @@ import { GroundDetail } from "./GroundDetail";
 import { Shelter } from "../Shelter";
 import { FOREST_PLANTS } from "./forest";
 import { NaturalLandmarks } from "./Landmarks";
-import { NATURAL_LANDMARKS, SPRING, cliffTopHeight } from "./geography";
+import { NATURAL_LANDMARKS, SPRING } from "./geography";
+import { southernCliffSurface, karstRimHeight } from "./limestone";
 import { makeShrub } from "../flora";
 import { Flora } from "../Flora";
 import { useEnvironmentKit, meshPart } from "./assets";
@@ -331,16 +332,41 @@ export function Environment({ low }: { low: boolean }) {
     if (cliffMesh) {
       const surface = new T.Mesh(cliffMesh.geometry, cliffMesh.material);
       surface.updateMatrixWorld(true);
-      for (const x of [-29, -13, 5, 23, 34]) {
-        ray.set(new T.Vector3(x, 110, 112), new T.Vector3(0, -1, 0));
+      const nearMesh = meshPart(kit.landmarks, "southern-cliff-rock-near");
+      const nearSurface = nearMesh
+        ? new T.Mesh(nearMesh.geometry, nearMesh.material)
+        : null;
+      nearSurface?.updateMatrixWorld(true);
+      // Deliberately sparse pockets at unequal elevations. Probe vertically onto
+      // the actual shipped low mesh, rejecting steep faces and false contacts.
+      const requests = [
+        ...[-29, -13, 5, 23, 34].map((x) => ({ x, z: 112, scale: 1.1 })),
+        ...[0.29, 0.47, 0.68, 0.81].map((d, i) => {
+          const p = southernCliffSurface(-40, d, 15.5 + (i % 2) * 0.6);
+          return { x: p[0]! + 0.15, z: p[2]!, scale: 0.55 };
+        }),
+        ...[0.15, 0.29, 0.46, 0.68, 0.82].map((d, i) => {
+          const p = southernCliffSurface(-38, d, karstRimHeight(-38, d));
+          return { x: p[0]!, z: p[2]!, scale: 0.7 + (i % 3) * 0.14 };
+        }),
+        ...[0.22, 0.55, 0.78].map((d) => {
+          const p = southernCliffSurface(38, d, karstRimHeight(38, d));
+          return { x: p[0]!, z: p[2]!, scale: 0.9 };
+        }),
+      ];
+      for (const [i, p] of requests.entries()) {
+        ray.set(new T.Vector3(p.x, 110, p.z), new T.Vector3(0, -1, 0));
         const hit = ray.intersectObject(surface, false)[0];
-        if (hit)
+        const nearHit = nearSurface
+          ? ray.intersectObject(nearSurface, false)[0]
+          : hit;
+        if (hit && nearHit && hit.face && hit.face.normal.y > 0.55)
           out.push({
-            x,
-            z: 112,
-            y: hit.point.y - 0.1,
-            scale: 1.5,
-            rotation: x * 0.4,
+            x: p.x,
+            z: p.z,
+            y: Math.min(hit.point.y, nearHit.point.y) - 0.09,
+            scale: p.scale,
+            rotation: i * 2.399,
           });
       }
     }

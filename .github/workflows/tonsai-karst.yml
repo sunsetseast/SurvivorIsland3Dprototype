@@ -1,0 +1,38 @@
+name: Tonsai limestone reconstruction checks
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/game/environment/**'
+      - 'artifacts/survivor-camp-prototype/src/assets/camp/landmark*'
+      - 'artifacts/survivor-camp-prototype/scripts/karst-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/karst.test.mjs'
+      - 'tools/camp/refinement/**'
+      - '.github/workflows/tonsai-karst.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  limestone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: artifacts/survivor-camp-prototype
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+        working-directory: .
+      - run: pnpm typecheck && pnpm test
+      - run: PORT=5200 BASE_PATH=/ pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: ART_RENDER_TIMING=1 pnpm qa:karst
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tonsai-karst-webgl
+          path: docs/tonsai-karst/evidence/

@@ -1,0 +1,2487 @@
+{
+  "label": "after",
+  "method": "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+  "browser": "153.0.8010.0",
+  "errors": [],
+  "samples": [
+    {
+      "softwareFrameFinishMs": [
+        5.7000000001862645,
+        4.100000000093132,
+        5.5,
+        2.2000000001862645,
+        3.1999999997206032,
+        3.7000000001862645,
+        4.2999999998137355,
+        4,
+        1.8000000002793968,
+        2.1999999997206032,
+        1.900000000372529,
+        1.3999999999068677
+      ],
+      "quality": "low",
+      "documentToMenuMs": 596,
+      "readyMs": 4998,
+      "calls": 234,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 43.700000000186265,
+          "totalMs": 43.700000000186265,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 38.10000000009313,
+          "totalMs": 38.10000000009313,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 108.60000000009313,
+          "totalMs": 108.60000000009313,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 279.79999999981374,
+          "totalMs": 279.79999999981374,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 38.90000000037253,
+          "totalMs": 38.90000000037253,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 1320.7999999998137,
+          "totalMs": 1320.7999999998137,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 1346.3000000002794,
+          "totalMs": 1346.3000000002794,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1692.5,
+          "totalMs": 1692.5,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1704.3000000002794,
+          "totalMs": 1704.3000000002794,
+          "runs": 1
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 1723.7999999998137,
+          "totalMs": 1723.7999999998137,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 2993.100000000093,
+          "totalMs": 2993.100000000093,
+          "runs": 1
+        }
+      },
+      "triangles": 680644,
+      "geometries": 122,
+      "textures": 30,
+      "programs": 37,
+      "renderer": {
+        "toneMapping": 4,
+        "exposure": 0.96,
+        "outputColorSpace": "srgb",
+        "msaa": 4
+      },
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "materials": 49,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 181.10000000009313,
+          "duration": 322
+        },
+        {
+          "start": 772.7999999998137,
+          "duration": 73
+        },
+        {
+          "start": 992.6000000000931,
+          "duration": 599
+        },
+        {
+          "start": 1592.3999999999069,
+          "duration": 500
+        },
+        {
+          "start": 3117.6999999997206,
+          "duration": 148
+        },
+        {
+          "start": 3475,
+          "duration": 199
+        },
+        {
+          "start": 3846.6999999997206,
+          "duration": 412
+        },
+        {
+          "start": 4258.699999999721,
+          "duration": 834
+        },
+        {
+          "start": 5098.899999999907,
+          "duration": 89
+        },
+        {
+          "start": 5189.5,
+          "duration": 438
+        },
+        {
+          "start": 5628,
+          "duration": 84
+        },
+        {
+          "start": 5745,
+          "duration": 200
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 76.60000000009313,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 77.1999999997206,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 64.89999999990687,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 67.8000000002794,
+          "bytes": 120547
+        },
+        {
+          "name": "reconstruction-low-CH-YyoQr.glb",
+          "duration": 1180,
+          "bytes": 2963136
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 119,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 140.5,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 132.90000000037253,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 97.39999999990687,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-low-CEeeFMXX.glb",
+          "duration": 136.20000000018626,
+          "bytes": 1006012
+        },
+        {
+          "name": "tropical-clouds-20pSrmJI.png",
+          "duration": 121.20000000018626,
+          "bytes": 120785
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.40000000037252903,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "habitatBatches": [
+        {
+          "mesh": "limestone-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 3,
+          "triangles": 6600
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 10,
+          "triangles": 22000
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 9,
+          "triangles": 4860
+        },
+        {
+          "mesh": "forest-1-wood-far",
+          "count": 12,
+          "triangles": 9360
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 9,
+          "triangles": 4860
+        },
+        {
+          "mesh": "forest-2-wood-far",
+          "count": 16,
+          "triangles": 13440
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 10,
+          "triangles": 5400
+        },
+        {
+          "mesh": "coastal-trunk-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-branches-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-trunk-far",
+          "count": 14,
+          "triangles": 8400
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "understory-0-wood-far",
+          "count": 160,
+          "triangles": 24000
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 179,
+          "triangles": 80192
+        },
+        {
+          "mesh": "understory-1-wood-far",
+          "count": 207,
+          "triangles": 64584
+        },
+        {
+          "mesh": "understory-1-leaves-far",
+          "count": 219,
+          "triangles": 55845
+        },
+        {
+          "mesh": "understory-2-wood-far",
+          "count": 113,
+          "triangles": 16950
+        },
+        {
+          "mesh": "understory-2-leaves-far",
+          "count": 136,
+          "triangles": 60928
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 5,
+          "triangles": 4220
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 3,
+          "triangles": 2280
+        },
+        {
+          "mesh": "palm-1-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-1-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-1-far-wood",
+          "count": 4,
+          "triangles": 3536
+        },
+        {
+          "mesh": "palm-1-far-leaves",
+          "count": 1,
+          "triangles": 800
+        },
+        {
+          "mesh": "palm-2-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-far-wood",
+          "count": 2,
+          "triangles": 1848
+        },
+        {
+          "mesh": "palm-2-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "fern_02_a",
+          "count": 13,
+          "triangles": 9100
+        },
+        {
+          "mesh": "fern_02_b",
+          "count": 4,
+          "triangles": 2796
+        },
+        {
+          "mesh": "fern_02_c",
+          "count": 8,
+          "triangles": 5600
+        },
+        {
+          "mesh": "fern_02_d",
+          "count": 5,
+          "triangles": 3500
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 0,
+          "triangles": 0
+        }
+      ],
+      "frameIntervalsMs": []
+    },
+    {
+      "softwareFrameFinishMs": [
+        11.599999999627471,
+        4.100000000093132,
+        16.700000000186265,
+        10.699999999720603,
+        9.100000000093132,
+        12.899999999906868,
+        6.900000000372529,
+        6.899999999906868,
+        14.799999999813735,
+        8.200000000186265,
+        16.299999999813735,
+        12.700000000186265
+      ],
+      "quality": "high",
+      "documentToMenuMs": 915,
+      "readyMs": 3817,
+      "calls": 251,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 52,
+          "totalMs": 52,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 43.39999999990687,
+          "totalMs": 43.39999999990687,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 66.6999999997206,
+          "totalMs": 66.6999999997206,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 300.60000000009313,
+          "totalMs": 300.60000000009313,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 81.39999999990687,
+          "totalMs": 81.39999999990687,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 362,
+          "totalMs": 362,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 663.6999999997206,
+          "totalMs": 663.6999999997206,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 1056.1000000000931,
+          "totalMs": 1056.1000000000931,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 1447.5,
+          "totalMs": 1447.5,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 1456.8999999999069,
+          "totalMs": 1456.8999999999069,
+          "runs": 1
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 1560.0999999996275,
+          "totalMs": 1560.0999999996275,
+          "runs": 1
+        }
+      },
+      "triangles": 980009,
+      "geometries": 135,
+      "textures": 30,
+      "programs": 39,
+      "renderer": {
+        "toneMapping": 4,
+        "exposure": 0.96,
+        "outputColorSpace": "srgb",
+        "msaa": 4
+      },
+      "geometryBytes": 26447300,
+      "textureBytesEstimate": 55031152.00000003,
+      "materials": 49,
+      "stages": {},
+      "longTasks": [
+        {
+          "start": 534.6000000000931,
+          "duration": 217
+        },
+        {
+          "start": 984.3000000002794,
+          "duration": 54
+        },
+        {
+          "start": 1215.8000000002794,
+          "duration": 579
+        },
+        {
+          "start": 1795.7000000001863,
+          "duration": 459
+        },
+        {
+          "start": 2351.8000000002794,
+          "duration": 65
+        },
+        {
+          "start": 2533.7000000001863,
+          "duration": 79
+        },
+        {
+          "start": 2742.899999999907,
+          "duration": 85
+        },
+        {
+          "start": 2829.7000000001863,
+          "duration": 115
+        },
+        {
+          "start": 2945.100000000093,
+          "duration": 200
+        },
+        {
+          "start": 3151.100000000093,
+          "duration": 69
+        },
+        {
+          "start": 3328.8000000002794,
+          "duration": 127
+        },
+        {
+          "start": 3456.8000000002794,
+          "duration": 246
+        },
+        {
+          "start": 3737.2000000001863,
+          "duration": 54
+        },
+        {
+          "start": 3816.2000000001863,
+          "duration": 68
+        },
+        {
+          "start": 3923,
+          "duration": 783
+        },
+        {
+          "start": 4706.399999999907,
+          "duration": 2757
+        },
+        {
+          "start": 7463.899999999907,
+          "duration": 325
+        },
+        {
+          "start": 7789.399999999907,
+          "duration": 50
+        },
+        {
+          "start": 8010,
+          "duration": 552
+        }
+      ],
+      "resources": [
+        {
+          "name": "sand_02-diff-BQzakbQ5.jpg",
+          "duration": 31.90000000037253,
+          "bytes": 331641
+        },
+        {
+          "name": "brown_mud_leaves_01-diff-Cq1rge4_.jpg",
+          "duration": 32.39999999990687,
+          "bytes": 423030
+        },
+        {
+          "name": "sand_02-normal-BLCxg0jx.jpg",
+          "duration": 24.5,
+          "bytes": 59004
+        },
+        {
+          "name": "brown_mud_leaves_01-normal-Bj8DOn56.jpg",
+          "duration": 25.100000000093132,
+          "bytes": 120547
+        },
+        {
+          "name": "reconstruction-Ce29Uv-T.glb",
+          "duration": 273.60000000009313,
+          "bytes": 4788628
+        },
+        {
+          "name": "limestone-CG-3UH2o.glb",
+          "duration": 49.10000000009313,
+          "bytes": 724020
+        },
+        {
+          "name": "coastal-tree-riod1bi9.glb",
+          "duration": 70,
+          "bytes": 1704456
+        },
+        {
+          "name": "palms-Dq4xC_Td.glb",
+          "duration": 54.6999999997206,
+          "bytes": 901244
+        },
+        {
+          "name": "fern_02-SrGECGLv.glb",
+          "duration": 39.60000000009313,
+          "bytes": 481480
+        },
+        {
+          "name": "landmarks-DhHzGEx2.glb",
+          "duration": 226.39999999990687,
+          "bytes": 3841196
+        },
+        {
+          "name": "tropical-clouds-20pSrmJI.png",
+          "duration": 52.6999999997206,
+          "bytes": 120785
+        }
+      ],
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.20000000018626451,
+        "x": -9.22154909417319,
+        "y": 4.970736134221376,
+        "z": -17.811982347049074,
+        "yaw": -0.48,
+        "pitch": 0.34
+      },
+      "habitatBatches": [
+        {
+          "mesh": "limestone-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 3,
+          "triangles": 6600
+        },
+        {
+          "mesh": "limestone-far",
+          "count": 10,
+          "triangles": 22000
+        },
+        {
+          "mesh": "forest-0-crown-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 11,
+          "triangles": 5940
+        },
+        {
+          "mesh": "forest-1-wood-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-crown-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-wood-far",
+          "count": 14,
+          "triangles": 10920
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 10,
+          "triangles": 5400
+        },
+        {
+          "mesh": "forest-2-wood-near",
+          "count": 1,
+          "triangles": 1248
+        },
+        {
+          "mesh": "forest-2-crown-near",
+          "count": 2,
+          "triangles": 1800
+        },
+        {
+          "mesh": "forest-2-wood-far",
+          "count": 17,
+          "triangles": 14280
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 10,
+          "triangles": 5400
+        },
+        {
+          "mesh": "coastal-trunk-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-branches-near",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "coastal-trunk-far",
+          "count": 17,
+          "triangles": 10200
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "understory-0-wood-near",
+          "count": 11,
+          "triangles": 1650
+        },
+        {
+          "mesh": "understory-0-leaves-near",
+          "count": 13,
+          "triangles": 21840
+        },
+        {
+          "mesh": "understory-0-wood-far",
+          "count": 184,
+          "triangles": 27600
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 203,
+          "triangles": 90944
+        },
+        {
+          "mesh": "understory-1-wood-near",
+          "count": 7,
+          "triangles": 3948
+        },
+        {
+          "mesh": "understory-1-leaves-near",
+          "count": 12,
+          "triangles": 5040
+        },
+        {
+          "mesh": "understory-1-wood-far",
+          "count": 248,
+          "triangles": 77376
+        },
+        {
+          "mesh": "understory-1-leaves-far",
+          "count": 260,
+          "triangles": 66300
+        },
+        {
+          "mesh": "understory-2-wood-near",
+          "count": 1,
+          "triangles": 150
+        },
+        {
+          "mesh": "understory-2-leaves-near",
+          "count": 1,
+          "triangles": 1680
+        },
+        {
+          "mesh": "understory-2-wood-far",
+          "count": 150,
+          "triangles": 22500
+        },
+        {
+          "mesh": "understory-2-leaves-far",
+          "count": 178,
+          "triangles": 79744
+        },
+        {
+          "mesh": "forest-0-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-1-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "forest-2-crown-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "understory-0-leaves-far",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-0-far-wood",
+          "count": 9,
+          "triangles": 7596
+        },
+        {
+          "mesh": "palm-0-far-leaves",
+          "count": 4,
+          "triangles": 3040
+        },
+        {
+          "mesh": "palm-1-near-wood",
+          "count": 1,
+          "triangles": 992
+        },
+        {
+          "mesh": "palm-1-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-1-far-wood",
+          "count": 4,
+          "triangles": 3536
+        },
+        {
+          "mesh": "palm-1-far-leaves",
+          "count": 1,
+          "triangles": 800
+        },
+        {
+          "mesh": "palm-2-near-wood",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-near-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "palm-2-far-wood",
+          "count": 4,
+          "triangles": 3696
+        },
+        {
+          "mesh": "palm-2-far-leaves",
+          "count": 0,
+          "triangles": 0
+        },
+        {
+          "mesh": "fern_02_a",
+          "count": 21,
+          "triangles": 14700
+        },
+        {
+          "mesh": "fern_02_b",
+          "count": 10,
+          "triangles": 6990
+        },
+        {
+          "mesh": "fern_02_c",
+          "count": 16,
+          "triangles": 11200
+        },
+        {
+          "mesh": "fern_02_d",
+          "count": 16,
+          "triangles": 11200
+        }
+      ],
+      "frameIntervalsMs": []
+    }
+  ],
+  "poses": [
+    {
+      "quality": "low",
+      "name": "south-beach",
+      "x": -50,
+      "z": 42,
+      "yaw": 3.141592653589793,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -50,
+        "y": 1.6831324818881177,
+        "z": 34.6,
+        "yaw": 3.141592653589793,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 147,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 291979,
+        "geometries": 141,
+        "textures": 30,
+        "programs": 39
+      }
+    },
+    {
+      "quality": "low",
+      "name": "north-offshore",
+      "x": -50,
+      "z": 42,
+      "yaw": 0,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.10000000009313226,
+        "x": -50,
+        "y": 1.6831324818881177,
+        "z": 49.4,
+        "yaw": 0,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 250,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 567180,
+        "geometries": 152,
+        "textures": 33,
+        "programs": 39
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cliff-beside",
+      "x": -17,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.5,
+        "x": -17,
+        "y": 3.0230340989845486,
+        "z": 83.66244198651057,
+        "yaw": 3.141592653589793,
+        "pitch": 0.13
+      },
+      "render": {
+        "calls": 130,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 191712,
+        "geometries": 152,
+        "textures": 33,
+        "programs": 39
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cliff-approach",
+      "x": -25,
+      "z": 75,
+      "yaw": 3.141592653589793,
+      "pitch": 0.05,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.2999999998137355,
+        "x": -25,
+        "y": 2.4764917483011475,
+        "z": 67.60924807307725,
+        "yaw": 3.141592653589793,
+        "pitch": 0.05
+      },
+      "render": {
+        "calls": 139,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 249286,
+        "geometries": 152,
+        "textures": 33,
+        "programs": 39
+      }
+    },
+    {
+      "quality": "low",
+      "name": "waterline",
+      "x": -41,
+      "z": 83,
+      "yaw": -2.3,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.39999999990686774,
+        "x": -46.51821857010773,
+        "y": 1.6553332073819216,
+        "z": 78.0695574425293,
+        "yaw": -2.3,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 173,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 420493,
+        "geometries": 183,
+        "textures": 33,
+        "programs": 40
+      }
+    },
+    {
+      "quality": "low",
+      "name": "distant-silhouette",
+      "x": -50,
+      "z": 5,
+      "yaw": 3.141592653589793,
+      "pitch": -0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.40000000037252903,
+        "x": -50,
+        "y": 0.8796582632012695,
+        "z": -2.3630308230573913,
+        "yaw": 3.141592653589793,
+        "pitch": -0.1
+      },
+      "render": {
+        "calls": 160,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 434160,
+        "geometries": 186,
+        "textures": 33,
+        "programs": 40
+      }
+    },
+    {
+      "quality": "low",
+      "name": "jungle-limestone",
+      "x": 5,
+      "z": 75,
+      "yaw": 3.141592653589793,
+      "pitch": 0.05,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 3.1999999997206032,
+        "x": 5.000000000000001,
+        "y": 3.7664052895336098,
+        "z": 67.60924807307725,
+        "yaw": 3.141592653589793,
+        "pitch": 0.05
+      },
+      "render": {
+        "calls": 145,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 373539,
+        "geometries": 186,
+        "textures": 33,
+        "programs": 40
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cave-entrance",
+      "x": 11,
+      "z": 94,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 2.3999999999068677,
+        "x": 11.000000000000002,
+        "y": 4.226393231848579,
+        "z": 86.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      },
+      "render": {
+        "calls": 128,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 215002,
+        "geometries": 186,
+        "textures": 33,
+        "programs": 40
+      }
+    },
+    {
+      "quality": "low",
+      "name": "camp-limestone",
+      "x": -29,
+      "z": -27,
+      "yaw": -2.3,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.2000000001862645,
+        "x": -34.51821857010773,
+        "y": 2.5802753549482733,
+        "z": -31.9304425574707,
+        "yaw": -2.3,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 315,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 43.700000000186265,
+            "totalMs": 43.700000000186265,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 38.10000000009313,
+            "totalMs": 38.10000000009313,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 108.60000000009313,
+            "totalMs": 108.60000000009313,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 279.79999999981374,
+            "totalMs": 279.79999999981374,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 38.90000000037253,
+            "totalMs": 38.90000000037253,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 1320.7999999998137,
+            "totalMs": 1320.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 1346.3000000002794,
+            "totalMs": 1346.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1692.5,
+            "totalMs": 1692.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1704.3000000002794,
+            "totalMs": 1704.3000000002794,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1723.7999999998137,
+            "totalMs": 1723.7999999998137,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 2993.100000000093,
+            "totalMs": 2993.100000000093,
+            "runs": 1
+          }
+        },
+        "triangles": 1060373,
+        "geometries": 212,
+        "textures": 34,
+        "programs": 42
+      }
+    },
+    {
+      "quality": "low",
+      "name": "coast-eye",
+      "camera": {
+        "position": [
+          -62,
+          2.4,
+          77
+        ],
+        "target": [
+          -22,
+          23,
+          108
+        ],
+        "previous": {
+          "far": 200,
+          "fov": 55
+        },
+        "inspection": true
+      }
+    },
+    {
+      "quality": "low",
+      "name": "elevated-overview",
+      "camera": {
+        "position": [
+          20,
+          240,
+          45
+        ],
+        "target": [
+          20,
+          0,
+          45
+        ],
+        "previous": {
+          "far": 600,
+          "fov": 55
+        },
+        "inspection": true
+      }
+    },
+    {
+      "quality": "high",
+      "name": "south-beach",
+      "x": -50,
+      "z": 42,
+      "yaw": 3.141592653589793,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0,
+        "x": -50,
+        "y": 1.6831324818881177,
+        "z": 34.6,
+        "yaw": 3.141592653589793,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 166,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 443563,
+        "geometries": 155,
+        "textures": 30,
+        "programs": 41
+      }
+    },
+    {
+      "quality": "high",
+      "name": "north-offshore",
+      "x": -50,
+      "z": 42,
+      "yaw": 0,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.5,
+        "x": -50,
+        "y": 1.6831324818881177,
+        "z": 49.4,
+        "yaw": 0,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 263,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 1037149,
+        "geometries": 166,
+        "textures": 33,
+        "programs": 41
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cliff-beside",
+      "x": -17,
+      "z": 91,
+      "yaw": 3.141592653589793,
+      "pitch": 0.13,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.3999999999068677,
+        "x": -17,
+        "y": 3.0230340989845486,
+        "z": 83.66244198651057,
+        "yaw": 3.141592653589793,
+        "pitch": 0.13
+      },
+      "render": {
+        "calls": 143,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 311282,
+        "geometries": 166,
+        "textures": 33,
+        "programs": 41
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cliff-approach",
+      "x": -25,
+      "z": 75,
+      "yaw": 3.141592653589793,
+      "pitch": 0.05,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.7000000001862645,
+        "x": -25,
+        "y": 2.4764917483011475,
+        "z": 67.60924807307725,
+        "yaw": 3.141592653589793,
+        "pitch": 0.05
+      },
+      "render": {
+        "calls": 155,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 406263,
+        "geometries": 166,
+        "textures": 33,
+        "programs": 41
+      }
+    },
+    {
+      "quality": "high",
+      "name": "waterline",
+      "x": -41,
+      "z": 83,
+      "yaw": -2.3,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.40000000037252903,
+        "x": -46.51821857010773,
+        "y": 1.6553332073819216,
+        "z": 78.0695574425293,
+        "yaw": -2.3,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 187,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 807931,
+        "geometries": 197,
+        "textures": 33,
+        "programs": 42
+      }
+    },
+    {
+      "quality": "high",
+      "name": "distant-silhouette",
+      "x": -50,
+      "z": 5,
+      "yaw": 3.141592653589793,
+      "pitch": -0.1,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 0.20000000018626451,
+        "x": -50,
+        "y": 0.8796582632012695,
+        "z": -2.3630308230573913,
+        "yaw": 3.141592653589793,
+        "pitch": -0.1
+      },
+      "render": {
+        "calls": 174,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 622532,
+        "geometries": 201,
+        "textures": 33,
+        "programs": 42
+      }
+    },
+    {
+      "quality": "high",
+      "name": "jungle-limestone",
+      "x": 5,
+      "z": 75,
+      "yaw": 3.141592653589793,
+      "pitch": 0.05,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 3.7000000001862645,
+        "x": 5.000000000000001,
+        "y": 3.7664052895336098,
+        "z": 67.60924807307725,
+        "yaw": 3.141592653589793,
+        "pitch": 0.05
+      },
+      "render": {
+        "calls": 171,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 594325,
+        "geometries": 203,
+        "textures": 33,
+        "programs": 42
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cave-entrance",
+      "x": 11,
+      "z": 94,
+      "yaw": 3.141592653589793,
+      "pitch": 0.08,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 16.700000000186265,
+        "x": 11.000000000000002,
+        "y": 4.226393231848579,
+        "z": 86.62366737336062,
+        "yaw": 3.141592653589793,
+        "pitch": 0.08
+      },
+      "render": {
+        "calls": 148,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 365227,
+        "geometries": 203,
+        "textures": 33,
+        "programs": 42
+      }
+    },
+    {
+      "quality": "high",
+      "name": "camp-limestone",
+      "x": -29,
+      "z": -27,
+      "yaw": -2.3,
+      "pitch": 0,
+      "camera": {
+        "owner": "follow",
+        "blend": 0,
+        "face": 3.141592653589793,
+        "cpuMs": 1.1000000000931323,
+        "x": -34.51821857010773,
+        "y": 2.5802753549482733,
+        "z": -31.9304425574707,
+        "yaw": -2.3,
+        "pitch": 0
+      },
+      "render": {
+        "calls": 347,
+        "environmentStages": {
+          "territory-distance-field": {
+            "lastMs": 52,
+            "totalMs": 52,
+            "runs": 1
+          },
+          "world-tables-and-scatter": {
+            "lastMs": 43.39999999990687,
+            "totalMs": 43.39999999990687,
+            "runs": 1
+          },
+          "navigation-hydrate": {
+            "lastMs": 66.6999999997206,
+            "totalMs": 66.6999999997206,
+            "runs": 1
+          },
+          "terrain-mask": {
+            "lastMs": 300.60000000009313,
+            "totalMs": 300.60000000009313,
+            "runs": 1
+          },
+          "terrain-meshes": {
+            "lastMs": 81.39999999990687,
+            "totalMs": 81.39999999990687,
+            "runs": 1
+          },
+          "asset-load-parse:botanical": {
+            "lastMs": 362,
+            "totalMs": 362,
+            "runs": 1
+          },
+          "asset-load-parse:landmarks": {
+            "lastMs": 663.6999999997206,
+            "totalMs": 663.6999999997206,
+            "runs": 1
+          },
+          "asset-load-parse:rock": {
+            "lastMs": 1056.1000000000931,
+            "totalMs": 1056.1000000000931,
+            "runs": 1
+          },
+          "asset-load-parse:fern": {
+            "lastMs": 1447.5,
+            "totalMs": 1447.5,
+            "runs": 1
+          },
+          "asset-load-parse:tree": {
+            "lastMs": 1456.8999999999069,
+            "totalMs": 1456.8999999999069,
+            "runs": 1
+          },
+          "asset-load-parse:forest": {
+            "lastMs": 1560.0999999996275,
+            "totalMs": 1560.0999999996275,
+            "runs": 1
+          }
+        },
+        "triangles": 1841833,
+        "geometries": 227,
+        "textures": 34,
+        "programs": 44
+      }
+    },
+    {
+      "quality": "high",
+      "name": "coast-eye",
+      "camera": {
+        "position": [
+          -62,
+          2.4,
+          77
+        ],
+        "target": [
+          -22,
+          23,
+          108
+        ],
+        "previous": {
+          "far": 200,
+          "fov": 55
+        },
+        "inspection": true
+      }
+    },
+    {
+      "quality": "high",
+      "name": "elevated-overview",
+      "camera": {
+        "position": [
+          20,
+          240,
+          45
+        ],
+        "target": [
+          20,
+          0,
+          45
+        ],
+        "previous": {
+          "far": 600,
+          "fov": 55
+        },
+        "inspection": true
+      }
+    }
+  ],
+  "checks": [],
+  "result": "PASS"
+}
