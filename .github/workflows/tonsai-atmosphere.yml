@@ -7,6 +7,7 @@ on:
       - "artifacts/survivor-camp-prototype/src/game/environment/**"
       - "artifacts/survivor-camp-prototype/src/assets/camp/**"
       - "artifacts/survivor-camp-prototype/scripts/atmosphere-*.mjs"
+      - "artifacts/survivor-camp-prototype/scripts/sky-motion-qa.mjs"
       - "artifacts/survivor-camp-prototype/tests/atmosphere.test.mjs"
       - "tools/camp/atmosphere/**"
       - ".github/workflows/tonsai-atmosphere.yml"
@@ -33,8 +34,11 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - run: ART_RENDER_TIMING=1 pnpm qa:atmosphere
       - run: pnpm qa:atmosphere-integration
+      - run: pnpm qa:sky-motion
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: tonsai-atmosphere-webgl
-          path: docs/tonsai-atmosphere/evidence/
+          path: |
+            docs/tonsai-atmosphere/evidence/
+            docs/sky-motion/evidence/

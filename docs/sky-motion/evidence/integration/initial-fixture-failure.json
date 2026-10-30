@@ -1,0 +1,7 @@
+{
+  "method": "Minified production bundle; real software WebGL. Not physical iPhone Safari.",
+  "checks": [],
+  "errors": [],
+  "result": "FAIL",
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(result.animated)\n\n    at file:///workspace/scratch/0ea287cdf2ec/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/scripts/atmosphere-integration.mjs:116:12"
+}

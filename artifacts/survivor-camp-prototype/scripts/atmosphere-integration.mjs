@@ -3,7 +3,9 @@ import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
 import { preview } from "vite";
 import { chromium } from "playwright";
-const out = "../../docs/tonsai-atmosphere/evidence/integration";
+const out =
+  process.env.ATMOSPHERE_EVIDENCE ||
+  "../../docs/tonsai-atmosphere/evidence/integration";
 await mkdir(out, { recursive: true });
 process.env.PORT = "5194";
 process.env.BASE_PATH = "/";
@@ -80,7 +82,9 @@ try {
         w = water.material.uniforms;
       const dir = sun.position.clone().sub(sun.target.position).normalize();
       const t = u.uTime.value;
-      s.advance(s.clock.elapsedTime + 1, false);
+      // setFrameloop("never") resets R3F's clock. Advance past the last
+      // rendered shader time instead of accidentally taking it backwards.
+      s.advance(Math.max(s.clock.elapsedTime, t) + 1, false);
       window.qaGl = s.gl;
       window.qaCloudRelease = { geometry: 0, material: 0, texture: 0 };
       sky.geometry.addEventListener(

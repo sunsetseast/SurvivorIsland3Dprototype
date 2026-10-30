@@ -1,13 +1,14 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as T from "three";
 import cloudsUrl from "../../assets/camp/tropical-clouds.png?url";
 import { SKY_GRADIENT_GLSL, skyUniforms, type Atmosphere } from "./atmosphere";
 
 /** One opaque sky pass. Original offline-lit cloud volumes are stored in a
- * compact atlas. Runtime uses one filtered lookup: no volumetric raymarch. */
+ * compact atlas. The sphere's axes ARE world directions. Project with camera
+ * rotation only: sky distance is infinite, regardless of camera update order.
+ * Runtime uses one filtered lookup: no volumetric raymarch. */
 export function TropicalSky({ atmosphere }: { atmosphere: Atmosphere }) {
-  const ref = useRef<T.Mesh>(null);
   const resources = useMemo(() => {
     const fallback = new T.DataTexture(
       new Uint8Array([255, 255, 255, 0]),
@@ -27,7 +28,10 @@ export function TropicalSky({ atmosphere }: { atmosphere: Atmosphere }) {
       vertexShader: `varying vec3 vSkyDirection; varying vec2 vCloudUv;
         void main(){vSkyDirection=position;
           vCloudUv=vec2(uv.x+.25,uv.y*2.-1.);
-          vec4 clip=projectionMatrix*modelViewMatrix*vec4(position,1.);
+          // Drop translation rather than following last frame's camera position.
+          // Do not apply modelMatrix or the camera quaternion to the sky pattern.
+          vec3 viewDirection=mat3(viewMatrix)*position;
+          vec4 clip=projectionMatrix*vec4(viewDirection,1.);
           gl_Position=clip.xyww;
         }`,
       fragmentShader: `
@@ -64,8 +68,7 @@ export function TropicalSky({ atmosphere }: { atmosphere: Atmosphere }) {
     material.userData.textureResources = textures;
     return { textures, material, geometry };
   }, [atmosphere]);
-  useFrame(({ camera, clock }) => {
-    ref.current?.position.copy(camera.position);
+  useFrame(({ clock }) => {
     resources.material.uniforms.uTime!.value = clock.elapsedTime;
   });
   useEffect(() => {
@@ -98,7 +101,6 @@ export function TropicalSky({ atmosphere }: { atmosphere: Atmosphere }) {
   }, [resources]);
   return (
     <mesh
-      ref={ref}
       name="andaman-tropical-sky"
       geometry={resources.geometry}
       material={resources.material}
