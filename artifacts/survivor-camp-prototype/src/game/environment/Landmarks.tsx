@@ -65,8 +65,10 @@ export function NaturalLandmarks({
       #endif`,
         );
     };
-    rock.customProgramCacheKey = () => "natural-karst-multiscale-v2";
-    rock.normalScale.set(0.28, 0.28);
+    rock.customProgramCacheKey = () => "natural-karst-geometric-normals-v3";
+    // A UV-space normal map cannot follow the triplanar diffuse axes.
+    // Real mesh relief supplies correctly oriented normals without three more taps.
+    rock.normalMap = null;
     rock.vertexColors = true;
     rock.side = T.DoubleSide;
     rock.color.setRGB(1.35, 1.33, 1.25);

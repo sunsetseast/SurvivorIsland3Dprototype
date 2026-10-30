@@ -11,7 +11,11 @@ process.env.PORT = "5194";
 process.env.BASE_PATH = "/";
 const server = await preview({
   configFile: "vite.config.ts",
-  build: { outDir: "../../generated-artifacts/atmosphere-after" },
+  build: {
+    outDir:
+      process.env.ATMOSPHERE_BUILD ||
+      "../../generated-artifacts/atmosphere-after",
+  },
   preview: { host: "127.0.0.1", port: 5194, strictPort: true },
 });
 const browser = await chromium.launch({

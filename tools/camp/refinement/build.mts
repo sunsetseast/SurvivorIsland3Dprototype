@@ -14,7 +14,10 @@ const { mergeGeometries } = await import(
   require.resolve("three/examples/jsm/utils/BufferGeometryUtils.js")
 );
 import { baseHeight } from "../../../artifacts/survivor-camp-prototype/src/game/world.ts";
-import { southernCliffGeometry } from "../../../artifacts/survivor-camp-prototype/src/game/environment/limestone.ts";
+import {
+  southernCliffGeometry,
+  southernCliffSurface,
+} from "../../../artifacts/survivor-camp-prototype/src/game/environment/limestone.ts";
 const root = new URL("../../../", import.meta.url),
   out = new URL("artifacts/survivor-camp-prototype/src/assets/camp/", root);
 const meshes = [...buildLandmarks("near"), ...buildLandmarks("far")];
@@ -32,6 +35,20 @@ for (const lod of ["near", "far"] as const) {
     const p = g.attributes.position!,
       colors = [];
     for (let j = 0; j < p.count; j++) colors.push(0.48, 0.46, 0.41);
+    g.setAttribute("color", new T.Float32BufferAttribute(colors, 3));
+    parts.push(g);
+  }
+  // Four attached, partly submerged erosion toes; no debris in the beach path.
+  for (const [i, d] of [0.31, 0.49, 0.72, 0.87].entries()) {
+    const anchor = southernCliffSurface(-40, d, 0),
+      g = scan("tiny"),
+      s = 1.05 + (i % 3) * 0.21;
+    g.rotateY(i * 2.399);
+    g.scale(s, s, s);
+    g.translate(anchor[0]! + 0.25, anchor[1]! - 1.0, anchor[2]!);
+    const colors = [];
+    for (let j = 0; j < g.attributes.position!.count; j++)
+      colors.push(0.57, 0.54, 0.47);
     g.setAttribute("color", new T.Float32BufferAttribute(colors, 3));
     parts.push(g);
   }
