@@ -333,7 +333,10 @@ try {
   await page.waitForTimeout(350);
   await advance(15);
   assert(!(await page.getByTestId("npc-approach").count()));
-  report.checks.push("Physically walked NPC approach and touch decline");
+  assert.equal(await ev(() => window.__qa.camp.conversation), null,
+    "Decline touch must not activate the replacement Talk button");
+  assert.equal(await page.getByTestId("conversation-panel").count(), 0);
+  report.checks.push("Physically walked NPC approach, touch decline and no tap-through conversation");
 
   await page.setViewportSize({ width: 1280, height: 800 });
   // Controlled route samples are clearly labeled; movement remains the actual
@@ -367,7 +370,7 @@ try {
   const beachArrival = await ev(() => {
     const q=window.__qa, n=q.camp.npc(18);
     return {now:q.camp.now,frameTime:q.time,clockTime:q.s.clock.elapsedTime,
-      frameloop:q.s.frameloop,player:q.camp.player,npc:{...n},metrics:{...q.camp.metrics}};
+      frameloop:q.s.frameloop,conversation:q.camp.conversation,player:q.camp.player,npc:{...n},metrics:{...q.camp.metrics}};
   });
   report.beachArrival=beachArrival;
   console.log("BEACH_ARRIVAL",JSON.stringify(beachArrival));
