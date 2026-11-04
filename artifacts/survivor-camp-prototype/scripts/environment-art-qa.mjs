@@ -99,6 +99,9 @@ page.on("console", (m) => {
     report.errors.push(m.text());
 });
 await page.addInitScript(() => {
+  // CI runners can expose only two cores; App otherwise chooses low even when
+  // the URL requests high. Keep the two capture profiles independent of host CPU.
+  Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 });
   window.__ART_STAGES__ = {};
   window.__ART_LONGTASKS__ = [];
   new PerformanceObserver((l) =>

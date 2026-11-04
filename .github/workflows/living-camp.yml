@@ -24,7 +24,7 @@ jobs:
       - run: pnpm exec tsc -b lib/api-client-react
       - run: pnpm --filter @workspace/survivor-camp-prototype typecheck
       - run: pnpm --filter @workspace/survivor-camp-prototype test
-      - run: node artifacts/survivor-camp-prototype/scripts/world-check.mjs
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec node --import tsx scripts/world-check.mjs
       - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
       - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
       - run: pnpm --filter @workspace/survivor-camp-prototype qa:living-camp

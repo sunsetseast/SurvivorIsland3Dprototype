@@ -83,6 +83,8 @@ try {
             target: e.target.closest?.("[data-testid]")?.dataset.testid,
             trusted: e.isTrusted,
             detail: e.detail,
+            x: e.clientX,
+            y: e.clientY,
           }),
         true,
       );
@@ -115,12 +117,27 @@ try {
     await dispatch("touchStart", isWebkit ? [points.get(id)] : undefined);
   };
   const move = async (id, x, y) => {
+    const eventStart = await page.evaluate(() => window.touchEvidence.length);
     points.set(id, {
       id: points.get(id).id,
       x: Math.round(x),
       y: Math.round(y),
     });
     await dispatch("touchMove", isWebkit ? [points.get(id)] : undefined);
+    // Inspector acknowledgement can precede delivery of coalesced pointermove.
+    // Observe the real trusted event before advancing the manual simulation.
+    await page.waitForFunction(
+      ({ from, x, y }) =>
+        window.touchEvidence.slice(from).some(
+          (e) =>
+            e.type === "pointermove" &&
+            e.trusted &&
+            Math.abs(e.x - x) < 1 &&
+            Math.abs(e.y - y) < 1,
+        ),
+      { from: eventStart, x: Math.round(x), y: Math.round(y) },
+      { timeout: 8000 },
+    );
   };
   const up = async (id) => {
     const ended = points.get(id);
