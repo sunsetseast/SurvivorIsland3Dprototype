@@ -1,0 +1,57 @@
+{
+  "base": "7b93d5444946217a6c5a59acb93ada563e6c1288",
+  "files": [
+    {
+      "file": "artifacts/survivor-camp-prototype/src/assets/camp/landmarks-low.glb",
+      "bytes": 1006012,
+      "sha256": "d5f9a59823f30aeebced768a6e4061fb898eea6c0c811e735d2e6e838d9fc50a",
+      "changedMeshes": [
+        "southern-cliff-rock-far"
+      ],
+      "unchangedMeshes": 12,
+      "rebuildByteIdentical": true
+    },
+    {
+      "file": "artifacts/survivor-camp-prototype/src/assets/camp/landmarks.glb",
+      "bytes": 3841192,
+      "sha256": "1b780fea7153007b5f3da5d4331640fc4e240715e7a3c624e24710bf7eeab56a",
+      "changedMeshes": [
+        "southern-cliff-rock-near",
+        "southern-cliff-rock-far"
+      ],
+      "unchangedMeshes": 24,
+      "rebuildByteIdentical": true
+    },
+    {
+      "file": "artifacts/survivor-camp-prototype/src/assets/camp/reconstruction-low.glb",
+      "bytes": 2963140,
+      "sha256": "bf86bc6959810ce5df5e96ce9a01f3d3e400e8ee04264e028cefd2d14e43e90b",
+      "changedMeshes": [
+        "forest-0-crown-far",
+        "forest-1-crown-far",
+        "forest-2-crown-far",
+        "understory-1-leaves-far"
+      ],
+      "unchangedMeshes": 13,
+      "rebuildByteIdentical": true
+    },
+    {
+      "file": "artifacts/survivor-camp-prototype/src/assets/camp/reconstruction.glb",
+      "bytes": 4788648,
+      "sha256": "ad6b5d59ab0bfd7ee136a894030ccf3ca089b63a28f6a9b6a225ea707a526925",
+      "changedMeshes": [
+        "forest-0-crown-near",
+        "forest-0-crown-far",
+        "forest-1-crown-near",
+        "forest-1-crown-far",
+        "forest-2-crown-near",
+        "forest-2-crown-far",
+        "understory-1-leaves-near",
+        "understory-1-leaves-far"
+      ],
+      "unchangedMeshes": 21,
+      "rebuildByteIdentical": true
+    }
+  ],
+  "result": "PASS"
+}

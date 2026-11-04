@@ -1,0 +1,7 @@
+PASS midday sun, sky, ocean and filtered foliage agree
+PASS midday cloud resources released; exposure restored
+PASS afternoon sun, sky, ocean and filtered foliage agree
+PASS afternoon cloud resources released; exposure restored
+PASS golden sun, sky, ocean and filtered foliage agree
+PASS golden cloud resources released; exposure restored
+PASS missing cloud atlas retains blue-sky fallback and player movement

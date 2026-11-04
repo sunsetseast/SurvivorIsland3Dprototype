@@ -1,0 +1,219 @@
+EXPEDITION Spawn to campfire {"x":-2.60376467131406,"z":-33.08077374591446}
+EXPEDITION Campfire to shelter {"x":11.004445696017703,"z":-43.09494444145359}
+EXPEDITION Shelter to remote spring {"x":103.97775303766757,"z":35.98887655130401}
+EXPEDITION Spring alternate loop return {"x":-6.000011240582006,"z":-23.99810236286546}
+EXPEDITION Camp to southern limestone {"x":-16.99999989001999,"z":90.96758198417456}
+EXPEDITION Southern limestone to cave {"x":11.00000000189683,"z":103.96349180114758}
+EXPEDITION Cave to cliff to beach {"x":-47.000000000000014,"z":-26.97311757278886}
+EXPEDITION Beach to main camp {"x":-5.9949978139584,"z":-23.994997979681738}
+EXPEDITION Camp jungle loop and return {"x":-5.9996180839325275,"z":-24.02447860476637}
+EXPEDITION Hiding approach tonsai-ancient-fig-1 {"x":48.06525534590081,"z":6.226000005088892}
+EXPEDITION Hiding approach tonsai-ancient-fig-2 {"x":38.73213319955284,"z":9.126207498614797}
+EXPEDITION Hiding approach tonsai-ancient-fig-3 {"x":41.26223853105881,"z":-0.4854495469764793}
+EXPEDITION Hiding approach tonsai-root-crown-1 {"x":80.78500167980407,"z":24.724029650112143}
+EXPEDITION Hiding approach tonsai-root-crown-2 {"x":71.22782729533513,"z":24.735100478438284}
+EXPEDITION Hiding approach tonsai-root-crown-3 {"x":75.97749192067096,"z":18.011257319803956}
+EXPEDITION Hiding approach tonsai-fallen-giant-1 {"x":68.71482048012966,"z":55.998310821736524}
+EXPEDITION Hiding approach tonsai-fallen-giant-2 {"x":57.295197896846915,"z":55.982948515243876}
+EXPEDITION Hiding approach tonsai-fallen-giant-3 {"x":63.9996669523636,"z":58.492738574015355}
+EXPEDITION Hiding approach tonsai-moss-gates-1 {"x":15.999989590868651,"z":65.00368536250929}
+EXPEDITION Hiding approach tonsai-moss-gates-2 {"x":15.999999800317573,"z":66.96170391751711}
+EXPEDITION Hiding approach tonsai-moss-gates-3 {"x":15.999999993265037,"z":68.15823427913742}
+EXPEDITION Hiding approach tonsai-southern-cave-1 {"x":9.018657932457957,"z":102.98127808965714}
+EXPEDITION Hiding approach tonsai-southern-cave-2 {"x":12.98384535363566,"z":105.9838481935958}
+EXPEDITION Hiding approach tonsai-southern-cave-3 {"x":11.016434962688354,"z":108.98344252876512}
+EXPEDITION Hiding approach tonsai-roof-shelter-1 {"x":-20.98460994908924,"z":97.16239755281136}
+EXPEDITION Hiding approach tonsai-roof-shelter-2 {"x":-18.005132702961397,"z":95.85690359169737}
+EXPEDITION Hiding approach tonsai-roof-shelter-3 {"x":-14.995551542825023,"z":95.76525128691152}
+EXPEDITION Hiding approach tonsai-hollow-stump-1 {"x":30.959888416167157,"z":-9.09591226289533}
+EXPEDITION Hiding approach tonsai-hollow-stump-2 {"x":32.598729802338916,"z":-5.190560061479412}
+EXPEDITION Hiding approach tonsai-hollow-stump-3 {"x":29.440413251415226,"z":-5.186833078306723}
+EXPEDITION Hiding approach tonsai-leaning-tamarind-1 {"x":-2.0036897661138213,"z":47.70056023498078}
+EXPEDITION Hiding approach tonsai-leaning-tamarind-2 {"x":-6.71163168503128,"z":43.042789464412756}
+EXPEDITION Hiding approach tonsai-leaning-tamarind-3 {"x":-2.0371369342044985,"z":38.294741917726085}
+EXPEDITION Hiding approach tonsai-strangler-stone-1 {"x":90.49272455503244,"z":61.015146564303386}
+EXPEDITION Hiding approach tonsai-strangler-stone-2 {"x":99.50211888238695,"z":61.00866162917154}
+EXPEDITION Hiding approach tonsai-strangler-stone-3 {"x":95.00013408252441,"z":65.49307042278886}
+EXPEDITION Hiding approach tonsai-fern-bowl-1 {"x":41.50517858489951,"z":80.99656602866128}
+EXPEDITION Hiding approach tonsai-fern-bowl-2 {"x":42.969719484492735,"z":80.99993043823072}
+EXPEDITION Hiding approach tonsai-fern-bowl-3 {"x":44.456131257879974,"z":80.99999800586406}
+EXPEDITION Hiding approach tonsai-root-bridge-1 {"x":83.28513098339657,"z":1.0010761927359642}
+EXPEDITION Hiding approach tonsai-root-bridge-2 {"x":94.70175005126751,"z":0.9975501366930047}
+EXPEDITION Hiding approach tonsai-root-bridge-3 {"x":89.99636540929907,"z":3.500907809566978}
+EXPEDITION Hiding approach tonsai-quiet-alcove-1 {"x":29.00289147671819,"z":91.99421635886884}
+EXPEDITION Hiding approach tonsai-quiet-alcove-2 {"x":30.963207296246335,"z":91.99989344805638}
+EXPEDITION Hiding approach tonsai-quiet-alcove-3 {"x":30.002793079031278,"z":92.1994197371465}
+EXPEDITION Hiding approach tonsai-spring-seep-1 {"x":111.28713704503723,"z":36.80898849927663}
+EXPEDITION Hiding approach tonsai-spring-seep-2 {"x":108.79751720710136,"z":39.10227601347734}
+EXPEDITION Hiding approach tonsai-spring-seep-3 {"x":104.70991701399008,"z":36.03200900203576}
+EXPEDITION Follow water-collecting NPC 0 {"x":49.29310642320221,"z":16.47422938254936}
+EXPEDITION Follow water-collecting NPC 1 {"x":69.34876030533304,"z":26.06435480848967}
+EXPEDITION Follow water-collecting NPC 2 {"x":77.29211853134699,"z":30.244424554460366}
+{
+  "checks": [
+    {
+      "qualityAnchors": [
+        {
+          "place": "campfire",
+          "position": {
+            "x": -9,
+            "z": -34.15
+          },
+          "reachable": true
+        },
+        {
+          "place": "campfire",
+          "position": {
+            "x": -6.5,
+            "z": -28.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "campfire",
+          "position": {
+            "x": -11.3,
+            "z": -28.4
+          },
+          "reachable": true
+        },
+        {
+          "place": "campfire",
+          "position": {
+            "x": -2.6,
+            "z": -33.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "position": {
+            "x": 11,
+            "z": -43.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "position": {
+            "x": 13.4,
+            "z": -44.1
+          },
+          "reachable": true
+        },
+        {
+          "place": "shelter",
+          "position": {
+            "x": 10.1,
+            "z": -46
+          },
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "position": {
+            "x": -46.2,
+            "z": -26.6
+          },
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "position": {
+            "x": -45,
+            "z": -29
+          },
+          "reachable": true
+        },
+        {
+          "place": "beach",
+          "position": {
+            "x": -48,
+            "z": -24.5
+          },
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "position": {
+            "x": 104,
+            "z": 36
+          },
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "position": {
+            "x": 106,
+            "z": 39
+          },
+          "reachable": true
+        },
+        {
+          "place": "waterWell",
+          "position": {
+            "x": 110,
+            "z": 33
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 8,
+            "z": 15
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 38,
+            "z": 5
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 53,
+            "z": 36
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": -17,
+            "z": 91
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 43,
+            "z": 80
+          },
+          "reachable": true
+        },
+        {
+          "place": "jungleTrail",
+          "position": {
+            "x": 30,
+            "z": 91
+          },
+          "reachable": true
+        }
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "label": "high default",
+      "calls": 251,
+      "triangles": 984059,
+      "entryWallMs": 4153
+    }
+  ]
+}
