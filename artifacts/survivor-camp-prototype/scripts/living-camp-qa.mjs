@@ -81,6 +81,10 @@ try {
     const store = f._roots.get(document.querySelector("canvas")).store;
     store.getState().setFrameloop("never");
     const s = store.getState();
+    // Match the other fixed-step harnesses. A running Three clock otherwise
+    // consumes screenshot/IPC wall time inside Fiber's initial getDelta call.
+    s.clock.stop();
+    s.clock.autoStart = false;
     window.__qa = {
       f,
       camp,
@@ -360,7 +364,14 @@ try {
     i++
   )
     await advance(90);
-  assert.equal(await ev(() => window.__qa.camp.npc(18).place), "beach");
+  const beachArrival = await ev(() => {
+    const q=window.__qa, n=q.camp.npc(18);
+    return {now:q.camp.now,frameTime:q.time,clockTime:q.s.clock.elapsedTime,
+      frameloop:q.s.frameloop,player:q.camp.player,npc:{...n},metrics:{...q.camp.metrics}};
+  });
+  report.beachArrival=beachArrival;
+  console.log("BEACH_ARRIVAL",JSON.stringify(beachArrival));
+  assert.equal(beachArrival.npc.place, "beach", JSON.stringify(beachArrival));
   await navigate({ x: -42.5, z: -26.2 }, "Walk beach route behind Russell");
   await ev(() => {
     const q = window.__qa;

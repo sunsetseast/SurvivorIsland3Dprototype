@@ -19,3 +19,11 @@ The existing alpha-tested leaf materials now cut a narrow, softly edged coverage
 The decoded, scene-owned shelter receives a one-time finishing pass: irregular drooping palm eaves, continuous weathering variation, crossed existing rope wraps and three woven sleeping mats plus a rolled spare. Mats are merged into the existing supplies mesh; the five shelter draws, original bamboo supports, physical deck, ramp and NPC anchors remain. This adds exactly **34,916 resident geometry bytes in each quality mode**, no downloads, textures or materials. Roof/deck clearance, unchanged deck coordinates, finite positions and idempotent processing pass for both actual shipped LODs. Source assets are reused intact; the loader disposes the replaced small supplies geometry and temporary construction buffers.
 
 Budget comparison accounts for exactly that measured storage delta; every other resident geometry byte and all texture storage remain under the previous strict checks. Draw and triangle assertions are unchanged. Browser captures and lifecycle checks must confirm the final implementation; physical iPhone testing is not claimed.
+
+## Regression checkpoint
+
+The first paired-capture CI run passed [41935103227](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41935103227): 28 matched poses, Chromium 156 on both refs, original draw/triangle/storage budgets. High shelter-ground is stable at 183 calls. Cave/foliage saved and ref-confirmed at `9f1f12001ec61590829951ea287213201bba8522`; shelter saved and ref-confirmed at `80c7ee9e132d4023a8b2420fd94af8ae7d19c3f8`.
+
+All 120 local unit tests pass, including 361 directed spot routes and 44,769 physical NPC travel frames. Workspace-wide TypeScript, production build and six world-check groups / 294 solid sweeps pass. Existing large chunk/dynamic import warnings remain. Physical iPhone Safari is not certified.
+
+A living-camp browser check on the CI-fixture-only checkpoint failed its beach arrival assertion. That harness left Three's clock running during nominal fixed-step captures. It now stops the wall clock like the other project harnesses and records the full arrival/route/clock state if the assertion fails. No NPC runtime behavior is changed by this follow-up; final CI must establish the outcome.
