@@ -36,3 +36,9 @@ test('paired comparison rejects changed NPC staging and renderer conditions', ()
     assert.match(result.stderr, /NPC staging|same browser/);
   }
 });
+
+test('paired comparison rejects geometry growth outside the measured shelter addition', () => {
+  const result=compare(r=>{r.samples[0].geometryBytes++;});
+  assert.notEqual(result.status,0);
+  assert.match(result.stderr,/unaccounted resident geometry/);
+});

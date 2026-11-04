@@ -12,3 +12,10 @@ The vault's two cheeks start at z=96, ahead of the ground-level main cliff envel
 Rebaked the existing navigation graph: 24,917 → 24,905 nodes, 273,955 packed bytes. Cave tests cover both walls, central and edge entry/exit lanes, side-to-side turning and actual NPC routes. All 12 trails, 39 hiding IDs and approaches, spring travel/return, NPC activity anchors and independently reconstructed bake edges passed the targeted expansion/refinement checks. TypeScript and the instrumented production build passed.
 
 The existing alpha-tested leaf materials now cut a narrow, softly edged coverage corridor only between the camera and the player's torso. Leaves beyond the character and outside that corridor retain their coverage. This reuses existing MSAA/alpha-test coverage; it adds one shared focus vector and no blended materials, vegetation removals, geometry, textures, extra draws or postprocessing. Physical iPhone verification remains required; current CI captures are browser results.
+
+
+## Shelter finishing
+
+The decoded, scene-owned shelter receives a one-time finishing pass: irregular drooping palm eaves, continuous weathering variation, crossed existing rope wraps and three woven sleeping mats plus a rolled spare. Mats are merged into the existing supplies mesh; the five shelter draws, original bamboo supports, physical deck, ramp and NPC anchors remain. This adds exactly **34,916 resident geometry bytes in each quality mode**, no downloads, textures or materials. Roof/deck clearance, unchanged deck coordinates, finite positions and idempotent processing pass for both actual shipped LODs. Source assets are reused intact; the loader disposes the replaced small supplies geometry and temporary construction buffers.
+
+Budget comparison accounts for exactly that measured storage delta; every other resident geometry byte and all texture storage remain under the previous strict checks. Draw and triangle assertions are unchanged. Browser captures and lifecycle checks must confirm the final implementation; physical iPhone testing is not claimed.

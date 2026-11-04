@@ -71,10 +71,16 @@ for (const a of before.samples) {
   assert.equal(after.browser, before.browser, "paired captures must use the same browser");
   assert.deepEqual(b.renderer, a.renderer, "paired renderer settings");
   assert.deepEqual(b.npcSnapshot, a.npcSnapshot, "identical initial NPC staging");
+  // Three woven mats and one rolled mat are merged into the existing supplies
+  // mesh. The measured 34,916-byte addition is the ONLY resident allowance;
+  // unrelated geometry growth still fails the exact accounting assertion.
+  const finishing = s => s.shelterCompletionBytes || 0;
+  for (const sample of [a,b])
+    assert.ok([0,34916].includes(finishing(sample)), "bounded shelter finishing storage");
   assert.equal(
     b.geometryBytes,
-    a.geometryBytes,
-    "no additional resident geometry arrays",
+    a.geometryBytes + finishing(b) - finishing(a),
+    "no unaccounted resident geometry arrays",
   );
   assert.equal(
     b.textureBytesEstimate,
