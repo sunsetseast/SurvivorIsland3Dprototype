@@ -117,27 +117,12 @@ try {
     await dispatch("touchStart", isWebkit ? [points.get(id)] : undefined);
   };
   const move = async (id, x, y) => {
-    const eventStart = await page.evaluate(() => window.touchEvidence.length);
     points.set(id, {
       id: points.get(id).id,
       x: Math.round(x),
       y: Math.round(y),
     });
     await dispatch("touchMove", isWebkit ? [points.get(id)] : undefined);
-    // Inspector acknowledgement can precede delivery of coalesced pointermove.
-    // Observe the real trusted event before advancing the manual simulation.
-    await page.waitForFunction(
-      ({ from, x, y }) =>
-        window.touchEvidence.slice(from).some(
-          (e) =>
-            e.type === "pointermove" &&
-            e.trusted &&
-            Math.abs(e.x - x) < 1 &&
-            Math.abs(e.y - y) < 1,
-        ),
-      { from: eventStart, x: Math.round(x), y: Math.round(y) },
-      { timeout: 8000 },
-    );
   };
   const up = async (id) => {
     const ended = points.get(id);
@@ -425,7 +410,22 @@ try {
     await advance(1);
     await down(2, 540, 235);
     const beforeLook = await snapshot();
+    const lookEventStart = await page.evaluate(() => window.touchEvidence.length);
     await move(2, 600, 260);
+    // Inspector acknowledgement can precede coalesced pointermove delivery.
+    // Synchronize this active orbit measurement only: WebKit may correctly
+    // discard the intentionally stale contacts exercised after modal resets.
+    await page.waitForFunction(
+      (from) =>
+        window.touchEvidence.slice(from).some(
+          (e) =>
+            e.type === "pointermove" && e.trusted &&
+            e.target === "orbit-zone" &&
+            Math.abs(e.x - 600) < 1 && Math.abs(e.y - 260) < 1,
+        ),
+      lookEventStart,
+      { timeout: 8000 },
+    );
     await advance(30);
     const duringLook = await snapshot();
     assert.ok(Math.abs(duringLook.camera.yaw - beforeLook.camera.yaw) > 0.35);
