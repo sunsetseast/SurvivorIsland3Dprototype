@@ -41,7 +41,10 @@
     "qa:sky-motion": "node scripts/sky-motion-qa.mjs",
     "assets:clouds": "python3 ../../tools/camp/atmosphere/clouds.py",
     "qa:karst": "node scripts/karst-qa.mjs",
-    "assets:karst": "node --import tsx ../../tools/camp/refinement/build.mts"
+    "assets:karst": "node --import tsx ../../tools/camp/refinement/build.mts",
+    "qa:environment-art": "node scripts/environment-art-qa.mjs",
+    "qa:environment-art-compare": "node scripts/environment-art-compare.mjs",
+    "assets:environment-art": "node --import tsx ../../tools/camp/refinement/build.mts && node --import tsx ../../tools/camp/reconstruction/build.mts"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",

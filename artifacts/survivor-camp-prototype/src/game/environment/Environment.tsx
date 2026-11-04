@@ -192,7 +192,7 @@ export function Environment({ low }: { low: boolean }) {
     m.roughness = 0.96;
     m.normalScale.set(0.22, 0.22);
     m.emissive.set("#556b42");
-    m.emissiveIntensity = 0.22;
+    m.emissiveIntensity = 0.32;
     m.emissiveMap = m.map;
     m.alphaHash = false;
     m.alphaToCoverage = true;
@@ -218,7 +218,7 @@ export function Environment({ low }: { low: boolean }) {
     m.alphaToCoverage = true;
     m.alphaTest = 0.3;
     m.emissive.set("#708354");
-    m.emissiveIntensity = 0.24;
+    m.emissiveIntensity = 0.32;
     m.emissiveMap = m.map;
     m.onBeforeCompile = (s) => {
       s.fragmentShader = s.fragmentShader.replace(

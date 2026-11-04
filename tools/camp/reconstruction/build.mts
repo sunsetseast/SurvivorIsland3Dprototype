@@ -119,7 +119,7 @@ function leaves(
       h = (random() - 0.5) * C[3]!,
       P = V(C[0]! + Math.cos(a) * r, C[1]! + h, C[2]! + Math.sin(a) * r),
       len = card ? (1.6 + random() * 1.3) * sprayScale : 0.65 + random() * 0.65,
-      width = card ? len * 0.78 : len * 0.39,
+      width = card ? len * 0.66 : len * 0.39,
       D = V(
         Math.cos(a),
         card ? 1.15 - random() * 2.05 : 0.15 - random() * 0.65,
@@ -132,16 +132,30 @@ function leaves(
       o = pos.length / 3;
     // Folded textured sprays for upper canopy; true cupped lanceolate leaves below eye height.
     if (card) {
+      const curl = 0.12 + random() * 0.24,
+        twist = (random() - 0.5) * 0.45,
+        mirror = random() > 0.5;
       const A = P.clone().addScaledVector(S, -width / 2),
         B = P.clone().addScaledVector(S, width / 2),
         M = P.clone()
           .addScaledVector(D, len * 0.53)
-          .add(V(0, 0.13, 0)),
-        L = M.clone().addScaledVector(S, -width * 0.55),
-        R = M.clone().addScaledVector(S, width * 0.55),
-        tip = P.clone().addScaledVector(D, len);
+          .add(V(0, len * curl, 0)),
+        L = M.clone()
+          .addScaledVector(S, -width * 0.51)
+          .add(V(0, -len * twist, 0)),
+        R = M.clone()
+          .addScaledVector(S, width * 0.59)
+          .add(V(0, len * twist, 0)),
+        tip = P.clone()
+          .addScaledVector(D, len)
+          .add(V(0, -len * curl * 0.48, 0));
       [A, B, L, R, tip].forEach((p, k) =>
-        add(p, c, [0, 1, 0, 1, 0.5][k]!, [0, 0, 0.5, 0.5, 1][k]!),
+        add(
+          p,
+          c,
+          mirror ? 1 - [0, 1, 0, 1, 0.5][k]! : [0, 1, 0, 1, 0.5][k]!,
+          [0, 0, 0.5, 0.5, 1][k]!,
+        ),
       );
       idx.push(o, o + 2, o + 1, o + 1, o + 2, o + 3, o + 2, o + 4, o + 3);
     } else {

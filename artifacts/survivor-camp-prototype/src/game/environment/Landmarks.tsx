@@ -56,8 +56,8 @@ export function NaturalLandmarks({
         vec3 mineral=texture2D(map,vNaturalRock.yz*.11).rgb*blend.x+texture2D(map,vNaturalRock.xz*.11).rgb*blend.y+texture2D(map,vNaturalRock.xy*.11).rgb*blend.z;
         // A second, rotated scale breaks the enlarged scan repeat without new maps.
         vec2 q=vec2(vNaturalRock.x*.83-vNaturalRock.z*.56,vNaturalRock.y+vNaturalRock.z*.22);
-        vec3 fine=texture2D(map,q*.31).rgb;
-        mineral=mix(mineral,fine,.23);
+        vec3 fine=texture2D(map,q*.48).rgb;
+        mineral=mix(mineral,fine,.32);
         float strata=sin(vNaturalRock.y*.37+sin(vNaturalRock.x*.19)*2.+sin(vNaturalRock.z*.13));
         float runnel=sin(vNaturalRock.x*.7+sin(vNaturalRock.y*.13)*1.3+vNaturalRock.z*.21);
         mineral*=.94+.055*strata+.035*runnel;
@@ -65,7 +65,7 @@ export function NaturalLandmarks({
       #endif`,
         );
     };
-    rock.customProgramCacheKey = () => "natural-karst-geometric-normals-v3";
+    rock.customProgramCacheKey = () => "natural-karst-fractured-mineral-v4";
     // A UV-space normal map cannot follow the triplanar diffuse axes.
     // Real mesh relief supplies correctly oriented normals without three more taps.
     rock.normalMap = null;

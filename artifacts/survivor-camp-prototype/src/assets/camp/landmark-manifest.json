@@ -495,9 +495,9 @@
           92.45441436767578
         ],
         "max": [
-          49.583580017089844,
-          76.54391479492188,
-          135.9998321533203
+          50.373443603515625,
+          71.98036193847656,
+          136.8546905517578
         ]
       }
     },
@@ -510,23 +510,24 @@
       "vertices": 3322,
       "bounds": {
         "min": [
-          -47.019073486328125,
+          -47.055519104003906,
           -4.235825538635254,
           92.52763366699219
         ],
         "max": [
-          49.24913787841797,
-          76.61734008789062,
-          135.98849487304688
+          50.28204345703125,
+          72.00939178466797,
+          136.85467529296875
         ]
       }
     }
   ],
-  "bytes": 3841196,
-  "sha256": "feaff9f6f019276f19aa476d45a18bb820668228ced13c24ecea8fd887278bad",
+  "bytes": 3841192,
+  "sha256": "1b780fea7153007b5f3da5d4331640fc4e240715e7a3c624e24710bf7eeab56a",
   "sourceSha256": {
+    "tools/camp/art/rockRelief.mts": "5c16cae7b455ddbe63223b1da03f439c4e9d73baf85d55396716fdf368fc38b2",
     "tools/camp/refinement/model.mts": "21edf11b452088597894c72283881001d235366e5a4027092f91fb996637f672",
-    "tools/camp/refinement/build.mts": "0d4b8ab22de34483c3f1c58f4edca562c7b870829539d0222bcf274acd26d41f",
-    "artifacts/survivor-camp-prototype/src/game/environment/limestone.ts": "fe4b23b4e0943d9bd6eddd7cdcf5775e38082ba9b80e78be07d7158ca42a218f"
+    "tools/camp/refinement/build.mts": "18b37316ce2fcb4320ae4fb2b08755dab3e562855ec57e04fceadea19e952ffe",
+    "artifacts/survivor-camp-prototype/src/game/environment/limestone.ts": "81823dcdc91cba003fe370599baf9912836042107c7ef141b5c6f6d636f5ef54"
   }
 }

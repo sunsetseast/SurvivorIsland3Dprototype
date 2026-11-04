@@ -9,6 +9,7 @@ const require = createRequire(
 const T = require("three") as typeof import("three");
 import { writeFileSync, readFileSync, mkdirSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { transferRockRelief } from "../art/rockRelief.mts";
 import { buildLandmarks, scan } from "./model.mts";
 const { mergeGeometries } = await import(
   require.resolve("three/examples/jsm/utils/BufferGeometryUtils.js")
@@ -22,7 +23,9 @@ const root = new URL("../../../", import.meta.url),
   out = new URL("artifacts/survivor-camp-prototype/src/assets/camp/", root);
 const meshes = [...buildLandmarks("near"), ...buildLandmarks("far")];
 for (const lod of ["near", "far"] as const) {
-  const parts = [southernCliffGeometry(lod === "far")];
+  const cliff = southernCliffGeometry(lod === "far");
+  transferRockRelief(cliff, scan("far"));
+  const parts = [cliff];
   // Grounded talus along cave shoulders/back, kept below the body corridor.
   for (let i = 0; i < 17; i++) {
     const x = i < 12 ? (i % 2 ? 7.12 : 14.9) : 7.9 + (i - 12) * 1.35,
@@ -191,6 +194,7 @@ function exportKit(selected: typeof meshes, filename: string) {
   manifest.sha256 = createHash("sha256").update(glb).digest("hex");
   manifest.sourceSha256 = Object.fromEntries(
     [
+      "tools/camp/art/rockRelief.mts",
       "tools/camp/refinement/model.mts",
       "tools/camp/refinement/build.mts",
       "artifacts/survivor-camp-prototype/src/game/environment/limestone.ts",

@@ -131,7 +131,7 @@ export function useEnvironmentKit(low = false) {
                   p.transparent = false;
                   p.depthWrite = true;
                   p.emissive.set("#92af6d");
-                  p.emissiveIntensity = 0.32;
+                  p.emissiveIntensity = 0.48;
                   p.emissiveMap = p.map;
                 }
               }
