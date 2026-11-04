@@ -11,6 +11,7 @@ const before = await load("before"),
   after = await load("after");
 for (const report of [before, after]) {
   assert.equal(report.result, "PASS");
+  assert.equal(report.captureContract, "static-camp-v1", "recapture both refs with the same static camp fixture");
   assert.deepEqual(report.errors, []);
   assert.equal(
     report.poses.length,
@@ -20,7 +21,7 @@ for (const report of [before, after]) {
 }
 const summary = {
   method:
-    "Saved production WebGL reports; timings are excluded from budget assertions.",
+    "Paired production WebGL reports from the same runner and static NPC fixture; timings are excluded from budget assertions.",
   nativePairs: 0,
   inspectionPairs: 0,
   maxCameraDifference: 0,
@@ -49,7 +50,7 @@ for (const a of before.poses) {
     }
     assert.ok(
       b.render.calls <= a.render.calls + 2,
-      `draw-call budget ${a.name}`,
+      `draw-call budget ${a.quality}/${a.name}: ${a.render.calls} -> ${b.render.calls}`,
     );
     assert.ok(
       b.render.triangles <= a.render.triangles * 1.05,
@@ -67,6 +68,9 @@ for (const a of before.poses) {
 for (const a of before.samples) {
   const b = after.samples.find((s) => s.quality === a.quality);
   assert.ok(b);
+  assert.equal(after.browser, before.browser, "paired captures must use the same browser");
+  assert.deepEqual(b.renderer, a.renderer, "paired renderer settings");
+  assert.deepEqual(b.npcSnapshot, a.npcSnapshot, "identical initial NPC staging");
   assert.equal(
     b.geometryBytes,
     a.geometryBytes,

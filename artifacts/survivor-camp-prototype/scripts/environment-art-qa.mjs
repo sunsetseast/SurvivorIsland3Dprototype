@@ -29,10 +29,17 @@ const instrument = {
       return append("window.__ART_QA__.T=T;");
     if (id.endsWith("/game/state.ts"))
       return append("window.__ART_QA__.io={dbg,input,clearInput};");
-    if (id.endsWith("/game/CampRuntime.ts"))
+    if (id.endsWith("/game/CampRuntime.ts")) {
+      // Freeze before the first rendered frame: asset/network startup can otherwise
+      // advance NPCs by different amounts on each host, adding a whole character
+      // to a frustum-edge pose. Gameplay is verified separately with the real sim.
+      const signature = "step(rawDt: number, player = this.player) {";
+      assert.ok(src.includes(signature), "static camp fixture must match runtime");
+      src = src.replace(signature, signature + " return;");
       return append(
         "window.__ART_QA__.camp=camp;window.__ART_QA__.spots=SPOTS;",
       );
+    }
     if (
       id.endsWith("/game/navigation.ts") &&
       !src.includes("navigation-hydrate")
@@ -78,8 +85,9 @@ const browser = await chromium.launch({
 });
 const report = {
   label,
+  captureContract: "static-camp-v1",
   method:
-    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Fixed 60Hz gallery simulation. Host timings are not device/FPS measurements.",
+    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static initial NPC staging, fixed 60Hz player/culling simulation. Host timings are not device/FPS measurements.",
   browser: browser.version(),
   errors: [],
   samples: [],
@@ -211,6 +219,7 @@ try {
       });
       return {
         ...window.__WORLD_RENDER__.stats(),
+        npcSnapshot: window.__ART_QA__.camp.npcs.map(({id,x,y,z,animation}) => ({id,x,y,z,animation})),
         renderer: {
           toneMapping: s.gl.toneMapping,
           exposure: s.gl.toneMappingExposure,
