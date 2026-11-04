@@ -196,11 +196,15 @@ try {
         mats = new Set();
       let geometryBytes = 0,
         textureBytesEstimate = 0,
-        shelterCompletionBytes = 0;
+        shelterCompletionBytes = 0,
+        groundDetailBytes = 0;
       s.scene.traverse((o) => {
         if (o.geometry && !geos.has(o.geometry)) {
           geos.add(o.geometry);
           shelterCompletionBytes += o.geometry.userData.shelterCompletionBytes || 0;
+          if (o.name.startsWith("ground-detail-")) {
+            groundDetailBytes += Object.values(o.geometry.attributes).reduce((n,a)=>n+a.array.byteLength,o.geometry.index?.array.byteLength || 0);
+          }
           for (const a of Object.values(o.geometry.attributes))
             geometryBytes += a.array.byteLength;
           geometryBytes += o.geometry.index?.array.byteLength || 0;
@@ -230,6 +234,7 @@ try {
         },
         geometryBytes,
         shelterCompletionBytes,
+        groundDetailBytes,
         textureBytesEstimate,
         materials: mats.size,
         stages: window.__ART_STAGES__,

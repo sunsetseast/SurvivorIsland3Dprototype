@@ -42,3 +42,10 @@ test('paired comparison rejects geometry growth outside the measured shelter add
   assert.notEqual(result.status,0);
   assert.match(result.stderr,/unaccounted resident geometry/);
 });
+
+test('paired comparison accepts only the measured shelter and bounded debris accounting', () => {
+  assert.equal(compare(r=>{for(const s of r.samples){s.shelterCompletionBytes=34916;s.groundDetailBytes=3456;s.geometryBytes+=34916+3456;}}).status,0);
+  const result=compare(r=>{r.samples[0].groundDetailBytes=3457;r.samples[0].geometryBytes+=3457;});
+  assert.notEqual(result.status,0);
+  assert.match(result.stderr,/bounded cave ground-detail/);
+});

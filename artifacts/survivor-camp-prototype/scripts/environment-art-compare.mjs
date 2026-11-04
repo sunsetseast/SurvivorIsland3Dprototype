@@ -72,14 +72,19 @@ for (const a of before.samples) {
   assert.deepEqual(b.renderer, a.renderer, "paired renderer settings");
   assert.deepEqual(b.npcSnapshot, a.npcSnapshot, "identical initial NPC staging");
   // Three woven mats and one rolled mat are merged into the existing supplies
-  // mesh. The measured 34,916-byte addition is the ONLY resident allowance;
+  // mesh. The measured 34,916-byte addition is the ONLY shelter allowance;
   // unrelated geometry growth still fails the exact accounting assertion.
   const finishing = s => s.shelterCompletionBytes || 0;
   for (const sample of [a,b])
     assert.ok([0,34916].includes(finishing(sample)), "bounded shelter finishing storage");
+  // Cave eligibility adds one 32-triangle organic-litter patch (3,456 bytes).
+  // Account from the actual named debris meshes, not a blanket memory tolerance.
+  const debris = s => s.groundDetailBytes || 0;
+  const debrisDelta = debris(b) - debris(a);
+  assert.ok(debrisDelta <= 3456, "bounded cave ground-detail storage");
   assert.equal(
     b.geometryBytes,
-    a.geometryBytes + finishing(b) - finishing(a),
+    a.geometryBytes + finishing(b) - finishing(a) + debrisDelta,
     "no unaccounted resident geometry arrays",
   );
   assert.equal(
@@ -91,6 +96,8 @@ for (const a of before.samples) {
   assert.ok(b.triangles <= a.triangles * 1.05, "spawn triangle budget");
   summary.samples.push({
     quality: a.quality,
+    shelterCompletionBytes: finishing(b) - finishing(a),
+    groundDetailBytes: debrisDelta,
     before: {
       calls: a.calls,
       triangles: a.triangles,
