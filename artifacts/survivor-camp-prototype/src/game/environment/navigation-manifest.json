@@ -1,12 +1,12 @@
 {
   "sources": {
     "src/game/world.ts": "37136f494fe4f285c0cf8245476f968dd138a997280b88c95b5583daa1f1b7c1",
-    "src/game/environment/geography.ts": "706f82d611ec11535023379cba4307a7f30428b9bb6e8040f89e97bf12ca7210",
+    "src/game/environment/geography.ts": "9b449f8acc851eb1960eab7151446f5df1890cf98cfcc0d9ea47b32f1032cb13",
     "src/game/navigation.ts": "ea9f806a331c9a6dba8eb5ec262136e676fb86fec3cfe0e706ba58edc769adbc",
     "src/game/environment/rockCollision.json": "1b957ccfc1f2ed3aaca828da0fd49c8414756d2ab4c2b9c69f717e86baefc55f"
   },
-  "nodes": 24917,
-  "directedEdges": 187616,
-  "bytes": 274087,
+  "nodes": 24905,
+  "directedEdges": 187454,
+  "bytes": 273955,
   "method": "Exact 0.12m clearSegment validations at bake time; float64 trail costs, symmetric edge masks. Default 1m graph only; custom steps retain construction."
 }

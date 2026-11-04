@@ -75,16 +75,7 @@ test("actual exported near/far walls preserve coverage and stay within the exist
     }
   assert.ok(maxDeviation < 1.6, `exported LOD deviation ${maxDeviation} m`);
 });
-test("actual exported near/far rock leaves 2311 southern body samples clear of new intersections", () => {
-  const baseline = JSON.parse(
-    readFileSync(
-      new URL("./fixtures/pr21-cliff-clearance.json", import.meta.url),
-    ),
-  );
-  const original = [
-    new Set(baseline.low.existingIntersections),
-    new Set(baseline.high.existingIntersections),
-  ];
+test("actual exported near/far rock leaves all reachable southern body samples clear of intersections", () => {
   let count = 0;
   for (let x = -49; x <= 62; x++)
     for (let z = 80; z <= 125; z++) {
@@ -98,9 +89,9 @@ test("actual exported near/far rock leaves 2311 southern body samples clear of n
       );
       for (const [i, m] of meshes.entries())
         assert.ok(
-          !ray.intersectObject(m)[0] || original[i].has(x + "," + z),
+          !ray.intersectObject(m)[0],
           `exported body intersection ${x},${z}`,
         );
     }
-  assert.equal(count, 2311);
+  assert.equal(count, 2299, "only the 12 cave-wall body-envelope samples are removed");
 });

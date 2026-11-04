@@ -21,6 +21,8 @@ import { NATURAL_LANDMARKS, SPRING } from "./geography";
 import { southernCliffSurface, karstRimHeight } from "./limestone";
 import { makeShrub } from "../flora";
 import { Flora } from "../Flora";
+import { dbg } from "../state";
+import { installFoliageVisibility } from "./foliageVisibility";
 import { useEnvironmentKit, meshPart } from "./assets";
 import { BACKDROP_TREES, CLIFF_MASSES } from "./composition";
 
@@ -153,6 +155,8 @@ const veg = (ps: Veg[], factor = 1): Placement[] =>
 
 export function Environment({ low }: { low: boolean }) {
   const kit = useEnvironmentKit(low);
+  const foliageFocus = useMemo(() => new T.Vector3(), []);
+  useFrame(() => foliageFocus.set(dbg.x, dbg.y + 1, dbg.z));
   const palmMaterial = useMemo(
     () =>
       new T.MeshStandardMaterial({
@@ -198,15 +202,9 @@ export function Environment({ low }: { low: boolean }) {
     m.alphaToCoverage = true;
     m.alphaTest = 0.3;
     m.transparent = false;
-    m.onBeforeCompile = (s) => {
-      s.fragmentShader = s.fragmentShader.replace(
-        "#include <alphatest_fragment>",
-        "diffuseColor.a*=smoothstep(.65,1.7,length(vViewPosition));\n#include <alphatest_fragment>",
-      );
-    };
-    m.customProgramCacheKey = () => "cupped-leaves-msaa-coverage-v2";
+    installFoliageVisibility(m, foliageFocus);
     return m;
-  }, [kit.tree]);
+  }, [kit.tree, foliageFocus]);
   useEffect(() => () => forestLeaf?.dispose(), [forestLeaf]);
   const midstoryLeaf = useMemo(() => {
     const source = meshPart(kit.forest, "understory-1-leaves-far")?.material;
@@ -220,15 +218,9 @@ export function Environment({ low }: { low: boolean }) {
     m.emissive.set("#708354");
     m.emissiveIntensity = 0.32;
     m.emissiveMap = m.map;
-    m.onBeforeCompile = (s) => {
-      s.fragmentShader = s.fragmentShader.replace(
-        "#include <alphatest_fragment>",
-        "diffuseColor.a*=smoothstep(.65,1.7,length(vViewPosition));\n#include <alphatest_fragment>",
-      );
-    };
-    m.customProgramCacheKey = () => "midstory-msaa-coverage-v2";
+    installFoliageVisibility(m, foliageFocus);
     return m;
-  }, [kit.forest]);
+  }, [kit.forest, foliageFocus]);
   useEffect(() => () => midstoryLeaf?.dispose(), [midstoryLeaf]);
   const plants = useMemo(
     () => ({
