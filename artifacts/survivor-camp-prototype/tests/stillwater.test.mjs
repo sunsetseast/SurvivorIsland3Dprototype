@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { StillwaterEngine, STEP, RULES, difficultyAt, balanceWindow, canPlace, assignEntrants, disturbance } from '../src/game/challenge/stillwater/engine.ts';
+import { BalanceInput } from '../src/game/challenge/stillwater/input.ts';
 const active = (roster=[]) => { const e = new StillwaterEngine(roster); e.begin(); e.tutorial(); e.ready(); e.advance(3); assert.equal(e.state.phase,'active'); return e; };
 test('explicit intro, tutorial, ready/countdown and exclusive session transitions',()=>{
  const e=new StillwaterEngine([]); assert.equal(e.ownsControls,false); e.ready();assert.equal(e.state.phase,'idle');
@@ -34,4 +35,13 @@ test('valid station assignments deduplicate and cap actual identities without mu
 test('successful feedback control can survive a complete solo rehearsal and earn placements',()=>{
  const e=active();for(let i=0;i<5405&&e.state.phase!=='results';i++){const c=e.state.competitors[0];e.setInput(-(disturbance(e.state.elapsed,c.phase)*.62+c.balance*2.7+c.velocity*2)/1.65);if(canPlace(c,e.state.elapsed))e.place();e.advance(STEP);}
  assert.equal(e.state.result.duration,RULES.duration);assert.equal(e.state.result.winnerIds[0],0);assert.ok(e.state.competitors[0].placed>=7);
+});
+test('balance/placement have independent pointer owners; stray and cancelled touches cannot activate',()=>{
+ let v=0,n=0;const c=new BalanceInput(x=>v=x,()=>n++);
+ assert.equal(c.down(1,100,200),true);assert.equal(c.down(2,100,200),false);c.move(2,150);assert.equal(v,0);c.move(1,138);assert.ok(v>.49&&v<.51);
+ assert.equal(c.placeDown(1),false);assert.equal(c.placeDown(2),true);assert.equal(c.placeDown(3),false);c.placeUp(3,true);assert.equal(n,0);c.placeUp(2,true);c.placeUp(2,true);assert.equal(n,1);c.up(1);assert.equal(v,0);
+ c.placeDown(4);c.up(4);c.placeUp(4,true);assert.equal(n,1);c.down(5,1,200);c.reset();c.move(5,500);assert.equal(v,0);
+});
+test('keyboard releases, repeat suppression, accessible sensitivity and focus-reset ownership',()=>{
+ let n=0,v=0;const c=new BalanceInput(x=>v=x,()=>n++);c.sensitivity=.5;c.key('KeyD',true);assert.equal(v,.5);c.key('KeyA',true);assert.equal(v,0);c.key('KeyD',false);assert.equal(v,-.5);c.key('Space',true);c.key('Space',true,true);c.key('Space',true);assert.equal(n,1);c.reset();assert.equal(v,0);assert.equal(c.balancePointer,null);assert.equal(c.key('KeyQ',true),false);c.key('Space',true);assert.equal(n,2);
 });
