@@ -1,4 +1,6 @@
 {
+  "verificationCommit": "a7491c4c2f45e3fef79f594d2c1da46caf8dd119",
+  "verificationSourceComparison": "evidence/verification-source-compare.json",
   "runtimeCommit": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
   "unitTests": {
     "passed": 134,
@@ -10,39 +12,39 @@
   },
   "workflowRuns": [
     {
-      "id": 42068508026,
-      "name": "Connected island journeys",
-      "status": "completed",
-      "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068508026"
-    },
-    {
-      "id": 42068507831,
+      "id": 42070827400,
       "name": "Challenge Beach rehearsal and WebGL",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507831"
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827400"
     },
     {
-      "id": 42068508011,
-      "name": "Mobile gameplay controls",
+      "id": 42070827643,
+      "name": "Connected island journeys",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068508011"
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827643"
     },
     {
-      "id": 42068507826,
+      "id": 42070827150,
+      "name": "Living camp checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827150"
+    },
+    {
+      "id": 42070827158,
       "name": "Flagship camp visual and gameplay checks",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507826"
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827158"
     },
     {
-      "id": 42068507977,
-      "name": "Living camp checks",
-      "status": "in_progress",
-      "conclusion": null,
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507977"
+      "id": 42070827562,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827562"
     }
   ],
   "priorFullCampProof": {
@@ -56,5 +58,9 @@
     "conclusion": "success",
     "imagesHashVerified": 16
   },
-  "physicalIphoneTested": false
+  "physicalIphoneTested": false,
+  "retryNotes": [
+    "Earlier broad-camp replays were cancelled; the complete living-camp/heroes/Tribal/assets workflow passed at verification commit a7491c4c2f45e3fef79f594d2c1da46caf8dd119.",
+    "One duplicate Chromium mobile run hit the existing eight-second Run-control wait following a scene change. Its targeted retry passed Chromium and WebKit with unchanged gameplay and gesture/speed assertions."
+  ]
 }

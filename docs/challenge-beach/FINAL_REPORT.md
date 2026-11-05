@@ -4,7 +4,7 @@ PR: https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/23
 
 Branch: `feat/railay-challenge-beach`. **DRAFT, unmerged; nothing deployed or published.** Reference repository unchanged; no Replit Agent/credits.
 
-Runtime verified at `831e47400c06f120fa7d73791ba2eea4d8cfbe40`. Evidence committed and all 16 image hashes verified at `acf092025f450f8be1447662b1e32491f6315be6`. Last ref-confirmed checkpoint before this final documentation commit: `896be02086876a923db89eb69a253b222d42a2b8`. The PR description and final handoff carry the final documentation head SHA; a commit cannot embed its own SHA.
+Runtime verified at `831e47400c06f120fa7d73791ba2eea4d8cfbe40`. Evidence committed and all 16 image hashes verified at `acf092025f450f8be1447662b1e32491f6315be6`. Last ref-confirmed checkpoint before this final documentation commit: `8eca687a1b17a579612bfb84750cd8bc87cbfab3`. The PR description and final handoff carry the final documentation head SHA; a commit cannot embed its own SHA.
 
 ## Delivered environment and four demonstrations
 
@@ -29,12 +29,12 @@ Developer review: run the existing Vite development command with PORT/BASE_PATH,
 
 ## Verification and CI
 
-Challenge Beach, connected journeys, mobile controls and flagship camp workflows pass. The broader living-camp replay is being retried after cancellation during browser installation; it already passed on identical camp/Tribal source at ca2d278. See the exact snapshot below.
+All five implementation workflows pass at verification commit `a7491c4c2f45e3fef79f594d2c1da46caf8dd119`. GitHub comparison confirms byte-identical runtime/harness source to `831e474`; the only intervening change was the temporary evidence-saving workflow, which is now removed.
 
 - **134/134 unit tests**, TypeScript, world checks and production build pass. Twelve added targeted groups cover all configuration spawns, collision/water safety, both directions of the route network, admission/instance/identity/return, revoked grants, retry and stale cancellation.
 - **10/10 real WebGL groups** pass: build/URL gating, camp ownership/state retention, four previews in Low/High, all six real Player route chains using trusted keyboard input, actual three-touch Run/look/joystick behavior, repeated selection cleanup, three camp round trips and error/asset checks.
 - One detailed scene maximum. Repeated selected state: **80 geometries / 11 textures / 33 listeners**; repeated camp returns: **148 / 26 / 48**. No uncaught page, shader/WebGL errors or failed asset requests in the final Challenge Beach run.
-- [Exact CI snapshot](CI_RESULTS.json), [successful Challenge Beach run](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507831), [connected journeys](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068508026), [mobile controls](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068508011), [flagship camp](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507826), [full camp/heroes/Tribal/assets proof](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42066720924).
+- [Exact CI snapshot](CI_RESULTS.json), [successful Challenge Beach run](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507831), [connected journeys](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827643), [mobile controls](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827562), [flagship camp](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827158), [full camp/heroes/Tribal/assets proof](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827150).
 
 ## Evidence and measured envelope
 
