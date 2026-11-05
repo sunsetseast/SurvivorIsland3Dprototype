@@ -4,6 +4,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import * as T from "three";
 import { worldTravel } from "./travel";
 import type { LocationId } from "./registry";
+import { pruneDisposedResources } from "./releasedResources";
 
 type Resource = T.BufferGeometry | T.Material | T.Texture | T.RenderTarget;
 export const lifecycle = {
@@ -44,15 +45,13 @@ export function SceneLifecycle({
     ready = useRef(false),
     frames = useRef(0);
   const collect = () => {
+    const live = new Set<Resource>();
     root.current?.traverse((o) => {
       const m = o as T.Mesh;
       const add = (r: Resource | undefined) => {
-        if (
-          !r ||
-          ("userData" in r && r.userData?.shared) ||
-          owned.current.has(r)
-        )
-          return;
+        if (!r || ("userData" in r && r.userData?.shared)) return;
+        live.add(r);
+        if (owned.current.has(r)) return;
         const entry = {
           disposed: false,
           listener: () => {
@@ -82,13 +81,16 @@ export function SceneLifecycle({
             if (u.value instanceof T.Texture) add(u.value);
       }
     });
+    // GPU disposal does not free geometry arrays while this Map still owns them.
+    // Keep live/re-uploaded and not-yet-disposed assets for the final scene sweep.
+    pruneDisposedResources(owned.current, live);
   };
   useEffect(() => {
     lifecycle.mounts++;
     lifecycle.active++;
     lifecycle.peakActive = Math.max(lifecycle.peakActive, lifecycle.active);
     gl.shadowMap.autoUpdate = true;
-    camera.far = id === "railay_trails" ? 6500 : 200;
+    camera.far = id === "railay_trails" ? 6500 : id === "challenge_main" ? 1000 : 200;
     camera.updateProjectionMatrix();
     const w = window as any;
     w.__WORLD_RENDER__ = {
@@ -103,6 +105,7 @@ export function SceneLifecycle({
         triangles: gl.info.render.triangles,
         ...gl.info.memory,
         programs: gl.info.programs?.length,
+        trackedResources: owned.current.size,
       }),
     };
     collect();
@@ -113,7 +116,7 @@ export function SceneLifecycle({
       const resources = owned.current;
       // R3F also disposes on idle. A previously disposed resource can have been
       // uploaded again during asynchronous replacement; finish with an
-      // idempotent release of EVERY observed scene-owned resource. Destinations
+      // idempotent release of every retained scene-owned resource. Destinations
       // wait for this promise and shared resources were excluded by collect().
       releasePending = new Promise<void>((resolve) =>
         setTimeout(() => {
@@ -160,6 +163,11 @@ export function SceneLifecycle({
       assets =
         !!scene.getObjectByName("sanctuary-assets-ready") ||
         !!scene.getObjectByName("sanctuary-asset-fallback");
+    if (id === "challenge_main") {
+      assets = !!scene.getObjectByName("challenge-ground-ready");
+      const sky = scene.getObjectByName("andaman-tropical-sky") as T.Mesh | undefined;
+      assets = assets && !!(sky?.material as T.Material | undefined)?.userData.cloudReady;
+    }
     if (assets) {
       collect();
       ready.current = true;
@@ -187,3 +195,4 @@ export class LocationErrorBoundary extends Component<
     return this.state.failed ? null : this.props.children;
   }
 }
+

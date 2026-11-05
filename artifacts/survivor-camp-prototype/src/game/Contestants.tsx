@@ -16,9 +16,6 @@ import {
 import { createCharacterMaterial } from "./characterSurface";
 const material = createCharacterMaterial();
 export const characterAnimationMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
-const mesh = (g: Geo, name?: string) => (
-  <mesh name={name} geometry={g} material={material} castShadow />
-);
 
 export type StagedPerson = Pick<
   NpcState,
@@ -28,11 +25,14 @@ export function Contestant({
   npc,
   terrain = groundHeight,
   time,
+  material: stagedMaterial,
 }: {
   npc: StagedPerson;
   terrain?: typeof groundHeight;
   time?: () => number;
+  material?: THREE.Material;
 }) {
+  const mesh = (g: Geo, name?: string) => <mesh name={name} geometry={g} material={stagedMaterial ?? material} castShadow />;
   const p = useMemo(() => buildContestant(npc.id), [npc.id]);
   useEffect(
     () => () => {
@@ -243,3 +243,4 @@ export function Contestants() {
     </>
   );
 }
+

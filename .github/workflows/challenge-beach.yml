@@ -1,0 +1,42 @@
+name: Challenge Beach rehearsal and WebGL
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/game/challenge/**'
+      - 'artifacts/survivor-camp-prototype/src/game/locations/**'
+      - 'artifacts/survivor-camp-prototype/src/game/Contestants.tsx'
+      - 'artifacts/survivor-camp-prototype/src/App.tsx'
+      - 'artifacts/survivor-camp-prototype/tests/challenge-beach.test.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/resource-ownership.test.mjs'
+      - 'artifacts/survivor-camp-prototype/scripts/challenge-beach-qa.mjs'
+      - '.github/workflows/challenge-beach.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  challenge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+      - run: pnpm --filter @workspace/survivor-camp-prototype typecheck
+      - run: pnpm --filter @workspace/survivor-camp-prototype test
+      - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec node scripts/challenge-beach-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: challenge-beach-webgl-evidence
+          path: docs/challenge-beach/evidence/
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: challenge-beach-review-build
+          path: artifacts/survivor-camp-prototype/dist/public/

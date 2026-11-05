@@ -1,3 +1,4 @@
+import { ARRIVAL, RETURN_EXIT } from "../challenge/layout";
 /** One map, independent scene spaces. +X east, +Z south, metres; coastline is unchanged. */
 import { ANCHORS, ZONES, type P } from "../railay/geography";
 export type LocationId =
@@ -8,7 +9,7 @@ export type LocationId =
   | "challenge_main"
   | "tribal_council"
   | "journey_destination_1";
-export type SceneId = "camp" | "railay" | "tribal";
+export type SceneId = "camp" | "railay" | "tribal" | "challenge";
 export type LocationCategory =
   "camp" | "journey" | "challenge" | "council" | "event";
 export type Pose = P & { facing: number; yaw: number };
@@ -85,7 +86,7 @@ export const LOCATIONS: Record<LocationId, LocationDefinition> = {
       default: { ...pose(-6, -24, Math.PI), yaw: -0.48 },
       trail_return: pose(-1, 22, Math.atan2(9, -7)),
     },
-    connections: ["camp_to_trail"],
+    connections: ["camp_to_trail", "camp_to_challenge"],
     quality: { mobileDpr: 1.5, shadows: true },
     instanceScope: "tribe",
     tribeId: "tonsai",
@@ -129,13 +130,13 @@ export const LOCATIONS: Record<LocationId, LocationDefinition> = {
     instanceScope: "journey",
     restrictions: ["journey-event"],
   },
-  challenge_main: planned(
-    "challenge_main",
-    "West Beach Challenge",
-    "challenge",
-    ANCHORS.challengeWest,
-    "event",
-  ),
+  challenge_main: {
+    ...planned("challenge_main", "Railay Challenge Beach", "challenge", ANCHORS.challengeWest, "event"),
+    scene: "challenge", status: "playable",
+    spawns: { default: ARRIVAL }, connections: ["challenge_to_camp"],
+    quality: { mobileDpr: 1.5, shadows: false },
+    restrictions: ["development-rehearsal-only", "production-event-authority-not-implemented"],
+  },
   tribal_council: {
     ...planned(
       "tribal_council",
@@ -164,10 +165,20 @@ export type Connection = {
   radius: number;
   destination: LocationId;
   spawn: string;
-  permission: "journey" | "return";
+  permission: "journey" | "return" | "challenge-rehearsal";
   presentation: string;
 };
 export const CONNECTIONS: Record<string, Connection> = {
+  camp_to_challenge: {
+    id: "camp_to_challenge", source: "camp_tribe_a", exit: pose(-6, 26, 0), radius: 3.2,
+    destination: "challenge_main", spawn: "default", permission: "challenge-rehearsal",
+    presentation: "Following the coastal trail to Challenge Beach rehearsal…",
+  },
+  challenge_to_camp: {
+    id: "challenge_to_camp", source: "challenge_main", exit: RETURN_EXIT, radius: 3.2,
+    destination: "camp_tribe_a", spawn: "trail_return", permission: "return",
+    presentation: "Returning to your originating tribe camp…",
+  },
   camp_to_trail: {
     id: "camp_to_trail",
     source: "camp_tribe_a",
@@ -211,3 +222,4 @@ export const localInstance = (id: LocationId): LocationInstance => ({
   seasonId: "local-season",
   ...(LOCATIONS[id].tribeId ? { tribeId: LOCATIONS[id].tribeId } : {}),
 });
+

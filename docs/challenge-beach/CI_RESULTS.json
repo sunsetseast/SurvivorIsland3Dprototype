@@ -1,0 +1,71 @@
+{
+  "verificationCommit": "7803dc698f9f531cb0d90f9d684407e6c8c277be",
+  "runtimeCommit": "7803dc698f9f531cb0d90f9d684407e6c8c277be",
+  "unitTests": {
+    "passed": 138,
+    "failed": 0
+  },
+  "challengeBrowserGroups": {
+    "passed": 10,
+    "failed": 0
+  },
+  "workflowRuns": [
+    {
+      "id": 42113512660,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512660"
+    },
+    {
+      "id": 42113512847,
+      "name": "Connected island journeys",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512847"
+    },
+    {
+      "id": 42113512588,
+      "name": "Challenge Beach rehearsal and WebGL",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512588"
+    },
+    {
+      "id": 42113512649,
+      "name": "Living camp checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512649"
+    },
+    {
+      "id": 42113512714,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512714"
+    }
+  ],
+  "ownershipPlateau": {
+    "repeatedPreview": {
+      "trackedResources": 114,
+      "geometries": 80,
+      "textures": 11,
+      "listeners": 33
+    },
+    "repeatedCampReturn": {
+      "trackedResources": 322,
+      "geometries": 151,
+      "textures": 26,
+      "listeners": 48
+    },
+    "report": "evidence/cleanup-browser-report.json",
+    "provenance": "evidence/cleanup-provenance.json"
+  },
+  "originalImageRuntime": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
+  "originalFiveWorkflowVerification": "a7491c4c2f45e3fef79f594d2c1da46caf8dd119",
+  "physicalIphoneTested": false,
+  "deviceReview": "DEVICE_REVIEW.md",
+  "statusNote": "All five workflows passed at the final cleanup runtime. Subsequent changes contain documentation and evidence only.",
+  "verificationSourceComparison": "evidence/cleanup-source-compare.json"
+}

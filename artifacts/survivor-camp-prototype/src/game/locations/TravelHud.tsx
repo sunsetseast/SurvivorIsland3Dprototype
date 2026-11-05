@@ -1,3 +1,4 @@
+import { challengeRehearsalEnabled } from "../challenge/development";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { camp } from "../CampRuntime";
 import { TouchButton } from "../Hud";
@@ -18,9 +19,8 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
   }, []);
   const session = worldTravel.session,
     p = session.poses[session.locationId],
-    route = Object.values(CONNECTIONS).find(
-      (c) => c.source === session.locationId,
-    ),
+    routes = Object.values(CONNECTIONS).filter(c => c.source === session.locationId && (c.permission !== "challenge-rehearsal" || challengeRehearsalEnabled())),
+    route = routes.find(c => !worldTravel.permission(c.id)) ?? routes[0],
     near =
       route &&
       p &&
@@ -105,7 +105,7 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
                 >
                   {route.permission === "return"
                     ? "Return to camp"
-                    : "Begin journey"}
+                    : route.permission === "challenge-rehearsal" ? "Rehearse Challenge Beach" : "Begin journey"}
                 </TouchButton>
               </>
             ) : (
@@ -114,6 +114,9 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
                   ? "Return to the wooden camp sign to head home."
                   : "Journey departure · take the short western fork at the root crossing."}
               </small>
+            )}
+            {session.locationId === "camp_tribe_a" && challengeRehearsalEnabled() && (
+              <TouchButton data-testid="grant-challenge" onActivate={() => worldTravel.grantChallengeRehearsal()}>Development · authorize Challenge Beach rehearsal</TouchButton>
             )}
             {session.locationId === "camp_tribe_a" && developerTravel && (
               <TouchButton
@@ -128,3 +131,4 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
     </>
   );
 }
+

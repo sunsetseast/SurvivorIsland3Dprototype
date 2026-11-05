@@ -1,0 +1,397 @@
+{
+  "runtimeCommit": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
+  "workflowRun": 42068507831,
+  "method": "Chromium software WebGL (SwiftShader), emulated mobile landscape 932×430, DPR1. Manual 60 Hz simulation updates; renderer captures are real. No physical iPhone FPS/thermal/battery certification.",
+  "fixedPoseSamples": [
+    {
+      "id": "beach-obstacle",
+      "low": {
+        "label": "beach-obstacle-low",
+        "quality": "low",
+        "configuration": "beach-obstacle",
+        "calls": 22,
+        "triangles": 190182,
+        "geometries": 33,
+        "textures": 8,
+        "activeGeometryBytes": 8364108,
+        "programs": 16,
+        "listeners": 33,
+        "activeScenes": 1
+      },
+      "high": {
+        "label": "beach-obstacle-high",
+        "quality": "high",
+        "configuration": "beach-obstacle",
+        "calls": 22,
+        "triangles": 567714,
+        "geometries": 79,
+        "textures": 10,
+        "activeGeometryBytes": 10092068,
+        "programs": 18,
+        "listeners": 33,
+        "activeScenes": 1
+      }
+    },
+    {
+      "id": "ocean-relay",
+      "low": {
+        "label": "ocean-relay-low",
+        "quality": "low",
+        "configuration": "ocean-relay",
+        "calls": 59,
+        "triangles": 224688,
+        "geometries": 57,
+        "textures": 8,
+        "activeGeometryBytes": 8311212,
+        "programs": 17,
+        "listeners": 33,
+        "activeScenes": 1
+      },
+      "high": {
+        "label": "ocean-relay-high",
+        "quality": "high",
+        "configuration": "ocean-relay",
+        "calls": 59,
+        "triangles": 603204,
+        "geometries": 71,
+        "textures": 10,
+        "activeGeometryBytes": 10058276,
+        "programs": 18,
+        "listeners": 33,
+        "activeScenes": 1
+      }
+    },
+    {
+      "id": "jungle-net",
+      "low": {
+        "label": "jungle-net-low",
+        "quality": "low",
+        "configuration": "jungle-net",
+        "calls": 91,
+        "triangles": 249292,
+        "geometries": 66,
+        "textures": 9,
+        "activeGeometryBytes": 8590908,
+        "programs": 18,
+        "listeners": 33,
+        "activeScenes": 1
+      },
+      "high": {
+        "label": "jungle-net-high",
+        "quality": "high",
+        "configuration": "jungle-net",
+        "calls": 91,
+        "triangles": 628360,
+        "geometries": 79,
+        "textures": 10,
+        "activeGeometryBytes": 10429460,
+        "programs": 18,
+        "listeners": 33,
+        "activeScenes": 1
+      }
+    },
+    {
+      "id": "individual-balance",
+      "low": {
+        "label": "individual-balance-low",
+        "quality": "low",
+        "configuration": "individual-balance",
+        "calls": 92,
+        "triangles": 258294,
+        "geometries": 67,
+        "textures": 10,
+        "activeGeometryBytes": 9333948,
+        "programs": 18,
+        "listeners": 33,
+        "activeScenes": 1
+      },
+      "high": {
+        "label": "individual-balance-high",
+        "quality": "high",
+        "configuration": "individual-balance",
+        "calls": 92,
+        "triangles": 640482,
+        "geometries": 79,
+        "textures": 10,
+        "activeGeometryBytes": 11397140,
+        "programs": 18,
+        "listeners": 33,
+        "activeScenes": 1
+      }
+    }
+  ],
+  "reviewBudgets": {
+    "method": "Observed maxima plus approximately 15% headroom, rounded upward; applies only to saved views and four staged prototype contestants.",
+    "low": {
+      "drawCalls": 110,
+      "triangles": 300000,
+      "activeGeometryAttributeIndexBytes": 11534336
+    },
+    "high": {
+      "drawCalls": 110,
+      "triangles": 740000,
+      "activeGeometryAttributeIndexBytes": 13631488
+    },
+    "residentGpuGeometryCount": 100,
+    "residentGpuTextureCount": 13,
+    "peakDetailedScenes": 1
+  },
+  "resourcePlateaus": [
+    {
+      "label": "selection-cycle-0",
+      "quality": "high",
+      "configuration": "beach-obstacle",
+      "calls": 88,
+      "triangles": 623830,
+      "geometries": 80,
+      "textures": 11,
+      "activeGeometryBytes": 10092068,
+      "programs": 18,
+      "listeners": 33,
+      "activeScenes": 1
+    },
+    {
+      "label": "selection-cycle-1",
+      "quality": "high",
+      "configuration": "beach-obstacle",
+      "calls": 88,
+      "triangles": 623830,
+      "geometries": 80,
+      "textures": 11,
+      "activeGeometryBytes": 10092068,
+      "programs": 18,
+      "listeners": 33,
+      "activeScenes": 1
+    },
+    {
+      "label": "selection-cycle-2",
+      "quality": "high",
+      "configuration": "beach-obstacle",
+      "calls": 88,
+      "triangles": 623830,
+      "geometries": 80,
+      "textures": 11,
+      "activeGeometryBytes": 10092068,
+      "programs": 18,
+      "listeners": 33,
+      "activeScenes": 1
+    },
+    {
+      "label": "camp-high-first-return",
+      "calls": 137,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 38.59999999999127,
+          "totalMs": 38.59999999999127,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 29.90000000000873,
+          "totalMs": 29.90000000000873,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 48.10000000000582,
+          "totalMs": 48.10000000000582,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 1,
+          "totalMs": 194.5,
+          "runs": 2
+        },
+        "terrain-meshes": {
+          "lastMs": 89.70000000001164,
+          "totalMs": 125.60000000000582,
+          "runs": 2
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 175.10000000003492,
+          "totalMs": 1072.9000000000233,
+          "runs": 2
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 212.20000000001164,
+          "totalMs": 1134.4000000000087,
+          "runs": 2
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 259.5,
+          "totalMs": 1507.0999999999913,
+          "runs": 2
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 382.6000000000349,
+          "totalMs": 1639.300000000032,
+          "runs": 2
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 405,
+          "totalMs": 1670.800000000003,
+          "runs": 2
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 423.4000000000233,
+          "totalMs": 1695.7000000000262,
+          "runs": 2
+        },
+        "shelter-completion": {
+          "lastMs": 1.7999999999883585,
+          "totalMs": 103.49999999995634,
+          "runs": 10
+        }
+      },
+      "triangles": 273780,
+      "geometries": 148,
+      "textures": 26,
+      "programs": 36,
+      "listeners": 48,
+      "activeScenes": 1
+    },
+    {
+      "label": "camp-high-return-2",
+      "calls": 137,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 38.59999999999127,
+          "totalMs": 38.59999999999127,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 29.90000000000873,
+          "totalMs": 29.90000000000873,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 48.10000000000582,
+          "totalMs": 48.10000000000582,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.6999999999534339,
+          "totalMs": 195.19999999995343,
+          "runs": 3
+        },
+        "terrain-meshes": {
+          "lastMs": 67.40000000002328,
+          "totalMs": 193.0000000000291,
+          "runs": 3
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 117.70000000001164,
+          "totalMs": 1190.600000000035,
+          "runs": 3
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 179.20000000001164,
+          "totalMs": 1313.6000000000204,
+          "runs": 3
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 260.20000000001164,
+          "totalMs": 1767.300000000003,
+          "runs": 3
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 405.69999999995343,
+          "totalMs": 2044.9999999999854,
+          "runs": 3
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 257.5999999999767,
+          "totalMs": 1928.3999999999796,
+          "runs": 3
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 419.1000000000349,
+          "totalMs": 2114.800000000061,
+          "runs": 3
+        },
+        "shelter-completion": {
+          "lastMs": 1.3999999999650754,
+          "totalMs": 130.49999999983993,
+          "runs": 15
+        }
+      },
+      "triangles": 273780,
+      "geometries": 148,
+      "textures": 26,
+      "programs": 36,
+      "listeners": 48,
+      "activeScenes": 1
+    },
+    {
+      "label": "camp-high-return-3",
+      "calls": 137,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 38.59999999999127,
+          "totalMs": 38.59999999999127,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 29.90000000000873,
+          "totalMs": 29.90000000000873,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 48.10000000000582,
+          "totalMs": 48.10000000000582,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.6999999999534339,
+          "totalMs": 195.89999999990687,
+          "runs": 4
+        },
+        "terrain-meshes": {
+          "lastMs": 50.59999999997672,
+          "totalMs": 243.60000000000582,
+          "runs": 4
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 55.90000000002328,
+          "totalMs": 1246.5000000000582,
+          "runs": 4
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 153.10000000003492,
+          "totalMs": 1466.7000000000553,
+          "runs": 4
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 198.90000000002328,
+          "totalMs": 1966.2000000000262,
+          "runs": 4
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 205.59999999997672,
+          "totalMs": 2250.599999999962,
+          "runs": 4
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 198.39999999996508,
+          "totalMs": 2126.7999999999447,
+          "runs": 4
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 212.19999999995343,
+          "totalMs": 2327.0000000000146,
+          "runs": 4
+        },
+        "shelter-completion": {
+          "lastMs": 1.099999999976717,
+          "totalMs": 149.8999999998632,
+          "runs": 20
+        }
+      },
+      "triangles": 273780,
+      "geometries": 148,
+      "textures": 26,
+      "programs": 36,
+      "listeners": 48,
+      "activeScenes": 1
+    }
+  ],
+  "physicalIphoneTested": false
+}

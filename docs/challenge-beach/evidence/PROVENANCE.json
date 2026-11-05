@@ -1,0 +1,111 @@
+{
+  "runtime_commit": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
+  "workflow_run": 42068507831,
+  "artifact_id": 13435391250,
+  "artifact_zip_sha256": "6e192aae1ac76728cb29e034613fbdd898b1f51a342c4ce6efc5ce3f55e990c5",
+  "method": "Chromium software WebGL (SwiftShader), emulated mobile landscape 932\u00d7430, DPR1. Manual 60 Hz simulation updates; renderer captures are real. No physical iPhone FPS/thermal/battery certification.",
+  "files": [
+    {
+      "name": "01-arrival-high.jpg",
+      "bytes": 95239,
+      "sha256": "44f01a16706cbc66ee3a81e3f768b445eddc8c2e24c2664f36d34fc5edff99b3",
+      "git_blob_sha1": "327468a7749647fcfcd7723aea8b05a0928cafc6"
+    },
+    {
+      "name": "02-main-beach-panorama.jpg",
+      "bytes": 106176,
+      "sha256": "1e190fa1a6a7b02e8cd9aa14cdc87d879c84cb75c3379548e0057b24ecfa8a0a",
+      "git_blob_sha1": "060153071264346c9e6ac6e8df2a1c6e5cc5b596"
+    },
+    {
+      "name": "03-main-obstacle-course.jpg",
+      "bytes": 78054,
+      "sha256": "a817bb93b5e80ce9b595e650cf4965a05e9c75fde8e9d3e354753381c3bddf96",
+      "git_blob_sha1": "f89453fd05f453c129b37e4d4442b1807a34fb6d"
+    },
+    {
+      "name": "04-ocean-area.jpg",
+      "bytes": 44483,
+      "sha256": "4c7177b824076d342010e1572048aed7d2a78ff95ea81e25f113d7d30aa9bd53",
+      "git_blob_sha1": "f0ecad23bfe0b315e2ea99cfd9ab4b542ae8e5ce"
+    },
+    {
+      "name": "05-floating-platforms.jpg",
+      "bytes": 43198,
+      "sha256": "34b2056f5eb1aa699e8ab077ec5fb7453c7001d801a45bbfafd7a6b9854b5e7c",
+      "git_blob_sha1": "427fc4521830ccfd827e98ff5db23a2c3e0d0ef2"
+    },
+    {
+      "name": "06-jungle-trail.jpg",
+      "bytes": 100448,
+      "sha256": "b488ca4a3506568431f82b7c06ac3a295cd084df6a964425df6195dba673dc9e",
+      "git_blob_sha1": "07a93494d76866fad8442b2ead4ed643ab161944"
+    },
+    {
+      "name": "07-jungle-clearing.jpg",
+      "bytes": 121710,
+      "sha256": "e622a4a63211d3e0a132eb220978791e7afb4a6fce7f798dd5dd114c1119d495",
+      "git_blob_sha1": "21d39b8ce594162ed6c72823f27b9cdd9f5abfdc"
+    },
+    {
+      "name": "08-rope-and-net-course.jpg",
+      "bytes": 115743,
+      "sha256": "41c715c63d0c223b756636fee8683330c64850624319c3e3d279d8af1fe4d16f",
+      "git_blob_sha1": "70a1c16dba2cdd41388d536d2216bff29eabd0fd"
+    },
+    {
+      "name": "09-individual-arena.jpg",
+      "bytes": 121616,
+      "sha256": "26a108de60fb78303f9bddc9631a0a848a2408b205b37b509c9d58dfc29c3abb",
+      "git_blob_sha1": "e76f61e0892725465b2a7d9367dcd5daf500957a"
+    },
+    {
+      "name": "10-balance-stations.jpg",
+      "bytes": 109448,
+      "sha256": "53d8257235ef125adcf9a22ff98614ce0f3b6e3beb04d6f1605200ea21b9b742",
+      "git_blob_sha1": "577c5930cf1b5b4dd88781056b9e3ec3fe5ac8b4"
+    },
+    {
+      "name": "11-limestone-and-coast.jpg",
+      "bytes": 98372,
+      "sha256": "997489aa5c8002c21c4e2eb96c7d6d48606ab99d6900611707381eb15b81d9f1",
+      "git_blob_sha1": "a48d5df189222bc61ad837543b7eeeec582488df"
+    },
+    {
+      "name": "12-player-camera-traversal.jpg",
+      "bytes": 88616,
+      "sha256": "5f2717377ca55f39677168fa79c264238ee6f97014b769d2afa51dbf510a28f9",
+      "git_blob_sha1": "2c9746d6ef94dd99263054621cebe91758718e03"
+    },
+    {
+      "name": "browser-report.json",
+      "bytes": 33318,
+      "sha256": "255f0da76291bfe26890e004535d245eba70303648d0f61aa33565de9c623ad2",
+      "git_blob_sha1": "5c22ddcc8bfa12ed29a9426f62afc81ba7025a2e"
+    },
+    {
+      "name": "low-beach-obstacle.jpg",
+      "bytes": 75743,
+      "sha256": "78b6cf967590ad1d63eb79d26eeef7c6337d845b30646cafa5c69f4ffd1755cc",
+      "git_blob_sha1": "11ff017b819cd13940ecb3b64743ef2a289f27fc"
+    },
+    {
+      "name": "low-individual-balance.jpg",
+      "bytes": 119914,
+      "sha256": "4d6fbbef240b056e4a1acea73043bd96607aa15651c7b90ce28ad584f50f728d",
+      "git_blob_sha1": "05dceab375302ca8186680cb12433b0ca918d839"
+    },
+    {
+      "name": "low-jungle-net.jpg",
+      "bytes": 116510,
+      "sha256": "44b5b41e91edcecf5d70068926a90409569507b3e130290d700e980621d3ece0",
+      "git_blob_sha1": "d821feb7e778341bf5e859735dbfc144adf22fc1"
+    },
+    {
+      "name": "low-ocean-relay.jpg",
+      "bytes": 43436,
+      "sha256": "547ad02cc5f0aac7c8a4756ed183d3980bfaa5a0417c52611b0a917d6d8917e4",
+      "git_blob_sha1": "9b783cca1dbe9c66bdc290aa2905afb442ca555f"
+    }
+  ]
+}

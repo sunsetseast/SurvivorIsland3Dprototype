@@ -1,0 +1,10 @@
+{
+  "runtimeCommit": "7803dc698f9f531cb0d90f9d684407e6c8c277be",
+  "workflowRun": 42113512588,
+  "workflowUrl": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512588",
+  "artifactId": 13454678652,
+  "artifactZipSHA256": "664f8aa0bdfb14f46b7bac7c52152ddda0151d6314f96082e143e153f21da729",
+  "browserReportSHA256": "5bed5e25f13104bb0e1626f78dda6c47b1aa1dbc9ea34796442565be44556737",
+  "captureLocation": "The screenshots named in cleanup-browser-report.json are in this run artifact. The original inspected gallery and its provenance remain unchanged.",
+  "physicalIphoneTested": false
+}

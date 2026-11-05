@@ -31,6 +31,9 @@ const TribalScene = lazy(() =>
   import("@/game/tribal/TribalScene").then((m) => ({ default: m.TribalScene })),
 );
 
+const ChallengeScene = lazy(() => import("@/game/challenge/ChallengeScene").then(m => ({ default: m.ChallengeScene })));
+const ChallengeHud = lazy(() => import("@/game/challenge/ChallengeScene").then(m => ({ default: m.ChallengeHud })));
+
 const keyMap = [
   { name: "forward", keys: ["ArrowUp", "KeyW"] },
   { name: "back", keys: ["ArrowDown", "KeyS"] },
@@ -84,7 +87,7 @@ function App() {
     dbg.teleportRequested = null;
     if (next === "menu") worldTravel.menu();
     else if (next === "camp")
-      worldTravel.enter("camp_tribe_a", developerTravel);
+      worldTravel.enter("camp_tribe_a", developerTravel && worldTravel.session.locationId !== "challenge_main");
     else if (next === "tribal") worldTravel.enter("tribal_council", true);
     else if (developerTravel) worldTravel.enter("railay_trails", true);
   };
@@ -229,6 +232,8 @@ function App() {
                         }
                         onReady={() => setIslandReady(true)}
                       />
+                    ) : mode === "challenge" ? (
+                      <ChallengeScene arrival={travel.entry ?? undefined} low={low} />
                     ) : mode === "tribal" ? (
                       <TribalScene />
                     ) : (
@@ -261,6 +266,8 @@ function App() {
                 onBlockedChange={setIslandControlsLocked}
               />
             </Suspense>
+          ) : mode === "challenge" ? (
+            <Suspense fallback={null}><ChallengeHud low={low} setLow={setLow} onMenu={() => enter("menu")} /></Suspense>
           ) : mode === "tribal" ? (
             <TribalOverlay onMenu={() => enter("menu")} />
           ) : (
@@ -323,3 +330,4 @@ function App() {
 }
 
 export default App;
+
