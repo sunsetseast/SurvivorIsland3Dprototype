@@ -11,18 +11,11 @@
   },
   "workflowRuns": [
     {
-      "id": 42113512649,
-      "name": "Living camp checks",
-      "status": "in_progress",
-      "conclusion": null,
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512649"
-    },
-    {
-      "id": 42113512714,
-      "name": "Flagship camp visual and gameplay checks",
-      "status": "in_progress",
-      "conclusion": null,
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512714"
+      "id": 42113512660,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512660"
     },
     {
       "id": 42113512847,
@@ -39,11 +32,18 @@
       "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512588"
     },
     {
-      "id": 42113512660,
-      "name": "Mobile gameplay controls",
+      "id": 42113512649,
+      "name": "Living camp checks",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512660"
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512649"
+    },
+    {
+      "id": 42113512714,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512714"
     }
   ],
   "ownershipPlateau": {
@@ -66,5 +66,6 @@
   "originalFiveWorkflowVerification": "a7491c4c2f45e3fef79f594d2c1da46caf8dd119",
   "physicalIphoneTested": false,
   "deviceReview": "DEVICE_REVIEW.md",
-  "statusNote": "Challenge Beach, connected journeys and Chromium/WebKit controls pass; broader camp workflows are still running. Original gallery/provenance are unchanged."
+  "statusNote": "All five workflows passed at the final cleanup runtime. Subsequent changes contain documentation and evidence only.",
+  "verificationSourceComparison": "evidence/cleanup-source-compare.json"
 }
