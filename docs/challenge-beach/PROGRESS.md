@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `ca2d2780465b52ca6b802753d62e4c5fa548d22c` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
+- Last ref-confirmed remote SHA before this documentation checkpoint: `acf092025f450f8be1447662b1e32491f6315be6`. Runtime verified at `831e47400c06f120fa7d73791ba2eea4d8cfbe40`; original base main `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`.
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -30,7 +30,7 @@ Existing ownership: App mounts one SceneLifecycle at a time; source release comp
 - [x] 8. Jungle demo (model/collision; gameplay deferred)
 - [x] 9. Individual demo (eight modeled stations; interactions deferred)
 - [x] 10. Configuration/preview (implemented; browser lifecycle verification pending)
-- [ ] 11. Integration/regression
+- [x] 11. Integration/regression (verified suites below; one infrastructure retry pending)
 - [ ] 12. Evidence/report
 
 ## Verification
@@ -88,3 +88,10 @@ DRAFT ONLY. Do not merge, deploy, publish, use Replit credits or alter the read-
 Runtime commit 831e47400c06f120fa7d73791ba2eea4d8cfbe40 passed TypeScript, 134 unit tests, production build and all ten Challenge Beach WebGL check groups. The normal Player walked six connecting routes; all four configurations rendered in Low/High; three-touch controls, repeated selection, three exact camp round trips and resource/listener plateaus passed. All 16 actual captures and the original browser report are now saved in this branch with file hashes and CI provenance.
 
 The local workspace became unavailable after runtime work was already saved. A branch-restricted GitHub job recovered the exact successful CI artifact, without touching main or deploying. Next: finalize report/gallery/performance documentation and check the remaining existing camp workflows.
+
+## Checkpoint 11 — verified integration
+GitHub runtime commit `831e47400c06f120fa7d73791ba2eea4d8cfbe40`: TypeScript, 134/134 unit tests, world checks, production build, all ten Challenge Beach WebGL groups, connected journeys, mobile controls and flagship camp checks pass. All six real Player route chains were walked. Low/High equipment selection, one active scene, three-touch controls, three exact camp returns and stable resource/listener plateaus pass. All 16 WebGL captures are now hash-verified repository files, with the original report and provenance.
+
+The full living-camp/heroes/Tribal/assets suite passed at `ca2d2780465b52ca6b802753d62e4c5fa548d22c`. GitHub comparison confirms that the later runtime changes touch only Challenge Beach code, its harness and progress notes; camp/Tribal code is identical. Its `831e474` replay was cancelled during Chromium installation after TypeScript, units, world checks and build passed. Only that cancelled job is being retried; no broad manual CI replay was requested.
+
+Next: final report, screenshot gallery, measured performance/budgets, known limitations and first-playable-challenge plan. Remove the temporary evidence-recovery workflow after its successful branch-only save; retain the normal read-only Challenge Beach QA workflow. Keep the PR draft and unmerged.
