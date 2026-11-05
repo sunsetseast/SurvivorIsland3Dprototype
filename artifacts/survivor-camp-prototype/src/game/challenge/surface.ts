@@ -1,5 +1,5 @@
 import { ZONES, shoreX, type Point } from "./layout";
-import { inKarst, TREES } from "./environmentLayout";
+import { inKarst, TREES, OUTCROPS } from "./environmentLayout";
 export { shoreX } from "./layout";
 
 // Shared authored coastline for terrain, wet-sand safety and environmental art.
@@ -21,7 +21,7 @@ export function heightAt(x: number, z: number) {
   return h;
 }
 export function walkable(x: number, z: number) {
-  return Number.isFinite(x) && Number.isFinite(z) && x > shoreX(z) + 5 && x < 98 && Math.abs(z) < 101 && !inKarst(x,z,0.75) && !TREES.some(t=>Math.hypot(x-t.x,z-t.z)<0.8) && ![7,28].some(b=>Math.abs(x-b)<0.8 && Math.abs(z+58)<3.1);
+  return Number.isFinite(x) && Number.isFinite(z) && x > shoreX(z) + 5 && x < 98 && Math.abs(z) < 101 && !inKarst(x,z,0.75) && !OUTCROPS.some(r=>Math.hypot(x-r.x,z-r.z)<r.r*1.15+0.7) && !TREES.some(t=>Math.hypot(x-t.x,z-t.z)<0.8) && ![7,28].some(b=>Math.abs(x-b)<0.8 && Math.abs(z+58)<3.1);
 }
 /** Same bounded-substep/axis-slide convention as existing terrain adapters; no physics or second controller. */
 export function moveOnTerrain(p: Point, dx: number, dz: number): Point {

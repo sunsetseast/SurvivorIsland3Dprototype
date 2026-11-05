@@ -30,3 +30,5 @@ export const TREES = Array.from({length:650},(_,i)=>({
   !(Math.abs(p.x-ZONES.jungle.center.x)<22 && Math.abs(p.z-ZONES.jungle.center.z)<25) &&
   !(Math.abs(p.x-ZONES.individual.center.x)<24 && Math.abs(p.z-ZONES.individual.center.z)<20)
 ).filter((p,i,a)=>!a.slice(0,i).some(q=>Math.hypot(p.x-q.x,p.z-q.z)<3.8));
+
+export const OUTCROPS = [{x:87,z:-40,r:2.1},{x:82,z:18,r:2.8},{x:82,z:68,r:2.4},{x:13,z:84,r:2.5},{x:7,z:-82,r:2.8},{x:-32,z:74,r:2.1}];

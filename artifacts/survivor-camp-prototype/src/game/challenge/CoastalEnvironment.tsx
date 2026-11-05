@@ -56,21 +56,23 @@ function FallbackForest({low}:{low:boolean}) {
 function CoastalForest({low}:{low:boolean}) {
   const [kit,setKit]=useState<T.Group|null>(null);
   const resources=useMemo(()=>{
-    const leaf=new T.MeshStandardMaterial({color:"#819b60",vertexColors:true,roughness:0.95,side:T.DoubleSide,alphaTest:0.42});
+    const leaf=new T.MeshStandardMaterial({color:"#d5e2bb",vertexColors:true,roughness:0.95,side:T.DoubleSide,alphaTest:0.42});
     const wood=new T.MeshStandardMaterial({color:"#80705a",vertexColors:true,roughness:1});
-    return {leaf,wood};
+    const plain=new T.MeshStandardMaterial({color:"#bbd29c",vertexColors:true,roughness:0.95,side:T.DoubleSide});
+    return {leaf,wood,plain};
   },[]);
   useEffect(()=>{
     let active=true,owned:T.Group|undefined,texture:T.Texture|undefined;
     new GLTFLoader().load(botanicalUrl,({scene})=>{owned=scene;if(active)setKit(scene);else disposeAsset(scene);},undefined,()=>{});
     new T.TextureLoader().load(leafUrl,t=>{texture=t;if(!active){t.dispose();return;}t.colorSpace=T.SRGBColorSpace;resources.leaf.map=t;resources.leaf.needsUpdate=true;},undefined,()=>{});
-    return ()=>{active=false;texture?.dispose();if(owned)disposeAsset(owned);resources.leaf.dispose();resources.wood.dispose();};
+    return ()=>{active=false;texture?.dispose();if(owned)disposeAsset(owned);resources.leaf.dispose();resources.wood.dispose();resources.plain.dispose();};
   },[resources]);
   const palms=useMemo(()=>TREES.filter(p=>p.kind==="palm"),[]),broad=useMemo(()=>TREES.filter(p=>p.kind==="canopy"),[]);
+  const understory=useMemo(()=>TREES.flatMap((p,i)=>Array.from({length:3},(_,j)=>({...p,x:p.x+Math.cos(j*2.1+p.turn)*1.7,z:p.z+Math.sin(j*2.1+p.turn)*1.7,scale:0.7+(i%4)*0.15,kind:i%3===0?"pandanus":"fern"}))),[]);
   if(!kit)return <FallbackForest low={low}/>;
-  return <group name="challenge-botany-ready">{(["palm","canopy"] as const).flatMap(kind=>(["wood","leaves"] as const).map(part=>{
+  return <group name="challenge-botany-ready">{(["palm","canopy","pandanus","fern"] as const).flatMap(kind=>(["wood","leaves"] as const).map(part=>{
     const source=kit.getObjectByName(`${kind}-0-${low?"far":"near"}-${part}`) as T.Mesh|undefined;
-    return source?<BotanicalInstances key={`${kind}-${part}-${low}`} geometry={source.geometry} material={part==="wood"?resources.wood:resources.leaf} plants={kind==="palm"?palms:broad}/>:null;
+    return source?<BotanicalInstances key={`${kind}-${part}-${low}`} geometry={source.geometry} material={part==="wood"?resources.wood:kind==="canopy"?resources.leaf:resources.plain} plants={kind==="palm"?palms:kind==="canopy"?broad:understory.filter(p=>p.kind===kind)}/>:null;
   }))}</group>;
 }
 function Water() {
