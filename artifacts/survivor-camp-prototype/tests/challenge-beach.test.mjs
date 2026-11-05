@@ -12,6 +12,7 @@ import { walkableWithEquipment } from "../src/game/challenge/surface.ts";
 import { oceanCourse, RELAY_PLATFORMS } from "../src/game/challenge/oceanCourse.ts";
 import { jungleCourse } from "../src/game/challenge/jungleCourse.ts";
 import { individualCourse } from "../src/game/challenge/individualCourse.ts";
+import { CONFIGURATIONS, validateSetup, isChallengeId } from "../src/game/challenge/configurations.ts";
 const settle = async m => { await new Promise(r => setTimeout(r, 5)); const t=m.getSnapshot().token; await m.loadPending(t); m.ready(t); };
 const manager = (allow=true, load=async()=>{}) => new TravelManager(load, ()=>{}, 0, ()=>allow);
 async function camp(m) { assert.equal(m.enter("camp_tribe_a"),true); await settle(m); }
@@ -132,4 +133,12 @@ test("eight individual balance/endurance stations leave valid distinct starts an
   for(const p of [m.host,m.view,m.finish,...m.starts,...m.contestants])validateSpawn(p,surface);
   for(const s of m.solids)assert.equal(surface.walkable(s.x,s.z),false);
   const p=moveOnTerrain({x:30,z:49},0,28,m.solids);assert.ok(Math.hypot(p.x-30,p.z-77)<.05);
+});
+
+test("every selected configuration validates equipment, roster positions and the complete reversible route network",()=>{
+  assert.equal(isChallengeId("__proto__"),false);assert.equal(isChallengeId("unknown"),false);
+  for(const [id,c] of Object.entries(CONFIGURATIONS)){const m=validateSetup(c.build());assert.equal(m.id,id);
+    for(const route of ROUTES)for(const pts of [route,[...route].reverse()]){let p={...pts[0]};for(const end of pts.slice(1)){for(let i=0;i<2200 && Math.hypot(p.x-end.x,p.z-end.z)>.08;i++){const d=Math.hypot(end.x-p.x,end.z-p.z),k=Math.min(.12,d)/d;p=moveOnTerrain(p,(end.x-p.x)*k,(end.z-p.z)*k,m.solids);}assert.ok(Math.hypot(p.x-end.x,p.z-end.z)<.09,JSON.stringify({id,p,end}));}}
+  }
+  const broken=mainCourse();broken.starts[0].x=-100;assert.throws(()=>validateSetup(broken));
 });

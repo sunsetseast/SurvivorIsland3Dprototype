@@ -28,11 +28,14 @@ export function Contestant({
   npc,
   terrain = groundHeight,
   time,
+  material: stagedMaterial,
 }: {
   npc: StagedPerson;
   terrain?: typeof groundHeight;
   time?: () => number;
+  material?: THREE.Material;
 }) {
+  const mesh = (g: Geo, name?: string) => <mesh name={name} geometry={g} material={stagedMaterial ?? material} castShadow />;
   const p = useMemo(() => buildContestant(npc.id), [npc.id]);
   useEffect(
     () => () => {
@@ -243,3 +246,4 @@ export function Contestants() {
     </>
   );
 }
+
