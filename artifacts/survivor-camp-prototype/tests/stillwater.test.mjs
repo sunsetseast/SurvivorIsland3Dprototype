@@ -1,0 +1,37 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { StillwaterEngine, STEP, RULES, difficultyAt, balanceWindow, canPlace, assignEntrants, disturbance } from '../src/game/challenge/stillwater/engine.ts';
+const active = (roster=[]) => { const e = new StillwaterEngine(roster); e.begin(); e.tutorial(); e.ready(); e.advance(3); assert.equal(e.state.phase,'active'); return e; };
+test('explicit intro, tutorial, ready/countdown and exclusive session transitions',()=>{
+ const e=new StillwaterEngine([]); assert.equal(e.ownsControls,false); e.ready();assert.equal(e.state.phase,'idle');
+ assert.equal(e.begin(),true); assert.equal(e.begin(),false);e.tutorial();e.ready();e.advance(2);assert.ok(e.state.countdown>.99);e.advance(1);assert.equal(e.state.phase,'active');e.cancel();assert.equal(e.ownsControls,false);assert.equal(e.begin(),true);
+});
+test('fixed step determinism is independent of render delta partitioning',()=>{
+ const a=active([{id:1,name:'A'}]),b=active([{id:1,name:'A'}]);
+ for(let i=0;i<120;i++){a.setInput(.12);a.advance(STEP);} b.setInput(.12);b.advance(2);
+ assert.deepEqual(a.state,b.state);assert.ok(a.state.competitors[0].balance!==0);
+});
+test('placement precision, early actions, strikes, deadline and recovery are actual state',()=>{
+ const e=active(),c=e.state.competitors[0];e.place();e.advance(STEP);assert.equal(c.placed,0);
+ e.state.tick=480;e.state.elapsed=8;c.balance=0;c.velocity=0;c.stability=.6;assert.ok(canPlace(c,8));e.place();e.place();e.advance(STEP);assert.equal(c.placed,1);assert.ok(c.stability>.6);
+ e.state.tick=1080;c.balance=.5;c.velocity=0;e.place();e.advance(STEP);assert.equal(c.strikes,1);assert.equal(c.lastPlacement,'miss');
+ e.state.tick=2160;c.balance=0;e.advance(STEP);assert.equal(c.strikes,2);
+});
+test('difficulty tightens continuously with bounded end values',()=>{
+ assert.equal(difficultyAt(0),1);assert.equal(difficultyAt(90),2.25);assert.equal(difficultyAt(999),2.25);assert.ok(balanceWindow(90)<balanceWindow(0));assert.ok(difficultyAt(40.01)-difficultyAt(40)<.001);
+});
+test('pause freezes countdown and active simulation; resume releases inputs',()=>{
+ const e=active();e.setInput(1);e.place();e.pause();const s=JSON.stringify(e.state);e.advance(50);assert.equal(JSON.stringify(e.state),s);e.resume();e.advance(STEP);assert.ok(e.state.competitors[0].control===0);
+ const c=new StillwaterEngine([]);c.begin();c.tutorial();c.ready();c.advance(1);c.pause();c.advance(20);c.resume();c.advance(2);assert.equal(c.state.phase,'active');
+});
+test('real mistakes eliminate; results occur once; retry is pristine and cancellation stops advancement',()=>{
+ const e=active();e.state.competitors[0].balance=1.2;e.advance(STEP);assert.equal(e.state.phase,'results');assert.equal(e.state.result.reason,'all-out');const r=e.state.result;e.advance(100);assert.equal(e.state.result,r);e.complete();assert.equal(e.ownsControls,false);e.retry();assert.equal(e.state.phase,'tutorial');assert.equal(e.state.result,null);assert.equal(e.state.competitors[0].eliminatedAt,null);e.cancel();const s=JSON.stringify(e.state);e.advance(100);assert.equal(JSON.stringify(e.state),s);
+});
+test('valid station assignments deduplicate and cap actual identities without mutating source',()=>{
+ const roster=Object.freeze([{id:1,name:'A'},{id:1,name:'A'},{id:0,name:'fake'},...Array.from({length:12},(_,i)=>({id:i+2,name:String(i)}))].map(Object.freeze));
+ const c=assignEntrants(roster);assert.equal(c.length,8);assert.equal(new Set(c.map(x=>x.id)).size,8);assert.deepEqual(c.map(x=>x.station),[0,1,2,3,4,5,6,7]);assert.throws(()=>assignEntrants([],0));
+});
+test('successful feedback control can survive a complete solo rehearsal and earn placements',()=>{
+ const e=active();for(let i=0;i<5405&&e.state.phase!=='results';i++){const c=e.state.competitors[0];e.setInput(-(disturbance(e.state.elapsed,c.phase)*.62+c.balance*2.7+c.velocity*2)/1.65);if(canPlace(c,e.state.elapsed))e.place();e.advance(STEP);}
+ assert.equal(e.state.result.duration,RULES.duration);assert.equal(e.state.result.winnerIds[0],0);assert.ok(e.state.competitors[0].placed>=7);
+});

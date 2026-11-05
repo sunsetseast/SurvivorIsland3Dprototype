@@ -6,7 +6,7 @@ Branch: `feat/stillwater-balance`. Keep the PR DRAFT; do not merge, deploy, publ
 ## Bounded implementation plan
 
 1. **Recovery/planning — complete.** Inspected the existing ChallengeScene, eight-station individualCourse, configurations, equipment/Assembly, staged roster, travel/input ownership, first-playable plan and current tests. Reuse one active scene and camp-owned identities.
-2. Deterministic fixed-step balance/placement engine with seeded opponents and tests.
+2. **Engine — complete.** Pure 60 Hz state machine, smooth disturbance/difficulty, balance recovery, timed precise placements, missed-placement strikes, last-standing/90s results, pause/retry/cancel. Eight targeted tests pass; reference feedback control survives 90 seconds with seven or more placements. Opponent controller follows at checkpoint 5.
 3. Exclusive pointer/keyboard input, sensitivity, pause/focus/cancel handling and tests.
 4. Simulation-driven station boards, stack and tether animation, retaining current solids/starts.
 5. Existing roster actors at independent stations, spectators and elimination tracking.
@@ -28,4 +28,4 @@ Each numbered checkpoint gets targeted verification, a commit, push, remote SHA 
 
 ## Next action
 
-Implement the pure deterministic engine and targeted tests, then save checkpoint 2 remotely.
+Implement exclusive challenge touch/keyboard input and focus handling (checkpoint 3).
