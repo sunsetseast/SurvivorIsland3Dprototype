@@ -114,6 +114,7 @@ const poses = [
   ["shelter", 12, -32, 0, 0.13],
   ["shelter-from-fire", -11, -28, -1.06, 0.22],
   ["shelter-interior", 12, -44, Math.PI, 0.08],
+  ["shelter-sleeping-area", 12, -42, 0, 0.30],
   ["communal-camp", -29, -27, -1.1, 0.34],
   ["fire-pit", -14, -25, -2.7, 0.15],
   ["camp-edge", -5, -12, Math.PI, 0.1],
