@@ -88,7 +88,7 @@ export function SceneLifecycle({
     lifecycle.active++;
     lifecycle.peakActive = Math.max(lifecycle.peakActive, lifecycle.active);
     gl.shadowMap.autoUpdate = true;
-    camera.far = id === "railay_trails" ? 6500 : 200;
+    camera.far = id === "railay_trails" ? 6500 : id === "challenge_main" ? 1000 : 200;
     camera.updateProjectionMatrix();
     const w = window as any;
     w.__WORLD_RENDER__ = {
@@ -160,6 +160,11 @@ export function SceneLifecycle({
       assets =
         !!scene.getObjectByName("sanctuary-assets-ready") ||
         !!scene.getObjectByName("sanctuary-asset-fallback");
+    if (id === "challenge_main") {
+      assets = !!scene.getObjectByName("challenge-ground-ready");
+      const sky = scene.getObjectByName("andaman-tropical-sky") as T.Mesh | undefined;
+      assets = assets && !!(sky?.material as T.Material | undefined)?.userData.cloudReady;
+    }
     if (assets) {
       collect();
       ready.current = true;
@@ -187,3 +192,4 @@ export class LocationErrorBoundary extends Component<
     return this.state.failed ? null : this.props.children;
   }
 }
+

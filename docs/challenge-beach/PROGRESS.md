@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `666c4f8a87ad198616d0d292d2b9a79efb3ebfcf` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
+- Base and last verified remote SHA before this checkpoint: `139429289b3722d7d11738a0b94356a9e9ebb224` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -22,7 +22,7 @@ Existing ownership: App mounts one SceneLifecycle at a time; source release comp
 ## Completed checkpoints
 - [x] 1. Secure branch and architecture
 - [x] 2. Research and blueprint
-- [ ] 3. Basic scene/travel
+- [x] 3. Basic scene/travel (targeted tests pass; remote build/browser verification pending)
 - [ ] 4. Coast/staging
 - [ ] 5. Secondary zones/paths
 - [ ] 6. Main demo
@@ -39,8 +39,13 @@ GitHub confirms PR22 merged, main at the SHA above, no matching Challenge Beach 
 ## Checkpoint 2 — complete
 Added REFERENCE_LIBRARY.md: 15 distinct designs, 4/4/4/3 zone coverage, source and original photo-page links, verified seasons/episodes where available, original spatial estimates and adaptation notes. Added LAYOUT.md with west-facing coast, four reserved footprints, continuous route network and explicit swimming dependency. No reference photographs are redistributed. Validated table entry count/category allocation and source-link presence. Runtime tests are not applicable to these documentation changes.
 
+## Checkpoint 3 — implementation and targeted tests complete
+Added lazy ChallengeScene, basic continuous terrain and shared Player adapter; registry, App, lifecycle readiness and HUD now support challenge_main. Added build-and-URL-gated development rehearsal grants, one-use participant/origin/scope validation, rehearsal event instances, preserved event identity on resume, exact camp instance/departure-pose return, and safe failure/retry. Normal builds cannot opt in with a URL alone. No production admission or second contestant simulation.
+
+Six targeted Node tests pass (all blueprint route segments in both directions; body/camera/staging safety; water boundary; disabled/direct/missing/wrong-scope admission; wrong participant/origin and revoked grants; instance/tribe identity; exact return; retry/cancel/stale loads). A test caught and fixed event identity loss on menu resume. Local sparse workspace used Node 24 native TypeScript transforms and a temporary extension/JSON loader because tsx/dependencies are not installed here. git diff --check passes. Remote typecheck/build and real WebGL checks are still required; no visual/performance evidence is claimed yet.
+
 ## Known issues / next action
-Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. No implementation exists yet. Next: basic scene and rehearsal travel, with targeted authorization/return/spawn tests before the next remote checkpoint.
+Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Basic terrain is intentionally unfinished. Next: inspect automatic CI/typecheck for checkpoint 3, fix any failures, then coast/staging checkpoint 4. No demonstration equipment exists yet.
 
 DRAFT ONLY. Do not merge, deploy, publish, use Replit credits or alter the read-only reference repository.
 

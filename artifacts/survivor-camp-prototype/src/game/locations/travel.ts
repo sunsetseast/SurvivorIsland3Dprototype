@@ -1,3 +1,4 @@
+import { challengeRehearsalEnabled } from "../challenge/development";
 import { clearInput } from "../state";
 import {
   CONNECTIONS,
@@ -13,6 +14,7 @@ export type TravelPermission = {
   connectionId: string;
   originInstanceId: string;
   eventId: string;
+  scope?: "challenge-rehearsal";
 };
 export type WorldSession = {
   version: 1;
@@ -21,7 +23,7 @@ export type WorldSession = {
   instance: LocationInstance;
   poses: Partial<Record<LocationId, Pose>>;
   permissions: TravelPermission[];
-  returnTo?: { locationId: LocationId; instance: LocationInstance };
+  returnTo?: { locationId: LocationId; instance: LocationInstance; pose?: Pose };
 };
 /** No invented season/inventory/relationship data. CampRuntime + its provider own existing gameplay data. */
 export function createSession(): WorldSession {
@@ -79,10 +81,12 @@ export class TravelManager {
   readonly timings: { locationId: LocationId; ms: number; outcome: string }[] =
     [];
   private started = 0;
+  private rehearsalSerial = 0;
   constructor(
     private load: Load,
     private reset = clearInput,
     private fadeMs = 280,
+    private allowChallengeRehearsal: () => boolean = () => false,
   ) {}
   subscribe = (f: () => void) => {
     this.listeners.add(f);
@@ -119,6 +123,13 @@ export class TravelManager {
     this.set({});
     return true;
   }
+  grantChallengeRehearsal() {
+    if (!this.allowChallengeRehearsal() || this.session.locationId !== "camp_tribe_a" || this.blocked || this.session.returnTo) return false;
+    this.session.permissions = [{ participantId: this.session.participant.id, connectionId: "camp_to_challenge",
+      originInstanceId: this.session.instance.id, eventId: `rehearsal:${++this.rehearsalSerial}`, scope: "challenge-rehearsal" }];
+    this.set({});
+    return true;
+  }
   permission(id: string): string | null {
     const c = CONNECTIONS[id];
     if (!c || c.source !== this.session.locationId)
@@ -127,11 +138,13 @@ export class TravelManager {
       return this.session.returnTo?.locationId === c.destination
         ? null
         : "No return journey is active.";
+    if (c.permission === "challenge-rehearsal" && !this.allowChallengeRehearsal()) return "Challenge rehearsal is disabled in this build.";
     return this.session.permissions.some(
       (p) =>
         p.participantId === this.session.participant.id &&
         p.connectionId === id &&
-        p.originInstanceId === this.session.instance.id,
+        p.originInstanceId === this.session.instance.id &&
+        (c.permission !== "challenge-rehearsal" || (p.scope === "challenge-rehearsal" && /^rehearsal:\d+$/.test(p.eventId))),
     )
       ? null
       : "A journey invitation is required.";
@@ -148,7 +161,8 @@ export class TravelManager {
     )
       return false;
     this.pendingConnection = id;
-    this.start(c.destination, LOCATIONS[c.destination].spawns[c.spawn]!);
+    const entry = id === "challenge_to_camp" ? this.session.returnTo?.pose : undefined;
+    this.start(c.destination, entry ?? LOCATIONS[c.destination].spawns[c.spawn]!);
     return true;
   }
   /** Only the camp resume and explicit rehearsal adapters call this. Normal gameplay uses travel(). */
@@ -160,6 +174,8 @@ export class TravelManager {
           ? "camp_tribe_a"
           : this.session.locationId;
     if (!LOCATIONS[id].scene) return false;
+    // A direct menu/rehearsal request is never challenge admission. Only a previously admitted rehearsal may resume.
+    if (id === "challenge_main" && (!this.allowChallengeRehearsal() || this.session.locationId !== id || !this.session.returnTo || !this.session.instance.eventId?.startsWith("rehearsal:"))) return false;
     this.pendingConnection = null;
     this.start(
       id,
@@ -221,12 +237,18 @@ export class TravelManager {
     const c = this.pendingConnection
       ? CONNECTIONS[this.pendingConnection]
       : null;
-    let instance = localInstance(id);
-    if (c?.permission === "journey") {
+    let instance = id === this.last?.id ? this.last.instance : localInstance(id);
+    if (c && this.permission(c.id)) { this.fail(token, this.permission(c.id)!); return; }
+    if (c?.permission === "journey" || c?.permission === "challenge-rehearsal") {
       this.session.returnTo = {
         locationId: this.last!.id,
         instance: this.last!.instance,
+        ...(this.last!.pose ? { pose: { ...this.last!.pose } } : {}),
       };
+      if (c.permission === "challenge-rehearsal") {
+        const grant = this.session.permissions.find(p => p.connectionId === c.id)!;
+        instance = { id: `${this.last!.instance.seasonId}:challenge_main:${grant.eventId}`, locationId: id, seasonId: this.last!.instance.seasonId, eventId: grant.eventId };
+      }
       this.session.permissions = [];
     }
     if (c?.permission === "return") {
@@ -308,9 +330,12 @@ export const worldTravel = new TravelManager(async (id) => {
       return import("../Scene");
     case "railay":
       return import("../railay/IslandScene");
+    case "challenge":
+      return import("../challenge/ChallengeScene");
     case "tribal":
       return import("../tribal/TribalScene");
     default:
       throw Error("This location is planned, and has no scene yet.");
   }
-});
+}, clearInput, 280, challengeRehearsalEnabled);
+
