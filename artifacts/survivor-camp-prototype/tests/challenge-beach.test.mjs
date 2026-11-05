@@ -11,6 +11,7 @@ import { mainCourse } from "../src/game/challenge/mainCourse.ts";
 import { walkableWithEquipment } from "../src/game/challenge/surface.ts";
 import { oceanCourse, RELAY_PLATFORMS } from "../src/game/challenge/oceanCourse.ts";
 import { jungleCourse } from "../src/game/challenge/jungleCourse.ts";
+import { individualCourse } from "../src/game/challenge/individualCourse.ts";
 const settle = async m => { await new Promise(r => setTimeout(r, 5)); const t=m.getSnapshot().token; await m.loadPending(t); m.ready(t); };
 const manager = (allow=true, load=async()=>{}) => new TravelManager(load, ()=>{}, 0, ()=>allow);
 async function camp(m) { assert.equal(m.enter("camp_tribe_a"),true); await settle(m); }
@@ -123,4 +124,12 @@ test("jungle net course leaves its west entrance, host, roster and perimeter pat
   for(const p of [m.host,m.view,m.finish,...m.starts,...m.contestants])validateSpawn(p,surface);
   for(const s of m.solids)assert.equal(surface.walkable(s.x,s.z),false);
   let p={x:43,z:-41};for(const end of [{x:45,z:-23},{x:43,z:3},{x:27,z:26}]){for(let i=0;i<1500 && Math.hypot(p.x-end.x,p.z-end.z)>.08;i++){const d=Math.hypot(end.x-p.x,end.z-p.z),k=Math.min(.12,d)/d;p=moveOnTerrain(p,(end.x-p.x)*k,(end.z-p.z)*k,m.solids);}assert.ok(Math.hypot(p.x-end.x,p.z-end.z)<.09);}
+});
+
+test("eight individual balance/endurance stations leave valid distinct starts and a free viewing/host edge",()=>{
+  const m=individualCourse(),surface={height:heightAt,walkable:(x,z)=>walkableWithEquipment(x,z,m.solids)};
+  assert.equal(m.starts.length,8);assert.equal(new Set(m.starts.map(p=>`${p.x}:${p.z}`)).size,8);
+  for(const p of [m.host,m.view,m.finish,...m.starts,...m.contestants])validateSpawn(p,surface);
+  for(const s of m.solids)assert.equal(surface.walkable(s.x,s.z),false);
+  const p=moveOnTerrain({x:30,z:49},0,28,m.solids);assert.ok(Math.hypot(p.x-30,p.z-77)<.05);
 });
