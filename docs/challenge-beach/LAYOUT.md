@@ -14,7 +14,7 @@ The continuous authored ground extends approximately X -110…112 / Z -120…120
 
 ## Walking network
 
-Arrival (20,-58) → beach access (10,-36) → main west bypass (-40,-12). Arrival → jungle trail (35,-43) → jungle west entrance (45,-23). Main east edge (8,20) → central fork (27,26) → individual entrance (34,51). Jungle south exit (60,3) → fork → individual. All paths target at least 3 m of unobstructed width; broader start/host circulation remains clear. These coordinates are a blueprint until tested with the shared movement adapter.
+Arrival (20,-58) → beach access (10,-52) → behind-start crossing (-40,-52) → main west bypass (-40,-12). Arrival → jungle trail (35,-43) → jungle west entrance (45,-23). Main east edge (8,20) → central fork (27,26) → individual entrance (34,51). Jungle south exit (60,3) → fork → individual. All paths target at least 3 m of unobstructed width; broader start/host circulation remains clear. These coordinates are a blueprint until tested with the shared movement adapter.
 
 The ocean is viewed from dry beach on the same coastline. Wet sand is walkable only above the conservative movement waterline. Buoys and beach safety markers explain the boundary; there is no invisible wall across a promised walking path. Offshore decks have flotation, anchor lines and ladders but remain model-only. A new swimming controller is outside this PR.
 

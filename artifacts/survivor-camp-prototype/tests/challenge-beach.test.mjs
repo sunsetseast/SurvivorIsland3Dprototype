@@ -7,6 +7,8 @@ import { validateSpawn } from "../src/game/locations/spawn.ts";
 import { ARRIVAL, RETURN_EXIT, ARRIVAL_STAGING, ARRIVAL_HOST, ZONES, ROUTES } from "../src/game/challenge/layout.ts";
 import { heightAt, walkable, moveOnTerrain, shoreX } from "../src/game/challenge/surface.ts";
 import { KARSTS, TREES, trailDistance } from "../src/game/challenge/environmentLayout.ts";
+import { mainCourse } from "../src/game/challenge/mainCourse.ts";
+import { walkableWithEquipment } from "../src/game/challenge/surface.ts";
 const settle = async m => { await new Promise(r => setTimeout(r, 5)); const t=m.getSnapshot().token; await m.loadPending(t); m.ready(t); };
 const manager = (allow=true, load=async()=>{}) => new TravelManager(load, ()=>{}, 0, ()=>allow);
 async function camp(m) { assert.equal(m.enter("camp_tribe_a"),true); await settle(m); }
@@ -97,4 +99,11 @@ test("visible cliff/trunk collision stays outside walking corridors and stops bo
   for(const tree of TREES){assert.ok(trailDistance(tree.x,tree.z)>6);assert.equal(walkable(tree.x,tree.z),false);}
   for(const rock of KARSTS)assert.equal(walkable(rock.x,rock.z),false);
   for(const zone of Object.values(ZONES)){const start=zone.view;assert.ok(walkable(start.x,start.z));const p=moveOnTerrain(start,150,0);assert.ok(walkable(p.x,p.z));assert.ok(p.x<98);}
+});
+
+test("main mockup keeps host/contestant spawns and perimeter routes free while blocking static obstacles",()=>{
+  const model=mainCourse(),surface={height:heightAt,walkable:(x,z)=>walkableWithEquipment(x,z,model.solids)};
+  for(const p of [model.host,model.view,model.finish,...model.starts,...model.contestants])validateSpawn(p,surface);
+  for(const s of model.solids)assert.equal(surface.walkable(s.x,s.z),false);
+  for(const route of ROUTES){let p={...route[0]};for(const end of route.slice(1)){for(let i=0;i<2500 && Math.hypot(p.x-end.x,p.z-end.z)>0.08;i++){const d=Math.hypot(end.x-p.x,end.z-p.z),k=Math.min(.12,d)/d;p=moveOnTerrain(p,(end.x-p.x)*k,(end.z-p.z)*k,model.solids);}assert.ok(Math.hypot(p.x-end.x,p.z-end.z)<.09,JSON.stringify({p,end}));}}
 });

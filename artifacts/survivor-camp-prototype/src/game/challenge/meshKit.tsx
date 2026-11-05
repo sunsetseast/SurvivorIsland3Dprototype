@@ -2,15 +2,8 @@ import { useEffect, useMemo } from "react";
 import * as T from "three";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-export type V3 = [number,number,number];
-export type Piece =
-  | { kind:"box"; at:V3; size:V3; color:string; turn?:number }
-  | { kind:"beam"; a:V3; b:V3; radius:number; color:string }
-  | { kind:"sphere"; at:V3; size:V3; color:string };
-export const box = (at:V3,size:V3,color:string,turn=0):Piece => ({kind:"box",at,size,color,turn});
-export const beam = (a:V3,b:V3,radius:number,color:string):Piece => ({kind:"beam",a,b,radius,color});
-export const sphere = (at:V3,size:V3,color:string):Piece => ({kind:"sphere",at,size,color});
-export const WOOD="#92704a", CUT="#b38b54", ROPE="#d4bc88", DARK="#594537", TEAL="#267f86", OCHRE="#c2763f";
+import { type Piece } from "./equipment";
+export { box, beam, sphere, WOOD, CUT, ROPE, DARK, TEAL, OCHRE, type Piece } from "./equipment";
 export function geometryFor(pieces:Piece[],low:boolean) {
   const parts=pieces.map(p=>{
     let g:T.BufferGeometry;

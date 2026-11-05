@@ -1,3 +1,5 @@
+import { mainCourse } from "./mainCourse";
+import { Assembly } from "./meshKit";
 import { InlandEnvironment } from "./InlandEnvironment";
 import { trailDistance } from "./environmentLayout";
 import { CoastalEnvironment } from "./CoastalEnvironment";
@@ -39,6 +41,8 @@ function Ground({ low }: { low: boolean }) {
   return <mesh name="challenge-ground-ready" geometry={geometry} receiveShadow><meshStandardMaterial vertexColors roughness={1} /></mesh>;
 }
 export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose }) {
+  const model=useMemo(mainCourse,[]);
+  const environment=useMemo(()=>({...WORLD,move:(p:{x:number;z:number},dx:number,dz:number)=>moveOnTerrain(p,dx,dz,model.solids)}),[model]);
   const spawn = useMemo(() => validateSpawn(arrival ?? ARRIVAL, { height: heightAt, walkable }), [arrival]);
   return <>
     <color attach="background" args={["#8fc3d7"]} />
@@ -51,7 +55,8 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
       <CoastalEnvironment low={low} />
       <InlandEnvironment low={low} />
       <TrailMarker connectionId="challenge_to_camp" height={heightAt} />
-      <Player environment={WORLD} arrival={spawn} />
+      <Assembly pieces={model.pieces} low={low} name={`challenge-equipment-${model.id}`} blocker/>
+      <Player environment={environment} arrival={spawn} />
     </group>
   </>;
 }

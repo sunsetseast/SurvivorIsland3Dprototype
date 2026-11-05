@@ -12,7 +12,7 @@ export const ZONES = {
 } as const;
 export type ZoneId = keyof typeof ZONES;
 export const ROUTES: Point[][] = [
-  [ARRIVAL, { x: 10, z: -36 }, { x: -40, z: -36 }, { x: -40, z: 20 }],
+  [ARRIVAL, { x: 10, z: -52 }, { x: -40, z: -52 }, { x: -40, z: -36 }, { x: -40, z: 20 }],
   [ARRIVAL, { x: 35, z: -43 }, { x: 43, z: -41 }, { x: 45, z: -23 }],
   [{ x: 8, z: 20 }, { x: 27, z: 26 }, { x: 34, z: 51 }, { x: 30, z: 49 }],
   [{ x: 45, z: -23 }, { x: 43, z: 3 }, { x: 27, z: 26 }],

@@ -1,3 +1,4 @@
+import { blockedBy, type Solid } from "./equipment";
 import { ZONES, shoreX, type Point } from "./layout";
 import { inKarst, TREES, OUTCROPS } from "./environmentLayout";
 export { shoreX } from "./layout";
@@ -24,16 +25,17 @@ export function walkable(x: number, z: number) {
   return Number.isFinite(x) && Number.isFinite(z) && x > shoreX(z) + 5 && x < 98 && Math.abs(z) < 101 && !inKarst(x,z,0.75) && !OUTCROPS.some(r=>Math.hypot(x-r.x,z-r.z)<r.r*1.15+0.7) && !TREES.some(t=>Math.hypot(x-t.x,z-t.z)<0.8) && ![7,28].some(b=>Math.abs(x-b)<0.8 && Math.abs(z+58)<3.1);
 }
 /** Same bounded-substep/axis-slide convention as existing terrain adapters; no physics or second controller. */
-export function moveOnTerrain(p: Point, dx: number, dz: number): Point {
+export const walkableWithEquipment = (x:number,z:number,solids:readonly Solid[]) => walkable(x,z) && !blockedBy(x,z,solids);
+export function moveOnTerrain(p: Point, dx: number, dz: number, solids:readonly Solid[] = []): Point {
   if (![p.x, p.z, dx, dz].every(Number.isFinite)) return { ...p };
   const steps = Math.max(1, Math.ceil(Math.hypot(dx, dz) / 0.18));
   if (steps > 2048) return { ...p };
   let { x, z } = p;
   for (let i = 0; i < steps; i++) {
     const nx = x + dx / steps, nz = z + dz / steps;
-    if (walkable(nx, nz)) { x = nx; z = nz; }
-    else if (walkable(nx, z)) x = nx;
-    else if (walkable(x, nz)) z = nz;
+    if (walkableWithEquipment(nx, nz, solids)) { x = nx; z = nz; }
+    else if (walkableWithEquipment(nx, z, solids)) x = nx;
+    else if (walkableWithEquipment(x, nz, solids)) z = nz;
   }
   return { x, z };
 }
