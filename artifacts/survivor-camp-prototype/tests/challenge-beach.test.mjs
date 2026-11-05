@@ -10,6 +10,7 @@ import { KARSTS, TREES, trailDistance } from "../src/game/challenge/environmentL
 import { mainCourse } from "../src/game/challenge/mainCourse.ts";
 import { walkableWithEquipment } from "../src/game/challenge/surface.ts";
 import { oceanCourse, RELAY_PLATFORMS } from "../src/game/challenge/oceanCourse.ts";
+import { jungleCourse } from "../src/game/challenge/jungleCourse.ts";
 const settle = async m => { await new Promise(r => setTimeout(r, 5)); const t=m.getSnapshot().token; await m.loadPending(t); m.ready(t); };
 const manager = (allow=true, load=async()=>{}) => new TravelManager(load, ()=>{}, 0, ()=>allow);
 async function camp(m) { assert.equal(m.enter("camp_tribe_a"),true); await settle(m); }
@@ -115,4 +116,11 @@ test("ocean relay has dry safe staging/finish and unreachable offshore platforms
   assert.equal(m.movement,"swimming-deferred");
   for(const p of RELAY_PLATFORMS){assert.equal(walkable(p.x,p.z),false);assert.ok(heightAt(p.x,p.z)<0);}
   for(const z of [-35,-20,-5]){const p=moveOnTerrain({x:-40,z},-90,0,m.solids);assert.ok(walkable(p.x,p.z));assert.ok(p.x>shoreX(p.z)+5);}
+});
+
+test("jungle net course leaves its west entrance, host, roster and perimeter path navigable",()=>{
+  const m=jungleCourse(),surface={height:heightAt,walkable:(x,z)=>walkableWithEquipment(x,z,m.solids)};
+  for(const p of [m.host,m.view,m.finish,...m.starts,...m.contestants])validateSpawn(p,surface);
+  for(const s of m.solids)assert.equal(surface.walkable(s.x,s.z),false);
+  let p={x:43,z:-41};for(const end of [{x:45,z:-23},{x:43,z:3},{x:27,z:26}]){for(let i=0;i<1500 && Math.hypot(p.x-end.x,p.z-end.z)>.08;i++){const d=Math.hypot(end.x-p.x,end.z-p.z),k=Math.min(.12,d)/d;p=moveOnTerrain(p,(end.x-p.x)*k,(end.z-p.z)*k,m.solids);}assert.ok(Math.hypot(p.x-end.x,p.z-end.z)<.09);}
 });
