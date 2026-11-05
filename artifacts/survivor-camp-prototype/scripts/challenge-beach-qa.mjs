@@ -57,7 +57,7 @@ async function select(id){await page.getByTestId("challenge-selector").selectOpt
 async function sample(label){await advance(3,true);const s=await page.evaluate(label=>({label,...(window.__CHALLENGE__?.stats()??window.__WORLD_RENDER__.stats()),listeners:window.challengeListenerCount(),activeScenes:window.__WORLD_RENDER__.lifecycle.active}),label);report.samples.push(s);assert.equal(s.activeScenes,1);return s;}
 async function listenerCount(){let previous=-1,stable=0;for(let i=0;i<12 && stable<2;i++){await page.waitForTimeout(170);const n=await page.evaluate(()=>window.challengeListenerCount());stable=n===previous?stable+1:0;previous=n;}assert.ok(stable>=2);return previous;}
 const views={
- "beach-obstacle":{position:[0,10,-46],target:[-22,2,-12]},
+ "beach-obstacle":{position:[-3,9,-26],target:[-22,2,-3]},
  "ocean-relay":{position:[-31,10,18],target:[-82,1,-10]},
  "jungle-net":{position:[39,11,8],target:[62,4,-24]},
  "individual-balance":{position:[24,10,84],target:[49,4,61]},
@@ -95,7 +95,7 @@ try{
   }
   check("All four previews replace equipment, validate safe views and render in both quality modes");
   await select("beach-obstacle");await page.evaluate(()=>window.__CHALLENGE__.arrival());await advance(90,true);await capture("01-arrival-high");
-  await capture("02-main-beach-panorama",{position:[-9,17,51],target:[-19,3,-19]});await capture("03-main-obstacle-course",views["beach-obstacle"]);
+  await capture("02-main-beach-panorama",{position:[-87,18,45],target:[-3,4,-12]});await capture("03-main-obstacle-course",views["beach-obstacle"]);
   await select("ocean-relay");await capture("04-ocean-area",views["ocean-relay"]);await capture("05-floating-platforms",{position:[-61,5,-36],target:[-80,1.2,-13]});
   await select("jungle-net");await teleport({x:35,z:-43},-2);await capture("06-jungle-trail");await capture("07-jungle-clearing",views["jungle-net"]);await capture("08-rope-and-net-course",{position:[48,7,-45],target:[62,4,-25]});
   await select("individual-balance");await capture("09-individual-arena",views["individual-balance"]);await capture("10-balance-stations",{position:[36,5.5,48],target:[44,4.1,57]});
@@ -109,7 +109,7 @@ try{
   const joy=await page.getByTestId("joystick").boundingBox(),run=await page.getByTestId("button-run").boundingBox();assert.ok(joy&&run);
   const point=(id,x,y)=>({id,x,y,radiusX:7,radiusY:7,force:1});
   const a=point(1,joy.x+joy.width/2,joy.y+joy.height/2),b=point(2,run.x+run.width/2,run.y+run.height/2),c=point(3,740,170);
-  await cdp.send("Input.dispatchTouchEvent",{type:"touchStart",touchPoints:[a]});await cdp.send("Input.dispatchTouchEvent",{type:"touchStart",touchPoints:[a,b]});await cdp.send("Input.dispatchTouchEvent",{type:"touchStart",touchPoints:[a,b,c]});
+  await cdp.send("Input.dispatchTouchEvent",{type:"touchStart",touchPoints:[a]});await cdp.send("Input.dispatchTouchEvent",{type:"touchStart",touchPoints:[a,b]});await cdp.send("Input.dispatchTouchEvent",{type:"touchEnd",touchPoints:[a]});await cdp.send("Input.dispatchTouchEvent",{type:"touchStart",touchPoints:[a,b]});await cdp.send("Input.dispatchTouchEvent",{type:"touchStart",touchPoints:[a,b,c]});
   await cdp.send("Input.dispatchTouchEvent",{type:"touchMove",touchPoints:[{...a,y:a.y-30},b,{...c,x:770,y:183}]});await advance(35,true);
   assert.equal(await page.evaluate(()=>window.challengeQA.io.dbg.running),true);await cdp.send("Input.dispatchTouchEvent",{type:"touchEnd",touchPoints:[]});await advance(4);check("Challenge scene retains existing three-touch run/movement/look controls");
   // Switching repeatedly must plateau for an equivalent selected configuration.

@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `81f136bcd067fafe79d6a862d247979f65e0d6a3` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
+- Base and last verified remote SHA before this checkpoint: `b9a0e3830a6c6e1ee620e1d12922e684a46eca47` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -69,6 +69,11 @@ Reuses existing Contestant models for static, render-only staging of current cam
 
 ## Checkpoint 11 — verification started
 Added a read-only GitHub CI workflow and real Chromium/SwiftShader rehearsal harness. It checks normal-build control hiding, URL/build admission gate, existing runtime/provider/NPC state retention, safe preview and one equipment subtree, all representative Player routes, three-touch run/look, repeated selection and camp-return resource/listener plateaus, and Low/High measurements. It captures twelve distinct High views plus four Low comparisons. Source script syntax and diff whitespace checks pass locally; remote results are pending. Build artifacts are review-only and are not deployed.
+
+## Checkpoint 11 — first WebGL review and corrections
+Remote TypeScript/full units/production build passed. The real browser successfully entered rehearsal, preserved camp ownership/state, rendered all four setups in Low/High and walked every six-route chain. Sixteen actual screenshots and resource samples were recovered from CI artifact 13432932268. The run then failed at the touch harness: it held Run without the pointer-up that intentionally activates the existing latched button. Corrected the harness to tap Run while retaining joystick ownership, then exercise three simultaneous touches. No product sprint logic changed.
+
+Visual inspection found one panorama inside foliage, regular water striping and overly rounded/banded cliffs. Corrected the camera pose, used less regular world-space wave fields, changed karst shoulders/ribs/crowns and reused the existing mineral limestone material, added two efficient instanced fern/pandanus understory draws and three botanical variants. Made selector text contrast explicit. Targeted tests remain 12/12; remote browser cleanup/return checks and refreshed visual review are still pending. First-run image/resource samples are not final evidence or certified budgets.
 
 ## Known issues / next action
 Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Next: checkpoint 11: compile/build/full regressions and actual Challenge Beach browser rehearsal/selection/navigation/resource checks, then inspect/correct WebGL screenshots and package final evidence. Final visual QA, shader checks, resource measurements and browser rehearsal integration are pending. One selected demonstration is mounted at a time. Intermediate art checkpoints use [skip ci] after local targeted tests; full CI runs again at integration instead of replaying every existing workflow for every small save.

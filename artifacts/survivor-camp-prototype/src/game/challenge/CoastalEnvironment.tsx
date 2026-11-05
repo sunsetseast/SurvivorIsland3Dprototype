@@ -1,3 +1,5 @@
+import { limestoneMaterial } from "../railay/tonsai/rockMaterial";
+import { Understory } from "./Understory";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as T from "three";
@@ -10,6 +12,8 @@ import { heightAt } from "./surface";
 import { Assembly, beam, box, sphere, WOOD, CUT, ROPE, TEAL, type Piece } from "./meshKit";
 
 function Limestone({low}:{low:boolean}) {
+  const material=useMemo(limestoneMaterial,[]);
+  useEffect(()=>()=>material.dispose(),[material]);
   const g=useMemo(()=>{
     const positions:number[]=[],colors:number[]=[],indices:number[]=[],c=new T.Color();
     const sides=low?20:32,levels=low?15:25;
@@ -17,23 +21,27 @@ function Limestone({low}:{low:boolean}) {
       const offset=positions.length/3;
       for(let j=0;j<=levels;j++)for(let i=0;i<=sides;i++) {
         const t=j/levels,a=i/sides*Math.PI*2;
-        const waist=0.84+0.09*Math.sin(t*9+k.seed)+0.06*Math.sin(t*28+k.seed*3);
-        const crown=t>0.83?Math.max(0.09,1-(t-0.83)*4.7):1;
-        const scallop=0.86+0.08*Math.sin(a*5+k.seed)+0.06*Math.sin(a*9+t*7);
-        const radial=waist*crown*scallop;
-        const y=heightAt(k.x,k.z)-0.6+t*k.h*(0.95+0.035*Math.sin(a*3+k.seed));
+        const profile=[.78,.58,.91,.95,.84,.88,.81,.67,.45];
+        const q=t*(profile.length-1),lo=Math.min(profile.length-2,Math.floor(q)),mix=q-lo;
+        const waist=profile[lo]!*(1-mix)+profile[lo+1]!*mix;
+        // Predominantly vertical unequal ribs and angular shoulders, avoiding concentric balloon rings.
+        const scallop=.88+.07*Math.sin(a*7+k.seed)+.05*Math.sin(a*13+k.seed*2)+.025*Math.sin(a*9+t*5);
+        const radial=waist*scallop;
+        const crest=.84+.10*Math.sin(a*3+k.seed)+.055*Math.sin(a*7+k.seed*2);
+        const y=heightAt(k.x,k.z)-.6+t*k.h*crest;
         positions.push(k.x+Math.cos(a)*k.rx*radial,y,k.z+Math.sin(a)*k.rz*radial);
-        c.set("#aaa793").lerp(new T.Color("#756f5b"),0.18+0.27*Math.sin(t*34+k.seed)**2);
-        if(t<0.13)c.multiplyScalar(0.66+t*1.6);
-        if(t>0.75 && Math.sin(a*7+k.seed)>0.1)c.lerp(new T.Color("#48634a"),0.65);
+        c.set("#e6e3d6").multiplyScalar(.9+.07*Math.sin(a*11+k.seed+t*3));
+        if(t<.1)c.multiplyScalar(.83);
         colors.push(c.r,c.g,c.b);
         if(j<levels&&i<sides){const n=offset+j*(sides+1)+i;indices.push(n,n+sides+1,n+1,n+1,n+sides+1,n+sides+2);}
       }
+      const center=positions.length/3;positions.push(k.x,heightAt(k.x,k.z)-.6+k.h*.84,k.z);colors.push(.53,.62,.4);
+      for(let i=0;i<sides;i++){const n=offset+levels*(sides+1)+i;indices.push(n,center,n+1);}
     }
     const g=new T.BufferGeometry();g.setAttribute("position",new T.Float32BufferAttribute(positions,3));g.setAttribute("color",new T.Float32BufferAttribute(colors,3));g.setIndex(indices);g.computeVertexNormals();return g;
   },[low]);
   useEffect(()=>()=>g.dispose(),[g]);
-  return <mesh name="challenge-krabi-karsts" geometry={g} userData={{cameraBlocker:true}}><meshStandardMaterial vertexColors roughness={0.98} side={T.DoubleSide}/></mesh>;
+  return <mesh name="challenge-krabi-karsts" geometry={g} material={material} userData={{cameraBlocker:true}}/>;
 }
 
 function BotanicalInstances({geometry,material,plants}:{geometry:T.BufferGeometry;material:T.Material;plants:typeof TREES}) {
@@ -68,18 +76,17 @@ function CoastalForest({low}:{low:boolean}) {
     return ()=>{active=false;texture?.dispose();if(owned)disposeAsset(owned);resources.leaf.dispose();resources.wood.dispose();resources.plain.dispose();};
   },[resources]);
   const palms=useMemo(()=>TREES.filter(p=>p.kind==="palm"),[]),broad=useMemo(()=>TREES.filter(p=>p.kind==="canopy"),[]);
-  const understory=useMemo(()=>TREES.flatMap((p,i)=>Array.from({length:3},(_,j)=>({...p,x:p.x+Math.cos(j*2.1+p.turn)*1.7,z:p.z+Math.sin(j*2.1+p.turn)*1.7,scale:0.7+(i%4)*0.15,kind:i%3===0?"pandanus":"fern"}))),[]);
   if(!kit)return <FallbackForest low={low}/>;
-  return <group name="challenge-botany-ready">{(["palm","canopy","pandanus","fern"] as const).flatMap(kind=>(["wood","leaves"] as const).map(part=>{
-    const source=kit.getObjectByName(`${kind}-0-${low?"far":"near"}-${part}`) as T.Mesh|undefined;
-    return source?<BotanicalInstances key={`${kind}-${part}-${low}`} geometry={source.geometry} material={part==="wood"?resources.wood:kind==="canopy"?resources.leaf:resources.plain} plants={kind==="palm"?palms:kind==="canopy"?broad:understory.filter(p=>p.kind===kind)}/>:null;
-  }))}</group>;
+  return <group name="challenge-botany-ready">{(["palm","canopy"] as const).flatMap(kind=>[0,1,2].flatMap(variant=>(["wood","leaves"] as const).map(part=>{
+    const source=kit.getObjectByName(`${kind}-${variant}-${low?"far":"near"}-${part}`) as T.Mesh|undefined;
+    return source?<BotanicalInstances key={`${kind}-${variant}-${part}-${low}`} geometry={source.geometry} material={part==="wood"?resources.wood:kind==="canopy"?resources.leaf:resources.plain} plants={(kind==="palm"?palms:broad).filter((_,i)=>i%3===variant)}/>:null;
+  })))}</group>;
 }
 function Water() {
   const material=useMemo(()=>new T.ShaderMaterial({
     uniforms:{time:{value:0}},
     vertexShader:`varying vec3 world;void main(){world=(modelMatrix*vec4(position,1.)).xyz;gl_Position=projectionMatrix*viewMatrix*vec4(world,1.);}`,
-    fragmentShader:`varying vec3 world;uniform float time;void main(){float edge=-61.+.0013*world.z*world.z+2.5*sin(world.z*.045);float depth=clamp((edge-world.x)/58.,0.,1.);float ripple=sin(world.x*1.1+world.z*.6+time*.8)*sin(world.z*.9-world.x*.3-time*.5);vec3 color=mix(vec3(.18,.55,.48),vec3(.055,.26,.36),depth);color+=vec3(.035,.045,.045)*ripple;float foam=(1.-smoothstep(0.,2.4,abs(edge-world.x+sin(time*.5+world.z*.15)*.5)))*.43;color=mix(color,vec3(.75,.85,.76),foam);gl_FragColor=vec4(color,1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>}`,
+    fragmentShader:`varying vec3 world;uniform float time;void main(){float edge=-61.+.0013*world.z*world.z+2.5*sin(world.z*.045);float depth=clamp((edge-world.x)/58.,0.,1.);float ripple=sin(world.x*.21+world.z*.13+time*.7+sin(world.z*.071)*.5)*.7+sin(world.x*.43-world.z*.17-time*.8+sin(world.x*.08))*.3;vec3 color=mix(vec3(.18,.55,.48),vec3(.055,.26,.36),depth);color+=vec3(.012,.02,.018)*ripple;color=mix(color,vec3(.47,.67,.72),smoothstep(100.,390.,edge-world.x));float foam=(1.-smoothstep(0.,2.4,abs(edge-world.x+sin(time*.5+world.z*.15)*.5)))*.43;color=mix(color,vec3(.75,.85,.76),foam);gl_FragColor=vec4(color,1.);\n#include <tonemapping_fragment>\n#include <colorspace_fragment>}`,
   }),[]);
   useEffect(()=>()=>material.dispose(),[material]);
   useFrame(({clock})=>{material.uniforms.time!.value=clock.elapsedTime;});
@@ -97,5 +104,5 @@ export function CoastalEnvironment({low}:{low:boolean}) {
     for(const z of [-51,-25,1,27]){const x=shoreX(z)+5.4,y=heightAt(x,z);p.push(beam([x,y-0.1,z],[x,y+0.9,z],0.055,WOOD),box([x,y+0.75,z],[0.12,0.28,0.32],TEAL));}
     return p;
   },[]);
-  return <><Limestone low={low}/><Water/><CoastalForest low={low}/><Assembly pieces={details} low={low} name="challenge-arrival-and-coastal-detail"/></>;
+  return <><Limestone low={low}/><Water/><CoastalForest low={low}/><Understory/><Assembly pieces={details} low={low} name="challenge-arrival-and-coastal-detail"/></>;
 }
