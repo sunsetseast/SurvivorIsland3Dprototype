@@ -1,6 +1,6 @@
 # Challenge Beach — PR #23 final implementation report
 
-**Continuation status:** a follow-up cleanup fix removes disposed, detached equipment from scene ownership tracking so repeated previews do not retain old CPU geometry arrays until departure. Local tests now pass **138/138**, plus TypeScript and production build. New WebGL ownership-plateau verification is pending in CI; the successful runs and image/performance evidence below describe the original completed runtime. See [PROGRESS.md](PROGRESS.md) for the current checkpoint.
+**Continuation status:** a follow-up cleanup fix removes disposed, detached equipment from scene ownership tracking so repeated previews do not retain old CPU geometry arrays until departure. Local tests now pass **138/138**, plus TypeScript and production build. The new WebGL ownership-plateau check, connected journeys and Chromium/WebKit controls pass. Broader camp jobs are still running; the original successful runs and image/performance evidence below remain historical evidence. See [PROGRESS.md](PROGRESS.md) for the current checkpoint.
 
 PR: https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/23
 

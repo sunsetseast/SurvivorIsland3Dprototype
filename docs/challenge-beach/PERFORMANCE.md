@@ -37,3 +37,16 @@ The observed fixed-view maxima are 92 draws, 258,294 Low triangles, 640,482 High
 These are measured-scope review thresholds, not hardware FPS guarantees. CI currently enforces resource/listener plateaus and the single-scene invariant; fixed-view budget comparisons are documented for subsequent changes. Measurements stage the **four current prototype contestants**. Larger multi-tribe rosters require fresh profiling before increasing the budget or declaring mobile suitability.
 
 Equipment is merged into one opaque material/geometry per selected configuration. Trees and understory are instanced; foliage uses alpha testing or opaque geometry. The ocean uses world-space waves without water physics. Existing 1k mineral/sand/litter assets are reused. No new postprocessing, physics dependency, shadow light or uncompressed texture asset was added.
+
+
+## Continuation cleanup verification
+
+[Successful cleanup run](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512588) at `7803dc698f9f531cb0d90f9d684407e6c8c277be` rechecks the four fixed Low/High views above: every draw, triangle, active-array-byte and resident GPU count matches the original table. [Raw follow-up report](evidence/cleanup-browser-report.json) · [Artifact/report hashes](evidence/cleanup-provenance.json).
+
+The collector now forgets disposed, detached assets instead of retaining their CPU geometry arrays until scene departure. Still-live/re-uploaded resources and resources awaiting disposal remain owned for the final sweep. Ownership-map entries are counts of geometry/material/texture/target references, not a heap-byte measurement.
+
+- All three equivalent High main-course cycles remain at **114 ownership entries / 80 GPU geometries / 11 textures / 33 listeners**. The eight fixed setup/quality samples show 102 ownership entries in Low and 114 in High.
+- All three camp returns remain at **322 ownership entries / 151 GPU geometries / 26 textures / 48 listeners**, with 201 calls / 1,002,744 triangles in this run's returned camp view. The harness now advances at least one complete collector interval (12 frames rather than three) before sampling. These camp camera/settling conditions differ from the original run; no matched before/after camp rendering claim is made.
+- Four new behavioral tests cover released geometry/material/texture listeners, attached disposed assets, delayed disposal and 64 replacements including reused assets. All **138 unit tests** and **10 WebGL groups** pass.
+
+This adds CPU ownership-reference coverage to the original GPU/listener plateau checks. It does not measure total JavaScript heap, physical VRAM or physical-device FPS.

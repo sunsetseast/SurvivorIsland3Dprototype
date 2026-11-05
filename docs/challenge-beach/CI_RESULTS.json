@@ -1,9 +1,8 @@
 {
-  "verificationCommit": "a7491c4c2f45e3fef79f594d2c1da46caf8dd119",
-  "verificationSourceComparison": "evidence/verification-source-compare.json",
-  "runtimeCommit": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
+  "verificationCommit": "7803dc698f9f531cb0d90f9d684407e6c8c277be",
+  "runtimeCommit": "7803dc698f9f531cb0d90f9d684407e6c8c277be",
   "unitTests": {
-    "passed": 134,
+    "passed": 138,
     "failed": 0
   },
   "challengeBrowserGroups": {
@@ -12,55 +11,60 @@
   },
   "workflowRuns": [
     {
-      "id": 42070827400,
-      "name": "Challenge Beach rehearsal and WebGL",
-      "status": "completed",
-      "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827400"
+      "id": 42113512649,
+      "name": "Living camp checks",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512649"
     },
     {
-      "id": 42070827643,
+      "id": 42113512714,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512714"
+    },
+    {
+      "id": 42113512847,
       "name": "Connected island journeys",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827643"
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512847"
     },
     {
-      "id": 42070827150,
-      "name": "Living camp checks",
+      "id": 42113512588,
+      "name": "Challenge Beach rehearsal and WebGL",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827150"
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512588"
     },
     {
-      "id": 42070827158,
-      "name": "Flagship camp visual and gameplay checks",
-      "status": "completed",
-      "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827158"
-    },
-    {
-      "id": 42070827562,
+      "id": 42113512660,
       "name": "Mobile gameplay controls",
       "status": "completed",
       "conclusion": "success",
-      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42070827562"
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42113512660"
     }
   ],
-  "priorFullCampProof": {
-    "commit": "ca2d2780465b52ca6b802753d62e4c5fa548d22c",
-    "run": 42066720924,
-    "conclusion": "success",
-    "unchangedCampSources": "evidence/camp-source-compare.json"
+  "ownershipPlateau": {
+    "repeatedPreview": {
+      "trackedResources": 114,
+      "geometries": 80,
+      "textures": 11,
+      "listeners": 33
+    },
+    "repeatedCampReturn": {
+      "trackedResources": 322,
+      "geometries": 151,
+      "textures": 26,
+      "listeners": 48
+    },
+    "report": "evidence/cleanup-browser-report.json",
+    "provenance": "evidence/cleanup-provenance.json"
   },
-  "evidencePersistence": {
-    "run": 42070827645,
-    "conclusion": "success",
-    "imagesHashVerified": 16
-  },
+  "originalImageRuntime": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
+  "originalFiveWorkflowVerification": "a7491c4c2f45e3fef79f594d2c1da46caf8dd119",
   "physicalIphoneTested": false,
-  "retryNotes": [
-    "Earlier broad-camp replays were cancelled; the complete living-camp/heroes/Tribal/assets workflow passed at verification commit a7491c4c2f45e3fef79f594d2c1da46caf8dd119.",
-    "One duplicate Chromium mobile run hit the existing eight-second Run-control wait following a scene change. Its targeted retry passed Chromium and WebKit with unchanged gameplay and gesture/speed assertions."
-  ]
+  "deviceReview": "DEVICE_REVIEW.md",
+  "statusNote": "Challenge Beach, connected journeys and Chromium/WebKit controls pass; broader camp workflows are still running. Original gallery/provenance are unchanged."
 }

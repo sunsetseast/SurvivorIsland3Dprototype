@@ -15,7 +15,7 @@ A focused continuation review found that SceneLifecycle retained disposed, detac
 
 The collector now removes tracking listeners/references only after an asset is both disposed and absent from the live scene. Live/re-uploaded assets and assets awaiting asynchronous disposal remain eligible for the final scene sweep. Four new behavioral tests cover geometry/material/texture removal, live reuse, asynchronous disposal and 64 replacements. WebGL QA now also asserts that the ownership Map plateaus for equivalent selected setups.
 
-Local verification: **138/138 unit tests**, TypeScript and production build pass; existing bundle/import warnings only. No dependency or lockfile changes. Local Chromium installation failed because the downloaded archive was truncated; the browser assertion will run in the existing read-only GitHub QA workflow. CI verification is pending for this follow-up commit. Keep the PR draft.
+Local verification: **138/138 unit tests**, TypeScript and production build pass; existing bundle/import warnings only. No dependency or lockfile changes. Local Chromium installation failed because the downloaded archive was truncated; the browser assertion will run in the existing read-only GitHub QA workflow. GitHub confirms runtime `7803dc698f9f531cb0d90f9d684407e6c8c277be`. Its ten WebGL groups, connected journeys and Chromium/WebKit controls pass; broader camp jobs are still running. All three equivalent preview cycles retain 114 ownership entries / 80 GPU geometries / 11 textures / 33 listeners. Keep the PR draft.
 
 ## Completed checkpoints
 
