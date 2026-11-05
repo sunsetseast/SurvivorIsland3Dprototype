@@ -1,6 +1,6 @@
 # Tonsai completion: actual WebGL review
 
-These are production WebGL captures with the normal third-person Player camera. No generated imagery or screenshot retouching. Art images: Chromium 156 / ANGLE SwiftShader, 932×430 DPR1, `19c7385`, run [41937391598](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41937391598). Shelter images: native Player camera, 1536×620 DPR1, `b82fc2a`, run [41938146416](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146416). Host rendering is not physical iPhone certification.
+These are production WebGL captures with the normal third-person Player camera. No generated imagery or screenshot retouching. Art images: Chromium 156 / ANGLE SwiftShader, 932×430 DPR1, `19c7385`, run [41937391598](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41937391598). Shelter images: native Player camera, 1536×620 DPR1, `694fedb`, run [41939563376](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41939563376), with loaded-LOD assertions confirming actual Low and High. Host rendering is not physical iPhone certification.
 
 ## Cave and southern trail
 
@@ -22,4 +22,4 @@ Added inspection from the actual gameplay camera, facing into the shelter. Woven
 
 ![Low shelter sleeping area](evidence/completion/low-shelter-sleeping-area.jpg)
 
-[Paired resource/camera comparison](evidence/completion/comparison.json) · [Before report](evidence/completion/before/report.json) · [After report](evidence/completion/after/report.json) · [Travel report](evidence/completion/travel-report.json) · [Exact provenance](evidence/completion/provenance.json)
+[Paired resource/camera comparison](evidence/completion/comparison.json) · [Before report](evidence/completion/before/report.json) · [After report](evidence/completion/after/report.json) · [Travel report](evidence/completion/travel-report.json) · [Verified shelter LOD report](evidence/completion/shelter-report.json) · [Checks](evidence/completion/checks.json) · [Exact provenance](evidence/completion/provenance.json)

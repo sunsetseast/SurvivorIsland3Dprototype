@@ -70,3 +70,12 @@ No additional scene work is required before starting the separate Challenge Beac
 ### Shelter gallery profile correction
 
 The initial reconstruction report revealed equal resident geometry and calls for its two requested profiles: App's low-core fallback selected Low for both on the two-core CI runner. The main paired environment-art benchmark already forced eight logical cores and verified distinct Low/High resident geometry; its budgets are valid. The shelter harness now uses that same explicit host-independent profile fixture and asserts the actual loaded near-forest geometry for High (and its absence for Low). The previously labeled High shelter close-up is superseded by the corrected capture. This follow-up changes verification only, not the game's quality selection or scene assets.
+
+
+## Final result
+
+**All eight implementation workflows passed** at `b82fc2aa247efba3766c8be86fb0fd5aba5378ca`, including complete living-camp/hero/Tribal Council/assets and flagship trail/hiding-route suites. Individual run links and outcomes are preserved in `evidence/completion/checks.json`.
+
+The profile-corrected shelter job also passes at `694fedb9bd53f5f8008ca054587fa53437ef61d7`: [41939563376](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41939563376). Actual loaded geometry is **20,858,126 bytes Low / 26,485,672 bytes High**; near-forest LOD presence/absence is asserted. Both corrected sleeping-area images have been inspected and replace the earlier mislabeled close-up; the corrected report and provenance are committed. Game source and unit tests are unchanged after the successful implementation checkpoint; the only follow-up source change was this verification fixture.
+
+There are no known blocking failures in the verified checks. Remaining limitations are the documented production chunk/import warnings and physical iPhone performance/interaction acceptance, which was not performed. Tonsai is ready for the separate Challenge Beach phase, with its event admission/instance/return work scoped in CHALLENGE_BEACH_NEXT.md. The final evidence-only commit can trigger another automatic CI replay; it adds no runtime or test-code changes.
