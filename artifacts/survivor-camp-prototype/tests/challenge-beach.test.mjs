@@ -6,6 +6,7 @@ import { CONNECTIONS, LOCATIONS } from "../src/game/locations/registry.ts";
 import { validateSpawn } from "../src/game/locations/spawn.ts";
 import { ARRIVAL, RETURN_EXIT, ARRIVAL_STAGING, ARRIVAL_HOST, ZONES, ROUTES } from "../src/game/challenge/layout.ts";
 import { heightAt, walkable, moveOnTerrain, shoreX } from "../src/game/challenge/surface.ts";
+import { KARSTS, TREES, trailDistance } from "../src/game/challenge/environmentLayout.ts";
 const settle = async m => { await new Promise(r => setTimeout(r, 5)); const t=m.getSnapshot().token; await m.loadPending(t); m.ready(t); };
 const manager = (allow=true, load=async()=>{}) => new TravelManager(load, ()=>{}, 0, ()=>allow);
 async function camp(m) { assert.equal(m.enter("camp_tribe_a"),true); await settle(m); }
@@ -89,4 +90,11 @@ test("failed challenge loading, retry and canceled stale loads preserve the sour
   await new Promise(r=>setTimeout(r,5));const t=n.getSnapshot().token,pending=n.loadPending(t);
   n.returnSafely();finish();await pending;n.ready(t);await settle(n);
   assert.equal(n.session.locationId,"camp_tribe_a");assert.equal(n.session.returnTo,undefined);n.menu();
+});
+
+test("visible cliff/trunk collision stays outside walking corridors and stops body penetration",()=>{
+  assert.ok(TREES.length>0);
+  for(const tree of TREES){assert.ok(trailDistance(tree.x,tree.z)>6);assert.equal(walkable(tree.x,tree.z),false);}
+  for(const rock of KARSTS)assert.equal(walkable(rock.x,rock.z),false);
+  for(const zone of Object.values(ZONES)){const start=zone.view;assert.ok(walkable(start.x,start.z));const p=moveOnTerrain(start,150,0);assert.ok(walkable(p.x,p.z));assert.ok(p.x<98);}
 });

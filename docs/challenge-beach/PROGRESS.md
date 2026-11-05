@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `139429289b3722d7d11738a0b94356a9e9ebb224` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
+- Base and last verified remote SHA before this checkpoint: `b8e300eff5836854d83daa7f9ff64af2385a1a1a` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -23,7 +23,7 @@ Existing ownership: App mounts one SceneLifecycle at a time; source release comp
 - [x] 1. Secure branch and architecture
 - [x] 2. Research and blueprint
 - [x] 3. Basic scene/travel (targeted tests pass; remote build/browser verification pending)
-- [ ] 4. Coast/staging
+- [x] 4. Coast/staging (targeted navigation/collision tests; visual QA pending)
 - [ ] 5. Secondary zones/paths
 - [ ] 6. Main demo
 - [ ] 7. Ocean demo
@@ -44,8 +44,11 @@ Added lazy ChallengeScene, basic continuous terrain and shared Player adapter; r
 
 Six targeted Node tests pass (all blueprint route segments in both directions; body/camera/staging safety; water boundary; disabled/direct/missing/wrong-scope admission; wrong participant/origin and revoked grants; instance/tribe identity; exact return; retry/cancel/stale loads). A test caught and fixed event identity loss on menu resume. Local sparse workspace used Node 24 native TypeScript transforms and a temporary extension/JSON loader because tsx/dependencies are not installed here. git diff --check passes. Remote typecheck/build and real WebGL checks are still required; no visual/performance evidence is claimed yet.
 
+## Checkpoint 4 — coastal/staging implementation
+Curved sand/seabed and world-space animated opaque water; nine separately sculpted karst lobes with matching conservative body collision; existing botanical GLB and alpha-tested leaf atlas, with a procedural load-failure fallback; ten arrival pads, host mark, waiting benches and dry-shore safety markers. Geometry is merged/instanced and scene owned; late asset callbacks dispose after departure. Seven targeted tests pass, including bidirectional routes and visible trunk/cliff collision. Low and High use the same walkable trunk placement with different geometry. No screenshots or renderer budgets claimed yet. Checkpoint 3 GitHub connected-world workflow completed successfully: TypeScript, full units, production build and browser journey checks.
+
 ## Known issues / next action
-Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Basic terrain is intentionally unfinished. Next: inspect automatic CI/typecheck for checkpoint 3, fix any failures, then coast/staging checkpoint 4. No demonstration equipment exists yet.
+Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Next: secondary clearing/trail detail (checkpoint 5), then each equipment demonstration. Final visual QA, shader checks, resource measurements and browser rehearsal integration are pending. No demonstration equipment exists yet. Intermediate art checkpoints use [skip ci] after local targeted tests; full CI runs again at integration instead of replaying every existing workflow for every small save.
 
 DRAFT ONLY. Do not merge, deploy, publish, use Replit credits or alter the read-only reference repository.
 

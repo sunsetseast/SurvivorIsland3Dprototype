@@ -21,3 +21,5 @@ export const ROUTES: Point[][] = [
 ];
 export const ARRIVAL_STAGING = Array.from({ length: 10 }, (_, i) => pose(12 + (i % 5) * 2.2, -63 + Math.floor(i / 5) * 2.6, 0));
 export const ARRIVAL_HOST = pose(15, -54, Math.PI);
+
+export const shoreX = (z: number) => -61 + 0.0013 * z * z + 2.5 * Math.sin(z * 0.045);

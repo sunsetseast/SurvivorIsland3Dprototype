@@ -1,3 +1,4 @@
+import { CoastalEnvironment } from "./CoastalEnvironment";
 import { useEffect, useMemo } from "react";
 import * as T from "three";
 import { Player, type ExplorationWorld } from "../Player";
@@ -42,7 +43,7 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
     <directionalLight position={[-80, 110, -65]} intensity={2.8} color="#fff0d5" />
     <group name="challenge-beach-world">
       <Ground low={low} />
-      <mesh rotation-x={-Math.PI / 2} position={[-190, -0.01, 0]}><planeGeometry args={[420, 800]} /><meshStandardMaterial color="#398c91" roughness={0.35} /></mesh>
+      <CoastalEnvironment low={low} />
       <TrailMarker connectionId="challenge_to_camp" height={heightAt} />
       <Player environment={WORLD} arrival={spawn} />
     </group>
