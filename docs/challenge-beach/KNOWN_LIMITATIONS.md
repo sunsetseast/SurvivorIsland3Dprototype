@@ -1,0 +1,12 @@
+# Known limitations and deferred work
+
+- The four courses are **modeled, collidable demonstrations**. Walking/running, camera control, safe perimeter exploration, preview switching and rehearsal travel work. Climbing, crawling through course obstacles, manipulating puzzles/blocks, timing, scoring, winners, immunity, rewards and elimination are not implemented.
+- Offshore decks, ladders, retrieval props and anchor lines are models. Swimming/diving/raft movement is unavailable; supported walking stops at the conservative dry-shore boundary. Inspection-camera ocean images do not imply player water access.
+- Challenge admission is an explicit **local development rehearsal**, disabled in normal production builds. The URL flag alone cannot enable it in a normal release. No authenticated server event/season authority or cross-tribe production admission exists yet. The optional test-build flag is a QA opt-in, not account authentication.
+- Existing contestant identities are rendered at validated rehearsal positions while CampRuntime/provider retain state. They do not run a second camp simulation, compete autonomously, or provide full crowd collision. Measurements include four current prototype contestants, not a full future multi-tribe roster.
+- Railay is artistically condensed into one authored continuous location associated with the existing West Beach anchor. Terrain heights, arena dimensions and challenge footprints are design estimates; this is not a surveyed reconstruction of the peninsula.
+- Graphics/navigation evidence is Chromium software WebGL in a mobile-sized viewport. Physical iPhone 17 Pro Max Safari FPS, thermal/battery behavior, long-session memory and device gesture acceptance remain untested. Existing mobile-control regression is separate from physical device certification.
+- The established main bundle still emits Vite's large-chunk and static/dynamic Camp import warnings. ChallengeScene itself is lazy loaded; rendering/resource ownership follows one active detailed scene. This PR does not rebuild application bundling or Tonsai.
+- The broader living-camp/heroes/Tribal/assets suite passed on identical camp code at `ca2d278`. One later replay was cancelled during Chromium installation; only that job is being retried. Check [CI results](CI_RESULTS.json) and the PR for its latest state.
+
+No new dependency was installed into the project. The read-only reference repository was not modified. Nothing was merged, deployed or published, and no Replit Agent or credits were used.

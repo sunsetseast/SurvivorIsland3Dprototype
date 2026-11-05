@@ -1,0 +1,60 @@
+{
+  "runtimeCommit": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
+  "unitTests": {
+    "passed": 134,
+    "failed": 0
+  },
+  "challengeBrowserGroups": {
+    "passed": 10,
+    "failed": 0
+  },
+  "workflowRuns": [
+    {
+      "id": 42068508026,
+      "name": "Connected island journeys",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068508026"
+    },
+    {
+      "id": 42068507831,
+      "name": "Challenge Beach rehearsal and WebGL",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507831"
+    },
+    {
+      "id": 42068508011,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068508011"
+    },
+    {
+      "id": 42068507826,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507826"
+    },
+    {
+      "id": 42068507977,
+      "name": "Living camp checks",
+      "status": "in_progress",
+      "conclusion": null,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42068507977"
+    }
+  ],
+  "priorFullCampProof": {
+    "commit": "ca2d2780465b52ca6b802753d62e4c5fa548d22c",
+    "run": 42066720924,
+    "conclusion": "success",
+    "unchangedCampSources": "evidence/camp-source-compare.json"
+  },
+  "evidencePersistence": {
+    "run": 42070827645,
+    "conclusion": "success",
+    "imagesHashVerified": 16
+  },
+  "physicalIphoneTested": false
+}

@@ -1,0 +1,62 @@
+{
+  "repository_full_name": "sunsetseast/SurvivorIsland3Dprototype",
+  "base": "ca2d2780465b52ca6b802753d62e4c5fa548d22c",
+  "head": "831e47400c06f120fa7d73791ba2eea4d8cfbe40",
+  "status": "ahead",
+  "ahead_by": 1,
+  "behind_by": 0,
+  "total_commits": 1,
+  "too_large": null,
+  "base_commit": {
+    "sha": "ca2d2780465b52ca6b802753d62e4c5fa548d22c",
+    "url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/commits/ca2d2780465b52ca6b802753d62e4c5fa548d22c",
+    "html_url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/commit/ca2d2780465b52ca6b802753d62e4c5fa548d22c"
+  },
+  "merge_base_commit": {
+    "sha": "ca2d2780465b52ca6b802753d62e4c5fa548d22c",
+    "url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/commits/ca2d2780465b52ca6b802753d62e4c5fa548d22c",
+    "html_url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/commit/ca2d2780465b52ca6b802753d62e4c5fa548d22c"
+  },
+  "files": [
+    {
+      "filename": "artifacts/survivor-camp-prototype/scripts/challenge-beach-qa.mjs",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 2,
+      "changes": 5,
+      "previous_filename": null
+    },
+    {
+      "filename": "artifacts/survivor-camp-prototype/src/game/challenge/ChallengeScene.tsx",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1,
+      "changes": 5,
+      "previous_filename": null
+    },
+    {
+      "filename": "artifacts/survivor-camp-prototype/src/game/challenge/CoastalEnvironment.tsx",
+      "status": "modified",
+      "additions": 17,
+      "deletions": 6,
+      "changes": 23,
+      "previous_filename": null
+    },
+    {
+      "filename": "artifacts/survivor-camp-prototype/src/game/challenge/groundMaterial.ts",
+      "status": "added",
+      "additions": 27,
+      "deletions": 0,
+      "changes": 27,
+      "previous_filename": null
+    },
+    {
+      "filename": "docs/challenge-beach/PROGRESS.md",
+      "status": "modified",
+      "additions": 4,
+      "deletions": 1,
+      "changes": 5,
+      "previous_filename": null
+    }
+  ]
+}
