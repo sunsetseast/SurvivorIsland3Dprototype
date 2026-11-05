@@ -1,0 +1,333 @@
+{
+  "method": "Paired production WebGL reports from the same runner and static NPC fixture; timings are excluded from budget assertions.",
+  "nativePairs": 24,
+  "inspectionPairs": 4,
+  "maxCameraDifference": 0,
+  "samples": [
+    {
+      "quality": "low",
+      "shelterCompletionBytes": 34916,
+      "groundDetailBytes": 3456,
+      "before": {
+        "calls": 234,
+        "triangles": 680644,
+        "geometryBytes": 20819754,
+        "textureBytesEstimate": 55031152.00000003
+      },
+      "after": {
+        "calls": 234,
+        "triangles": 685103,
+        "geometryBytes": 20858126,
+        "textureBytesEstimate": 55031152.00000003
+      }
+    },
+    {
+      "quality": "high",
+      "shelterCompletionBytes": 34916,
+      "groundDetailBytes": 3456,
+      "before": {
+        "calls": 251,
+        "triangles": 980009,
+        "geometryBytes": 26447300,
+        "textureBytesEstimate": 55031152.00000003
+      },
+      "after": {
+        "calls": 251,
+        "triangles": 985563,
+        "geometryBytes": 26485672,
+        "textureBytesEstimate": 55031152.00000003
+      }
+    }
+  ],
+  "poses": [
+    {
+      "quality": "low",
+      "name": "south-beach",
+      "before": {
+        "calls": 147,
+        "triangles": 291979
+      },
+      "after": {
+        "calls": 147,
+        "triangles": 294990
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cliff-beside",
+      "before": {
+        "calls": 130,
+        "triangles": 191712
+      },
+      "after": {
+        "calls": 130,
+        "triangles": 192464
+      }
+    },
+    {
+      "quality": "low",
+      "name": "distant-silhouette",
+      "before": {
+        "calls": 160,
+        "triangles": 434160
+      },
+      "after": {
+        "calls": 160,
+        "triangles": 435263
+      }
+    },
+    {
+      "quality": "low",
+      "name": "north-offshore",
+      "before": {
+        "calls": 250,
+        "triangles": 567180
+      },
+      "after": {
+        "calls": 250,
+        "triangles": 569479
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cliff-waterline",
+      "before": {
+        "calls": 173,
+        "triangles": 420493
+      },
+      "after": {
+        "calls": 173,
+        "triangles": 423132
+      }
+    },
+    {
+      "quality": "low",
+      "name": "jungle-trail",
+      "before": {
+        "calls": 173,
+        "triangles": 852977
+      },
+      "after": {
+        "calls": 173,
+        "triangles": 855601
+      }
+    },
+    {
+      "quality": "low",
+      "name": "shelter",
+      "before": {
+        "calls": 258,
+        "triangles": 853241
+      },
+      "after": {
+        "calls": 258,
+        "triangles": 855285
+      }
+    },
+    {
+      "quality": "low",
+      "name": "shelter-ground",
+      "before": {
+        "calls": 162,
+        "triangles": 315408
+      },
+      "after": {
+        "calls": 162,
+        "triangles": 318247
+      }
+    },
+    {
+      "quality": "low",
+      "name": "cave-entrance",
+      "before": {
+        "calls": 128,
+        "triangles": 215002
+      },
+      "after": {
+        "calls": 129,
+        "triangles": 217599
+      }
+    },
+    {
+      "quality": "low",
+      "name": "inland-limestone",
+      "before": {
+        "calls": 145,
+        "triangles": 373539
+      },
+      "after": {
+        "calls": 146,
+        "triangles": 375304
+      }
+    },
+    {
+      "quality": "low",
+      "name": "wet-shoreline",
+      "before": {
+        "calls": 101,
+        "triangles": 119713
+      },
+      "after": {
+        "calls": 101,
+        "triangles": 120465
+      }
+    },
+    {
+      "quality": "low",
+      "name": "shallow-ocean",
+      "before": {
+        "calls": 100,
+        "triangles": 115169
+      },
+      "after": {
+        "calls": 100,
+        "triangles": 115921
+      }
+    },
+    {
+      "quality": "high",
+      "name": "south-beach",
+      "before": {
+        "calls": 166,
+        "triangles": 443563
+      },
+      "after": {
+        "calls": 166,
+        "triangles": 447654
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cliff-beside",
+      "before": {
+        "calls": 143,
+        "triangles": 311282
+      },
+      "after": {
+        "calls": 143,
+        "triangles": 312034
+      }
+    },
+    {
+      "quality": "high",
+      "name": "distant-silhouette",
+      "before": {
+        "calls": 174,
+        "triangles": 622532
+      },
+      "after": {
+        "calls": 174,
+        "triangles": 626086
+      }
+    },
+    {
+      "quality": "high",
+      "name": "north-offshore",
+      "before": {
+        "calls": 263,
+        "triangles": 1037149
+      },
+      "after": {
+        "calls": 263,
+        "triangles": 1039448
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cliff-waterline",
+      "before": {
+        "calls": 187,
+        "triangles": 807931
+      },
+      "after": {
+        "calls": 187,
+        "triangles": 810450
+      }
+    },
+    {
+      "quality": "high",
+      "name": "jungle-trail",
+      "before": {
+        "calls": 195,
+        "triangles": 1288540
+      },
+      "after": {
+        "calls": 195,
+        "triangles": 1294134
+      }
+    },
+    {
+      "quality": "high",
+      "name": "shelter",
+      "before": {
+        "calls": 275,
+        "triangles": 1395844
+      },
+      "after": {
+        "calls": 275,
+        "triangles": 1398143
+      }
+    },
+    {
+      "quality": "high",
+      "name": "shelter-ground",
+      "before": {
+        "calls": 183,
+        "triangles": 500773
+      },
+      "after": {
+        "calls": 183,
+        "triangles": 503357
+      }
+    },
+    {
+      "quality": "high",
+      "name": "cave-entrance",
+      "before": {
+        "calls": 148,
+        "triangles": 365227
+      },
+      "after": {
+        "calls": 148,
+        "triangles": 362297
+      }
+    },
+    {
+      "quality": "high",
+      "name": "inland-limestone",
+      "before": {
+        "calls": 171,
+        "triangles": 594325
+      },
+      "after": {
+        "calls": 172,
+        "triangles": 595295
+      }
+    },
+    {
+      "quality": "high",
+      "name": "wet-shoreline",
+      "before": {
+        "calls": 103,
+        "triangles": 188886
+      },
+      "after": {
+        "calls": 103,
+        "triangles": 189638
+      }
+    },
+    {
+      "quality": "high",
+      "name": "shallow-ocean",
+      "before": {
+        "calls": 102,
+        "triangles": 183142
+      },
+      "after": {
+        "calls": 102,
+        "triangles": 183894
+      }
+    }
+  ],
+  "result": "PASS"
+}

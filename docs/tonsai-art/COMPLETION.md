@@ -24,7 +24,7 @@ Budget comparison accounts for exactly that measured shelter storage delta; the 
 
 The first paired-capture CI run passed [41935103227](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41935103227): 28 matched poses, Chromium 156 on both refs, original draw/triangle/storage budgets. High shelter-ground is stable at 183 calls. Cave/foliage saved and ref-confirmed at `9f1f12001ec61590829951ea287213201bba8522`; shelter saved and ref-confirmed at `80c7ee9e132d4023a8b2420fd94af8ae7d19c3f8`.
 
-All 120 local unit tests pass, including 361 directed spot routes and 44,769 physical NPC travel frames. Workspace-wide TypeScript, production build and six world-check groups / 294 solid sweeps pass. Existing large chunk/dynamic import warnings remain. Physical iPhone Safari is not certified.
+All 122 local unit tests pass, including 361 directed spot routes and 44,769 physical NPC travel frames. Workspace-wide TypeScript, production build and six world-check groups / 294 solid sweeps pass. Existing large chunk/dynamic import warnings remain. Physical iPhone Safari is not certified.
 
 A living-camp browser check on the CI-fixture-only checkpoint failed its beach arrival assertion. That harness left Three's clock running during nominal fixed-step captures. It now stops the wall clock like the other project harnesses and records the full arrival/route/clock state if the assertion fails. The pinned-clock diagnostics did not resolve the arrival failure; the subsequent social-button correction below addresses it. No NPC runtime behavior was changed.
 
@@ -48,3 +48,20 @@ These checks require the real phone and are not claimed by Chromium SwiftShader 
 
 
 The mobile decline regression passed in the live browser job on `19c7385`; the physical beach route now completes. The four-round connected travel job separately observed return-HUD listener counts 43, 43, 47, 43. A touch owner uses four global listeners; TravelHud refreshes pose-dependent controls at 150ms. Sampling now waits for three equal observations across that refresh/effect boundary, retaining the original exact equality assertion and recording each listener identity for diagnosis. It does not add a listener tolerance or change travel/resource ownership. One existing reconstruction capture was added facing the shelter's sleeping area from the actual Player camera, so the mats can be reviewed directly.
+
+
+## Verified completion evidence
+
+The measured paired art comparison passes both on GitHub ([41937391598](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41937391598)) and from the saved completion reports: 24 native pairs, four inspection pairs, zero camera-coordinate error, exact accounted geometry and unchanged draw/texture ceilings. All 122 local tests and the final production build pass after the social-button fix. The full living-camp job on `19c7385` passes, including its beach route, hero, Tribal Council and asset checks.
+
+The updated connected-world job on `b82fc2a` passes [41938146357](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146357): 15 check groups, four round trips and stable return listener counts **43/43/43/43**. Low/High reconstruction captures pass [41938146416](https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146416); the sleeping-area view has been inspected in both modes. The current Low/High art comparison, mobile Chromium/WebKit and limestone jobs also passed on that checkpoint. Final workflow outcomes are linked in the PR; source/runtime unchanged by evidence packaging.
+
+Recheck the saved comparison from the app workspace:
+
+```sh
+ART_EVIDENCE_ROOT=../../docs/tonsai-art/evidence/completion node scripts/environment-art-compare.mjs
+```
+
+The original gallery is historical. [Completion gallery](COMPLETION_GALLERY.md), current paired reports, representative native-camera images and the travel report are preserved separately under `evidence/completion/`; provenance identifies the exact run/commit. Full capture sets remain in the linked Actions artifacts.
+
+No additional scene work is required before starting the separate Challenge Beach phase. Implement its event admission/instance/return integration as documented in CHALLENGE_BEACH_NEXT.md. Physical iPhone acceptance remains outstanding, as explicitly listed above.
