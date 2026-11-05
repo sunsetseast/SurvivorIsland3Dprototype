@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468` (latest main, PR #22 merged).
+- Base and last verified remote SHA before this checkpoint: `666c4f8a87ad198616d0d292d2b9a79efb3ebfcf` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -21,7 +21,7 @@ Existing ownership: App mounts one SceneLifecycle at a time; source release comp
 
 ## Completed checkpoints
 - [x] 1. Secure branch and architecture
-- [ ] 2. Research and blueprint
+- [x] 2. Research and blueprint
 - [ ] 3. Basic scene/travel
 - [ ] 4. Coast/staging
 - [ ] 5. Secondary zones/paths
@@ -36,7 +36,11 @@ Existing ownership: App mounts one SceneLifecycle at a time; source release comp
 ## Verification
 GitHub confirms PR22 merged, main at the SHA above, no matching Challenge Beach branch and no prior Challenge Beach PR. No runtime code changed in checkpoint 1; no runtime tests claimed.
 
+## Checkpoint 2 — complete
+Added REFERENCE_LIBRARY.md: 15 distinct designs, 4/4/4/3 zone coverage, source and original photo-page links, verified seasons/episodes where available, original spatial estimates and adaptation notes. Added LAYOUT.md with west-facing coast, four reserved footprints, continuous route network and explicit swimming dependency. No reference photographs are redistributed. Validated table entry count/category allocation and source-link presence. Runtime tests are not applicable to these documentation changes.
+
 ## Known issues / next action
-Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. No implementation exists yet. Next: bounded research and four-zone blueprint, then basic scene/travel.
+Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. No implementation exists yet. Next: basic scene and rehearsal travel, with targeted authorization/return/spawn tests before the next remote checkpoint.
 
 DRAFT ONLY. Do not merge, deploy, publish, use Replit credits or alter the read-only reference repository.
+
