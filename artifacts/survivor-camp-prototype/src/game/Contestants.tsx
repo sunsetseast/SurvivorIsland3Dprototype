@@ -16,9 +16,6 @@ import {
 import { createCharacterMaterial } from "./characterSurface";
 const material = createCharacterMaterial();
 export const characterAnimationMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
-const mesh = (g: Geo, name?: string) => (
-  <mesh name={name} geometry={g} material={material} castShadow />
-);
 
 export type StagedPerson = Pick<
   NpcState,

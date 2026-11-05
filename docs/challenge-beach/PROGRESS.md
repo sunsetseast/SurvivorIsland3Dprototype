@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `9272075e39dbb582a0b9d6de0d25c991f891acb0` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
+- Base and last verified remote SHA before this checkpoint: `81f136bcd067fafe79d6a862d247979f65e0d6a3` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -66,6 +66,9 @@ Built Stillwater Balance: eight separated timber stations, supported narrow foot
 Four typed configurations now carry equipment, starts, roster, host, finish, view, collision, dependencies and cleanup policy. Only one equipment subtree is mounted. Selection validates the next setup, locks inputs, removes/disposes the old subtree, then activates the next after cleanup and relocates to a safe view. The small selector and return-staging control require the explicit rehearsal build/URL and an already-admitted rehearsal; they cannot grant admission or alter season/rewards.
 
 Reuses existing Contestant models for static, render-only staging of current camp identities. Added an optional scene-owned material override to Contestant so challenge departure does not dispose a camp-owned rendering material. CampRuntime/provider are neither recreated nor advanced here. Twelve targeted tests pass, including all configurations, malformed/unknown setup rejection and every route in both directions with each equipment collision set. Added developer-only scene inspection/renderer statistics for real WebGL QA. Browser material/resource/listener verification remains pending.
+
+## Checkpoint 11 — verification started
+Added a read-only GitHub CI workflow and real Chromium/SwiftShader rehearsal harness. It checks normal-build control hiding, URL/build admission gate, existing runtime/provider/NPC state retention, safe preview and one equipment subtree, all representative Player routes, three-touch run/look, repeated selection and camp-return resource/listener plateaus, and Low/High measurements. It captures twelve distinct High views plus four Low comparisons. Source script syntax and diff whitespace checks pass locally; remote results are pending. Build artifacts are review-only and are not deployed.
 
 ## Known issues / next action
 Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Next: checkpoint 11: compile/build/full regressions and actual Challenge Beach browser rehearsal/selection/navigation/resource checks, then inspect/correct WebGL screenshots and package final evidence. Final visual QA, shader checks, resource measurements and browser rehearsal integration are pending. One selected demonstration is mounted at a time. Intermediate art checkpoints use [skip ci] after local targeted tests; full CI runs again at integration instead of replaying every existing workflow for every small save.
