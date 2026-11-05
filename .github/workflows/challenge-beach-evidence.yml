@@ -1,0 +1,60 @@
+name: Persist verified Challenge Beach evidence
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/challenge-beach-evidence.yml'
+permissions:
+  contents: write
+  actions: read
+jobs:
+  persist:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/railay-challenge-beach' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/railay-challenge-beach
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: docs/challenge-beach
+      - name: Verify exact branch checkpoint
+        run: |
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          test "$(git branch --show-current)" = "feat/railay-challenge-beach"
+      - uses: actions/download-artifact@v4
+        with:
+          name: challenge-beach-webgl-evidence
+          path: docs/challenge-beach/evidence
+          run-id: 42068507831
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify and record evidence provenance
+        run: |
+          python3 - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          root=Path("docs/challenge-beach/evidence")
+          expected={"01-arrival-high.jpg","02-main-beach-panorama.jpg","03-main-obstacle-course.jpg","04-ocean-area.jpg","05-floating-platforms.jpg","06-jungle-trail.jpg","07-jungle-clearing.jpg","08-rope-and-net-course.jpg","09-individual-arena.jpg","10-balance-stations.jpg","11-limestone-and-coast.jpg","12-player-camera-traversal.jpg","low-beach-obstacle.jpg","low-ocean-relay.jpg","low-jungle-net.jpg","low-individual-balance.jpg"}
+          assert {p.name for p in root.glob("*.jpg")} == expected
+          report=json.loads((root/"browser-report.json").read_text())
+          assert not report.get("failure") and not report["errors"]
+          assert len(report["checks"]) == 10 and len(report["screenshots"]) == 16
+          manifest={"runtime_commit":"831e47400c06f120fa7d73791ba2eea4d8cfbe40","workflow_run":42068507831,"artifact_id":13435391250,"artifact_zip_sha256":"6e192aae1ac76728cb29e034613fbdd898b1f51a342c4ce6efc5ce3f55e990c5","method":report["method"],"files":[]}
+          for p in sorted(root.glob("*")):
+              if not p.is_file() or p.name=="PROVENANCE.json": continue
+              data=p.read_bytes()
+              manifest["files"].append({"name":p.name,"bytes":len(data),"sha256":hashlib.sha256(data).hexdigest(),"git_blob_sha1":hashlib.sha1(("blob "+str(len(data))+"\0").encode()+data).hexdigest()})
+          (root/"PROVENANCE.json").write_text(json.dumps(manifest,indent=2)+"\n")
+          p=Path("docs/challenge-beach/PROGRESS.md")
+          p.write_text(p.read_text()+"\n## Verified WebGL evidence recovery\nRuntime commit 831e47400c06f120fa7d73791ba2eea4d8cfbe40 passed TypeScript, 134 unit tests, production build and all ten Challenge Beach WebGL check groups. The normal Player walked six connecting routes; all four configurations rendered in Low/High; three-touch controls, repeated selection, three exact camp round trips and resource/listener plateaus passed. All 16 actual captures and the original browser report are now saved in this branch with file hashes and CI provenance.\n\nThe local workspace became unavailable after runtime work was already saved. A branch-restricted GitHub job recovered the exact successful CI artifact, without touching main or deploying. Next: finalize report/gallery/performance documentation and check the remaining existing camp workflows.\n")
+          PY
+      - name: Save only evidence and recovery record to the draft branch
+        run: |
+          git add -- docs/challenge-beach/evidence docs/challenge-beach/PROGRESS.md
+          if ! git diff --cached --quiet; then
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "docs(challenge): persist verified WebGL captures and browser report [skip ci]"
+            git push origin HEAD:refs/heads/feat/railay-challenge-beach
+          fi
+          git rev-parse HEAD
