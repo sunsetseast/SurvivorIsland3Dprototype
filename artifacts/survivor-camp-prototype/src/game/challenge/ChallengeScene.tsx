@@ -21,6 +21,7 @@ import { ARRIVAL, RETURN_EXIT, ZONES } from "./layout";
 import { heightAt, moveOnTerrain, shoreX, walkable, walkableWithEquipment, zoneAt } from "./surface";
 import { Joystick, RunButton, OrbitZone, TouchButton } from "../Hud";
 import { clearInput, dbg, input } from "../state";
+import { StillwaterStations } from "./stillwater/Stations";
 
 const WORLD: ExplorationWorld = { locationId: "challenge_main", spawn: ARRIVAL, yaw: ARRIVAL.yaw, height: heightAt, move: moveOnTerrain, location: zoneAt };
 function Ground({ low }: { low: boolean }) {
@@ -105,7 +106,7 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
       <CoastalEnvironment low={low} />
       <InlandEnvironment low={low} />
       <TrailMarker connectionId="challenge_to_camp" height={heightAt} />
-      {model && <group key={model.id} name="challenge-active-configuration"><Assembly pieces={model.pieces} low={low} name={`challenge-equipment-${model.id}`} blocker/><RehearsalRoster model={model}/></group>}
+      {model && <group key={model.id} name="challenge-active-configuration"><Assembly pieces={model.pieces} low={low} name={`challenge-equipment-${model.id}`} blocker/>{model.id==="individual-balance"&&<StillwaterStations low={low} engine={()=>null}/>}<RehearsalRoster model={model}/></group>}
       <Player environment={environment} arrival={spawn} />
     </group>
   </>;

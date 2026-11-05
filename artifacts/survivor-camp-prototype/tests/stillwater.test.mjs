@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { StillwaterEngine, STEP, RULES, difficultyAt, balanceWindow, canPlace, assignEntrants, disturbance } from '../src/game/challenge/stillwater/engine.ts';
 import { BalanceInput } from '../src/game/challenge/stillwater/input.ts';
+import { stationVisual } from '../src/game/challenge/stillwater/visual.ts';
+import { STILLWATER_STATIONS } from '../src/game/challenge/individualCourse.ts';
 const active = (roster=[]) => { const e = new StillwaterEngine(roster); e.begin(); e.tutorial(); e.ready(); e.advance(3); assert.equal(e.state.phase,'active'); return e; };
 test('explicit intro, tutorial, ready/countdown and exclusive session transitions',()=>{
  const e=new StillwaterEngine([]); assert.equal(e.ownsControls,false); e.ready();assert.equal(e.state.phase,'idle');
@@ -44,4 +46,8 @@ test('balance/placement have independent pointer owners; stray and cancelled tou
 });
 test('keyboard releases, repeat suppression, accessible sensitivity and focus-reset ownership',()=>{
  let n=0,v=0;const c=new BalanceInput(x=>v=x,()=>n++);c.sensitivity=.5;c.key('KeyD',true);assert.equal(v,.5);c.key('KeyA',true);assert.equal(v,0);c.key('KeyD',false);assert.equal(v,-.5);c.key('Space',true);c.key('Space',true,true);c.key('Space',true);assert.equal(n,1);c.reset();assert.equal(v,0);assert.equal(c.balancePointer,null);assert.equal(c.key('KeyQ',true),false);c.key('Space',true);assert.equal(n,2);
+});
+test('eight original station positions and visible tilt/stack/failure are driven by actual state',()=>{
+ assert.equal(STILLWATER_STATIONS.length,8);assert.equal(new Set(STILLWATER_STATIONS.map(s=>`${s.x}:${s.z}`)).size,8);
+ const c=active().state.competitors[0];c.balance=.5;c.velocity=.2;c.placed=3;const v=stationVisual(c,4);assert.equal(v.count,3);assert.ok(v.tilt>.1);assert.equal(v.fall,0);c.eliminatedAt=4;assert.equal(stationVisual(c,5).fall,1);
 });
