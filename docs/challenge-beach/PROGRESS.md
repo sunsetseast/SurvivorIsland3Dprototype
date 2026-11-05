@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `3d0364c677ffdaf13f92e9f4d7de9ff4823513a8` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
+- Base and last verified remote SHA before this checkpoint: `b478c5ae4a74c1a19267e6b38fbd0cb8b406f154` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -28,7 +28,7 @@ Existing ownership: App mounts one SceneLifecycle at a time; source release comp
 - [x] 6. Main demo (modeled/collidable; traversal/gameplay over equipment deferred)
 - [x] 7. Ocean demo (model only; swimming deferred)
 - [x] 8. Jungle demo (model/collision; gameplay deferred)
-- [ ] 9. Individual demo
+- [x] 9. Individual demo (eight modeled stations; interactions deferred)
 - [ ] 10. Configuration/preview
 - [ ] 11. Integration/regression
 - [ ] 12. Evidence/report
@@ -59,8 +59,11 @@ Built Tidebound Relay descriptors: dry planked shore deck with seaward safety ro
 ## Checkpoint 8 — jungle rope/net model
 Built Canopy Passage descriptors: two lanes of planked starts, four-post braced rope towers with sloped cargo nets and rear rungs, anchored hanging-rope gates with ties, low timber crawl passages, supported diagonal beams and finish decks. Ten targeted tests pass, including safe starts/host/ten-person roster/view/finish, obstacle exclusion and physical movement around the west entrance and inland route. Only the main model remains mounted until selector checkpoint 10.
 
+## Checkpoint 9 — individual balance/endurance model
+Built Stillwater Balance: eight separated timber stations, supported narrow footboards, braced overhead rope/bucket counterweight frames, side stacking plinths, original block stacks and placement wands. Eleven targeted tests pass. Every individual start, roster position, host, view and finish passes shared body/camera validation with equipment collision; west-side circulation remains open. No timing, stacking interaction, endurance input, immunity or elimination is implemented.
+
 ## Known issues / next action
-Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Next: individual balance/endurance model (checkpoint 9), then selector and browser verification. Final visual QA, shader checks, resource measurements and browser rehearsal integration are pending. Only the main demonstration is mounted so far. Intermediate art checkpoints use [skip ci] after local targeted tests; full CI runs again at integration instead of replaying every existing workflow for every small save.
+Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Next: selected-equipment lifecycle and developer preview (checkpoint 10), then final integration/browser evidence. Final visual QA, shader checks, resource measurements and browser rehearsal integration are pending. Only the main demonstration is mounted so far. Intermediate art checkpoints use [skip ci] after local targeted tests; full CI runs again at integration instead of replaying every existing workflow for every small save.
 
 DRAFT ONLY. Do not merge, deploy, publish, use Replit credits or alter the read-only reference repository.
 
