@@ -7,6 +7,7 @@ on:
       - 'artifacts/survivor-camp-prototype/src/game/Contestants.tsx'
       - 'artifacts/survivor-camp-prototype/src/App.tsx'
       - 'artifacts/survivor-camp-prototype/tests/challenge-beach.test.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/resource-ownership.test.mjs'
       - 'artifacts/survivor-camp-prototype/scripts/challenge-beach-qa.mjs'
       - '.github/workflows/challenge-beach.yml'
   workflow_dispatch:

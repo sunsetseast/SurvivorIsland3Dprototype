@@ -54,7 +54,8 @@ async function select(id){await page.getByTestId("challenge-selector").selectOpt
   const detail=await page.evaluate(()=>{const q=window.challengeQA,names=[];q.s.scene.traverse(o=>{if(o.name.startsWith("challenge-equipment-"))names.push(o.name);});return {names,actors:q.s.scene.getObjectByName("challenge-staged-roster")?.children.map(n=>n.name),campNow:q.camp.now};});
   assert.equal(detail.names.length,1);assert.equal(detail.names[0],"challenge-equipment-"+id);return detail;
 }
-async function sample(label){await advance(3,true);const s=await page.evaluate(label=>({label,...(window.__CHALLENGE__?.stats()??window.__WORLD_RENDER__.stats()),listeners:window.challengeListenerCount(),activeScenes:window.__WORLD_RENDER__.lifecycle.active}),label);report.samples.push(s);assert.equal(s.activeScenes,1);return s;}
+// Advance through at least one ownership collection after asynchronous R3F disposal settles.
+async function sample(label){await advance(12,true);const s=await page.evaluate(label=>({label,...(window.__CHALLENGE__?.stats()??window.__WORLD_RENDER__.stats()),trackedResources:window.__WORLD_RENDER__.stats().trackedResources,listeners:window.challengeListenerCount(),activeScenes:window.__WORLD_RENDER__.lifecycle.active}),label);report.samples.push(s);assert.equal(s.activeScenes,1);return s;}
 async function listenerCount(){let previous=-1,stable=0;for(let i=0;i<12 && stable<2;i++){await page.waitForTimeout(170);const n=await page.evaluate(()=>window.challengeListenerCount());stable=n===previous?stable+1:0;previous=n;}assert.ok(stable>=2);return previous;}
 const views={
  "beach-obstacle":{position:[-3,9,-26],target:[-22,2,-3]},
@@ -115,7 +116,9 @@ try{
   assert.equal(report.touchState.running,true,JSON.stringify(report.touchState));await cdp.send("Input.dispatchTouchEvent",{type:"touchEnd",touchPoints:[]});await advance(4);check("Challenge scene retains existing three-touch run/movement/look controls");
   // Switching repeatedly must plateau for an equivalent selected configuration.
   const equivalent=[];for(let cycle=0;cycle<3;cycle++){for(const id of Object.keys(views))await select(id);await select("beach-obstacle");await page.waitForTimeout(250);equivalent.push(await sample(`selection-cycle-${cycle}`));}
-  assert.equal(equivalent[1].geometries,equivalent[2].geometries);assert.equal(equivalent[1].textures,equivalent[2].textures);assert.equal(equivalent[1].listeners,equivalent[2].listeners);check("Repeated configuration selection plateaus GPU geometry/texture and listener counts",equivalent);
+  for(const s of equivalent)assert.ok(Number.isInteger(s.trackedResources)&&s.trackedResources>0);
+  assert.equal(equivalent[1].trackedResources,equivalent[2].trackedResources,"Disposed equipment must not accumulate in the scene ownership Map");
+  assert.equal(equivalent[1].geometries,equivalent[2].geometries);assert.equal(equivalent[1].textures,equivalent[2].textures);assert.equal(equivalent[1].listeners,equivalent[2].listeners);check("Repeated configuration selection plateaus CPU ownership, GPU geometry/texture and listener counts",equivalent);
   const returned=[await returnCamp()];await sample("camp-high-first-return");
   for(let i=0;i<2;i++){await depart();await select("individual-balance");returned.push(await returnCamp());await sample(`camp-high-return-${i+2}`);}
   assert.equal(returned[1],returned[2]);assert.equal(returned[0],firstListeners);assert.equal(returned[0],returned[1]);

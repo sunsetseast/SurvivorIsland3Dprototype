@@ -2,12 +2,20 @@
 
 - PR: https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/23 — **DRAFT, unmerged**.
 - Branch: `feat/railay-challenge-beach`.
-- Last ref-confirmed remote SHA before this documentation commit: `8eca687a1b17a579612bfb84750cd8bc87cbfab3`.
-- Final runtime source: `831e47400c06f120fa7d73791ba2eea4d8cfbe40`.
+- Last ref-confirmed remote SHA before the follow-up cleanup commit: `af64d9980664ed1a7bf5bfc0326f73e89f11aad0`.
+- Original completed runtime source: `831e47400c06f120fa7d73791ba2eea4d8cfbe40`; follow-up runtime verification is recorded below.
 - Hash-verified evidence checkpoint: `acf092025f450f8be1447662b1e32491f6315be6` (16 actual WebGL JPEGs, raw browser report and provenance).
 - Base main: `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`; PR22 was verified merged. No earlier Challenge Beach branch/PR existed.
 
 A commit cannot contain its own SHA. The final handoff and PR description record the newest ref-confirmed documentation head.
+
+## Follow-up checkpoint — bounded resource ownership
+
+A focused continuation review found that SceneLifecycle retained disposed, detached equipment in its ownership Map until scene departure. GPU counts plateaued, but those strong references could retain old CPU geometry arrays during a long preview session.
+
+The collector now removes tracking listeners/references only after an asset is both disposed and absent from the live scene. Live/re-uploaded assets and assets awaiting asynchronous disposal remain eligible for the final scene sweep. Four new behavioral tests cover geometry/material/texture removal, live reuse, asynchronous disposal and 64 replacements. WebGL QA now also asserts that the ownership Map plateaus for equivalent selected setups.
+
+Local verification: **138/138 unit tests**, TypeScript and production build pass; existing bundle/import warnings only. No dependency or lockfile changes. Local Chromium installation failed because the downloaded archive was truncated; the browser assertion will run in the existing read-only GitHub QA workflow. CI verification is pending for this follow-up commit. Keep the PR draft.
 
 ## Completed checkpoints
 
@@ -38,7 +46,7 @@ All five workflows pass at verification commit `a7491c4c2f45e3fef79f594d2c1da46c
 
 The local workspace became unavailable after runtime work was saved. A guarded branch-only GitHub job recovered the exact successful CI artifact; every repository image SHA matches the inspected image. Its temporary write workflow has been removed; the normal read-only QA workflow remains.
 
-Next immediate action: hand off the draft PR for review and physical iPhone/Safari acceptance. No implementation, evidence-copy or CI task remains unfinished. Do not repeat completed research, asset installs or broad audits. The next development work is the separate Stillwater Balance playable slice.
+Next immediate action: verify the cleanup commit's remote SHA, run the existing CI checks, and record the new ownership plateau. Then hand off for physical iPhone/Safari acceptance. Do not repeat completed research or broad audits. The next feature work remains the separate Stillwater Balance playable slice.
 
 ## Known limits
 
