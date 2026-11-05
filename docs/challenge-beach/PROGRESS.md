@@ -83,3 +83,8 @@ Workspace Git authentication and package availability must be resolved or use ex
 
 DRAFT ONLY. Do not merge, deploy, publish, use Replit credits or alter the read-only reference repository.
 
+
+## Verified WebGL evidence recovery
+Runtime commit 831e47400c06f120fa7d73791ba2eea4d8cfbe40 passed TypeScript, 134 unit tests, production build and all ten Challenge Beach WebGL check groups. The normal Player walked six connecting routes; all four configurations rendered in Low/High; three-touch controls, repeated selection, three exact camp round trips and resource/listener plateaus passed. All 16 actual captures and the original browser report are now saved in this branch with file hashes and CI provenance.
+
+The local workspace became unavailable after runtime work was already saved. A branch-restricted GitHub job recovered the exact successful CI artifact, without touching main or deploying. Next: finalize report/gallery/performance documentation and check the remaining existing camp workflows.
