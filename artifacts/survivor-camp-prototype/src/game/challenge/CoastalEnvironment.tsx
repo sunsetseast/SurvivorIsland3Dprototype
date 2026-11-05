@@ -12,7 +12,7 @@ import { heightAt } from "./surface";
 import { Assembly, beam, box, sphere, WOOD, CUT, ROPE, TEAL, type Piece } from "./meshKit";
 
 function Limestone({low}:{low:boolean}) {
-  const material=useMemo(limestoneMaterial,[]);
+  const material=useMemo(()=>{const m=limestoneMaterial();m.color.setRGB(1.35,1.33,1.25);return m;},[]);
   useEffect(()=>()=>material.dispose(),[material]);
   const g=useMemo(()=>{
     const positions:number[]=[],colors:number[]=[],indices:number[]=[],c=new T.Color();
@@ -21,13 +21,13 @@ function Limestone({low}:{low:boolean}) {
       const offset=positions.length/3;
       for(let j=0;j<=levels;j++)for(let i=0;i<=sides;i++) {
         const t=j/levels,a=i/sides*Math.PI*2;
-        const profile=[.78,.58,.91,.95,.84,.88,.81,.67,.45];
+        const profile=[.78,.58,.91,.95,.84,.88,.81,.75,.7];
         const q=t*(profile.length-1),lo=Math.min(profile.length-2,Math.floor(q)),mix=q-lo;
         const waist=profile[lo]!*(1-mix)+profile[lo+1]!*mix;
         // Predominantly vertical unequal ribs and angular shoulders, avoiding concentric balloon rings.
         const scallop=.88+.07*Math.sin(a*7+k.seed)+.05*Math.sin(a*13+k.seed*2)+.025*Math.sin(a*9+t*5);
         const radial=waist*scallop;
-        const crest=.84+.10*Math.sin(a*3+k.seed)+.055*Math.sin(a*7+k.seed*2);
+        const crest=.84+.025*Math.sin(a*3+k.seed)+.015*Math.sin(a*7+k.seed*2);
         const y=heightAt(k.x,k.z)-.6+t*k.h*crest;
         positions.push(k.x+Math.cos(a)*k.rx*radial,y,k.z+Math.sin(a)*k.rz*radial);
         c.set("#e6e3d6").multiplyScalar(.9+.07*Math.sin(a*11+k.seed+t*3));
@@ -44,11 +44,11 @@ function Limestone({low}:{low:boolean}) {
   return <mesh name="challenge-krabi-karsts" geometry={g} material={material} userData={{cameraBlocker:true}}/>;
 }
 
-function BotanicalInstances({geometry,material,plants}:{geometry:T.BufferGeometry;material:T.Material;plants:typeof TREES}) {
+function BotanicalInstances({geometry,material,plants}:{geometry:T.BufferGeometry;material:T.Material;plants:Array<(typeof TREES)[number]&{y?:number}>}) {
   const ref=useRef<T.InstancedMesh>(null);
   useEffect(()=>{
     const m=ref.current;if(!m)return;
-    const o=new T.Object3D();plants.forEach((p,i)=>{o.position.set(p.x,heightAt(p.x,p.z)-0.08,p.z);o.rotation.y=p.turn;o.scale.setScalar(p.scale);o.updateMatrix();m.setMatrixAt(i,o.matrix);});
+    const o=new T.Object3D();plants.forEach((p,i)=>{o.position.set(p.x,p.y??heightAt(p.x,p.z)-0.08,p.z);o.rotation.y=p.turn;o.scale.setScalar(p.scale);o.updateMatrix();m.setMatrixAt(i,o.matrix);});
     m.instanceMatrix.needsUpdate=true;m.computeBoundingSphere();
     return ()=>m.dispose();
   },[geometry,material,plants]);
@@ -75,9 +75,20 @@ function CoastalForest({low}:{low:boolean}) {
     new T.TextureLoader().load(leafUrl,t=>{texture=t;if(!active){t.dispose();return;}t.colorSpace=T.SRGBColorSpace;resources.leaf.map=t;resources.leaf.needsUpdate=true;},undefined,()=>{});
     return ()=>{active=false;texture?.dispose();if(owned)disposeAsset(owned);resources.leaf.dispose();resources.wood.dispose();resources.plain.dispose();};
   },[resources]);
+  const crowns=useMemo(()=>{
+    if(!kit)return null;
+    const source=kit.getObjectByName("canopy-1-far-leaves") as T.Mesh|undefined;if(!source)return null;
+    const geometry=source.geometry.clone();geometry.computeBoundingBox();geometry.translate(0,-geometry.boundingBox!.min.y,0);
+    const plants=KARSTS.flatMap(k=>Array.from({length:5},(_,i)=>{
+      const a=i*2.4,r=i===0?0:.23,scallop=.88+.07*Math.sin(a*7+k.seed)+.05*Math.sin(a*13+k.seed*2)+.025*Math.sin(a*9+5);
+      const crest=.84+.025*Math.sin(a*3+k.seed)+.015*Math.sin(a*7+k.seed*2),blend=r/(.7*scallop);
+      return {x:k.x+Math.cos(a)*k.rx*r,z:k.z+Math.sin(a)*k.rz*r,y:heightAt(k.x,k.z)-.6+k.h*(.84+(crest-.84)*blend)-.3,scale:.55,turn:a,kind:"canopy"};
+    }));return {geometry,plants};
+  },[kit]);
+  useEffect(()=>()=>crowns?.geometry.dispose(),[crowns]);
   const palms=useMemo(()=>TREES.filter(p=>p.kind==="palm"),[]),broad=useMemo(()=>TREES.filter(p=>p.kind==="canopy"),[]);
   if(!kit)return <FallbackForest low={low}/>;
-  return <group name="challenge-botany-ready">{(["palm","canopy"] as const).flatMap(kind=>[0,1,2].flatMap(variant=>(["wood","leaves"] as const).map(part=>{
+  return <group name="challenge-botany-ready">{crowns && <BotanicalInstances geometry={crowns.geometry} material={resources.leaf} plants={crowns.plants}/>} {(["palm","canopy"] as const).flatMap(kind=>[0,1,2].flatMap(variant=>(["wood","leaves"] as const).map(part=>{
     const source=kit.getObjectByName(`${kind}-${variant}-${low?"far":"near"}-${part}`) as T.Mesh|undefined;
     return source?<BotanicalInstances key={`${kind}-${variant}-${part}-${low}`} geometry={source.geometry} material={part==="wood"?resources.wood:kind==="canopy"?resources.leaf:resources.plain} plants={(kind==="palm"?palms:broad).filter((_,i)=>i%3===variant)}/>:null;
   })))}</group>;

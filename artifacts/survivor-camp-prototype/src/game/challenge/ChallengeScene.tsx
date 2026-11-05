@@ -1,3 +1,4 @@
+import { challengeGroundMaterial } from "./groundMaterial";
 import { CONFIGURATIONS, isChallengeId, validateSetup, type ChallengeId } from "./configurations";
 import { PREVIEW_EVENT, SELECTED_EVENT, rehearsalActive, requestPreview } from "./preview";
 import { challengeRehearsalEnabled } from "./development";
@@ -23,6 +24,8 @@ import { clearInput, dbg, input } from "../state";
 
 const WORLD: ExplorationWorld = { locationId: "challenge_main", spawn: ARRIVAL, yaw: ARRIVAL.yaw, height: heightAt, move: moveOnTerrain, location: zoneAt };
 function Ground({ low }: { low: boolean }) {
+  const material=useMemo(challengeGroundMaterial,[]);
+  useEffect(()=>()=>material.dispose(),[material]);
   const geometry = useMemo(() => {
     const g = new T.PlaneGeometry(240, 260, low ? 64 : 96, low ? 70 : 104);
     g.rotateX(-Math.PI / 2);
@@ -43,7 +46,7 @@ function Ground({ low }: { low: boolean }) {
     return g;
   }, [low]);
   useEffect(() => () => geometry.dispose(), [geometry]);
-  return <mesh name="challenge-ground-ready" geometry={geometry} receiveShadow><meshStandardMaterial vertexColors roughness={1} /></mesh>;
+  return <mesh name="challenge-ground-ready" geometry={geometry} material={material} receiveShadow/>;
 }
 export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose }) {
   const [model,setModel]=useState<ChallengeSetup|null>(()=>validateSetup(CONFIGURATIONS["beach-obstacle"].build()));
