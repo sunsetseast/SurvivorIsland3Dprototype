@@ -1,0 +1,72 @@
+{
+  "implementationCommit": "b82fc2aa247efba3766c8be86fb0fd5aba5378ca",
+  "runtimeCommit": "19c73851f9cf6d0955a1c740c1335413d13cf5e5",
+  "allEightImplementationWorkflowsPassed": true,
+  "workflows": [
+    {
+      "name": "Tonsai limestone reconstruction checks",
+      "runId": 41938146122,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146122"
+    },
+    {
+      "name": "Tonsai environment art checks",
+      "runId": 41938146380,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146380"
+    },
+    {
+      "name": "Mobile gameplay controls",
+      "runId": 41938146331,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146331"
+    },
+    {
+      "name": "Connected island journeys",
+      "runId": 41938146357,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146357"
+    },
+    {
+      "name": "Tonsai reconstruction visual checks",
+      "runId": 41938146416,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146416"
+    },
+    {
+      "name": "Tonsai atmosphere visual checks",
+      "runId": 41938146123,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146123"
+    },
+    {
+      "name": "Flagship camp visual and gameplay checks",
+      "runId": 41938146551,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146551"
+    },
+    {
+      "name": "Living camp checks",
+      "runId": 41938146521,
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/41938146521"
+    }
+  ],
+  "local": {
+    "unitTests": 122,
+    "typecheck": "PASS",
+    "productionBuild": "PASS",
+    "worldCheck": {
+      "groups": 6,
+      "solidSweeps": 294
+    }
+  },
+  "physicalIPhoneTested": false,
+  "shelterProfileCorrection": {
+    "commit": "694fedb9bd53f5f8008ca054587fa53437ef61d7",
+    "runId": 41939563376,
+    "conclusion": "success",
+    "actualLowGeometryBytes": 20858126,
+    "actualHighGeometryBytes": 26485672
+  }
+}

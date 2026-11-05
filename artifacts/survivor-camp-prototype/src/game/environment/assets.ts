@@ -3,6 +3,7 @@ import forest from "../../assets/camp/reconstruction.glb?url";
 import landmarksLow from "../../assets/camp/landmarks-low.glb?url";
 import landmarks from "../../assets/camp/landmarks.glb?url";
 import { recordStage } from "./profile";
+import { finishShelterMesh } from "./shelterFinishing";
 import { useEffect, useState } from "react";
 import * as T from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -89,6 +90,11 @@ export function useEnvironmentKit(low = false) {
                 -(b.min.z + b.max.z) * 0.5,
               );
             }
+            if (id === "forest" && m.name.startsWith("shelter-")) {
+              const finishingStart = performance.now();
+              finishShelterMesh(m);
+              recordStage("shelter-completion", finishingStart);
+            }
             for (const mat of [m.material].flat()) {
               const p = mat as T.MeshStandardMaterial;
               p.roughness = 0.93;
@@ -131,7 +137,7 @@ export function useEnvironmentKit(low = false) {
                   p.transparent = false;
                   p.depthWrite = true;
                   p.emissive.set("#92af6d");
-                  p.emissiveIntensity = 0.32;
+                  p.emissiveIntensity = 0.48;
                   p.emissiveMap = p.map;
                 }
               }

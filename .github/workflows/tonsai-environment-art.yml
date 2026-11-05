@@ -1,0 +1,57 @@
+name: Tonsai environment art checks
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/game/environment/**'
+      - 'artifacts/survivor-camp-prototype/src/assets/camp/**'
+      - 'artifacts/survivor-camp-prototype/scripts/environment-art-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/scripts/environment-art-compare.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/environment-art.test.mjs'
+      - 'tools/camp/refinement/**'
+      - 'tools/camp/art/**'
+      - 'tools/camp/reconstruction/**'
+      - 'artifacts/survivor-camp-prototype/tests/fixtures/pr21-cliff-clearance.json'
+      - '.github/workflows/tonsai-environment-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  limestone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: artifacts/survivor-camp-prototype
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+        working-directory: .
+      - run: pnpm typecheck && pnpm test
+      - run: PORT=5200 BASE_PATH=/ pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Capture paired baseline on the same renderer
+        shell: bash
+        run: |
+          baseline="$RUNNER_TEMP/tonsai-art-baseline"
+          evidence="$GITHUB_WORKSPACE/docs/tonsai-art/evidence/before"
+          git worktree add --detach "$baseline" 7b93d5444946217a6c5a59acb93ada563e6c1288
+          trap 'git worktree remove --force "$baseline"' EXIT
+          ln -s "$GITHUB_WORKSPACE/node_modules" "$baseline/node_modules"
+          app=artifacts/survivor-camp-prototype
+          ln -s "$GITHUB_WORKSPACE/$app/node_modules" "$baseline/$app/node_modules"
+          cp scripts/environment-art-qa.mjs "$baseline/$app/scripts/environment-art-qa.mjs"
+          (cd "$baseline/$app" && ART_PHASE=before ART_EVIDENCE="$evidence" node scripts/environment-art-qa.mjs)
+      - run: ART_RENDER_TIMING=1 pnpm qa:environment-art
+      - run: pnpm qa:environment-art-compare
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tonsai-environment-art-webgl
+          path: docs/tonsai-art/evidence/

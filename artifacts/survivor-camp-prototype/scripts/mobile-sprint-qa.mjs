@@ -83,6 +83,8 @@ try {
             target: e.target.closest?.("[data-testid]")?.dataset.testid,
             trusted: e.isTrusted,
             detail: e.detail,
+            x: e.clientX,
+            y: e.clientY,
           }),
         true,
       );
@@ -408,7 +410,22 @@ try {
     await advance(1);
     await down(2, 540, 235);
     const beforeLook = await snapshot();
+    const lookEventStart = await page.evaluate(() => window.touchEvidence.length);
     await move(2, 600, 260);
+    // Inspector acknowledgement can precede coalesced pointermove delivery.
+    // Synchronize this active orbit measurement only: WebKit may correctly
+    // discard the intentionally stale contacts exercised after modal resets.
+    await page.waitForFunction(
+      (from) =>
+        window.touchEvidence.slice(from).some(
+          (e) =>
+            e.type === "pointermove" && e.trusted &&
+            e.target === "orbit-zone" &&
+            Math.abs(e.x - 600) < 1 && Math.abs(e.y - 260) < 1,
+        ),
+      lookEventStart,
+      { timeout: 8000 },
+    );
     await advance(30);
     const duringLook = await snapshot();
     assert.ok(Math.abs(duringLook.camera.yaw - beforeLook.camera.yaw) > 0.35);

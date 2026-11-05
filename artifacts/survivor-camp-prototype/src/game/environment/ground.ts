@@ -158,18 +158,32 @@ export function campGroundMaterial() {
         `#include <common>
    varying vec3 vCampGround;uniform sampler2D campSand,campLitter,campNormal,campForestNormal,campMask;
    vec4 campWeights(){return texture2D(campMask,(vCampGround.xz+vec2(94.,88.))/vec2(259.,236.));}
+   vec3 campSurfaceNormal(){
+     vec2 uv=vCampGround.xz*.31; vec4 w=campWeights();
+     float forest=w.r*(1.-w.g*.55);
+     vec3 a=mix(texture2D(campNormal,uv).xyz,texture2D(campForestNormal,uv*.74).xyz,forest)*2.-1.;
+     vec3 b=texture2D(campNormal,vec2(-uv.y,uv.x)*.37+vec2(11.31,7.73)).xyz*2.-1.;
+     b.xy=vec2(b.y,-b.x);
+     return normalize(mix(a,b,.22*(1.-forest*.65)))*.5+.5;
+   }
   `,
       )
       .replace(
         "#include <map_fragment>",
         `
    vec4 cw=campWeights();vec2 groundUV=vCampGround.xz*.31;
-   vec3 beach=texture2D(campSand,groundUV).rgb*2.35+vec3(.12,.098,.068);
-   beach*=.92+.08*sin(vCampGround.x*.19+sin(vCampGround.z*.12));
-   vec3 forest=texture2D(campLitter,groundUV*.74).rgb;
-   vec3 earth=mix(forest*.68,mix(forest,beach,.33),cw.g);
-   vec3 albedo=mix(beach,earth,cw.r);
-   albedo*=mix(vec3(.58,.65,.62),vec3(1.08,1.025,.91),cw.a)*cw.b;
+   vec2 macroUV=vec2(-groundUV.y,groundUV.x)*.37+vec2(11.31,7.73);
+   vec3 sandFine=texture2D(campSand,groundUV).rgb;
+   vec3 sandBroad=texture2D(campSand,macroUV).rgb;
+   vec3 beach=mix(sandFine,sandBroad,.28)*2.35+vec3(.12,.098,.068);
+   float patches=sin(vCampGround.x*.047+sin(vCampGround.z*.063)*1.7)*sin(vCampGround.z*.038-vCampGround.x*.021);
+   beach*=.96+.055*patches;
+   vec3 forest=mix(texture2D(campLitter,groundUV*.74).rgb,texture2D(campLitter,macroUV*.81+3.1).rgb,.32);
+   float grain=dot(forest,vec3(.25,.6,.15));
+   float habitat=clamp(cw.r+(grain-.18)*.38*cw.r*(1.-cw.r)*4.,0.,1.);
+   vec3 soil=mix(forest*1.07,mix(forest*.9,beach,.24),smoothstep(.15,.9,cw.g));
+   vec3 albedo=mix(beach,soil,habitat);
+   albedo*=mix(vec3(.65,.70,.66),vec3(1.06,1.025,.94),cw.a)*mix(.82,1.,cw.b);
    float sedimentNoise=sin(vCampGround.x*3.17+sin(vCampGround.z*2.3))*sin(vCampGround.z*2.1)*.14;
    float caveFloor=smoothstep(96.,100.,vCampGround.z)*(1.-smoothstep(110.5,112.,vCampGround.z))*smoothstep(6.8,7.8,vCampGround.x+sedimentNoise)*(1.-smoothstep(14.2,15.2,vCampGround.x+sedimentNoise));
    vec3 caveSediment=mix(vec3(.15,.128,.10),beach*.38,.50)*(1.+sedimentNoise*.75);
@@ -179,10 +193,18 @@ export function campGroundMaterial() {
       )
       .replaceAll(
         "texture2D( normalMap, vNormalMapUv ).xyz",
-        "mix(texture2D(campNormal,vCampGround.xz*.31).xyz,texture2D(campForestNormal,vCampGround.xz*.2294).xyz,campWeights().r*(1.-campWeights().g*.55))",
+        "campSurfaceNormal()",
       );
   };
-  mat.customProgramCacheKey = () => "camp-ground-v3-organic-transition";
+  const compile = mat.onBeforeCompile;
+  mat.onBeforeCompile = (s, r) => {
+    compile.call(mat, s, r);
+    s.fragmentShader = s.fragmentShader.replace(
+      "#include <roughnessmap_fragment>",
+      "#include <roughnessmap_fragment>\nroughnessFactor*=mix(.56,1.,cw.a);",
+    );
+  };
+  mat.customProgramCacheKey = () => "camp-ground-v4-macro-grain-wetness";
   mat.addEventListener("dispose", () => {
     active = false;
     resources.forEach((t) => t.dispose());

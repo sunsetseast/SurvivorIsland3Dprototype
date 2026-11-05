@@ -5,11 +5,20 @@ import { CAVE, cliffFaceZ, cliffTopHeight } from "./geography";
 /** Authored headland sections. The front's body-height envelope is unchanged;
  * both exposed ends now wrap around eroded buttresses instead of planar caps.
  * These same functions author both offline LODs and their planting contacts. */
+/** Unequal fracture sections: predominantly planar shoulders with eased joins.
+ * Shared analytical sections keep both exported LODs on the same silhouette. */
+function fractureSection(t: number, values: readonly number[]) {
+  const q = Math.max(0, Math.min(1, t)) * (values.length - 1);
+  const i = Math.min(values.length - 2, Math.floor(q)),
+    u = q - i;
+  const eased = u * 0.78 + u * u * (3 - 2 * u) * 0.22;
+  return values[i]! + (values[i + 1]! - values[i]!) * eased;
+}
 export function karstRimHeight(x: number, depth = 0) {
   return (
     cliffTopHeight(x) * (1 - 0.23 * depth) +
-    Math.sin(Math.PI * depth) * (13 + 4 * Math.sin(x * 0.14 + depth * 5)) +
-    Math.sin(Math.PI * depth * 3) * 3.2
+    fractureSection(depth, [0, 8, 10, 7, 10, 7, 3, 0]) *
+      (0.87 + 0.13 * Math.sin(x * 0.13 + 1))
   );
 }
 export function southernCliffSurface(
@@ -49,8 +58,11 @@ export function southernCliffSurface(
   const d = depth,
     wave = Math.sin(Math.PI * d);
   const outer = Math.pow(Math.abs(x) / 42, 3);
-  const lobes =
-    8.5 * g(d, 0.27, 0.17) + 5.0 * g(d, 0.71, 0.16) - 2.8 * g(d, 0.51, 0.06);
+  const rounded =
+    8.5 * g(d, 0.27, 0.17) + 5 * g(d, 0.71, 0.16) - 2.8 * g(d, 0.51, 0.06);
+  const fractured = fractureSection(d, [0, 3.2, 9.4, 2.9, -1.8, 7.8, 2.1, 0]);
+  const blend = smoothstep(7, 18, h);
+  const lobes = rounded * (1 - blend) + fractured * blend;
   const undercut = 3.5 * g(h, 5.5, 2.7) + 1.7 * g(h, 19 + d * 5, 2.2);
   // The new western foot begins beyond z=105, outside the walkable beach end.
   const foot = (1 - smoothstep(0, 11, h)) * 3.4 * g(d, 0.7, 0.23);
@@ -264,11 +276,14 @@ export function southernCliffGeometry(low = false) {
       y = p.getY(i),
       z = p.getZ(i),
       interior = x > 6.8 && x < 15.2 && z > 98 && y < floor + 6.2;
-    const c = new T.Color("#d9d4c8").multiplyScalar(
-      0.84 + 0.16 * noise2(x * 0.17, y * 0.1 + z * 0.04),
+    const c = new T.Color("#e3e1d4").multiplyScalar(
+      0.87 + 0.13 * noise2(x * 0.17, y * 0.1 + z * 0.04),
     );
-    const stain = Math.max(0, noise2(x * 0.19 + 8, y * 0.12 + z * 0.04) - 0.48);
-    c.lerp(new T.Color("#9c7858"), stain * 1.15);
+    const stain = Math.max(
+      0,
+      noise2(x * 0.31 + 8, y * 0.026 + z * 0.073) - 0.54,
+    );
+    c.lerp(new T.Color("#a06441"), stain * 1.18);
     const damp =
       Math.max(0, 1 - (y - floor) / 2.3) *
       Math.max(0, n.getZ(i)) *

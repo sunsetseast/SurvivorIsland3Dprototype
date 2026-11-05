@@ -1,0 +1,8 @@
+SAMPLE low {"readyMs":2167,"calls":234,"triangles":680644,"stages":{}}
+SAMPLE high {"readyMs":2005,"calls":251,"triangles":980009,"stages":{}}
+SAMPLE low {"readyMs":2311,"calls":234,"triangles":683599,"stages":{}}
+SAMPLE high {"readyMs":1864,"calls":251,"triangles":984059,"stages":{}}
+SAMPLE low {"readyMs":2489,"calls":234,"triangles":683599,"stages":{}}
+SAMPLE high {"readyMs":2040,"calls":251,"triangles":984059,"stages":{}}
+SAMPLE low {"readyMs":2410,"calls":234,"triangles":680644,"stages":{}}
+SAMPLE high {"readyMs":2056,"calls":251,"triangles":980009,"stages":{}}

@@ -1,9 +1,9 @@
 {
   "method": "Original offline control-point geometry, folded leaf meshes, textured canopy sprays; no Blender or hand-sculpting claim",
-  "bytes": 4788628,
-  "sha256": "65d5b97bae38b4ec590c0e7bf1f010a87cca281ae12c4006882f2a655fb711c8",
+  "bytes": 4788648,
+  "sha256": "ad6b5d59ab0bfd7ee136a894030ccf3ca089b63a28f6a9b6a225ea707a526925",
   "sourcesSha256": {
-    "tools/camp/reconstruction/build.mts": "d53e9e02f4e7df23c0685c7e7e030d04bdabf68dc0b97274d5dfb22c5c446835",
+    "tools/camp/reconstruction/build.mts": "673403582bd0491470645f7699dff868793794ab48db21b53c39d95bd1e5cd3a",
     "tools/camp/reconstruction/textures.py": "a57ab617ae80ab5b938b351a056a042e1a3b6ae5b04b719aaaf01722f871f6a7",
     "artifacts/survivor-camp-prototype/src/assets/camp/coastal-tree.glb": "648eec872550a4772cd66a34acc2f22afa5257e1bb5ca3469464a219159bcd46",
     "artifacts/survivor-camp-prototype/src/assets/camp/canopy-spray.png": "9dbe9735dbb492072aee0a62dc25de076843170d9559b622613e5b70ce3518d4"

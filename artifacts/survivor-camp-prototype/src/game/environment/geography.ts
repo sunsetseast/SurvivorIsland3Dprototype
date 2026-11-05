@@ -333,6 +333,12 @@ export function cliffFaceZ(x: number, y = 0) {
 }
 export const CAVE = { minX: 7, maxX: 15, mouthZ: 97, backZ: 111, height: 5.6 };
 export function cliffSolid(x: number, z: number) {
+  // The exported vault starts one metre in front of the nominal mouth. Its
+  // cheeks project past cliffFaceZ: include their standing-body envelope on
+  // the sandy apron too, while retaining the full 7.2 m central corridor.
+  if (z > CAVE.mouthZ - 1.4 && z < CAVE.backZ + 0.4 &&
+      ((x > CAVE.minX - 0.45 && x < CAVE.minX + 0.4) ||
+       (x > CAVE.maxX - 0.4 && x < CAVE.maxX + 0.45))) return true;
   if (x < -40 || x > 42 || z < cliffFaceZ(x, 1.8) - 0.25) return false;
   return !(x > CAVE.minX + 0.4 && x < CAVE.maxX - 0.4 && z < CAVE.backZ - 0.4);
 }

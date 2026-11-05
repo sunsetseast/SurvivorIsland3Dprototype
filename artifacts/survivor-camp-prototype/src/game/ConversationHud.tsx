@@ -2,6 +2,7 @@ import { useEffect, useRef, useSyncExternalStore } from "react";
 import { camp } from "./CampRuntime";
 import { ACTIVITY_LABEL, personName } from "./simulation/DemoProvider";
 import { clearInput } from "./state";
+import { allowSocialClick, suppressSocialCompatibilityClick } from "./socialActivation";
 
 /** Safari/Chromium may suppress a compatibility click after multitouch camera
  * gestures. Complete a deliberate touch on pointerup, while retaining keyboard
@@ -10,28 +11,35 @@ function SocialButton({
   onActivate,
   ...props
 }: React.ComponentProps<"button"> & { onActivate: () => void }) {
-  const touch = useRef({ x: 0, y: 0, suppressUntil: 0 });
+  const touch = useRef({ x: 0, y: 0, pointerId: -1 });
   return (
     <button
       {...props}
       onPointerDown={(e) => {
         touch.current.x = e.clientX;
         touch.current.y = e.clientY;
+        touch.current.pointerId = e.pointerId;
+        if (e.pointerType !== "mouse") {
+          e.preventDefault();
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }
       }}
       onPointerUp={(e) => {
         if (
           e.pointerType !== "mouse" &&
+          e.pointerId === touch.current.pointerId &&
           Math.hypot(e.clientX - touch.current.x, e.clientY - touch.current.y) <
             12
         ) {
           e.preventDefault();
-          touch.current.suppressUntil = performance.now() + 500;
+          suppressSocialCompatibilityClick();
           onActivate();
         }
       }}
+      onPointerCancel={() => { touch.current.pointerId = -1; }}
       onClick={(e) => {
-        if (e.detail === 0 || performance.now() > touch.current.suppressUntil)
-          onActivate();
+        if (allowSocialClick(e.detail)) onActivate();
+        else { e.preventDefault(); e.stopPropagation(); }
       }}
     />
   );

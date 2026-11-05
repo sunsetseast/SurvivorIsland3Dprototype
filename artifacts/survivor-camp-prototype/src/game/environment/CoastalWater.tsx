@@ -45,16 +45,33 @@ export function CoastalWater({
     float shoreline(float z){vec2 s=texture2D(uShore,vec2(clamp((z+150.)/400.,.001,.999),.5)).rg;return (s.r*65280.+s.g*255.)/65535.*256.-128.;}
     float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
     float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1)),f.x),f.y);}
+    // Quintic value noise with its analytical slope: smooth across cell boundaries.
+    vec3 waveField(vec2 p){
+     vec2 i=floor(p),f=fract(p),u=f*f*f*(f*(f*6.-15.)+10.),du=30.*f*f*(f-1.)*(f-1.);
+     float a=hash(i),b=hash(i+vec2(1,0)),c=hash(i+vec2(0,1)),d=hash(i+vec2(1));
+     return vec3(mix(mix(a,b,u.x),mix(c,d,u.x),u.y),mix(b-a,d-c,u.y)*du.x,mix(c-a,d-b,u.x)*du.y);
+    }
     void main(){float d=shoreline(vCoast.z)-vCoast.x;float motion=sin(uTime*.72+vCoast.z*.13)*.28;float water=smoothstep(-.25,.85,d+motion);if(water<.004)discard;
-     vec2 q=vCoast.xz;float small=noise(q*1.4+vec2(uTime*.11,-uTime*.08));float medium=noise(q*.42+uTime*.025);
-     vec3 N=normalize(vec3((noise(q*1.65+vec2(uTime*.10,0.))-noise(q*1.65+vec2(uTime*.10+.17,0.)))*.55+sin(q.x*.4-q.y*.55-uTime*.6+medium*2.)*.035,1.,(noise(q*.93+vec2(0.,-uTime*.085))-noise(q*.93+vec2(.11,-uTime*.085+.13)))*.65));
+     vec2 q=vCoast.xz;
+     float medium=noise(q*.075+vec2(uTime*.012,-uTime*.008));
+     float small=noise(q*.34+vec2(-uTime*.032,uTime*.021));
+     // Rotated, advected slope fields break both square grids and regular bands.
+     vec3 waves=waveField(q*.47+vec2(uTime*.045,-uTime*.031)+medium*.8);
+     vec2 rotated=vec2(q.x*.8-q.y*.6,q.x*.6+q.y*.8);
+     vec3 capillary=waveField(rotated*.91+vec2(-uTime*.053,uTime*.029));
+     vec2 fine=vec2(capillary.y*.8+capillary.z*.6,-capillary.y*.6+capillary.z*.8);
+     float calm=mix(.55,1.,smoothstep(0.,18.,d));
+     vec2 slope=(waves.yz*.045+fine*.018)*calm;
+     vec3 N=normalize(vec3(slope.x,1.,slope.y));
      vec3 V=normalize(cameraPosition-vCoast);float fresnel=.025+.52*pow(1.-max(0.,dot(V,N)),4.);
      vec3 shallow=uShallow,deep=uDeep,sky=tropicalSky(reflect(-V,N));
-     float depth=1.-exp(-max(0.,d)*.043);vec3 color=mix(shallow,deep,depth);color*=.93+.13*medium; color=mix(color,sky,fresnel);
+     float depth=1.-exp(-max(0.,d)*.043);vec3 color=mix(shallow,deep,depth);color*=.95+.09*medium;
+     float sandLight=pow(.5+.5*sin(q.x*.63+q.y*.29+medium*3.),5.)*exp(-max(0.,d)*.19);
+     color+=shallow*sandLight*.07; color=mix(color,sky,fresnel);
      float glint=pow(max(0.,dot(normalize(V+uSun),N)),96.);color+=vec3(1.,.90,.68)*glint*.34;
-     float crest=sin(d*1.85-uTime*1.12+noise(vec2(q.y*.12,0.))*1.4);float broken=smoothstep(.38,.73,small*.65+medium*.35);
-     float foam=smoothstep(.88,1.,crest)*broken*(1.-smoothstep(1.1,7.,d))*.36;
-     float edge=(1.-smoothstep(.06,.5,abs(d+motion-.25)))*(.25+.75*small)*.40;
+     float crest=sin(d*.78-uTime*.78+medium*2.1);float broken=smoothstep(.48,.76,small*.65+medium*.35);
+     float foam=smoothstep(.88,1.,crest)*broken*(1.-smoothstep(.7,4.4,d))*.28;
+     float edge=(1.-smoothstep(.06,.5,abs(d+motion-.25)))*(.20+.80*small)*.28;
      color=mix(color,vec3(.69,.77,.73),clamp(foam+edge,0.,.65));
      gl_FragColor=vec4(color,water*mix(.40,.96,smoothstep(0.,10.,d)));
      #include <tonemapping_fragment>

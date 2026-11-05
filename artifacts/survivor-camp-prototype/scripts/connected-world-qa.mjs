@@ -81,6 +81,7 @@ await page.addInitScript(() => {
     return remove.call(this, type, listener, options);
   };
   window.worldListenerCount = () => listeners.size;
+  window.worldListenerEntries = () => [...listeners].sort();
   for (const type of ["pointerdown", "pointerup", "pointercancel"])
     document.addEventListener(
       type,
@@ -170,6 +171,17 @@ const capture = async (name) => {
 };
 const sample = async (label) => {
   await advance(1, true);
+  // TravelHud refreshes pose-dependent buttons every 150ms; passive effect
+  // cleanup can briefly retain one four-listener touch owner after arrival.
+  // Compare settled equivalent UI, never widen the exact listener ceiling.
+  let previous = -1, stable = 0;
+  for (let i=0; i<10 && stable<2; i++) {
+    await page.waitForTimeout(160);
+    const count = await page.evaluate(() => window.worldListenerCount());
+    stable = count === previous ? stable + 1 : 0;
+    previous = count;
+  }
+  assert.ok(stable >= 2, `listener ownership did not settle: ${label}`);
   report.samples.push(
     await page.evaluate((label) => {
       const q = window.worldQA;
@@ -205,6 +217,7 @@ const sample = async (label) => {
         ...window.__WORLD_RENDER__.stats(),
         jsHeap: performance.memory?.usedJSHeapSize,
         trackedGlobalListeners: window.worldListenerCount(),
+        trackedListenerEntries: window.worldListenerEntries(),
         disposals: structuredClone(window.__WORLD_RENDER__.lifecycle.disposals),
         active: window.__WORLD_RENDER__.lifecycle.active,
       };
@@ -445,6 +458,7 @@ try {
         (s) =>
           s.trackedGlobalListeners === campSamples[1].trackedGlobalListeners,
       ),
+    JSON.stringify(campSamples.map(s=>({label:s.label,count:s.trackedGlobalListeners,entries:s.trackedListenerEntries}))),
   );
   check(
     "Four complete Camp ↔ Trail round trips; equivalent return-UI listener count stays constant",

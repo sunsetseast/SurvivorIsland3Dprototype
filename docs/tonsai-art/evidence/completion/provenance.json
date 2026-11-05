@@ -1,0 +1,16 @@
+{
+  "artCommit": "19c73851f9cf6d0955a1c740c1335413d13cf5e5",
+  "artRun": 41937391598,
+  "artArtifact": 13374278407,
+  "renderer": "Chromium 156 / ANGLE SwiftShader",
+  "physicalIPhone": false,
+  "captureContract": "static-camp-v1",
+  "notes": "Selected current images and paired reports. Complete paired captures are retained in the linked GitHub Actions artifact; the original gallery remains historical.",
+  "shelterCaptureCommit": "694fedb9bd53f5f8008ca054587fa53437ef61d7",
+  "shelterRun": 41939563376,
+  "shelterArtifact": 13376086489,
+  "travelCommit": "b82fc2aa247efba3766c8be86fb0fd5aba5378ca",
+  "travelRun": 41938146357,
+  "travelArtifact": 13374449372,
+  "shelterProfilesVerifiedByLoadedLOD": true
+}

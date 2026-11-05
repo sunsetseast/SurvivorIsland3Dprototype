@@ -1,0 +1,2820 @@
+{
+  "method": "Chromium SwiftShader; 932x430 DPR1 low; trusted keyboard/touch input, real collision/camera/rig; 60 Hz manual simulation between genuine WebGL captures. No physical iPhone certification. Entry timings are host wall times.",
+  "checks": [
+    {
+      "name": "Normal menu has no unrestricted island scene selector"
+    },
+    {
+      "name": "Camp NPC runtime advances"
+    },
+    {
+      "name": "Unauthorized departure denied at real exit"
+    },
+    {
+      "name": "Denied travel leaves movement usable"
+    },
+    {
+      "name": "Camp visual tree unloads, camp simulation retains exact state while paused"
+    },
+    {
+      "name": "Run toggles while joystick and camera remain held; latch survives release"
+    },
+    {
+      "name": "Camp NPC progress, social-memory owner and original instance survive return",
+      "detail": {
+        "savedNow": 22.461799999999933,
+        "restoredNow": 22.528466666666596
+      }
+    },
+    {
+      "name": "Four complete Camp ↔ Trail round trips; equivalent return-UI listener count stays constant"
+    },
+    {
+      "name": "Interrupted destination recovers to preserved source"
+    },
+    {
+      "name": "Failed destination can retry and complete return; overview does not persist into travel"
+    },
+    {
+      "name": "Existing camp conversation opens and closes after repeated journeys"
+    },
+    {
+      "name": "At most one detailed scene; observed geometry/material/texture disposal"
+    },
+    {
+      "name": "Existing sanctuary scene, intro and mobile HUD load through adapter"
+    },
+    {
+      "name": "Existing practice ballot folds and deposits after the world adapter"
+    },
+    {
+      "name": "Actual aborted destination module request returns safely to camp",
+      "detail": {
+        "abortedRequests": 1
+      }
+    }
+  ],
+  "samples": [
+    {
+      "label": "initial camp",
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "calls": 234,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 229.09999999997672,
+          "totalMs": 229.09999999997672,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 30.900000000023283,
+          "totalMs": 30.900000000023283,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 751.3000000000466,
+          "totalMs": 751.3000000000466,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 765,
+          "totalMs": 765,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 979.6999999999534,
+          "totalMs": 979.6999999999534,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 982.5,
+          "totalMs": 982.5,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 986.4000000000233,
+          "totalMs": 986.4000000000233,
+          "runs": 1
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 1052.1999999999534,
+          "totalMs": 1052.1999999999534,
+          "runs": 1
+        }
+      },
+      "triangles": 683599,
+      "geometries": 122,
+      "textures": 30,
+      "programs": 37,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 39,
+      "disposals": {
+        "geometry": 0,
+        "material": 2,
+        "texture": 0,
+        "target": 0
+      },
+      "active": 1
+    },
+    {
+      "label": "first Railay trail arrival",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 229.09999999997672,
+          "totalMs": 229.09999999997672,
+          "runs": 1
+        },
+        "terrain-meshes": {
+          "lastMs": 30.900000000023283,
+          "totalMs": 30.900000000023283,
+          "runs": 1
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 751.3000000000466,
+          "totalMs": 751.3000000000466,
+          "runs": 1
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 765,
+          "totalMs": 765,
+          "runs": 1
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 979.6999999999534,
+          "totalMs": 979.6999999999534,
+          "runs": 1
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 982.5,
+          "totalMs": 982.5,
+          "runs": 1
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 986.4000000000233,
+          "totalMs": 986.4000000000233,
+          "runs": 1
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 1052.1999999999534,
+          "totalMs": 1052.1999999999534,
+          "runs": 1
+        }
+      },
+      "triangles": 415807,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 24,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 213,
+        "material": 51,
+        "texture": 35,
+        "target": 1
+      },
+      "active": 1
+    },
+    {
+      "label": "first camp return",
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8305092355925001,
+        "z": 22
+      },
+      "calls": 193,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.40000000002328306,
+          "totalMs": 229.5,
+          "runs": 2
+        },
+        "terrain-meshes": {
+          "lastMs": 19.800000000046566,
+          "totalMs": 50.70000000006985,
+          "runs": 2
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 51.20000000006985,
+          "totalMs": 802.5000000001164,
+          "runs": 2
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 62.199999999953434,
+          "totalMs": 827.1999999999534,
+          "runs": 2
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 95,
+          "totalMs": 1074.6999999999534,
+          "runs": 2
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 89.70000000006985,
+          "totalMs": 1072.2000000000698,
+          "runs": 2
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 96.79999999993015,
+          "totalMs": 1083.1999999999534,
+          "runs": 2
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 122.40000000002328,
+          "totalMs": 1174.5999999999767,
+          "runs": 2
+        }
+      },
+      "triangles": 246013,
+      "geometries": 151,
+      "textures": 29,
+      "programs": 36,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 392,
+        "material": 73,
+        "texture": 50,
+        "target": 1
+      },
+      "active": 1
+    },
+    {
+      "label": "Railay round 2",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.40000000002328306,
+          "totalMs": 229.5,
+          "runs": 2
+        },
+        "terrain-meshes": {
+          "lastMs": 19.800000000046566,
+          "totalMs": 50.70000000006985,
+          "runs": 2
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 51.20000000006985,
+          "totalMs": 802.5000000001164,
+          "runs": 2
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 62.199999999953434,
+          "totalMs": 827.1999999999534,
+          "runs": 2
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 95,
+          "totalMs": 1074.6999999999534,
+          "runs": 2
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 89.70000000006985,
+          "totalMs": 1072.2000000000698,
+          "runs": 2
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 96.79999999993015,
+          "totalMs": 1083.1999999999534,
+          "runs": 2
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 122.40000000002328,
+          "totalMs": 1174.5999999999767,
+          "runs": 2
+        }
+      },
+      "triangles": 425163,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 26,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 609,
+        "material": 127,
+        "texture": 85,
+        "target": 2
+      },
+      "active": 1
+    },
+    {
+      "label": "camp round 2",
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8305092355925001,
+        "z": 22
+      },
+      "calls": 193,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.5,
+          "totalMs": 230,
+          "runs": 3
+        },
+        "terrain-meshes": {
+          "lastMs": 15.399999999906868,
+          "totalMs": 66.09999999997672,
+          "runs": 3
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 74.5,
+          "totalMs": 877.0000000001164,
+          "runs": 3
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 77.79999999993015,
+          "totalMs": 904.9999999998836,
+          "runs": 3
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 127.79999999993015,
+          "totalMs": 1202.4999999998836,
+          "runs": 3
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 122.5,
+          "totalMs": 1194.7000000000698,
+          "runs": 3
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 167.90000000002328,
+          "totalMs": 1251.0999999999767,
+          "runs": 3
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 172.59999999997672,
+          "totalMs": 1347.1999999999534,
+          "runs": 3
+        }
+      },
+      "triangles": 246013,
+      "geometries": 151,
+      "textures": 29,
+      "programs": 36,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 788,
+        "material": 149,
+        "texture": 101,
+        "target": 2
+      },
+      "active": 1
+    },
+    {
+      "label": "Railay round 3",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.5,
+          "totalMs": 230,
+          "runs": 3
+        },
+        "terrain-meshes": {
+          "lastMs": 15.399999999906868,
+          "totalMs": 66.09999999997672,
+          "runs": 3
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 74.5,
+          "totalMs": 877.0000000001164,
+          "runs": 3
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 77.79999999993015,
+          "totalMs": 904.9999999998836,
+          "runs": 3
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 127.79999999993015,
+          "totalMs": 1202.4999999998836,
+          "runs": 3
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 122.5,
+          "totalMs": 1194.7000000000698,
+          "runs": 3
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 167.90000000002328,
+          "totalMs": 1251.0999999999767,
+          "runs": 3
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 172.59999999997672,
+          "totalMs": 1347.1999999999534,
+          "runs": 3
+        }
+      },
+      "triangles": 425163,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 26,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 1005,
+        "material": 203,
+        "texture": 136,
+        "target": 3
+      },
+      "active": 1
+    },
+    {
+      "label": "camp round 3",
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8305092355925001,
+        "z": 22
+      },
+      "calls": 203,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.7000000000698492,
+          "totalMs": 230.70000000006985,
+          "runs": 4
+        },
+        "terrain-meshes": {
+          "lastMs": 20,
+          "totalMs": 86.09999999997672,
+          "runs": 4
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 79.60000000009313,
+          "totalMs": 956.6000000002095,
+          "runs": 4
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 88.30000000004657,
+          "totalMs": 993.2999999999302,
+          "runs": 4
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 129.39999999990687,
+          "totalMs": 1331.8999999997905,
+          "runs": 4
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 155.30000000004657,
+          "totalMs": 1350.0000000001164,
+          "runs": 4
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 141.40000000002328,
+          "totalMs": 1392.5,
+          "runs": 4
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 148.70000000006985,
+          "totalMs": 1495.9000000000233,
+          "runs": 4
+        }
+      },
+      "triangles": 250869,
+      "geometries": 151,
+      "textures": 29,
+      "programs": 36,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 1184,
+        "material": 225,
+        "texture": 152,
+        "target": 3
+      },
+      "active": 1
+    },
+    {
+      "label": "Railay round 4",
+      "geometryBytes": 8769010,
+      "textureBytesEstimate": 34563354.666666664,
+      "location": "railay_trails",
+      "position": {
+        "x": -417.96734814953726,
+        "y": 3.4752334307077497,
+        "z": -728.3277755297208
+      },
+      "calls": 118,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.7000000000698492,
+          "totalMs": 230.70000000006985,
+          "runs": 4
+        },
+        "terrain-meshes": {
+          "lastMs": 20,
+          "totalMs": 86.09999999997672,
+          "runs": 4
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 79.60000000009313,
+          "totalMs": 956.6000000002095,
+          "runs": 4
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 88.30000000004657,
+          "totalMs": 993.2999999999302,
+          "runs": 4
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 129.39999999990687,
+          "totalMs": 1331.8999999997905,
+          "runs": 4
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 155.30000000004657,
+          "totalMs": 1350.0000000001164,
+          "runs": 4
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 141.40000000002328,
+          "totalMs": 1392.5,
+          "runs": 4
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 148.70000000006985,
+          "totalMs": 1495.9000000000233,
+          "runs": 4
+        }
+      },
+      "triangles": 425163,
+      "geometries": 83,
+      "textures": 12,
+      "programs": 26,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 50,
+      "disposals": {
+        "geometry": 1401,
+        "material": 279,
+        "texture": 187,
+        "target": 4
+      },
+      "active": 1
+    },
+    {
+      "label": "camp round 4",
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -1,
+        "y": 1.8305092355925001,
+        "z": 22
+      },
+      "calls": 209,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.5,
+          "totalMs": 231.20000000006985,
+          "runs": 5
+        },
+        "terrain-meshes": {
+          "lastMs": 17.599999999976717,
+          "totalMs": 103.69999999995343,
+          "runs": 5
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 69.40000000002328,
+          "totalMs": 1026.0000000002328,
+          "runs": 5
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 91.70000000006985,
+          "totalMs": 1085,
+          "runs": 5
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 132.80000000004657,
+          "totalMs": 1464.699999999837,
+          "runs": 5
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 136.60000000009313,
+          "totalMs": 1486.6000000002095,
+          "runs": 5
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 140.40000000002328,
+          "totalMs": 1532.9000000000233,
+          "runs": 5
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 176.80000000004657,
+          "totalMs": 1672.7000000000698,
+          "runs": 5
+        }
+      },
+      "triangles": 263453,
+      "geometries": 156,
+      "textures": 30,
+      "programs": 38,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 43,
+      "disposals": {
+        "geometry": 1585,
+        "material": 301,
+        "texture": 203,
+        "target": 4
+      },
+      "active": 1
+    },
+    {
+      "label": "camp baseline pose after four rounds",
+      "geometryBytes": 20819754,
+      "textureBytesEstimate": 55031152.00000003,
+      "location": "camp_tribe_a",
+      "position": {
+        "x": -6,
+        "y": 1.002931652379349,
+        "z": -24
+      },
+      "calls": 208,
+      "environmentStages": {
+        "territory-distance-field": {
+          "lastMs": 34.5,
+          "totalMs": 34.5,
+          "runs": 1
+        },
+        "world-tables-and-scatter": {
+          "lastMs": 22.100000000093132,
+          "totalMs": 22.100000000093132,
+          "runs": 1
+        },
+        "navigation-hydrate": {
+          "lastMs": 37.59999999997672,
+          "totalMs": 37.59999999997672,
+          "runs": 1
+        },
+        "terrain-mask": {
+          "lastMs": 0.5,
+          "totalMs": 231.20000000006985,
+          "runs": 5
+        },
+        "terrain-meshes": {
+          "lastMs": 17.599999999976717,
+          "totalMs": 103.69999999995343,
+          "runs": 5
+        },
+        "asset-load-parse:botanical": {
+          "lastMs": 69.40000000002328,
+          "totalMs": 1026.0000000002328,
+          "runs": 5
+        },
+        "asset-load-parse:landmarks": {
+          "lastMs": 91.70000000006985,
+          "totalMs": 1085,
+          "runs": 5
+        },
+        "asset-load-parse:rock": {
+          "lastMs": 132.80000000004657,
+          "totalMs": 1464.699999999837,
+          "runs": 5
+        },
+        "asset-load-parse:fern": {
+          "lastMs": 136.60000000009313,
+          "totalMs": 1486.6000000002095,
+          "runs": 5
+        },
+        "asset-load-parse:tree": {
+          "lastMs": 140.40000000002328,
+          "totalMs": 1532.9000000000233,
+          "runs": 5
+        },
+        "asset-load-parse:forest": {
+          "lastMs": 176.80000000004657,
+          "totalMs": 1672.7000000000698,
+          "runs": 5
+        }
+      },
+      "triangles": 699140,
+      "geometries": 162,
+      "textures": 30,
+      "programs": 41,
+      "jsHeap": 109000000,
+      "trackedGlobalListeners": 39,
+      "disposals": {
+        "geometry": 1585,
+        "material": 301,
+        "texture": 203,
+        "target": 4
+      },
+      "active": 1
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "url": "sand_02-normal.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "tropical-clouds.png?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "tropical-clouds.png?import&url",
+      "status": 304,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "tropical-clouds.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coast_rocks_05.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-high.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "broadleaf.png?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern.png?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "leaf-sprays.png?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_diff_1k.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_nor_gl_1k.jpg?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_nor_gl_1k.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_diff_1k.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "broadleaf.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "leaf-sprays.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_diff_1k.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "rock_06_nor_gl_1k.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "broadleaf.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "leaf-sprays.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "broadleaf.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "leaf-sprays.png",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "karsts-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "botanical.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "geology.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-diff.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sand_02-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "brown_mud_leaves_01-normal.jpg",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "reconstruction-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "limestone.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "coastal-tree.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "palms.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "fern_02.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "landmarks-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sanctuary-kit-low.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sanctuary-kit.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "voting-props.glb?import&url",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "voting-props.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    },
+    {
+      "url": "sanctuary-kit-low.glb",
+      "status": 200,
+      "fromServiceWorker": false
+    }
+  ],
+  "touches": [
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "explore-island"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "explore-island"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "joystick"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "orbit-zone"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "orbit-zone"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "joystick"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "button-run"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "island-minimap"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "island-map-toggle"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "island-map-close"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "island-map-close"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "island-overview"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "island-overview"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "grant-journey"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-cancel"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-cancel"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-retry"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-retry"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "travel-connection"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "talk-prompt"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "talk-prompt"
+    },
+    {
+      "type": "pointerdown",
+      "trusted": true,
+      "target": "conversation-panel"
+    },
+    {
+      "type": "pointerup",
+      "trusted": true,
+      "target": "conversation-panel"
+    }
+  ],
+  "browser": "153.0.8010.0",
+  "assetTimings": [
+    {
+      "asset": "reconstruction-low.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 8.099999999976717
+    },
+    {
+      "asset": "reconstruction.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 8.29999999993015
+    },
+    {
+      "asset": "landmarks-low.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.599999999976717
+    },
+    {
+      "asset": "landmarks.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.800000000046566
+    },
+    {
+      "asset": "palms.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 8.800000000046566
+    },
+    {
+      "asset": "limestone.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.900000000023283
+    },
+    {
+      "asset": "coastal-tree.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 10.20000000006985
+    },
+    {
+      "asset": "fern_02.glb?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.099999999976717
+    },
+    {
+      "asset": "sand_02-diff.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.600000000093132
+    },
+    {
+      "asset": "sand_02-normal.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.699999999953434
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.900000000023283
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 10.199999999953434
+    },
+    {
+      "asset": "tropical-clouds.png?import&url",
+      "transferSize": 300,
+      "encodedBodySize": 0,
+      "duration": 9.20000000006985
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 331941,
+      "encodedBodySize": 331641,
+      "duration": 11.699999999953434
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 423330,
+      "encodedBodySize": 423030,
+      "duration": 11.900000000023283
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 59304,
+      "encodedBodySize": 59004,
+      "duration": 9.699999999953434
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 120847,
+      "encodedBodySize": 120547,
+      "duration": 10.5
+    },
+    {
+      "asset": "reconstruction-low.glb",
+      "transferSize": 2963440,
+      "encodedBodySize": 2963140,
+      "duration": 627.4000000000233
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 724320,
+      "encodedBodySize": 724020,
+      "duration": 26.599999999976717
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 1704756,
+      "encodedBodySize": 1704456,
+      "duration": 35.5
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 901544,
+      "encodedBodySize": 901244,
+      "duration": 28.099999999976717
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 481780,
+      "encodedBodySize": 481480,
+      "duration": 22.5
+    },
+    {
+      "asset": "landmarks-low.glb",
+      "transferSize": 1006312,
+      "encodedBodySize": 1006012,
+      "duration": 30.400000000023283
+    },
+    {
+      "asset": "tropical-clouds.png",
+      "transferSize": 121085,
+      "encodedBodySize": 120785,
+      "duration": 28
+    },
+    {
+      "asset": "coast_rocks_05.glb?import&url",
+      "transferSize": 725,
+      "encodedBodySize": 425,
+      "duration": 96.19999999995343
+    },
+    {
+      "asset": "karsts-high.glb?import&url",
+      "transferSize": 726,
+      "encodedBodySize": 426,
+      "duration": 90.40000000002328
+    },
+    {
+      "asset": "karsts-low.glb?import&url",
+      "transferSize": 725,
+      "encodedBodySize": 425,
+      "duration": 90.70000000006985
+    },
+    {
+      "asset": "broadleaf.png?import&url",
+      "transferSize": 708,
+      "encodedBodySize": 408,
+      "duration": 87
+    },
+    {
+      "asset": "fern.png?import&url",
+      "transferSize": 687,
+      "encodedBodySize": 387,
+      "duration": 87.19999999995343
+    },
+    {
+      "asset": "leaf-sprays.png?import&url",
+      "transferSize": 726,
+      "encodedBodySize": 426,
+      "duration": 88.39999999990687
+    },
+    {
+      "asset": "geology.glb?import&url",
+      "transferSize": 698,
+      "encodedBodySize": 398,
+      "duration": 91
+    },
+    {
+      "asset": "rock_06_diff_1k.jpg?import&url",
+      "transferSize": 730,
+      "encodedBodySize": 430,
+      "duration": 19.099999999976717
+    },
+    {
+      "asset": "rock_06_nor_gl_1k.jpg?import&url",
+      "transferSize": 740,
+      "encodedBodySize": 440,
+      "duration": 19.29999999993015
+    },
+    {
+      "asset": "botanical.glb?import&url",
+      "transferSize": 708,
+      "encodedBodySize": 408,
+      "duration": 8.5
+    },
+    {
+      "asset": "rock_06_diff_1k.jpg",
+      "transferSize": 913980,
+      "encodedBodySize": 913680,
+      "duration": 10.400000000023283
+    },
+    {
+      "asset": "rock_06_nor_gl_1k.jpg",
+      "transferSize": 703575,
+      "encodedBodySize": 703275,
+      "duration": 8.5
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 1366316,
+      "encodedBodySize": 1366016,
+      "duration": 22.899999999906868
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 1642168,
+      "encodedBodySize": 1641868,
+      "duration": 23.79999999993015
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 7.199999999953434
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 161884,
+      "encodedBodySize": 161584,
+      "duration": 10.900000000023283
+    },
+    {
+      "asset": "broadleaf.png",
+      "transferSize": 44876,
+      "encodedBodySize": 44576,
+      "duration": 7.600000000093132
+    },
+    {
+      "asset": "fern.png",
+      "transferSize": 24925,
+      "encodedBodySize": 24625,
+      "duration": 8.599999999976717
+    },
+    {
+      "asset": "leaf-sprays.png",
+      "transferSize": 147662,
+      "encodedBodySize": 147362,
+      "duration": 11.900000000023283
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 331641,
+      "duration": 14.400000000023283
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 423030,
+      "duration": 15.300000000046566
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 59004,
+      "duration": 10.400000000023283
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 120547,
+      "duration": 12.199999999953434
+    },
+    {
+      "asset": "reconstruction-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 2963140,
+      "duration": 21.400000000023283
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 15.099999999976717
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 16.900000000023283
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 15
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 13.400000000023283
+    },
+    {
+      "asset": "landmarks-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1006012,
+      "duration": 14.79999999993015
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 3
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 4.900000000023283
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 3.799999999930151
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.099999999976717
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 331641,
+      "duration": 22.400000000023283
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 423030,
+      "duration": 30.5
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 59004,
+      "duration": 20.599999999976717
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 120547,
+      "duration": 21.099999999976717
+    },
+    {
+      "asset": "reconstruction-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 2963140,
+      "duration": 46.40000000002328
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 32.90000000002328
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 43.800000000046566
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 36.800000000046566
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 35.09999999997672
+    },
+    {
+      "asset": "landmarks-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1006012,
+      "duration": 42.09999999997672
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 8.20000000006985
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 19.5
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 17.699999999953434
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 8.900000000023283
+    },
+    {
+      "asset": "reconstruction-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 2963140,
+      "duration": 10.100000000093132
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 9.20000000006985
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 24.20000000006985
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 21.70000000006985
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 20.300000000046566
+    },
+    {
+      "asset": "landmarks-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1006012,
+      "duration": 21.100000000093132
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 7.699999999953434
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 7.400000000023283
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 6
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.3000000000465661
+    },
+    {
+      "asset": "reconstruction-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 2963140,
+      "duration": 32.09999999997672
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 14.900000000023283
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 18
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 16.20000000006985
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 13
+    },
+    {
+      "asset": "landmarks-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1006012,
+      "duration": 15.900000000023283
+    },
+    {
+      "asset": "rock_06_diff_1k.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 913680,
+      "duration": 7.799999999930151
+    },
+    {
+      "asset": "rock_06_nor_gl_1k.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 703275,
+      "duration": 7.5
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 8.5
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 8.5
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 6.300000000046566
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.8000000000465661
+    },
+    {
+      "asset": "broadleaf.png",
+      "transferSize": 300,
+      "encodedBodySize": 44576,
+      "duration": 2.199999999953434
+    },
+    {
+      "asset": "fern.png",
+      "transferSize": 300,
+      "encodedBodySize": 24625,
+      "duration": 3.400000000023283
+    },
+    {
+      "asset": "leaf-sprays.png",
+      "transferSize": 300,
+      "encodedBodySize": 147362,
+      "duration": 3.300000000046566
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 331641,
+      "duration": 8.400000000023283
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 59004,
+      "duration": 7.099999999976717
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 423030,
+      "duration": 8.5
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 120547,
+      "duration": 7.5
+    },
+    {
+      "asset": "reconstruction-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 2963140,
+      "duration": 18.599999999976717
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 15.599999999976717
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 17.800000000046566
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 16.199999999953434
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 13.300000000046566
+    },
+    {
+      "asset": "landmarks-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1006012,
+      "duration": 16.099999999976717
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 11.899999999906868
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 15.29999999993015
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 6.800000000046566
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 7.199999999953434
+    },
+    {
+      "asset": "broadleaf.png",
+      "transferSize": 300,
+      "encodedBodySize": 44576,
+      "duration": 16.600000000093132
+    },
+    {
+      "asset": "fern.png",
+      "transferSize": 300,
+      "encodedBodySize": 24625,
+      "duration": 16.900000000023283
+    },
+    {
+      "asset": "leaf-sprays.png",
+      "transferSize": 300,
+      "encodedBodySize": 147362,
+      "duration": 17.20000000006985
+    },
+    {
+      "asset": "karsts-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1366016,
+      "duration": 5.199999999953434
+    },
+    {
+      "asset": "botanical.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1641868,
+      "duration": 5.300000000046566
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 3.599999999976717
+    },
+    {
+      "asset": "geology.glb",
+      "transferSize": 300,
+      "encodedBodySize": 161584,
+      "duration": 1.1999999999534339
+    },
+    {
+      "asset": "sand_02-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 331641,
+      "duration": 5.799999999930151
+    },
+    {
+      "asset": "brown_mud_leaves_01-diff.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 423030,
+      "duration": 6.199999999953434
+    },
+    {
+      "asset": "sand_02-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 59004,
+      "duration": 4.5
+    },
+    {
+      "asset": "brown_mud_leaves_01-normal.jpg",
+      "transferSize": 300,
+      "encodedBodySize": 120547,
+      "duration": 5
+    },
+    {
+      "asset": "reconstruction-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 2963140,
+      "duration": 12
+    },
+    {
+      "asset": "limestone.glb",
+      "transferSize": 300,
+      "encodedBodySize": 724020,
+      "duration": 9.5
+    },
+    {
+      "asset": "coastal-tree.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1704456,
+      "duration": 11.199999999953434
+    },
+    {
+      "asset": "palms.glb",
+      "transferSize": 300,
+      "encodedBodySize": 901244,
+      "duration": 9.400000000023283
+    },
+    {
+      "asset": "fern_02.glb",
+      "transferSize": 300,
+      "encodedBodySize": 481480,
+      "duration": 8.099999999976717
+    },
+    {
+      "asset": "landmarks-low.glb",
+      "transferSize": 300,
+      "encodedBodySize": 1006012,
+      "duration": 8.5
+    }
+  ],
+  "lifecycle": {
+    "mounts": 14,
+    "unmounts": 13,
+    "active": 1,
+    "peakActive": 1,
+    "disposals": {
+      "geometry": 2470,
+      "material": 466,
+      "texture": 311,
+      "target": 5
+    },
+    "releases": [
+      {
+        "id": "camp_tribe_a",
+        "swept": 32,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 32,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 32,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 32,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 80,
+        "textures": 13
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 32,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "camp_tribe_a",
+        "swept": 32,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      },
+      {
+        "id": "railay_trails",
+        "swept": 0,
+        "geometries": 0,
+        "textures": 1
+      }
+    ],
+    "samples": []
+  },
+  "timings": [
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 2558.5999999999767,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 3012.70000000007,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 671.4000000000233,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 1816.7000000000698,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 807.0999999999767,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 1862.7000000000698,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 770.5999999999767,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 1993.0999999999767,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 1531.7999999999302,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 1978.8999999999069,
+      "outcome": "error"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 3967.6999999999534,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 1848.6999999999534,
+      "outcome": "error"
+    },
+    {
+      "locationId": "railay_trails",
+      "ms": 3335.6999999999534,
+      "outcome": "ready"
+    },
+    {
+      "locationId": "camp_tribe_a",
+      "ms": 786.7999999999302,
+      "outcome": "ready"
+    }
+  ],
+  "result": "PASS"
+}
