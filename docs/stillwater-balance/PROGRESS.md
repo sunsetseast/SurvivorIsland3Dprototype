@@ -10,7 +10,7 @@ Branch: `feat/stillwater-balance`. Keep the PR DRAFT; do not merge, deploy, publ
 3. **Controls — complete.** Separate pointer owners for balance/placement, pointer capture/release, cancellation, keyboard repeat suppression, sensitivity slider, blur/background pause and cleanup. Ten pure engine/input tests pass; actual browser touch sequences follow during integration.
 4. **Interactive station art — complete.** Five shared instanced groups animate footboards, stack platforms, objects, counterweights and tethers from actual competitor values. Existing eight coordinates, solids and safe starts are preserved; static timber has extra lashings/braces. 23 targeted/new-plus-existing tests and TypeScript pass.
 5. **Opponents — complete.** Independent deterministic feedback controllers with phase/lag/error and temporary focus/dexterity/endurance blend. Original roster/player assets are reused at station/spectator marks. Thirteen targeted tests and TypeScript pass, including all available roster sizes, no source mutation, player win/loss and multiple seeded NPC winners.
-6. Original host, introduction/tutorial/countdown, compact HUD and rehearsal results.
+6. **Playable presentation — complete.** Single session bridge, gated station entry, original stylized host at existing mark, introduction/rules/tutorial/countdown, compact stability/placement/roster HUD, elimination notices, pause, results, retry and exploration return. Fourteen targeted tests and TypeScript pass. Browser verification and camera polish follow.
 7. Dedicated smooth camera and immediate-clearing polish; actual WebGL captures.
 8. Access/exit/retry/preview-switch rule and exact camp preservation; integration tests.
 9. Full regression, Low/High real WebGL resource measurements and repeated retries.
@@ -28,4 +28,4 @@ Each numbered checkpoint gets targeted verification, a commit, push, remote SHA 
 
 ## Next action
 
-Integrate session ownership, original host, intro/tutorial/HUD/results and basic playable scene loop (checkpoint 6).
+Polish smooth camera and nearby composition, then capture real WebGL (checkpoint 7).

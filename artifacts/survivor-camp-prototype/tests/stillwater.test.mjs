@@ -4,6 +4,7 @@ import { StillwaterEngine, STEP, RULES, difficultyAt, balanceWindow, canPlace, a
 import { BalanceInput } from '../src/game/challenge/stillwater/input.ts';
 import { stationVisual } from '../src/game/challenge/stillwater/visual.ts';
 import { STILLWATER_STATIONS } from '../src/game/challenge/individualCourse.ts';
+import { StillwaterSession } from '../src/game/challenge/stillwater/session.ts';
 const active = (roster=[]) => { const e = new StillwaterEngine(roster); e.begin(); e.tutorial(); e.ready(); e.advance(3); assert.equal(e.state.phase,'active'); return e; };
 test('explicit intro, tutorial, ready/countdown and exclusive session transitions',()=>{
  const e=new StillwaterEngine([]); assert.equal(e.ownsControls,false); e.ready();assert.equal(e.state.phase,'idle');
@@ -60,4 +61,9 @@ test('player can defeat opponents by feedback control and lose by mistakes; no s
  const good=run(2401,true),bad=run(2401,false);assert.ok(good.state.result.winnerIds.includes(0));assert.ok(!bad.state.result.winnerIds.includes(0));
  assert.ok(new Set([1,2,3,4,5,6,7,8].map(s=>run(s,false).state.result.winnerIds[0])).size>1);
  assert.notEqual(bad.state.competitors[1].balance,bad.state.competitors[2].balance);assert.ok(bad.state.notices.some(n=>n.includes('You are out')));
+});
+test('session admits once near a valid owner, restores pose, and tears down with no stale subscribers',()=>{
+ const s=new StillwaterSession();let admitted=false,released=0,restored=null,n=0;const unsub=s.subscribe(()=>n++);
+ const pose={x:1,z:2,yaw:.3,pitch:.4,facing:1};const dispose=s.configure({admit:()=>admitted,roster:()=>[{id:4,name:'Rob'}],capture:()=>({...pose}),restore:p=>restored=p,release:()=>released++});
+ assert.equal(s.start(),false);s.proximity(true);assert.equal(s.start(),false);admitted=true;assert.equal(s.start(),true);assert.equal(s.start(),false);assert.equal(s.ownsControls,true);s.tutorial();s.ready();s.advance(3);s.pause();s.resume();s.retry();assert.equal(s.engine.state.phase,'tutorial');s.exit();assert.deepEqual(restored,pose);assert.equal(s.ownsControls,false);assert.ok(released>=4);dispose();assert.equal(s.engine,null);const count=n;unsub();s.notify();assert.equal(n,count);assert.equal(s.start(),false);
 });
