@@ -2,7 +2,7 @@
 
 ## Recovery
 - Branch: `feat/railay-challenge-beach`
-- Base and last verified remote SHA before this checkpoint: `cd77b50d1adc483ffa8baa6c4cf4be96e1c5cff7` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
+- Base and last verified remote SHA before this checkpoint: `aa2ae82d5c1cc637bfd9ef4957a0b9c9eec0440b` (checkpoint 1 ref confirmed; base main is `62bb25b579b0d1faef0b52fb7e5ca6dc5ce0d468`).
 - No existing Challenge Beach branch or PR found on 2026-11-05. Reference repository remains untouched.
 - Publishing uses the authenticated GitHub connector because workspace Git clone has no credentials. Every checkpoint must be ref-confirmed before continuing. This document records the previously verified SHA; the commit containing this document cannot contain its own SHA.
 
@@ -26,7 +26,7 @@ Existing ownership: App mounts one SceneLifecycle at a time; source release comp
 - [x] 4. Coast/staging (targeted navigation/collision tests; visual QA pending)
 - [x] 5. Secondary zones/paths (navigation passes; visual QA pending)
 - [x] 6. Main demo (modeled/collidable; traversal/gameplay over equipment deferred)
-- [ ] 7. Ocean demo
+- [x] 7. Ocean demo (model only; swimming deferred)
 - [ ] 8. Jungle demo
 - [ ] 9. Individual demo
 - [ ] 10. Configuration/preview
@@ -53,8 +53,11 @@ Added worn ground transitions on the route network and two inland clearing floor
 ## Checkpoint 6 — main beach demonstration
 Built Coastal Traverse: two colored tribe lanes with planked start decks, rope-roof crawl frames, supported low beams, braced A-frame cargo nets with rear rungs and original geometric puzzle finish decks. Added plain equipment descriptors and merged rendering, configuration metadata, body exclusion boxes, safe start/contestant/host/finish/view positions and scene-owned cleanup. Eight targeted tests pass. Route testing found the original beach cross-path intersected the crawl frames; moved it behind the start decks and updated the blueprint. Equipment is a visual/collidable mockup, without climb/crawl/puzzle gameplay.
 
+## Checkpoint 7 — ocean relay model
+Built Tidebound Relay descriptors: dry planked shore deck with seaward safety rope, three offshore decks with partially submerged pontoons, subframes, anchored lines, retrieval tokens/crossbars and water ladders; lane buoys and beach finish. Nine targeted tests pass; dry staging/host/finish/view body/camera clearance is verified and all offshore platforms remain outside supported movement. Configuration selection comes in checkpoint 10; the ocean model is not active alongside the main course. Swimming, diving, platform climbing and relay gameplay are not implemented.
+
 ## Known issues / next action
-Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Next: ocean relay model (checkpoint 7), then jungle and individual configurations. Final visual QA, shader checks, resource measurements and browser rehearsal integration are pending. Only the main demonstration is mounted so far. Intermediate art checkpoints use [skip ci] after local targeted tests; full CI runs again at integration instead of replaying every existing workflow for every small save.
+Workspace Git authentication and package availability must be resolved or use existing GitHub CI for verification. Next: jungle rope/net model (checkpoint 8), then individual and selector. Final visual QA, shader checks, resource measurements and browser rehearsal integration are pending. Only the main demonstration is mounted so far. Intermediate art checkpoints use [skip ci] after local targeted tests; full CI runs again at integration instead of replaying every existing workflow for every small save.
 
 DRAFT ONLY. Do not merge, deploy, publish, use Replit credits or alter the read-only reference repository.
 

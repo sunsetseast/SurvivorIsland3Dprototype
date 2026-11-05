@@ -9,6 +9,7 @@ import { heightAt, walkable, moveOnTerrain, shoreX } from "../src/game/challenge
 import { KARSTS, TREES, trailDistance } from "../src/game/challenge/environmentLayout.ts";
 import { mainCourse } from "../src/game/challenge/mainCourse.ts";
 import { walkableWithEquipment } from "../src/game/challenge/surface.ts";
+import { oceanCourse, RELAY_PLATFORMS } from "../src/game/challenge/oceanCourse.ts";
 const settle = async m => { await new Promise(r => setTimeout(r, 5)); const t=m.getSnapshot().token; await m.loadPending(t); m.ready(t); };
 const manager = (allow=true, load=async()=>{}) => new TravelManager(load, ()=>{}, 0, ()=>allow);
 async function camp(m) { assert.equal(m.enter("camp_tribe_a"),true); await settle(m); }
@@ -106,4 +107,12 @@ test("main mockup keeps host/contestant spawns and perimeter routes free while b
   for(const p of [model.host,model.view,model.finish,...model.starts,...model.contestants])validateSpawn(p,surface);
   for(const s of model.solids)assert.equal(surface.walkable(s.x,s.z),false);
   for(const route of ROUTES){let p={...route[0]};for(const end of route.slice(1)){for(let i=0;i<2500 && Math.hypot(p.x-end.x,p.z-end.z)>0.08;i++){const d=Math.hypot(end.x-p.x,end.z-p.z),k=Math.min(.12,d)/d;p=moveOnTerrain(p,(end.x-p.x)*k,(end.z-p.z)*k,model.solids);}assert.ok(Math.hypot(p.x-end.x,p.z-end.z)<.09,JSON.stringify({p,end}));}}
+});
+
+test("ocean relay has dry safe staging/finish and unreachable offshore platforms until swimming exists",()=>{
+  const m=oceanCourse(),surface={height:heightAt,walkable:(x,z)=>walkableWithEquipment(x,z,m.solids)};
+  for(const p of [m.host,m.view,m.finish,...m.starts,...m.contestants])validateSpawn(p,surface);
+  assert.equal(m.movement,"swimming-deferred");
+  for(const p of RELAY_PLATFORMS){assert.equal(walkable(p.x,p.z),false);assert.ok(heightAt(p.x,p.z)<0);}
+  for(const z of [-35,-20,-5]){const p=moveOnTerrain({x:-40,z},-90,0,m.solids);assert.ok(walkable(p.x,p.z));assert.ok(p.x>shoreX(p.z)+5);}
 });
