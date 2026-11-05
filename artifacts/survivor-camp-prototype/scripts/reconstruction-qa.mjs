@@ -99,6 +99,8 @@ page.on("console", (m) => {
     report.errors.push(m.text());
 });
 await page.addInitScript(() => {
+  // App's low-core fallback must not override the requested High capture.
+  Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 });
   window.__ART_STAGES__ = {};
   window.__ART_LONGTASKS__ = [];
   new PerformanceObserver((l) =>
@@ -178,6 +180,14 @@ try {
       });
     });
     await advance(150, true);
+    const nearForest = await page.evaluate(() => {
+      let present=false;
+      window.__ART_QA__.s.scene.traverse(o => {
+        if (o.geometry?.name === "forest-0-crown-near") present=true;
+      });
+      return present;
+    });
+    assert.equal(nearForest, quality === "high", `actual reconstruction LOD ${quality}`);
     await page.evaluate(() => window.__ART_QA__.s.gl.getContext().finish());
     const stats = await page.evaluate(() => {
       const s = window.__ART_QA__.s,

@@ -65,3 +65,8 @@ ART_EVIDENCE_ROOT=../../docs/tonsai-art/evidence/completion node scripts/environ
 The original gallery is historical. [Completion gallery](COMPLETION_GALLERY.md), current paired reports, representative native-camera images and the travel report are preserved separately under `evidence/completion/`; provenance identifies the exact run/commit. Full capture sets remain in the linked Actions artifacts.
 
 No additional scene work is required before starting the separate Challenge Beach phase. Implement its event admission/instance/return integration as documented in CHALLENGE_BEACH_NEXT.md. Physical iPhone acceptance remains outstanding, as explicitly listed above.
+
+
+### Shelter gallery profile correction
+
+The initial reconstruction report revealed equal resident geometry and calls for its two requested profiles: App's low-core fallback selected Low for both on the two-core CI runner. The main paired environment-art benchmark already forced eight logical cores and verified distinct Low/High resident geometry; its budgets are valid. The shelter harness now uses that same explicit host-independent profile fixture and asserts the actual loaded near-forest geometry for High (and its absence for Low). The previously labeled High shelter close-up is superseded by the corrected capture. This follow-up changes verification only, not the game's quality selection or scene assets.
