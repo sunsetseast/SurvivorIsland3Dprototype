@@ -9,7 +9,7 @@ Branch: `feat/stillwater-balance`. Keep the PR DRAFT; do not merge, deploy, publ
 2. **Engine — complete.** Pure 60 Hz state machine, smooth disturbance/difficulty, balance recovery, timed precise placements, missed-placement strikes, last-standing/90s results, pause/retry/cancel. Eight targeted tests pass; reference feedback control survives 90 seconds with seven or more placements. Opponent controller follows at checkpoint 5.
 3. **Controls — complete.** Separate pointer owners for balance/placement, pointer capture/release, cancellation, keyboard repeat suppression, sensitivity slider, blur/background pause and cleanup. Ten pure engine/input tests pass; actual browser touch sequences follow during integration.
 4. **Interactive station art — complete.** Five shared instanced groups animate footboards, stack platforms, objects, counterweights and tethers from actual competitor values. Existing eight coordinates, solids and safe starts are preserved; static timber has extra lashings/braces. 23 targeted/new-plus-existing tests and TypeScript pass.
-5. Existing roster actors at independent stations, spectators and elimination tracking.
+5. **Opponents — complete.** Independent deterministic feedback controllers with phase/lag/error and temporary focus/dexterity/endurance blend. Original roster/player assets are reused at station/spectator marks. Thirteen targeted tests and TypeScript pass, including all available roster sizes, no source mutation, player win/loss and multiple seeded NPC winners.
 6. Original host, introduction/tutorial/countdown, compact HUD and rehearsal results.
 7. Dedicated smooth camera and immediate-clearing polish; actual WebGL captures.
 8. Access/exit/retry/preview-switch rule and exact camp preservation; integration tests.
@@ -28,4 +28,4 @@ Each numbered checkpoint gets targeted verification, a commit, push, remote SHA 
 
 ## Next action
 
-Implement independent deterministic opponents using existing focus/dexterity/endurance traits (checkpoint 5).
+Integrate session ownership, original host, intro/tutorial/HUD/results and basic playable scene loop (checkpoint 6).

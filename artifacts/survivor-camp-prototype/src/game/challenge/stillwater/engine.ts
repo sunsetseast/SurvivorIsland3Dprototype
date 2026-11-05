@@ -19,6 +19,13 @@ export function disturbance(t: number, phase: number) {
 }
 export function placementWindow(t: number) { return .19 - .06 * clamp(t / RULES.duration, 0, 1); }
 export function canPlace(c: Competitor, t: number) { return c.eliminatedAt === null && t >= c.nextPlacement && Math.abs(c.balance) <= placementWindow(t) && Math.abs(c.velocity) < .3; }
+/** Ability is a temporary read-only blend of existing traits, never a new character statistic. */
+export function rehearsalAbility(p: {focus?:number;dexterity?:number;endurance?:number}) { return clamp(((p.focus??6)*.4+(p.dexterity??6)*.35+(p.endurance??6)*.25)/10,.25,.95); }
+export function opponentInput(c: Competitor, t: number) {
+  const ability=c.ability??.65,lag=.14+(1-ability)*1.25,fatigue=t/RULES.duration;
+  const error=(Math.sin(t*1.9+c.phase*3)*.18+Math.sin(t*.67+c.phase)*.36)*(1-ability)*(1+fatigue*3.5);
+  return clamp(-(disturbance(Math.max(0,t-lag),c.phase)*.62+c.balance*(1.6+ability)+c.velocity*1.6)/1.65+error,-1,1);
+}
 export function assignEntrants(roster: readonly Entrant[], stationCount = 8): Competitor[] {
   if (!Number.isInteger(stationCount) || stationCount < 1 || stationCount > 8) throw Error("Invalid station capacity");
   const unique = [ { id: 0, name: "You" }, ...roster.filter(p => p.id !== 0) ].filter((p, i, all) => all.findIndex(q => q.id === p.id) === i).slice(0, stationCount);
@@ -89,15 +96,16 @@ export class StillwaterEngine {
     for (const c of s.competitors) {
       c.placementFlash = Math.max(0, c.placementFlash - STEP);
       if (c.eliminatedAt !== null) continue;
-      const target = c.id === 0 ? this.input : 0; // Opponent controller added at checkpoint 5.
+      const target = c.id === 0 ? this.input : opponentInput(c,s.elapsed);
       c.control += (target - c.control) * (1 - Math.exp(-STEP * 12));
       const acceleration = disturbance(s.elapsed, c.phase) * .62 + c.control * 1.65 - c.velocity * 2.1 + c.balance * .12;
       c.velocity += acceleration * STEP; c.balance = clamp(c.balance + c.velocity * STEP, -1.5, 1.5);
       const excess = Math.max(0, Math.abs(c.balance) - balanceWindow(s.elapsed));
       c.stability = clamp(c.stability + (excess > 0 ? -excess * .95 * difficultyAt(s.elapsed) : .11) * STEP, 0, 1);
       if (c.id === 0 && this.placeQueued) this.placement(c);
+      if (c.id !== 0 && s.elapsed >= c.nextPlacement + .7 + (1-(c.ability??.65))*2 && (canPlace(c,s.elapsed) || s.elapsed >= c.nextPlacement + RULES.placementGrace - .25)) this.placement(c);
       if (s.elapsed > c.nextPlacement + RULES.placementGrace) { c.strikes++; c.lastPlacement = "miss"; c.placementFlash = .65; c.nextPlacement += RULES.placementInterval; }
-      if (c.stability <= 0 || c.strikes >= RULES.maxStrikes || Math.abs(c.balance) >= 1.15) { c.eliminatedAt = s.elapsed; this.notice(`${c.name} is out · ${s.elapsed.toFixed(1)}s`); if (c.id === 0) { s.phase = "player-eliminated"; this.release(); } }
+      if (c.stability <= 0 || c.strikes >= RULES.maxStrikes || Math.abs(c.balance) >= 1.15) { c.eliminatedAt = s.elapsed; this.notice(`${c.name} ${c.id===0?"are":"is"} out · ${s.elapsed.toFixed(1)}s`); if (c.id === 0) { s.phase = "player-eliminated"; this.release(); } }
     }
     this.placeQueued = false;
     const live = s.competitors.filter(c => c.eliminatedAt === null);

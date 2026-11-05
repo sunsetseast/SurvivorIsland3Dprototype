@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { StillwaterEngine, STEP, RULES, difficultyAt, balanceWindow, canPlace, assignEntrants, disturbance } from '../src/game/challenge/stillwater/engine.ts';
+import { StillwaterEngine, STEP, RULES, difficultyAt, balanceWindow, canPlace, assignEntrants, disturbance, rehearsalAbility } from '../src/game/challenge/stillwater/engine.ts';
 import { BalanceInput } from '../src/game/challenge/stillwater/input.ts';
 import { stationVisual } from '../src/game/challenge/stillwater/visual.ts';
 import { STILLWATER_STATIONS } from '../src/game/challenge/individualCourse.ts';
@@ -50,4 +50,14 @@ test('keyboard releases, repeat suppression, accessible sensitivity and focus-re
 test('eight original station positions and visible tilt/stack/failure are driven by actual state',()=>{
  assert.equal(STILLWATER_STATIONS.length,8);assert.equal(new Set(STILLWATER_STATIONS.map(s=>`${s.x}:${s.z}`)).size,8);
  const c=active().state.competitors[0];c.balance=.5;c.velocity=.2;c.placed=3;const v=stationVisual(c,4);assert.equal(v.count,3);assert.ok(v.tilt>.1);assert.equal(v.fall,0);c.eliminatedAt=4;assert.equal(stationVisual(c,5).fall,1);
+});
+test('independent seeded opponents use temporary existing traits and produce valid results at all roster sizes',()=>{
+ const source=Object.freeze({focus:8,dexterity:7,endurance:6});assert.ok(Math.abs(rehearsalAbility(source)-.715)<1e-12);assert.equal(source.focus,8);
+ for(const n of [0,1,3,7,14]){const roster=Array.from({length:n},(_,i)=>({id:i+1,name:`P${i}`,ability:.3+i*.07}));const before=JSON.stringify(roster);const e=active(roster);e.advance(95);assert.ok(e.state.result);assert.equal(e.state.result.ranking.length,Math.min(8,n+1));assert.equal(JSON.stringify(roster),before);assert.equal(new Set(e.state.result.ranking.map(c=>c.id)).size,e.state.result.ranking.length);assert.ok(e.state.result.winnerIds.length);}
+});
+test('player can defeat opponents by feedback control and lose by mistakes; no scripted elimination order',()=>{
+ const run=(seed,control)=>{const e=new StillwaterEngine([{id:4,name:'A',ability:.45},{id:11,name:'B',ability:.5},{id:13,name:'C',ability:.55}],seed);e.begin();e.tutorial();e.ready();e.advance(3);for(let i=0;i<5500&&e.state.phase!=='results';i++){const c=e.state.competitors[0];if(control){e.setInput(-(disturbance(e.state.elapsed,c.phase)*.62+c.balance*2.7+c.velocity*2)/1.65);if(canPlace(c,e.state.elapsed))e.place();}else e.setInput(1);e.advance(STEP);}return e;};
+ const good=run(2401,true),bad=run(2401,false);assert.ok(good.state.result.winnerIds.includes(0));assert.ok(!bad.state.result.winnerIds.includes(0));
+ assert.ok(new Set([1,2,3,4,5,6,7,8].map(s=>run(s,false).state.result.winnerIds[0])).size>1);
+ assert.notEqual(bad.state.competitors[1].balance,bad.state.competitors[2].balance);assert.ok(bad.state.notices.some(n=>n.includes('You are out')));
 });
