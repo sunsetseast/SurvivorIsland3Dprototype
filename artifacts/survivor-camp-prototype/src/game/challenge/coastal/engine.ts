@@ -41,7 +41,7 @@ export class CoastalEngine {
   const v=movementVector(x,-forward,0),lane=LANES[r.lane]!;
   r.x=clamp(r.x+v.x*speed*STEP,lane-1.5,lane+1.5);r.z=clamp(r.z+v.z*speed*STEP,-50,limit);
  }
- action(){const r=this.player;if(this.state.phase!=='racing'||r.heat!==this.state.heat||this.elapsed<r.recoverUntil)return false;
+ action(r=this.player){if(this.state.phase!=='racing'||r.heat!==this.state.heat||this.elapsed<r.recoverUntil)return false;
   if(r.stage==='sprint'&&r.z>=-38){this.transition(r,'crawl');return true;}
   if(r.stage==='to-beam'&&r.z>=-25.6){r.x=LANES[r.lane]!;this.transition(r,'beam');return true;}
   if(r.stage==='to-net'&&r.z>=-8.8){r.x=LANES[r.lane]!;this.transition(r,'net');return true;}
@@ -56,11 +56,25 @@ export class CoastalEngine {
   r.lastHand=side;r.handAt=this.elapsed;r.gripTarget=Math.min(1,r.progress+.085);return true;
  }
  grip(side:number){return this.state.phase==='racing'&&this.player.heat===this.state.heat&&this.netGrip(this.player,side===0?0:1);}
+ opponent(r:Runner){
+  if(['sprint','to-beam','to-net','collection'].includes(r.stage))this.action(r);
+  if(r.stage==='net'&&this.elapsed-r.handAt>.45+(1-(r.dexterity??.5))*.45)this.netGrip(r,1-r.lastHand===2?0:1-r.lastHand);
+  if(r.stage==='puzzle'&&this.elapsed>=r.nextAction){
+   const piece=r.slots.findIndex(v=>v<0);if(piece<0)return;
+   const variation=(1+Math.sin(this.seed*13+r.id*7+piece*11+r.mistakes*5))*.5;
+   // Actual independent piece attempts, not a finish timer or predetermined order.
+   if(variation>.92&&r.nextAction>0)this.place(piece,(piece+1)%6,r);else this.place(piece,piece,r);
+   r.nextAction=this.elapsed+2+(1-(r.focus??.5))*7+variation*8;
+  }
+ }
  protected stepRunner(r:Runner){if(this.elapsed<r.recoverUntil)return;
-  const own=r.id===0,x=own?this.input.x:0,forward=own?this.input.forward:0;
-  if(r.stage==='sprint')this.walk(r,x,forward,5.5,-38);
-  if(r.stage==='crawl'){this.walk(r,0,forward,1.65,-30);r.x=LANES[r.lane]!;if(r.z>=-30)this.transition(r,'to-beam');return;}
-  if(r.stage==='to-beam')this.walk(r,x,forward,5,-25.5);
+  const own=r.id===0;
+  if(!own)this.opponent(r);
+  const x=own?this.input.x:r.stage==='beam'?-r.balance*1.8+Math.sin(this.elapsed*1.3+r.id+this.seed)*(.9-(r.focus??.5)):.8*Math.sign(LANES[r.lane]!+[-1.1,-.3,.5][Math.max(0,r.bundles.findIndex(v=>!v))]!-r.x),forward=own?this.input.forward:1;
+  const pace=own?1:.8+(r.physical??.5)*.5;
+  if(r.stage==='sprint')this.walk(r,x,forward,5.5*pace,-38);
+  if(r.stage==='crawl'){this.walk(r,0,forward,1.65*pace,-30);r.x=LANES[r.lane]!;if(r.z>=-30)this.transition(r,'to-beam');return;}
+  if(r.stage==='to-beam')this.walk(r,x,forward,5*pace,-25.5);
   if(r.stage==='beam'){
    r.balance+=(.16*Math.sin(this.elapsed*1.7+this.seed)+x*.9)*STEP;
    r.stability=clamp(r.stability+(Math.abs(r.balance)<.3?.22:-Math.abs(r.balance)*.45)*STEP);
@@ -68,13 +82,13 @@ export class CoastalEngine {
    r.z=Math.min(-17.2,r.z+Math.max(0,forward)*1.35*STEP);r.x=LANES[r.lane]!+r.balance*.12;r.lift=.59;
    if(r.z>=-17.2)this.transition(r,'to-net');return;
   }
-  if(r.stage==='to-net')this.walk(r,x,forward,5,-8.7);
+  if(r.stage==='to-net')this.walk(r,x,forward,5*pace,-8.7);
   if(r.stage==='net'){
    if(r.progress>0&&this.elapsed-r.handAt>2.2){r.mistakes++;r.gripTarget=Math.max(0,r.progress-.06);r.handAt=this.elapsed;this.state.notice='Grip slipped · alternate hands steadily';}
    r.progress+=clamp(r.gripTarget-r.progress,-.25*STEP,.25*STEP);r.z=-8.1+6.2*r.progress;r.lift=.1+2.95*(1-Math.abs(2*r.progress-1));
    if(r.progress>=1-1e-8){r.z=-1.9;this.transition(r,'collection');}return;
   }
-  if(r.stage==='collection')this.walk(r,x,forward,5,16.1);
+  if(r.stage==='collection')this.walk(r,x,forward,5*pace,16.1);
  }
  advance(dt:number){if(!Number.isFinite(dt)||dt<=0||!['racing','countdown'].includes(this.state.phase))return;
   this.accumulator+=dt;

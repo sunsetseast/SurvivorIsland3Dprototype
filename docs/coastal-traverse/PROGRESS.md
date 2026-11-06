@@ -16,7 +16,7 @@ Shared joystick/movement-vector math drives continuous, bounded course movement.
 4. Beam — complete: moving-forward balance with predictable sway, recoverable stability, actual lean, obstacle-only checkpoint reset and two seconds held penalty. Five tests pass including fall/recovery and successful correction.
 5. Net — complete: alternating handholds with repeat suppression, smooth fixed-step ascent/descent along the existing A-frame and recoverable grip slips. Six targeted tests pass.
 6. Mosaic — complete modules: six authored trapezoids tile the board; spatial collection unlocks genuine slot validation, dragging/tap/keyboard alternatives, reset and cancellation ownership. Generated matching mosaic texture/geometry drives both 3D finish boards; old decorative fake tiles removed. Eight targeted tests pass. Mounting/actual browser verification follows integration.
-7. Contestants — pending.
+7. Contestants — complete modules: actual identities use copied strength/endurance/dexterity/focus only; independent course actions, net progress and puzzle attempts. Sequential two-lane heats and overall times. Nine tests pass including ten seeds with variable winners and untouched frozen trait records; TypeScript passes. Existing character renderer follows stage positions/poses; mounted in checkpoint 8.
 8. Presentation/hub integration — pending.
 9. Actual touch/WebGL wins/losses/retries/camp preservation — pending.
 10. Full regression/performance and screenshots — pending.
