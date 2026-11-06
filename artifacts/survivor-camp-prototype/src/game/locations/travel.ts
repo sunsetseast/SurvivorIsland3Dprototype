@@ -1,4 +1,5 @@
-import { challengeRehearsalEnabled } from "../challenge/development";
+import { challengeRehearsalEnabled, challengeTestingEnabled } from "../challenge/development";
+import { CONFIGURATIONS, isChallengeId, validateSetup, type ChallengeId } from "../challenge/configurations";
 import { clearInput } from "../state";
 import {
   CONNECTIONS,
@@ -58,8 +59,18 @@ export type TravelState = {
   error: string | null;
 };
 type Load = (id: LocationId) => Promise<unknown>;
+export type ChallengeTestingRequest = Readonly<{ configuration:ChallengeId; play:boolean; eventId:string; instanceId:string }>;
 export class TravelManager {
-  readonly session = createSession();
+  private normalSession = createSession();
+  private testing: { request:ChallengeTestingRequest; session:WorldSession } | null = null;
+  /** Keep the normal session untouched while the same scene host runs a temporary rehearsal. */
+  get session() { return this.testing?.session ?? this.normalSession; }
+  get challengeTesting(): ChallengeTestingRequest | null {
+    const t=this.testing;
+    return t && this.allowChallengeTesting() && t.session.locationId==="challenge_main" &&
+      t.session.instance.eventId===t.request.eventId && t.session.instance.id===t.request.instanceId &&
+      t.session.participant.instanceId===t.request.instanceId ? t.request : null;
+  }
   private state: TravelState = {
     phase: "menu",
     active: null,
@@ -87,6 +98,7 @@ export class TravelManager {
     private reset = clearInput,
     private fadeMs = 280,
     private allowChallengeRehearsal: () => boolean = () => false,
+    private allowChallengeTesting: () => boolean = () => false,
   ) {}
   subscribe = (f: () => void) => {
     this.listeners.add(f);
@@ -105,6 +117,17 @@ export class TravelManager {
   recordPose(id: LocationId, pose: Pose) {
     if (this.state.active === id && this.state.phase === "ready")
       this.session.poses[id] = { ...pose };
+  }
+  /** Explicit dev-only adapter, not a grant, production route, or second scene/runtime. */
+  enterChallengeTesting(id: unknown): boolean {
+    if(!this.allowChallengeTesting() || this.state.phase!=="menu" || this.testing || !isChallengeId(id))return false;
+    const configuration=CONFIGURATIONS[id],setup=validateSetup(configuration.build());
+    const eventId=`testing-rehearsal:${++this.rehearsalSerial}`;
+    const instance:LocationInstance={id:`${this.normalSession.instance.seasonId}:challenge_main:${eventId}`,locationId:"challenge_main",seasonId:this.normalSession.instance.seasonId,eventId};
+    this.testing={request:Object.freeze({configuration:id,play:configuration.playable,eventId,instanceId:instance.id}),session:{version:1,participant:{...this.normalSession.participant,instanceId:instance.id},locationId:"challenge_main",instance,poses:{},permissions:[]}};
+    this.pendingConnection=null;
+    this.start("challenge_main",configuration.playable?setup.starts[0]??setup.view:setup.view);
+    return true;
   }
   grantJourney() {
     if (
@@ -131,6 +154,7 @@ export class TravelManager {
     return true;
   }
   permission(id: string): string | null {
+    if(this.testing)return "Leave this isolated rehearsal using Challenge Hub or Welcome screen.";
     const c = CONNECTIONS[id];
     if (!c || c.source !== this.session.locationId)
       return "This route is not available here.";
@@ -234,6 +258,7 @@ export class TravelManager {
     if (token !== this.state.token || this.state.phase !== "arriving") return;
     clearTimeout(this.timer);
     const id = this.state.active!;
+    if(this.testing && !this.challengeTesting){this.fail(token,"Challenge testing is not authorized in this build/session.");return;}
     const c = this.pendingConnection
       ? CONNECTIONS[this.pendingConnection]
       : null;
@@ -288,6 +313,7 @@ export class TravelManager {
     this.set({ phase: "unloading", token: this.state.token + 1, error: null });
   }
   returnSafely() {
+    if(this.testing){this.menu();return;}
     if (
       !["error", "loading", "arriving", "unloading", "fading"].includes(
         this.state.phase,
@@ -315,12 +341,15 @@ export class TravelManager {
     clearTimeout(this.timer);
     this.reset();
     this.pendingConnection = null;
+    this.testing = null;
+    this.destinationEntry = null;
     this.set({
       phase: "menu",
       active: null,
       target: null,
       token: this.state.token + 1,
       error: null,
+      entry: null,
     });
   }
 }
@@ -337,5 +366,5 @@ export const worldTravel = new TravelManager(async (id) => {
     default:
       throw Error("This location is planned, and has no scene yet.");
   }
-}, clearInput, 280, challengeRehearsalEnabled);
+}, clearInput, 280, challengeRehearsalEnabled, challengeTestingEnabled);
 

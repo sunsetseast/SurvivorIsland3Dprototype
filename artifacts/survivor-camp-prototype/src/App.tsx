@@ -237,7 +237,7 @@ function App() {
                         onReady={() => setIslandReady(true)}
                       />
                     ) : mode === "challenge" ? (
-                      <ChallengeScene arrival={travel.entry ?? undefined} low={low} />
+                      <ChallengeScene arrival={travel.entry ?? undefined} low={low} initialConfiguration={worldTravel.challengeTesting?.configuration}/>
                     ) : mode === "tribal" ? (
                       <TribalScene />
                     ) : (
@@ -271,14 +271,14 @@ function App() {
               />
             </Suspense>
           ) : mode === "challenge" ? (
-            <Suspense fallback={null}><ChallengeHud low={low} setLow={setLow} onMenu={() => enter("menu")} /></Suspense>
+            <Suspense fallback={null}><ChallengeHud low={low} setLow={setLow} initialConfiguration={worldTravel.challengeTesting?.configuration} onMenu={() => enter("menu")} /></Suspense>
           ) : mode === "tribal" ? (
             <TribalOverlay onMenu={() => enter("menu")} />
           ) : (
             <Hud onMenu={() => enter("menu")} />
           ))}
         <TravelHud blocked={mode === "railay" && islandControlsLocked} />
-        {mode === "menu" && testingHub && challengeTestingEnabled() ? <ChallengeTestingHub onWelcome={()=>{releaseInput();setTestingHub(false);}}/> : mode === "menu" && (
+        {mode === "menu" && testingHub && challengeTestingEnabled() ? <ChallengeTestingHub onSelect={id=>{releaseInput();dbg.teleportRequested=null;dbg.resetRequested=false;worldTravel.enterChallengeTesting(id);}} onWelcome={()=>{releaseInput();setTestingHub(false);}}/> : mode === "menu" && (
           <main className="sanctuary-menu">
             <div className="sanctuary-menu-inner">
               <p className="sanctuary-eyebrow">
