@@ -51,6 +51,13 @@ export class CoastalEngine {
   if(r.stage==='sprint')this.walk(r,x,forward,5.5,-38);
   if(r.stage==='crawl'){this.walk(r,0,forward,1.65,-30);r.x=LANES[r.lane]!;if(r.z>=-30)this.transition(r,'to-beam');return;}
   if(r.stage==='to-beam')this.walk(r,x,forward,5,-25.5);
+  if(r.stage==='beam'){
+   r.balance+=(.16*Math.sin(this.elapsed*1.7+this.seed)+x*.9)*STEP;
+   r.stability=clamp(r.stability+(Math.abs(r.balance)<.3?.22:-Math.abs(r.balance)*.45)*STEP);
+   if(Math.abs(r.balance)>1||r.stability<=0){this.recover(r,'beam');return;}
+   r.z=Math.min(-17.2,r.z+Math.max(0,forward)*1.35*STEP);r.x=LANES[r.lane]!+r.balance*.12;r.lift=.59;
+   if(r.z>=-17.2)this.transition(r,'to-net');return;
+  }
   if(r.stage==='to-net')this.walk(r,x,forward,5,-8.7);
   if(r.stage==='collection')this.walk(r,x,forward,5,16.1);
  }
