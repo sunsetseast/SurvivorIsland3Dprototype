@@ -1,0 +1,9 @@
+import { LANES, type Runner } from './engine';
+import { heightAt } from '../surface';
+/** Explicit low-profile pose clears the 1.05m crawl aperture; support heights follow real equipment. */
+export function runnerVisual(r:Runner,activeHeat:number){
+ if(r.heat!==activeHeat||r.stage==='finished'||r.stage==='dnf')return {x:-35-r.lane*2,z:-53+r.heat*2,y:heightAt(-35-r.lane*2,-53+r.heat*2),scaleY:1,lean:0,working:false};
+ let lift=r.lift;
+ if(r.stage==='sprint')lift=.32*Math.max(0,Math.min(1,(r.z+47)/.5,(-42.5-r.z)/.5));
+ return {x:r.x,z:r.z,y:heightAt(r.x,r.z)+lift,scaleY:r.stage==='crawl'?.43:1,lean:r.stage==='crawl'?.5:r.stage==='beam'?r.balance*.35:0,working:r.stage==='net'||r.stage==='puzzle'};
+}

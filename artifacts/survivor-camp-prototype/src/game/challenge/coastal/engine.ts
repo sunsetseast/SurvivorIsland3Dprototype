@@ -49,6 +49,7 @@ export class CoastalEngine {
  protected stepRunner(r:Runner){if(this.elapsed<r.recoverUntil)return;
   const own=r.id===0,x=own?this.input.x:0,forward=own?this.input.forward:0;
   if(r.stage==='sprint')this.walk(r,x,forward,5.5,-38);
+  if(r.stage==='crawl'){this.walk(r,0,forward,1.65,-30);r.x=LANES[r.lane]!;if(r.z>=-30)this.transition(r,'to-beam');}
   if(r.stage==='to-beam')this.walk(r,x,forward,5,-25.5);
   if(r.stage==='to-net')this.walk(r,x,forward,5,-8.7);
   if(r.stage==='collection')this.walk(r,x,forward,5,16.1);
