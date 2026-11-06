@@ -1,0 +1,22 @@
+{
+  "runtimeCommit": "35b89747b825a4c9eab9b330a89648cbe47804b0",
+  "browser": "153.0.8010.0",
+  "method": "Actual Chromium SwiftShader WebGL; emulated landscape mobile 932x430 DPR1. Manually advanced 60 Hz simulation. No physical iPhone, FPS, thermal or battery certification.",
+  "result": "11/11 grouped WebGL checks pass, no uncaught/WebGL errors",
+  "runtimeManifestSHA256": "80bc6ce0bbf864215e877cc1c226cb0418b8cae2454d440eb10a01f685959ad6",
+  "files": {
+    "01-introduction-low.jpg": "c60db7cd4d7bfb26d71e3acda0188dd470e7efe4c895429ac2283b460343e3aa",
+    "02-tutorial-low.jpg": "09d852214893341012a84437d6d00d3931bfce949363e9900c5d1c765e5ae372",
+    "03-active-low.jpg": "d0ec07a0a169c8c3dcd785f6c39b3bc2a138aa1c85b9e685475731ae62e3a983",
+    "04-struggle-low.jpg": "592ce408e3b9ea31f813ae726a07f446270eaa30bd5c4f5792fd192e8c9bb6af",
+    "05-player-eliminated-low.jpg": "1a2aeadc973005daa714d664e7f4fae2331f34890845704ecaaf0e31f03cdfe5",
+    "06-results-loss-low.jpg": "d2c334399819f9fb4e1e49e99675495bb5b83f8e858b3423354bddb9c08506dd",
+    "07-active-stack-low.jpg": "100d82d0964449a30a0b7a68f6fe7ba7d30b04792e692c2944a68c11c3f9541f",
+    "08-results-win-low.jpg": "0944be113ae71aa55b14e3bcb908fb9f55a6c4ff8fadb55f18aff265ef81c2d7",
+    "09-introduction-high.jpg": "2e6c30d6d9a99ffcd241f290c6929710fa9889bfe6181365289bc948f645c709",
+    "10-active-high.jpg": "8124bd09930e5b53214024ed1802e7303764a81675344ec8886cbd4891167227",
+    "browser-report.json": "894bf65f74635b5e501e150230d0974eefbea95201917b1963837608d7d664b9",
+    "regression.log": "2003ac12f94aa8646ee225ad2e565081f2b18b611d63e396e7109d58f95bae05"
+  },
+  "note": "Final commits after the tested runtime add evidence/docs only. Runtime manifest bytes verified unchanged. Ten genuine browser captures inspected; no physical device certification."
+}
