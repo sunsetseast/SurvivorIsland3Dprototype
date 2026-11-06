@@ -17,7 +17,7 @@ Shared joystick/movement-vector math drives continuous, bounded course movement.
 5. Net — complete: alternating handholds with repeat suppression, smooth fixed-step ascent/descent along the existing A-frame and recoverable grip slips. Six targeted tests pass.
 6. Mosaic — complete modules: six authored trapezoids tile the board; spatial collection unlocks genuine slot validation, dragging/tap/keyboard alternatives, reset and cancellation ownership. Generated matching mosaic texture/geometry drives both 3D finish boards; old decorative fake tiles removed. Eight targeted tests pass. Mounting/actual browser verification follows integration.
 7. Contestants — complete modules: actual identities use copied strength/endurance/dexterity/focus only; independent course actions, net progress and puzzle attempts. Sequential two-lane heats and overall times. Nine tests pass including ten seeds with variable winners and untouched frozen trait records; TypeScript passes. Existing character renderer follows stage positions/poses; mounted in checkpoint 8.
-8. Presentation/hub integration — pending.
+8. Presentation/hub integration — complete: existing lazy scene, DEV hub selection, intro/tutorial/Ready/countdown, owned joystick/keyboard/net/puzzle input, pause/focus/background cleanup, camera, actual identities/3D boards, results/splits/Retry/Hub/Welcome connected. TypeScript and targeted logic checks pass. Actual WebGL journey verification next.
 9. Actual touch/WebGL wins/losses/retries/camp preservation — pending.
 10. Full regression/performance and screenshots — pending.
 11. Final rules/guide/gallery/performance/limitations/report — pending.

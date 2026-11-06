@@ -1,3 +1,4 @@
+import {coastal} from "../challenge/coastal/session";
 import { challengeRehearsalEnabled } from "../challenge/development";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { camp } from "../CampRuntime";
@@ -8,7 +9,8 @@ import { stillwater } from "../challenge/stillwater/session";
 export const developerTravel =
   new URLSearchParams(location.search).get("devTravel") === "1";
 export function TravelHud({ blocked = false }: { blocked?: boolean }) {
-  useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
+  useSyncExternalStore(stillwater.subscribe,()=>(stillwater.ownsControls||coastal.ownsControls));
+  useSyncExternalStore(coastal.subscribe,()=>coastal.ownsControls);
   const social = useSyncExternalStore(camp.subscribe, camp.getSnapshot);
   const s = useSyncExternalStore(
       worldTravel.subscribe,
@@ -65,7 +67,7 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
         <h2>{s.message}</h2>
       </div>
     );
-  if(session.locationId==="challenge_main"&&stillwater.ownsControls)return null;
+  if(session.locationId==="challenge_main"&&(stillwater.ownsControls||coastal.ownsControls))return null;
   if(worldTravel.challengeTesting)return <div className="world-location" data-testid="world-location"><strong>Challenge Testing</strong><small>Environment preview · Temporary rehearsal</small></div>;
   const map = p && localToGeographic(session.locationId, p);
   return (

@@ -70,7 +70,7 @@ export class CoastalEngine {
  protected stepRunner(r:Runner){if(this.elapsed<r.recoverUntil)return;
   const own=r.id===0;
   if(!own)this.opponent(r);
-  const x=own?this.input.x:r.stage==='beam'?-r.balance*1.8+Math.sin(this.elapsed*1.3+r.id+this.seed)*(.9-(r.focus??.5)):.8*Math.sign(LANES[r.lane]!+[-1.1,-.3,.5][Math.max(0,r.bundles.findIndex(v=>!v))]!-r.x),forward=own?this.input.forward:1;
+  const x=own?this.input.x:r.stage==='beam'?-r.balance*1.8+Math.sin(this.elapsed*1.3+r.id+this.seed)*(.9-(r.focus??.5)):r.stage==='collection'?.8*Math.sign(LANES[r.lane]!+[-1.1,-.3,.5][Math.max(0,r.bundles.findIndex(v=>!v))]!-r.x):0,forward=own?this.input.forward:1;
   const pace=own?1:.8+(r.physical??.5)*.5;
   if(r.stage==='sprint')this.walk(r,x,forward,5.5*pace,-38);
   if(r.stage==='crawl'){this.walk(r,0,forward,1.65*pace,-30);r.x=LANES[r.lane]!;if(r.z>=-30)this.transition(r,'to-beam');return;}

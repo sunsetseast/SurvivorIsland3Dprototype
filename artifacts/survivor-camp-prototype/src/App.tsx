@@ -1,3 +1,4 @@
+import {coastal} from "@/game/challenge/coastal/session";
 import {
   lazy,
   Suspense,
@@ -96,7 +97,7 @@ function App() {
     else if (next === "tribal") worldTravel.enter("tribal_council", true);
     else if (developerTravel) worldTravel.enter("railay_trails", true);
   };
-  const leaveTesting=(hub:boolean)=>{stillwater.exit();enter("menu");setTestingHub(hub);};
+  const leaveTesting=(hub:boolean)=>{stillwater.exit();coastal.exit();enter("menu");setTestingHub(hub);};
   useEffect(() => {
     const clearInput = () => {
       releaseInput();

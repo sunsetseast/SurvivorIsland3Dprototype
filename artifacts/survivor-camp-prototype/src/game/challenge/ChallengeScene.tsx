@@ -1,3 +1,9 @@
+import {coastal} from "./coastal/session";
+import {CoastalRoster} from "./coastal/Roster";
+import {MosaicBoards} from "./coastal/Boards";
+import {CoastalCamera} from "./coastal/Camera";
+import {CoastalHud} from "./coastal/Hud";
+import {traits} from "./coastal/engine";
 import { challengeGroundMaterial } from "./groundMaterial";
 import { CONFIGURATIONS, isChallengeId, validateSetup, type ChallengeId } from "./configurations";
 import { PREVIEW_EVENT, SELECTED_EVENT, rehearsalActive, requestPreview } from "./preview";
@@ -60,6 +66,7 @@ function Ground({ low }: { low: boolean }) {
 }
 export function ChallengeScene({ low, arrival, initialConfiguration="beach-obstacle" }: { low: boolean; arrival?: Pose; initialConfiguration?:ChallengeId }) {
   useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
+  useSyncExternalStore(coastal.subscribe,coastal.snapshot);
   const [model,setModel]=useState<ChallengeSetup|null>(()=>validateSetup(CONFIGURATIONS[initialConfiguration].build()));
   const [switching,setSwitching]=useState(false);
   const selected=useRef<ChallengeSetup|null>(model),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
@@ -68,7 +75,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   const hostMotion=useRef({speed:0,running:false,distance:0,talking:true});
   const autoStarted=useRef<string|null>(null);
   selected.current=model;
-  const environment=useMemo(()=>({...WORLD,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls,
+  const environment=useMemo(()=>({...WORLD,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls||coastal.ownsControls,
     move:(p:{x:number;z:number},dx:number,dz:number)=>moveOnTerrain(p,dx,dz,model?.solids??[])}),[model,switching]);
   useEffect(()=>{
     return stillwater.configure({
@@ -79,8 +86,18 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
       release:clearInput,
     });
   },[]);
+  useEffect(()=>coastal.configure({
+    admit:()=>rehearsalActive()&&selected.current?.id==="beach-obstacle",
+    roster:()=>camp.npcs.slice(0,7).map(n=>{const p=CONTESTANTS.find(p=>p.id===n.id);return {id:n.id,name:p?.firstName??`Contestant ${n.id}`,...traits(p??{})};}),
+    capture:()=>({x:dbg.x,z:dbg.z,yaw:input.yaw,pitch:input.pitch,facing:dbg.face}),
+    restore:p=>{dbg.teleportRequested={x:p.x,z:p.z};input.yaw=p.yaw;input.pitch=p.pitch;},release:clearInput,
+  }),[]);
   useEffect(()=>{
-    const blur=()=>{if(stillwater.ownsControls)stillwater.pause();},hidden=()=>{if(document.hidden)blur();};
+   const down=(e:KeyboardEvent)=>{if(!coastal.ownsControls)return;const k=e.key.toLowerCase();if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','q','e','escape'].includes(k)){e.preventDefault();coastal.keys.add(k);if(!e.repeat){if(k===' ')coastal.action();if(k==='q')coastal.grip(0);if(k==='e')coastal.grip(1);if(k==='escape')coastal.pause();}}},up=(e:KeyboardEvent)=>coastal.keys.delete(e.key.toLowerCase()),reset=()=>coastal.keys.clear();
+   window.addEventListener('keydown',down);window.addEventListener('keyup',up);window.addEventListener('survivor-input-clear',reset);return()=>{window.removeEventListener('keydown',down);window.removeEventListener('keyup',up);window.removeEventListener('survivor-input-clear',reset);};
+  },[]);
+  useEffect(()=>{
+    const blur=()=>{if(stillwater.ownsControls)stillwater.pause();if(coastal.ownsControls)coastal.pause();},hidden=()=>{if(document.hidden)blur();};
     window.addEventListener("blur",blur);document.addEventListener("visibilitychange",hidden);
     return()=>{window.removeEventListener("blur",blur);document.removeEventListener("visibilitychange",hidden);};
   },[]);
@@ -88,7 +105,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
     const select=(event:Event)=>{
       const id=(event as CustomEvent).detail;
       if(!rehearsalActive()||!isChallengeId(id)||id===selected.current?.id)return;
-      stillwater.exit();stillwater.proximity(false);
+      stillwater.exit();stillwater.proximity(false);coastal.exit();coastal.near=false;
       const next=validateSetup(CONFIGURATIONS[id].build());
       clearTimeout(timer.current);clearInput();inspection.current=null;setSwitching(true);setModel(null);
       // The old subtree unmounts and its explicit geometry/material disposals run before the next activation.
@@ -113,7 +130,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
       select:requestPreview,
       arrival:()=>{if(rehearsalActive()){inspection.current=null;dbg.teleportRequested={...ARRIVAL};input.yaw=ARRIVAL.yaw;input.pitch=.3;}},
       inspect:(p:typeof inspection.current)=>{if(rehearsalActive()){clearInput();inspection.current=p;}},
-      stillwater,
+      stillwater, coastal,
       surface:{height:heightAt,walkable:(x:number,z:number)=>walkableWithEquipment(x,z,selected.current?.solids??[]),move:(p:{x:number;z:number},dx:number,dz:number)=>moveOnTerrain(p,dx,dz,selected.current?.solids??[])},
       stats:()=>{const geometries=new Set<T.BufferGeometry>();scene.traverse(o=>{if((o as T.Mesh).geometry)geometries.add((o as T.Mesh).geometry);});let bytes=0;for(const g of geometries){for(const a of Object.values(g.attributes)){const data=(a as T.InterleavedBufferAttribute).isInterleavedBufferAttribute?(a as T.InterleavedBufferAttribute).data.array:(a as T.BufferAttribute).array;bytes+=data.byteLength;}if(g.index)bytes+=g.index.array.byteLength;}
         return {quality:low?"low":"high",configuration:selected.current?.id,calls:gl.info.render.calls,triangles:gl.info.render.triangles,geometries:gl.info.memory.geometries,textures:gl.info.memory.textures,activeGeometryBytes:bytes,programs:gl.info.programs?.length};},
@@ -123,9 +140,12 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   useFrame((_,dt)=>{
     const m=selected.current;
     const near=m?.id==="individual-balance"&&rehearsalActive()&&Math.min(...[m.view,...m.starts].map(p=>Math.hypot(dbg.x-p.x,dbg.z-p.z)))<5;
+    const coastNear=m?.id==="beach-obstacle"&&rehearsalActive();if(coastal.near!==coastNear){coastal.near=!!coastNear;coastal.notify();}
+    const keys=coastal.keys;coastal.engine?.axis(input.joyX+Number(keys.has("d")||keys.has("arrowright"))-Number(keys.has("a")||keys.has("arrowleft")),input.joyY+Number(keys.has("w")||keys.has("arrowup"))-Number(keys.has("s")||keys.has("arrowdown")));
+    if(!document.hidden)coastal.advance(Math.min(dt,.1));
     stillwater.proximity(!!near);if(!document.hidden)stillwater.advance(Math.min(dt,.1));
     const request=worldTravel.challengeTesting;
-    if(request?.play && request.configuration===m?.id && autoStarted.current!==request.eventId && rehearsalActive() && stillwater.start())autoStarted.current=request.eventId;
+    if(request?.play && request.configuration===m?.id && autoStarted.current!==request.eventId && rehearsalActive() && (m.id==="beach-obstacle"?coastal.start():stillwater.start()))autoStarted.current=request.eventId;
   },-.5);
   useFrame(()=>{if(inspection.current){camera.position.set(...inspection.current.position);camera.lookAt(...inspection.current.target);}},1);
   useFrame(()=>gl.render(scene,camera),2);
@@ -141,18 +161,19 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
       <CoastalEnvironment low={low} />
       <InlandEnvironment low={low} />
       <TrailMarker connectionId="challenge_to_camp" height={heightAt} />
-      {model && <group key={model.id} name="challenge-active-configuration"><Assembly pieces={model.pieces} low={low} name={`challenge-equipment-${model.id}`} blocker/>{model.id==="individual-balance"&&<><StillwaterStations low={low} engine={()=>stillwater.ownsControls?stillwater.engine:null}/><group name="stillwater-original-host" position={[model.host.x,heightAt(model.host.x,model.host.z),model.host.z]} rotation={[0,Math.PI/2,0]} scale={1.06}><Survivor motion={hostMotion}/></group></>}{stillwater.ownsControls&&stillwater.engine?<StillwaterRoster engine={()=>stillwater.engine} roster={stillwater.engine.state.competitors}/>:<RehearsalRoster model={model}/>}</group>}
-      <group visible={!stillwater.ownsControls}><Player environment={environment} arrival={spawn} /></group>
-      <StillwaterCamera/>
+      {model && <group key={model.id} name="challenge-active-configuration"><Assembly pieces={model.pieces} low={low} name={`challenge-equipment-${model.id}`} blocker/>{model.id==="individual-balance"&&<><StillwaterStations low={low} engine={()=>stillwater.ownsControls?stillwater.engine:null}/><group name="stillwater-original-host" position={[model.host.x,heightAt(model.host.x,model.host.z),model.host.z]} rotation={[0,Math.PI/2,0]} scale={1.06}><Survivor motion={hostMotion}/></group></>}{model.id==="beach-obstacle"&&<group name="coastal-original-host" position={[model.host.x,heightAt(model.host.x,model.host.z),model.host.z]} rotation={[0,Math.PI/2,0]}><Survivor motion={hostMotion}/></group>}{coastal.ownsControls&&coastal.engine?<><CoastalRoster key={coastal.engine.seed} engine={coastal.engine}/><MosaicBoards key={`board-${coastal.engine.seed}`} engine={coastal.engine}/></>:stillwater.ownsControls&&stillwater.engine?<StillwaterRoster engine={()=>stillwater.engine} roster={stillwater.engine.state.competitors}/>:<RehearsalRoster model={model}/>}</group>}
+      <group visible={!stillwater.ownsControls&&!coastal.ownsControls}><Player environment={environment} arrival={spawn} /></group>
+      <StillwaterCamera/><CoastalCamera/>
     </group>
   </>;
 }
 export function ChallengeHud({ low, setLow, onMenu, initialConfiguration="beach-obstacle",onHub,onWelcome }: { low: boolean; setLow: (v: boolean) => void; onMenu: () => void; initialConfiguration?:ChallengeId;onHub?:()=>void;onWelcome?:()=>void }) {
   useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
+  useSyncExternalStore(coastal.subscribe,coastal.snapshot);
   const [selected,setSelected]=useState<ChallengeId>(initialConfiguration);
   useEffect(()=>{const f=(e:Event)=>{const id=(e as CustomEvent).detail;if(isChallengeId(id))setSelected(id);};window.addEventListener(SELECTED_EVENT,f);return ()=>{window.removeEventListener(SELECTED_EVENT,f);clearInput();};},[]);
   return <div className="island-hud">
-    {!stillwater.ownsControls&&<><OrbitZone allowLookUp />
+    {!stillwater.ownsControls&&!coastal.ownsControls&&<><OrbitZone allowLookUp />
     <div className="island-toolbar">
       {onHub?<><TouchButton data-testid="testing-hub" onActivate={onHub}>Challenge Hub</TouchButton><TouchButton data-testid="testing-welcome" onActivate={()=>onWelcome?.()}>Welcome screen</TouchButton></>:<TouchButton data-testid="challenge-menu" onActivate={()=>{stillwater.exit();onMenu();}}>Menu</TouchButton>}
       {!onHub&&challengeRehearsalEnabled() && <>
@@ -162,6 +183,6 @@ export function ChallengeHud({ low, setLow, onMenu, initialConfiguration="beach-
       <TouchButton data-testid="challenge-quality" onActivate={() => setLow(!low)}>{low ? "Quality: Low" : "Quality: High"}</TouchButton>
     </div>
     <div style={{ pointerEvents: "auto" }}><Joystick /><RunButton /></div></>}
-    <StillwaterHud onHub={onHub} onWelcome={onWelcome}/>
+    <StillwaterHud onHub={onHub} onWelcome={onWelcome}/><CoastalHud onHub={onHub} onWelcome={onWelcome} onExit={coastal.exit}/>
   </div>;
 }

@@ -6,7 +6,7 @@ import { validateSpawn } from "../locations/spawn";
 import { heightAt, walkableWithEquipment } from "./surface";
 import type { ChallengeSetup } from "./equipment";
 export const CONFIGURATIONS = {
-  "beach-obstacle": { name:"Main Beach · Coastal Traverse", build:mainCourse, playable:false, description:"Explore the timber obstacles and puzzle finish decks." },
+  "beach-obstacle": { name:"Main Beach · Coastal Traverse", build:mainCourse, playable:true, description:"Race the crawl, beam and net, then assemble the Karst Mosaic." },
   "ocean-relay": { name:"Ocean · Tidebound Relay", build:oceanCourse, playable:false, description:"Inspect the offshore platforms, buoy lanes and relay equipment." },
   "jungle-net": { name:"Jungle · Canopy Passage", build:jungleCourse, playable:false, description:"Explore the rope towers, beams and forest competition course." },
   "individual-balance": { name:"Individual · Stillwater Balance", build:individualCourse, playable:true, description:"Practice balance and stacking. Compete against the existing contestants." },
