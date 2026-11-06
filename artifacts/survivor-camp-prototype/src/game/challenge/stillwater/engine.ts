@@ -77,7 +77,7 @@ export class StillwaterEngine {
     });
     const same = (a: Competitor, b: Competitor) => a.eliminatedAt === b.eliminatedAt && (a.eliminatedAt !== null || (a.placed === b.placed && Math.abs(a.stability - b.stability) < 1e-9));
     let place = 1;
-    this.state.result = { winnerIds: list.filter(c => same(c, list[0]!)).map(c => c.id), ranking: list.map((c, i) => { if (i && !same(c, list[i-1]!)) place = i+1; return { id:c.id, name:c.name, place, placed:c.placed, eliminatedAt:c.eliminatedAt }; }), duration: this.state.elapsed, reason, rehearsal: true };
+    this.state.result = { winnerIds: reason==="all-out"?[]:list.filter(c => same(c, list[0]!)).map(c => c.id), ranking: list.map((c, i) => { if (i && !same(c, list[i-1]!)) place = i+1; return { id:c.id, name:c.name, place, placed:c.placed, eliminatedAt:c.eliminatedAt }; }), duration: this.state.elapsed, reason, rehearsal: true };
     this.state.phase = "results"; this.release(); this.accumulator = 0;
   }
   advance(dt: number) {

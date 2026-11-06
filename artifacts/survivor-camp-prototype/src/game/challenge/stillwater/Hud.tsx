@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { stillwater } from "./session";
 import { BalanceControls } from "./Controls";
-import { balanceWindow, canPlace, RULES } from "./engine";
+import { balanceWindow, placementWindow, canPlace, RULES } from "./engine";
 import "./stillwater.css";
 export function StillwaterHud(){
   useSyncExternalStore(stillwater.subscribe,stillwater.snapshot);
@@ -24,15 +24,15 @@ export function StillwaterHud(){
       {active?<div className="sw-instruments">
         <div className="sw-meter-title"><strong>Stability {Math.round(c.stability*100)}%</strong><span>{c.strikes}/{RULES.maxStrikes} misses</span></div>
         <div className="sw-stability"><i style={{width:`${c.stability*100}%`}}/></div>
-        <div className="sw-balance"><i className="sw-safe" style={{width:`${balanceWindow(s.elapsed)*100}%`}}/><i className="sw-precision"/><b style={{left:`${50+Math.max(-1,Math.min(1,c.balance))*46}%`}}/></div>
+        <div className="sw-balance"><i className="sw-safe" style={{width:`${balanceWindow(s.elapsed)*92}%`}}/><i className="sw-precision" style={{left:"50%",transform:"translateX(-50%)",width:`${placementWindow(s.elapsed)*92}%`}}/><b style={{left:`${50+Math.max(-1,Math.min(1,c.balance))*46}%`}}/></div>
         <div className="sw-objective" data-testid="placement-objective">{c.lastPlacement!=="none"&&c.placementFlash>0?<strong>{c.lastPlacement==="success"?"Clean placement":"Placement missed"}</strong>:s.elapsed>=c.nextPlacement?<strong className={canPlace(c,s.elapsed)?"ready":""}>{canPlace(c,s.elapsed)?"Steady · Place now":"Object ready · Center and slow down"} <small>{Math.max(0,Math.ceil(c.nextPlacement+7-s.elapsed))}s</small></strong>:<span>Next object in {Math.ceil(c.nextPlacement-s.elapsed)}s · {c.placed} stacked</span>}</div>
       </div>:<div className="sw-watching"><strong>You’re out</strong><span>Watch the remaining contestants compete.</span></div>}
       <div className="sw-notices" aria-live="polite">{s.notices.slice(-2).map((n,i)=><span key={i}>{n}</span>)}</div>
     </>}
     {paused&&<section className="sw-card"><small>CHALLENGE PAUSED</small><h2>Take a breath.</h2><p>Your station is held steady. Resume when you are ready.</p><button data-testid="stillwater-resume" onClick={stillwater.resume}>Resume challenge</button></section>}
     {results&&s.result&&<section className="sw-card sw-results" data-testid="stillwater-results">
-      <small>REHEARSAL RESULT · NO SEASON IMMUNITY AWARDED</small><h2>{s.result.winnerIds.includes(0)?"You held your nerve.":`${s.result.ranking[0]?.name} wins.`}</h2>
-      <p>{s.result.winnerIds.length>1?"Shared win · ":"Winner · "}{s.result.ranking.filter(p=>s.result!.winnerIds.includes(p.id)).map(p=>p.name).join(" & ")} · You placed {s.result.ranking.find(p=>p.id===0)?.place} of {s.competitors.length} · {s.result.duration.toFixed(1)} seconds</p>
+      <small>REHEARSAL RESULT · NO SEASON IMMUNITY AWARDED</small><h2>{!s.result.winnerIds.length?"No contestant finished.":s.result.winnerIds.includes(0)?"You held your nerve.":`${s.result.ranking[0]?.name} wins.`}</h2>
+      <p>{s.result.winnerIds.length>1?"Shared win · ":s.result.winnerIds.length?"Winner · ":"All contestants out"}{s.result.ranking.filter(p=>s.result!.winnerIds.includes(p.id)).map(p=>p.name).join(" & ")} · You placed {s.result.ranking.find(p=>p.id===0)?.place} of {s.competitors.length} · {s.result.duration.toFixed(1)} seconds</p>
       <ol>{s.result.ranking.map(p=><li key={p.id}><b>{p.place}. {p.name}</b><span>{p.placed} objects · {p.eliminatedAt===null?"standing":`out at ${p.eliminatedAt.toFixed(1)}s`}</span></li>)}</ol>
       <div className="sw-actions"><button data-testid="stillwater-retry" onClick={stillwater.retry}>Retry rehearsal</button><button data-testid="stillwater-return" onClick={stillwater.exit}>Return to exploration</button></div>
     </section>}

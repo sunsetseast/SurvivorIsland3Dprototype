@@ -12,7 +12,7 @@ Branch: `feat/stillwater-balance`. Keep the PR DRAFT; do not merge, deploy, publ
 5. **Opponents — complete.** Independent deterministic feedback controllers with phase/lag/error and temporary focus/dexterity/endurance blend. Original roster/player assets are reused at station/spectator marks. Thirteen targeted tests and TypeScript pass, including all available roster sizes, no source mutation, player win/loss and multiple seeded NPC winners.
 6. **Playable presentation — complete.** Single session bridge, gated station entry, original stylized host at existing mark, introduction/rules/tutorial/countdown, compact stability/placement/roster HUD, elimination notices, pause, results, retry and exploration return. Fourteen targeted tests and TypeScript pass. Browser verification and camera polish follow.
 7. **Camera/WebGL — complete.** Smooth challenge camera takes over after the existing exploration camera and blends back to its safe pose. Separate active/intro/spectator/results framing, local ground scuff detail, title overlap fixed. Actual Chromium 153 SwiftShader smoke run passes, four WebGL captures inspected; 26 combined targeted tests and TypeScript pass. Full touch/repeated-session evidence follows.
-8. Access/exit/retry/preview-switch rule and exact camp preservation; integration tests.
+8. **Integration in verification.** Browser entry/keyboard/cancel, real multitouch ownership/cancel, focus/background freezing and independent loss pass. Sustained touch/placement, four retries and exact camp return are under verification. Corrected the CDP harness to lift the placement finger rather than the balance finger. Added all-out/no-winner and exact tie tests (15 targeted tests pass), exact visual stability/placement windows, and dedicated CI.
 9. Full regression, Low/High real WebGL resource measurements and repeated retries.
 10. Final report, gallery, performance, limitations, provenance and final remote verification.
 
@@ -28,4 +28,4 @@ Each numbered checkpoint gets targeted verification, a commit, push, remote SHA 
 
 ## Next action
 
-Expand real-browser coverage for actual multitouch, win/loss, retry/cancel/preview/camp lifecycle (checkpoint 8).
+Finish the expanded stillwater-qa.mjs run. Fix genuine failures; inspect Low/High/results captures. Save checkpoint 8 completion before regression/performance finalization.

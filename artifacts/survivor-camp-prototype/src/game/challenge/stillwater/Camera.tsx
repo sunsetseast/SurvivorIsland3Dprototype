@@ -19,8 +19,8 @@ export function StillwaterCamera(){
       const active=phase==="active"||phase==="countdown";
       const winner=s?.result?.winnerIds[0],station=STILLWATER_STATIONS[s?.competitors.find(c=>c.id===winner)?.station??0]!;
       const ground=heightAt(38,56);
-      v.goal.set(active?33:24,ground+(active?4.6:8),active?49:78);
-      v.look.set(active?39.5:32,ground+1.5,active?56:60);
+      v.goal.set(active?33:32,ground+(active?4.6:7.5),active?49:78);
+      v.look.set(active?39.5:37,ground+1.5,active?56:60);
       if(phase==="player-eliminated"){v.goal.set(27,ground+7,48);v.look.set(45,ground+1.7,62);}
       if(phase==="results"){v.goal.set(station.x-9,ground+5.7,station.z-10);v.look.set(station.x-5,ground+1.5,station.z+1);}
       v.matrix.lookAt(v.goal,v.look,v.up);v.q.setFromRotationMatrix(v.matrix);

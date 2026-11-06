@@ -54,7 +54,7 @@ test('eight original station positions and visible tilt/stack/failure are driven
 });
 test('independent seeded opponents use temporary existing traits and produce valid results at all roster sizes',()=>{
  const source=Object.freeze({focus:8,dexterity:7,endurance:6});assert.ok(Math.abs(rehearsalAbility(source)-.715)<1e-12);assert.equal(source.focus,8);
- for(const n of [0,1,3,7,14]){const roster=Array.from({length:n},(_,i)=>({id:i+1,name:`P${i}`,ability:.3+i*.07}));const before=JSON.stringify(roster);const e=active(roster);e.advance(95);assert.ok(e.state.result);assert.equal(e.state.result.ranking.length,Math.min(8,n+1));assert.equal(JSON.stringify(roster),before);assert.equal(new Set(e.state.result.ranking.map(c=>c.id)).size,e.state.result.ranking.length);assert.ok(e.state.result.winnerIds.length);}
+ for(const n of [0,1,3,7,14]){const roster=Array.from({length:n},(_,i)=>({id:i+1,name:`P${i}`,ability:.3+i*.07}));const before=JSON.stringify(roster);const e=active(roster);e.advance(95);assert.ok(e.state.result);assert.equal(e.state.result.ranking.length,Math.min(8,n+1));assert.equal(JSON.stringify(roster),before);assert.equal(new Set(e.state.result.ranking.map(c=>c.id)).size,e.state.result.ranking.length);if(e.state.result.reason==='all-out')assert.equal(e.state.result.winnerIds.length,0);else assert.ok(e.state.result.winnerIds.length);}
 });
 test('player can defeat opponents by feedback control and lose by mistakes; no scripted elimination order',()=>{
  const run=(seed,control)=>{const e=new StillwaterEngine([{id:4,name:'A',ability:.45},{id:11,name:'B',ability:.5},{id:13,name:'C',ability:.55}],seed);e.begin();e.tutorial();e.ready();e.advance(3);for(let i=0;i<5500&&e.state.phase!=='results';i++){const c=e.state.competitors[0];if(control){e.setInput(-(disturbance(e.state.elapsed,c.phase)*.62+c.balance*2.7+c.velocity*2)/1.65);if(canPlace(c,e.state.elapsed))e.place();}else e.setInput(1);e.advance(STEP);}return e;};
@@ -66,4 +66,10 @@ test('session admits once near a valid owner, restores pose, and tears down with
  const s=new StillwaterSession();let admitted=false,released=0,restored=null,n=0;const unsub=s.subscribe(()=>n++);
  const pose={x:1,z:2,yaw:.3,pitch:.4,facing:1};const dispose=s.configure({admit:()=>admitted,roster:()=>[{id:4,name:'Rob'}],capture:()=>({...pose}),restore:p=>restored=p,release:()=>released++});
  assert.equal(s.start(),false);s.proximity(true);assert.equal(s.start(),false);admitted=true;assert.equal(s.start(),true);assert.equal(s.start(),false);assert.equal(s.ownsControls,true);s.tutorial();s.ready();s.advance(3);s.pause();s.resume();s.retry();assert.equal(s.engine.state.phase,'tutorial');s.exit();assert.deepEqual(restored,pose);assert.equal(s.ownsControls,false);assert.ok(released>=4);dispose();assert.equal(s.engine,null);const count=n;unsub();s.notify();assert.equal(n,count);assert.equal(s.start(),false);
+});
+test('last standing, all-out failure, exact ties and timed survivor tiebreak follow documented rules',()=>{
+ const a=active([{id:1,name:'A'}]);a.state.competitors[1].balance=1.2;a.advance(STEP);assert.deepEqual(a.state.result.winnerIds,[0]);assert.equal(a.state.result.reason,'last-standing');
+ const b=active();b.state.competitors[0].strikes=3;b.advance(STEP);assert.deepEqual(b.state.result.winnerIds,[]);
+ const t=active([{id:1,name:'A'}]);t.state.tick=5399;t.state.competitors.forEach(c=>{c.placed=4;c.balance=0;c.velocity=0;c.stability=1;c.nextPlacement=100;});t.advance(STEP);assert.deepEqual(t.state.result.winnerIds,[0,1]);assert.deepEqual(t.state.result.ranking.map(c=>c.place),[1,1]);
+ const d=active([{id:1,name:'A'}]);d.state.tick=5399;d.state.competitors.forEach(c=>{c.placed=c.id?3:4;c.balance=0;c.velocity=0;c.stability=1;c.nextPlacement=100;});d.advance(STEP);assert.deepEqual(d.state.result.winnerIds,[0]);
 });
