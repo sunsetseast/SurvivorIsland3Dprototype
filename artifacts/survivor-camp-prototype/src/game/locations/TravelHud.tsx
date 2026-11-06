@@ -66,6 +66,7 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
       </div>
     );
   if(session.locationId==="challenge_main"&&stillwater.ownsControls)return null;
+  if(worldTravel.challengeTesting)return <div className="world-location" data-testid="world-location"><strong>Challenge Testing</strong><small>Environment preview · Temporary rehearsal</small></div>;
   const map = p && localToGeographic(session.locationId, p);
   return (
     <>

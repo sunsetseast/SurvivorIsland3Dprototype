@@ -3,7 +3,8 @@ import { stillwater } from "./session";
 import { BalanceControls } from "./Controls";
 import { balanceWindow, placementWindow, canPlace, RULES } from "./engine";
 import "./stillwater.css";
-export function StillwaterHud(){
+import { TouchButton } from "../../Hud";
+export function StillwaterHud({onHub,onWelcome}:{onHub?:()=>void;onWelcome?:()=>void}={}){
   useSyncExternalStore(stillwater.subscribe,stillwater.snapshot);
   const e=stillwater.engine,s=e?.state,c=s?.competitors[0];
   if(!e?.ownsControls)return stillwater.near?<div className="sw-entry"><small>INDIVIDUAL CLEARING · REHEARSAL</small><strong>Stillwater Balance</strong><span>Keep your footing. Build your stack. Outlast the tribe.</span><button data-testid="stillwater-enter" onClick={stillwater.start}>Enter challenge</button></div>:null;
@@ -34,9 +35,9 @@ export function StillwaterHud(){
       <small>REHEARSAL RESULT · NO SEASON IMMUNITY AWARDED</small><h2>{!s.result.winnerIds.length?"No contestant finished.":s.result.winnerIds.includes(0)?"You held your nerve.":`${s.result.ranking[0]?.name} wins.`}</h2>
       <p>{s.result.winnerIds.length>1?"Shared win · ":s.result.winnerIds.length?"Winner · ":"All contestants out"}{s.result.ranking.filter(p=>s.result!.winnerIds.includes(p.id)).map(p=>p.name).join(" & ")} · You placed {s.result.ranking.find(p=>p.id===0)?.place} of {s.competitors.length} · {s.result.duration.toFixed(1)} seconds</p>
       <ol>{s.result.ranking.map(p=><li key={p.id}><b>{p.place}. {p.name}</b><span>{p.placed} objects · {p.eliminatedAt===null?"standing":`out at ${p.eliminatedAt.toFixed(1)}s`}</span></li>)}</ol>
-      <div className="sw-actions"><button data-testid="stillwater-retry" onClick={stillwater.retry}>Retry rehearsal</button><button data-testid="stillwater-return" onClick={stillwater.exit}>Return to exploration</button></div>
+      <div className="sw-actions"><button data-testid="stillwater-retry" onClick={stillwater.retry}>Retry rehearsal</button>{onHub?<><TouchButton data-testid="stillwater-hub" onActivate={onHub}>Challenge Hub</TouchButton><TouchButton data-testid="stillwater-welcome" onActivate={()=>onWelcome?.()}>Welcome screen</TouchButton></>:<button data-testid="stillwater-return" onClick={stillwater.exit}>Return to exploration</button>}</div>
     </section>}
     {active&&<BalanceControls axis={stillwater.axis} place={stillwater.place} pause={stillwater.pause}/>}
-    {!results&&<div className="sw-session-actions">{(active||s.phase==="countdown"||s.phase==="player-eliminated")&&<button data-testid="stillwater-pause" onClick={stillwater.pause}>Pause</button>}<button data-testid="stillwater-cancel" onClick={stillwater.exit}>Leave challenge</button></div>}
+    {!results&&<div className="sw-session-actions">{(active||s.phase==="countdown"||s.phase==="player-eliminated")&&<button data-testid="stillwater-pause" onClick={stillwater.pause}>Pause</button>}{onHub?<><TouchButton data-testid="stillwater-hub" onActivate={onHub}>Challenge Hub</TouchButton><TouchButton data-testid="stillwater-welcome" onActivate={()=>onWelcome?.()}>Welcome screen</TouchButton></>:<button data-testid="stillwater-cancel" onClick={stillwater.exit}>Leave challenge</button>}</div>}
   </div>;
 }

@@ -9,5 +9,6 @@ export function rehearsalActive() {
 }
 export function requestPreview(id:ChallengeId) {
   if(!isChallengeId(id)||!rehearsalActive())return false;
+  if(worldTravel.challengeTesting && id!==worldTravel.challengeTesting.configuration)return false;
   window.dispatchEvent(new CustomEvent(PREVIEW_EVENT,{detail:id}));return true;
 }

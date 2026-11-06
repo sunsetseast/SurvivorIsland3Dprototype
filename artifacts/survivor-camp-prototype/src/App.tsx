@@ -17,6 +17,7 @@ import { LOCATIONS } from "@/game/locations/registry";
 import { challengeTestingEnabled } from "@/game/challenge/development";
 import { ChallengeTestingHub } from "@/game/challenge/ChallengeTestingHub";
 import { BUILD_REVISION } from "@/buildInfo";
+import { stillwater } from "@/game/challenge/stillwater/session";
 import { TravelHud, developerTravel } from "@/game/locations/TravelHud";
 import {
   SceneLifecycle,
@@ -95,6 +96,7 @@ function App() {
     else if (next === "tribal") worldTravel.enter("tribal_council", true);
     else if (developerTravel) worldTravel.enter("railay_trails", true);
   };
+  const leaveTesting=(hub:boolean)=>{stillwater.exit();enter("menu");setTestingHub(hub);};
   useEffect(() => {
     const clearInput = () => {
       releaseInput();
@@ -271,7 +273,7 @@ function App() {
               />
             </Suspense>
           ) : mode === "challenge" ? (
-            <Suspense fallback={null}><ChallengeHud low={low} setLow={setLow} initialConfiguration={worldTravel.challengeTesting?.configuration} onMenu={() => enter("menu")} /></Suspense>
+            <Suspense fallback={null}><ChallengeHud low={low} setLow={setLow} initialConfiguration={worldTravel.challengeTesting?.configuration} onMenu={() => enter("menu")} onHub={worldTravel.challengeTesting?()=>leaveTesting(true):undefined} onWelcome={worldTravel.challengeTesting?()=>leaveTesting(false):undefined}/></Suspense>
           ) : mode === "tribal" ? (
             <TribalOverlay onMenu={() => enter("menu")} />
           ) : (
