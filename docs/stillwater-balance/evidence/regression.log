@@ -1,0 +1,193 @@
+✔ daytime remains the default; art presets require the developer gate and own names (1.266834ms)
+✔ all atmosphere presets keep sky/water inputs finite and use the visible sun's normalized direction (6.210136ms)
+✔ cloud atlas retains its declared dimensions and verified authoring provenance (0.784239ms)
+✔ both projecting cave cheeks reject body penetration on the apron and inside (4.848539ms)
+✔ cave centre and both edges allow entry, turning, exit and NPC routes (237.810088ms)
+✔ challenge body, camera, host and ten staging spawns have safe terrain clearance (27.426465ms)
+✔ movement adapter traverses every blueprint route and its reverse without entering unsupported water (131.373946ms)
+✔ ordinary builds, direct menu entry, missing grants and wrong scopes cannot admit a challenge (30.198042ms)
+✔ rehearsal admission consumes one grant and returns to the exact source instance/pose without changing tribe (23.370447ms)
+✔ wrong participant/origin, revoked admission and out-of-range travel fail closed (16.700278ms)
+✔ failed challenge loading, retry and canceled stale loads preserve the source session (35.511325ms)
+✔ visible cliff/trunk collision stays outside walking corridors and stops body penetration (26.615706ms)
+✔ main mockup keeps host/contestant spawns and perimeter routes free while blocking static obstacles (26.376276ms)
+✔ ocean relay has dry safe staging/finish and unreachable offshore platforms until swimming exists (19.18264ms)
+✔ jungle net course leaves its west entrance, host, roster and perimeter path navigable (11.464206ms)
+✔ eight individual balance/endurance stations leave valid distinct starts and a free viewing/host edge (8.243584ms)
+✔ every selected configuration validates equipment, roster positions and the complete reversible route network (195.999899ms)
+✔ registry has distinct coastal camps; planned locations load no scene; transforms round trip (1.540296ms)
+✔ real source/destination body and camera spawn safety (483.296303ms)
+✔ authorization, proximity, one journey grant, stable return instance and participant identity (24.334115ms)
+✔ stale loads cannot activate a canceled destination; rejection supports retry and safe return (20.104797ms)
+✔ old prototype session defaults to tribe camp without invented game systems (1.272704ms)
+✔ paired comparison accepts identical captures (220.801337ms)
+✔ paired comparison still rejects a three-draw regression (195.192635ms)
+✔ paired comparison rejects changed NPC staging and renderer conditions (360.310388ms)
+✔ paired comparison rejects geometry growth outside the measured shelter addition (159.473738ms)
+✔ paired comparison accepts only the measured shelter and bounded debris accounting (336.75542ms)
+✔ shipped cliff contains scan-derived relief within the fixed LOD budgets (548.172352ms)
+✔ actual exported near/far walls preserve coverage and stay within the existing LOD tolerance (80.975119ms)
+✔ actual exported near/far rock leaves all reachable southern body samples clear of intersections (2227.167808ms)
+{"navigationBuildOrReuseMs":2.7985479999999825,"nodes":24905,"colliders":463}
+(node:35) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ expanded irregular territory and remote spring have meaningful scale (57.89991ms)
+✔ every authored trail centreline is traversable by the real body solver (109.016984ms)
+✔ all expanded activity spaces and NPC anchors are graph-connected (496.089537ms)
+✔ southern limestone is accessible but solid faces cannot be crossed or climbed (5.351766ms)
+✔ 39 future hiding candidates have stable IDs, grounded reachable approaches, no spawning side effects (693.948936ms)
+✔ an NPC physically completes the remote water trip and returns without expiring its intent en route (509.083047ms)
+✔ navigation can retreat out of a newly overlapping NPC avoidance ring (1.517852ms)
+✔ real cliff triangles leave the cave mouth open and agree with near-contact collision (357.871086ms)
+✔ optimized CC0 binary assets match provenance hashes and enforce a reusable mobile budget (95.106278ms)
+✔ solid cliff scan has three-dimensional mass; tree roots are centered at collision origins (3.731431ms)
+✔ all simulation anchors, private strategy spaces, shelter ramp and departure remain physically connected (295.103958ms)
+✔ camera corridor uses the existing cutout pass and a live shared focus (1.864473ms)
+✔ 0 attendees share exactly 0 unique furniture, collision, torch and cinematic anchors (7.253736ms)
+✔ 1 attendees share exactly 1 unique furniture, collision, torch and cinematic anchors (6.862077ms)
+✔ 4 attendees share exactly 4 unique furniture, collision, torch and cinematic anchors (2.845918ms)
+✔ 5 attendees share exactly 5 unique furniture, collision, torch and cinematic anchors (2.304254ms)
+✔ 7 attendees share exactly 7 unique furniture, collision, torch and cinematic anchors (8.412879ms)
+✔ 8 attendees share exactly 8 unique furniture, collision, torch and cinematic anchors (3.982377ms)
+✔ 10 attendees share exactly 10 unique furniture, collision, torch and cinematic anchors (4.19694ms)
+✔ 12 attendees share exactly 12 unique furniture, collision, torch and cinematic anchors (1.857582ms)
+✔ invalid rosters are rejected atomically; count helper handles numeric edge cases (0.59186ms)
+✔ five hero meshes have finite surface masks, distinct silhouettes and bounded draw/triangle budgets (417.879657ms)
+✔ presence is deterministic, desynchronised and shortest-arc heading eases across pi (5.984246ms)
+✔ seated soles meet ground for all hero heights and every stool tier (0.402355ms)
+Southern body-clearance grid samples 2299
+✔ western cliff has genuine cross-sectional relief, submerged feet and outward normals in both LODs (145.679598ms)
+✔ near and far silhouettes agree without flattening the eroded side (33.407051ms)
+✔ reconstructed rock adds no body penetration across the entire southern and inland-edge walkable grid (2834.618511ms)
+Certified 361 directed spot routes
+Certified 44769 physical travel frames
+{"activities":{"4":["socialize","observe","collect_water","explore","chores","rest"],"11":["rest","explore","observe","collect_water","chores","private_chat"],"13":["socialize","explore","collect_water","observe","chores","rest"],"18":["observe","socialize","rest","explore","collect_water","chores","private_chat"]},"exchanges":8,"departures":106}
+✔ production snapshots remain byte-identical to the audited source manifest (2.80649ms)
+✔ every major activity spot has a collision-validated path to every other spot (5123.019562ms)
+✔ four contestants physically traverse all five landmarks with no early arrival or teleport (922.395584ms)
+✔ proximity, responses, exit and interrupted intent recover without a false arrival (17.007287ms)
+✔ approaches walk physically, can be accepted/declined and cancel when the player leaves (69.799405ms)
+✔ private meeting knowledge is owner-scoped; movement never grants a witness destination presence (3.634474ms)
+✔ autonomous providers vary activities and decision times, form and leave real groups (1730.044305ms)
+✔ walking stance feet stay planted and articulated legs solve ground targets (2.42593ms)
+✔ sprint observers read the gameplay latch synchronously, including resets (1.608097ms)
+✔ every explicit reset clears sprint and invalidates interrupted gestures (0.174182ms)
+(node:202) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ geographic conversion uses metres and round-trips longitude/latitude (1.871203ms)
+✔ four coastal zones and lagoon retain correct relative topology (0.448244ms)
+✔ all sampled terrain heights are finite and dimensions match the geography grid (196.210729ms)
+✔ terrain chunk edges share identical coordinate / height samples (2.790575ms)
+✔ triangle interpolation grounds navigation on the rendered triangle (0.310267ms)
+✔ every exploration destination spawns above water on traversable ground (322.604203ms)
+✔ step subdivision stops water entry and sheer cliff ascent; invalid movement is rejected (4.365424ms)
+✔ small player steps progress and stay grounded (1.281226ms)
+✔ quality modes change LOD distance, preserving coordinates and collision data (142.200213ms)
+✔ ecological placement is deterministic, grounded, varied and cheaper in low mode (281.198356ms)
+✔ future location anchors contain planning data only (0.382535ms)
+✔ Blender geology is complete and matches its declared binary hash (2.195931ms)
+✔ actual terrain mesh vertices / triangle winding match movement height samples (410.125494ms)
+✔ camera cliff envelopes use fewer triangles than the visible karst (43.547342ms)
+✔ reserved challenge footprint is usable natural beach ground (5.616324ms)
+✔ hero karst footprints have no crossing boundary segments (1.373004ms)
+✔ production kits are finite, bounded, independently hashed and low downloads no near meshes (67.664762ms)
+✔ both shelter LODs cover the communal deck above standing head height and retain its navigation surface (68.254058ms)
+✔ understory inhabits five habitats while protecting every trail and hiding approach (15.354766ms)
+✔ offline kit hashes, mobile-only payload, and editable model source remain synchronized (35.417639ms)
+✔ baked graph matches independently reconstructed body-valid edges and costs exactly (5381.728649ms)
+✔ 39 stable future candidates have real mesh anchors, independent reachable approaches and unburied positions (757.16691ms)
+✔ new rock passages use scan footprints and release original invisible corners (91.404801ms)
+✔ wood lofts have outward normals, open log ends and a genuine stump cavity (2.043156ms)
+✔ disposed detached geometry, materials and textures release tracking references and listeners (2.242962ms)
+✔ a disposed asset still attached to the scene remains owned for a possible GPU re-upload (0.361924ms)
+✔ a detached asset awaiting asynchronous disposal stays owned until released (0.276386ms)
+✔ 64 equipment replacements retain only current assets and can observe a reused asset again (1.634187ms)
+✔ actual Blender GLBs contain complete finite Y-up meshes, embedded PBR atlases, and a cheaper fallback (141.059302ms)
+✔ authored decorations reserve a conservative footprint around all ceremony routes (13.227617ms)
+✔ reclaimed ground exposes soil without removing stone from the ceremonial walking lanes (6.915928ms)
+reconstruction.glb { addedResidentBytes: 34916 }
+reconstruction-low.glb { addedResidentBytes: 34916 }
+✔ both finished shelter LODs retain deck/roof clearance, fixed draws and bounded resident geometry (272.744697ms)
+✔ touch suppression survives replacing Decline with Talk while preserving keyboard access (0.846814ms)
+✔ explicit intro, tutorial, ready/countdown and exclusive session transitions (1.853316ms)
+✔ fixed step determinism is independent of render delta partitioning (8.040649ms)
+✔ placement precision, early actions, strikes, deadline and recovery are actual state (0.692931ms)
+✔ difficulty tightens continuously with bounded end values (0.141583ms)
+✔ pause freezes countdown and active simulation; resume releases inputs (0.374963ms)
+✔ real mistakes eliminate; results occur once; retry is pristine and cancellation stops advancement (0.479962ms)
+✔ valid station assignments deduplicate and cap actual identities without mutating source (13.199485ms)
+✔ successful feedback control can survive a complete solo rehearsal and earn placements (17.529024ms)
+✔ balance/placement have independent pointer owners; stray and cancelled touches cannot activate (0.581254ms)
+✔ keyboard releases, repeat suppression, accessible sensitivity and focus-reset ownership (0.455575ms)
+✔ eight original station positions and visible tilt/stack/failure are driven by actual state (0.377147ms)
+✔ independent seeded opponents use temporary existing traits and produce valid results at all roster sizes (72.576386ms)
+✔ player can defeat opponents by feedback control and lose by mistakes; no scripted elimination order (57.18742ms)
+✔ session admits once near a valid owner, restores pose, and tears down with no stale subscribers (0.521243ms)
+✔ last standing, all-out failure, exact ties and timed survivor tiebreak follow documented rules (0.683217ms)
+✔ quality files have verifiable bytes, bounded geometry and a genuinely lower mobile budget (36.368539ms)
+✔ the new sculpt changes the skyline, while preserving the walk-height rock envelope (20.825601ms)
+✔ cliff gardens root on upward-facing triangles of the actual high mesh (396.259398ms)
+✔ Limestone Cove is an actual walkable part of Tonsai with free beach traversal (534.37165ms)
+✔ new coastal understory is deterministic, path-safe, rooted and quality-stable (128.714699ms)
+✔ botanical assets contain genuinely different silhouettes and lighter distant meshes (10.153814ms)
+✔ Tonsai uses the unchanged original world coastline and existing massif footprints (2.277587ms)
+✔ Blender main formations are valid, bounded and independently optimized for low quality (57.076792ms)
+✔ network fallback contains the new volumetric silhouettes, without ring-wall generation (4.390438ms)
+✔ forest candidates are deterministic, use multiple real mesh variants, and low quality is a stable subset (1186.722993ms)
+✔ spawn and direct beach movement stay outside rocks and above the water (234.455019ms)
+✔ the complete authored inland route remains traversable through the actual movement solver (41.853555ms)
+✔ low-height collision follows the actual sculpt field, without remote cliff barriers (0.605279ms)
+✔ authored prang has a finite, correctly oriented recessed silhouette (17.715278ms)
+✔ environment interests are reachable and practice ballots remain separate from season outcomes (1.340471ms)
+✔ pavement is grounded, finite and continuously covers the courtyard, booth and new exit (456.502081ms)
+✔ locked geography is never mirrored or rotated (1.593586ms)
+✔ arrival route is physically walkable both ways (129.535017ms)
+✔ vote route is physically walkable both ways (79.086598ms)
+✔ exit route is physically walkable both ways (80.94469ms)
+✔ jury route is physically walkable both ways (57.397668ms)
+✔ each contestant can leave a stump into a broad shared aisle (40.027606ms)
+✔ collision substeps prevent tunnelling through fire, tree trunks, walls and furniture (3.765069ms)
+✔ future anchors have unique stable IDs and finite stage/camera coordinates (0.563496ms)
+✔ opening stages drone, ruin detail, Jeff, arrivals, then seated handoff (323.583249ms)
+✔ intimate host, fire and cast proportions retain body clearance (0.541282ms)
+✔ entrance has twelve physical risers, level bridge and continuous landings (3.570367ms)
+✔ ceremony ambience continues after seating and returning to seat is reversible (0.201122ms)
+✔ host can distinguish the five attending faces despite the alternating stagger (0.220881ms)
+✔ scenery footprints protect the complete ceremonial corridor and arrival group width (22.796663ms)
+✔ voting privacy uses the attached pavilion envelope, with both freestanding walls deleted (8.47094ms)
+✔ elimination approaches Jeff, pauses to snuff, then departs by the side apron (369.012806ms)
+✔ front route crosses frontage opening and reaches writing mark; east side is closed (38.649129ms)
+✔ portrait requires table side, facing and inner threshold; exit has hysteresis (0.554061ms)
+✔ manual/stationary inspection retains yaw; moving follow takes shortest turn behind heading (0.441232ms)
+✔ practice ballot folds/deposits once, refuses duplicates; cancel releases portrait (0.379188ms)
+✔ focus/scene release clears movement, run and camera without relying on keyup (1.400822ms)
+✔ real Blender close-up assets have finite meshes, compatible mouth and bounded cost (78.64087ms)
+ℹ tests 153
+ℹ suites 0
+ℹ pass 153
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10153.849968
+Solid collision checks: 294
+{
+  "passed": [
+    "Spawn is unobstructed",
+    "Shared organic shoreline contains the player",
+    "Substeps prevent tunnelling into solid props and vegetation",
+    "Shelter ramp enters and exits the visible raised floor",
+    "Deck cannot be entered by walking through its raised side",
+    "Landmark path centres remain connected"
+  ]
+}
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 755 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /workspace/scratch/41297656634b/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/Scene.tsx is dynamically imported by /workspace/scratch/41297656634b/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/locations/travel.ts but also statically imported by /workspace/scratch/41297656634b/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/App.tsx, dynamic import will not move module into another chunk.
+
+computing gzip size...
