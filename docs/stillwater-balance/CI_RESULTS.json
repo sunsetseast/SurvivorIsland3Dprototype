@@ -1,0 +1,87 @@
+{
+  "ciCheckpoint": "38b756e706d450a894b60163875655b8c0a38bc9",
+  "testedRuntime": "35b89747b825a4c9eab9b330a89648cbe47804b0",
+  "allSixSuccessful": true,
+  "unitTests": {
+    "passed": 153,
+    "failed": 0,
+    "newFocusedTests": 15
+  },
+  "browserChecks": {
+    "passedGroups": 11,
+    "failedGroups": 0,
+    "physicalDevice": false
+  },
+  "workflows": [
+    {
+      "id": 42135666492,
+      "name": "Challenge Beach rehearsal and WebGL",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 14,
+      "jobs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666492/jobs",
+      "logs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666492/logs",
+      "workflow_id": 408378334,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666492"
+    },
+    {
+      "id": 42135666598,
+      "name": "Connected island journeys",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 41,
+      "jobs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666598/jobs",
+      "logs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666598/logs",
+      "workflow_id": 399598043,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666598"
+    },
+    {
+      "id": 42135666554,
+      "name": "Stillwater Balance playable rehearsal",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 3,
+      "jobs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666554/jobs",
+      "logs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666554/logs",
+      "workflow_id": 408780735,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666554"
+    },
+    {
+      "id": 42135666565,
+      "name": "Living camp checks",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 56,
+      "jobs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666565/jobs",
+      "logs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666565/logs",
+      "workflow_id": 395821917,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666565"
+    },
+    {
+      "id": 42135666690,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 40,
+      "jobs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666690/jobs",
+      "logs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666690/logs",
+      "workflow_id": 399859376,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666690"
+    },
+    {
+      "id": 42135666524,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 46,
+      "jobs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666524/jobs",
+      "logs_url": "https://api.github.com/repos/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666524/logs",
+      "workflow_id": 399198969,
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42135666524"
+    }
+  ],
+  "notes": [
+    "The mobile workflow's first attempt was cancelled at its 15-minute job limit during slow Ubuntu browser-dependency downloads; neither browser test had started. Only that job was rerun, with unchanged tests/thresholds, and its Chromium and WebKit checks passed.",
+    "Final report/documentation commits preserve all 246 runtime/harness/test/workflow bytes listed in evidence/runtime-manifest.json. Their exact final ref-confirmed head and latest check links are recorded in the PR description."
+  ]
+}
