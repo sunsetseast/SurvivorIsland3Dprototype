@@ -41,7 +41,10 @@ export function limestoneMaterial() {
           t.wrapS = t.wrapT = T.RepeatWrapping;
           t.anisotropy = 2;
           if (srgb) t.colorSpace = T.SRGBColorSpace;
+          const previous = uniform.value;
           uniform.value = t;
+          textures.delete(previous);
+          previous.dispose();
           if (++loaded === 2) m.userData.assetReady = true;
         },
         undefined,

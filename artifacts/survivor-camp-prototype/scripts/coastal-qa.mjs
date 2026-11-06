@@ -49,16 +49,16 @@ async function runCourse({fall=false,delay=0,captures=false}={}){
   const s=await state(),r=s.runners[0];if(r.stage!==lastStage||n%50===0){console.log('Course',n,r.stage,r.x,r.z,r.balance,r.mistakes);lastStage=r.stage;}if(r.stage==='puzzle'){await release();return s;}
   if(r.stage==='net'){await release();await tap(side===0?'coastal-left':'coastal-right');side=1-side;await advance(25);continue;}
   if(r.stage==='beam'){if(fall&&!fell){await drive(1,1);await advance(200);await release();assert.ok((await state()).runners[0].mistakes>0);fell=true;}else{await drive(-r.balance*2.5,1);await advance(12);}continue;}
-  if((r.stage==='sprint'&&r.z>=-38)||(r.stage==='to-beam'&&r.z>=-25.6)||(r.stage==='to-net'&&r.z>=-8.8)){await tap('coastal-action');if(captures)await capture('02-'+(await state()).runners[0].stage);continue;}
+  if((r.stage==='sprint'&&r.z>=-38)||(r.stage==='to-beam'&&r.z>=-25.6)||(r.stage==='to-net'&&r.z>=-8.8)){if(Math.abs(r.x+27)>.25){await drive(Math.sign(-27-r.x),0);await advance(3);continue;}await tap('coastal-action');if(captures)await capture('02-'+(await state()).runners[0].stage);continue;}
   if(r.stage==='collection'&&r.z>=15.7){await release();if(delay&&!delayed){await advance(delay*60);delayed=true;}const i=r.bundles.findIndex(v=>!v),goal=-27+[-1.1,-.3,.5][i];if(Math.abs(r.x-goal)>.18){await drive(Math.sign(goal-r.x),0);await advance(3);}else await tap('coastal-action');continue;}
   assert.ok(!['dnf','finished'].includes(r.stage),JSON.stringify(r));await drive(0,1);await advance(24);
  }
  throw Error('Course traversal exceeded bounded inputs');
 }
 async function drag(piece,slot,{cancel=false,multi=false}={}){
- const a=await page.getByTestId('mosaic-piece-'+piece).boundingBox(),b=await page.getByTestId('mosaic-slot-'+slot).boundingBox();let p=point(41,a.x+a.width/2,a.y+a.height/2);
- await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[p]});if(multi){const q=point(42,a.x+3,a.y+3);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[p,q]});await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[p]});}
- p={...p,x:b.x+b.width/2,y:b.y+b.height/2};await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[p]});await cdp.send('Input.dispatchTouchEvent',{type:cancel?'touchCancel':'touchEnd',touchPoints:[]});
+ const a=await page.getByTestId('mosaic-piece-'+piece).boundingBox(),b=await page.getByTestId('mosaic-slot-'+slot).boundingBox();let p=point(41,a.x+a.width/2,a.y+a.height/2),q=multi?point(42,a.x+3,a.y+3):null;
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[p]});if(q)await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[p,q]});
+ p={...p,x:b.x+b.width/2,y:b.y+b.height/2};await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:q?[p,q]:[p]});await cdp.send('Input.dispatchTouchEvent',{type:cancel?'touchCancel':'touchEnd',touchPoints:[]});
 }
 async function toHub(){await page.evaluate(()=>window.hubOldOwner=window.__WORLD_RENDER__);await tap('coastal-hub');return hubReleased('coastal-hub-return');}
 try{

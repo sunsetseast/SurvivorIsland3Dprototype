@@ -9,7 +9,7 @@ export function challengeGroundMaterial() {
   const sand=pixel(),litter=pixel();let active=true;
   material.userData.textureResources=resources;
   for(const [url,uniform] of [[sandUrl,sand],[litterUrl,litter]] as const)new T.TextureLoader().load(url,t=>{
-    if(!active){t.dispose();return;}t.colorSpace=T.SRGBColorSpace;t.wrapS=t.wrapT=T.RepeatWrapping;t.anisotropy=2;resources.add(t);uniform.value=t;
+    if(!active){t.dispose();return;}t.colorSpace=T.SRGBColorSpace;t.wrapS=t.wrapT=T.RepeatWrapping;t.anisotropy=2;resources.add(t);const previous=uniform.value;uniform.value=t;resources.delete(previous);previous.dispose();
   },undefined,()=>{});
   material.onBeforeCompile=shader=>{
     shader.uniforms.challengeSand=sand;shader.uniforms.challengeLitter=litter;

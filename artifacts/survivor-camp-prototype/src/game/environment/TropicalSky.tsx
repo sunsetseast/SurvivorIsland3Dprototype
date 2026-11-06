@@ -84,7 +84,10 @@ export function TropicalSky({ atmosphere }: { atmosphere: Atmosphere }) {
         texture.colorSpace = T.NoColorSpace;
         texture.anisotropy = 2;
         resources.textures.add(texture);
+        const previous = resources.material.uniforms.uCloudAtlas!.value as T.Texture;
         resources.material.uniforms.uCloudAtlas!.value = texture;
+        resources.textures.delete(previous);
+        previous.dispose();
         resources.material.userData.cloudReady = true;
       },
       undefined,
