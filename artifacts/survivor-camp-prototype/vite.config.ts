@@ -1,4 +1,5 @@
 import path from 'path';
+import { execFileSync } from 'node:child_process';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
@@ -27,7 +28,14 @@ if (!basePath) {
   );
 }
 
+function buildRevision() {
+  if (/^[a-f0-9]{7,40}$/i.test(process.env.GITHUB_SHA ?? '')) return process.env.GITHUB_SHA!.slice(0, 8);
+  try { return execFileSync('git', ['rev-parse', '--short=8', 'HEAD'], { cwd: import.meta.dirname, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); }
+  catch { return 'unknown'; }
+}
+
 export default defineConfig({
+  define: { __BUILD_REVISION__: JSON.stringify(buildRevision()) },
   base: basePath,
   plugins: [
     react(),

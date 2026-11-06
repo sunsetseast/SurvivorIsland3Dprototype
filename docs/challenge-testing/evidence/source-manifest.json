@@ -1,0 +1,26 @@
+{
+  "verifiedRuntimeCommit": "c1a940de627ebd8f349242066893063cab3081f7",
+  "runtimeTree": "cca2f8a59a372bfcac8eece149b51b58334562b1",
+  "method": "SHA-256 of each changed source/test/CI file plus unchanged real Stillwater engine, session and controls. Documentation/evidence-only saves must retain these bytes.",
+  "sha256": {
+    ".github/workflows/stillwater-balance.yml": "b20dfcc689e3ae3b19b6bd1a27358ba1cebec58bbee292c06029465321097346",
+    "artifacts/survivor-camp-prototype/scripts/challenge-testing-qa.mjs": "7fb1a550577541c94aeb880f81cdfc0dd530fe447b1ffffecc4e6c24a642e89a",
+    "artifacts/survivor-camp-prototype/src/App.tsx": "b6f9bb418ab328c13c586ef38fc710000e3046636c002b86736b5efa65996744",
+    "artifacts/survivor-camp-prototype/src/buildInfo.ts": "d08cb5733997b299100bb843cd6a50243960b8baed08414230601b619a4c63d5",
+    "artifacts/survivor-camp-prototype/src/game/challenge/ChallengeScene.tsx": "8aea84112193205000e146c5f3bd679bf93ced8e447ff0a74634c58c0519c946",
+    "artifacts/survivor-camp-prototype/src/game/challenge/ChallengeTestingHub.tsx": "c480c2fe034b935a476655446be815fe56e2820c55851a0d68378009cb5f3c29",
+    "artifacts/survivor-camp-prototype/src/game/challenge/configurations.ts": "6ef865af6c4ed82c5a6800c48993f73399b8cde52cc2733f5bcc32302ce413e4",
+    "artifacts/survivor-camp-prototype/src/game/challenge/development.ts": "3f4ff7c169cbe5261d1197557d5f407284cfe81d41532ddd6403fdd1e9073902",
+    "artifacts/survivor-camp-prototype/src/game/challenge/preview.ts": "6a1a3aa9de9254e94388aa693879a7a2b4c1b6988acda9beca9f9c3f6c452d3e",
+    "artifacts/survivor-camp-prototype/src/game/challenge/stillwater/Controls.tsx": "dbe8a050f583f5db444a509e4eeea37c98c778f311fa80edc09015e233ec2860",
+    "artifacts/survivor-camp-prototype/src/game/challenge/stillwater/Hud.tsx": "6e6ef3809ebbeca5197d2dd15d7c7a76c524be5312c9e2371310e3706dc78b80",
+    "artifacts/survivor-camp-prototype/src/game/challenge/stillwater/engine.ts": "815a9c42b615dc74928815e112f8dcb9121667150d5878d37dd2609610804c5b",
+    "artifacts/survivor-camp-prototype/src/game/challenge/stillwater/session.ts": "eae38a95de42cf098961ac7d5acef60a10d945ba60120baaf54b41e0fd709fe1",
+    "artifacts/survivor-camp-prototype/src/game/challenge/stillwater/stillwater.css": "43e32b86a0694a2c447f4c66617f761f08d1e8b128f3109c250b3ee1032fd08f",
+    "artifacts/survivor-camp-prototype/src/game/challenge/testing-hub.css": "f86da8e0065c4baa5e804b946092656eeb401f416b3f04314d7766c1236fa2ff",
+    "artifacts/survivor-camp-prototype/src/game/locations/TravelHud.tsx": "15b0fc2de385a4ba5c23f2b1244ab206db8ed8e72065f067bcc72557da810e9f",
+    "artifacts/survivor-camp-prototype/src/game/locations/travel.ts": "cc3882105e9f8debeebb9c512f3bd5705ca850b48f521b4eea9c42f92edb94f1",
+    "artifacts/survivor-camp-prototype/tests/challenge-testing.test.mjs": "155e3d7d70b244150ad4cf76238a6210795deb8dd35ea26cb23be168315e4854",
+    "artifacts/survivor-camp-prototype/vite.config.ts": "f6cfcc9f5db1a7fce51a1faf31ddb69a635fff15e915858aa7a6064a7a937b68"
+  }
+}

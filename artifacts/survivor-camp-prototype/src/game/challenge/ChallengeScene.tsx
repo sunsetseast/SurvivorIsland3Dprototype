@@ -1,7 +1,7 @@
 import { challengeGroundMaterial } from "./groundMaterial";
 import { CONFIGURATIONS, isChallengeId, validateSetup, type ChallengeId } from "./configurations";
 import { PREVIEW_EVENT, SELECTED_EVENT, rehearsalActive, requestPreview } from "./preview";
-import { challengeRehearsalEnabled } from "./development";
+import { challengeRehearsalEnabled, challengeTestingEnabled } from "./development";
 import { RehearsalRoster } from "./RehearsalRoster";
 import type { ChallengeSetup } from "./equipment";
 import { Assembly } from "./meshKit";
@@ -30,6 +30,7 @@ import { camp } from "../CampRuntime";
 import { CONTESTANTS } from "../simulation/DemoProvider";
 import { Survivor } from "../Survivor";
 import { StillwaterCamera } from "./stillwater/Camera";
+import { worldTravel } from "../locations/travel";
 
 const WORLD: ExplorationWorld = { locationId: "challenge_main", spawn: ARRIVAL, yaw: ARRIVAL.yaw, height: heightAt, move: moveOnTerrain, location: zoneAt };
 function Ground({ low }: { low: boolean }) {
@@ -57,14 +58,15 @@ function Ground({ low }: { low: boolean }) {
   useEffect(() => () => geometry.dispose(), [geometry]);
   return <mesh name="challenge-ground-ready" geometry={geometry} material={material} receiveShadow/>;
 }
-export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose }) {
+export function ChallengeScene({ low, arrival, initialConfiguration="beach-obstacle" }: { low: boolean; arrival?: Pose; initialConfiguration?:ChallengeId }) {
   useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
-  const [model,setModel]=useState<ChallengeSetup|null>(()=>validateSetup(CONFIGURATIONS["beach-obstacle"].build()));
+  const [model,setModel]=useState<ChallengeSetup|null>(()=>validateSetup(CONFIGURATIONS[initialConfiguration].build()));
   const [switching,setSwitching]=useState(false);
   const selected=useRef<ChallengeSetup|null>(model),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
   const inspection=useRef<{position:[number,number,number];target:[number,number,number]}|null>(null);
   const {scene,camera,gl}=useThree();
   const hostMotion=useRef({speed:0,running:false,distance:0,talking:true});
+  const autoStarted=useRef<string|null>(null);
   selected.current=model;
   const environment=useMemo(()=>({...WORLD,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls,
     move:(p:{x:number;z:number},dx:number,dz:number)=>moveOnTerrain(p,dx,dz,model?.solids??[])}),[model,switching]);
@@ -103,7 +105,7 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
     if(model)window.dispatchEvent(new CustomEvent(SELECTED_EVENT,{detail:model.id}));
   },[model]);
   useEffect(()=>{
-    if(!challengeRehearsalEnabled())return;
+    if(!challengeRehearsalEnabled()&&!challengeTestingEnabled())return;
     const w=window as any;
     w.__CHALLENGE__={
       get configuration(){return selected.current?.id??null;},
@@ -122,6 +124,8 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
     const m=selected.current;
     const near=m?.id==="individual-balance"&&rehearsalActive()&&Math.min(...[m.view,...m.starts].map(p=>Math.hypot(dbg.x-p.x,dbg.z-p.z)))<5;
     stillwater.proximity(!!near);if(!document.hidden)stillwater.advance(Math.min(dt,.1));
+    const request=worldTravel.challengeTesting;
+    if(request?.play && request.configuration===m?.id && autoStarted.current!==request.eventId && rehearsalActive() && stillwater.start())autoStarted.current=request.eventId;
   },-.5);
   useFrame(()=>{if(inspection.current){camera.position.set(...inspection.current.position);camera.lookAt(...inspection.current.target);}},1);
   useFrame(()=>gl.render(scene,camera),2);
@@ -143,21 +147,21 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
     </group>
   </>;
 }
-export function ChallengeHud({ low, setLow, onMenu }: { low: boolean; setLow: (v: boolean) => void; onMenu: () => void }) {
+export function ChallengeHud({ low, setLow, onMenu, initialConfiguration="beach-obstacle",onHub,onWelcome }: { low: boolean; setLow: (v: boolean) => void; onMenu: () => void; initialConfiguration?:ChallengeId;onHub?:()=>void;onWelcome?:()=>void }) {
   useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
-  const [selected,setSelected]=useState<ChallengeId>("beach-obstacle");
+  const [selected,setSelected]=useState<ChallengeId>(initialConfiguration);
   useEffect(()=>{const f=(e:Event)=>{const id=(e as CustomEvent).detail;if(isChallengeId(id))setSelected(id);};window.addEventListener(SELECTED_EVENT,f);return ()=>{window.removeEventListener(SELECTED_EVENT,f);clearInput();};},[]);
   return <div className="island-hud">
     {!stillwater.ownsControls&&<><OrbitZone allowLookUp />
     <div className="island-toolbar">
-      <TouchButton data-testid="challenge-menu" onActivate={()=>{stillwater.exit();onMenu();}}>Menu</TouchButton>
-      {challengeRehearsalEnabled() && <>
+      {onHub?<><TouchButton data-testid="testing-hub" onActivate={onHub}>Challenge Hub</TouchButton><TouchButton data-testid="testing-welcome" onActivate={()=>onWelcome?.()}>Welcome screen</TouchButton></>:<TouchButton data-testid="challenge-menu" onActivate={()=>{stillwater.exit();onMenu();}}>Menu</TouchButton>}
+      {!onHub&&challengeRehearsalEnabled() && <>
         <label style={{pointerEvents:"auto",background:"#263f36",color:"#fff5da",padding:"7px",borderRadius:"8px"}}>Preview <select data-testid="challenge-selector" value={selected} onChange={e=>requestPreview(e.target.value as ChallengeId)} style={{maxWidth:"220px",color:"#172d27",background:"#f1e2ba",border:0,borderRadius:"4px",fontSize:"14px"}}>{Object.entries(CONFIGURATIONS).map(([id,c])=><option key={id} value={id}>{c.name}</option>)}</select></label>
         <TouchButton data-testid="challenge-staging" onActivate={()=>{if(rehearsalActive()){clearInput();dbg.teleportRequested={...RETURN_EXIT};input.yaw=RETURN_EXIT.yaw;input.pitch=.3;}}}>Return staging</TouchButton>
       </>}
       <TouchButton data-testid="challenge-quality" onActivate={() => setLow(!low)}>{low ? "Quality: Low" : "Quality: High"}</TouchButton>
     </div>
     <div style={{ pointerEvents: "auto" }}><Joystick /><RunButton /></div></>}
-    <StillwaterHud/>
+    <StillwaterHud onHub={onHub} onWelcome={onWelcome}/>
   </div>;
 }

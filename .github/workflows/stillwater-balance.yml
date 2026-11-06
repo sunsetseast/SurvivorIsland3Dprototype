@@ -6,6 +6,10 @@ on:
       - 'artifacts/survivor-camp-prototype/src/game/locations/**'
       - 'artifacts/survivor-camp-prototype/tests/stillwater.test.mjs'
       - 'artifacts/survivor-camp-prototype/scripts/stillwater-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/scripts/challenge-testing-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/challenge-testing.test.mjs'
+      - 'artifacts/survivor-camp-prototype/src/App.tsx'
+      - 'artifacts/survivor-camp-prototype/vite.config.ts'
       - '.github/workflows/stillwater-balance.yml'
   workflow_dispatch:
 permissions:
@@ -30,8 +34,14 @@ jobs:
       - run: PORT=5174 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
       - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
       - run: pnpm --filter @workspace/survivor-camp-prototype exec node scripts/stillwater-qa.mjs
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec node scripts/challenge-testing-qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: stillwater-balance-webgl-evidence
           path: docs/stillwater-balance/evidence/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: challenge-testing-hub-webgl-evidence
+          path: docs/challenge-testing/evidence/
