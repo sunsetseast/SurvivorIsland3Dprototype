@@ -15,7 +15,7 @@ Shared joystick/movement-vector math drives continuous, bounded course movement.
 3. Sprint/crawl — complete: continuous joystick/movementVector lane traversal, explicit crouch entry, held crawl progress, safe center corridor and terrain/deck-aware visual pose. Four engine tests pass; render integration follows checkpoint 8.
 4. Beam — complete: moving-forward balance with predictable sway, recoverable stability, actual lean, obstacle-only checkpoint reset and two seconds held penalty. Five tests pass including fall/recovery and successful correction.
 5. Net — complete: alternating handholds with repeat suppression, smooth fixed-step ascent/descent along the existing A-frame and recoverable grip slips. Six targeted tests pass.
-6. Mosaic — pending.
+6. Mosaic — complete modules: six authored trapezoids tile the board; spatial collection unlocks genuine slot validation, dragging/tap/keyboard alternatives, reset and cancellation ownership. Generated matching mosaic texture/geometry drives both 3D finish boards; old decorative fake tiles removed. Eight targeted tests pass. Mounting/actual browser verification follows integration.
 7. Contestants — pending.
 8. Presentation/hub integration — pending.
 9. Actual touch/WebGL wins/losses/retries/camp preservation — pending.

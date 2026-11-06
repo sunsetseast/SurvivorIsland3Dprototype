@@ -1,3 +1,4 @@
+import { snap } from './mosaic';
 import { movementVector } from '../../cameraController';
 export const STEP=1/60, LANES=[-27,-14] as const, HEAT_LIMIT=240;
 export type Stage='sprint'|'crawl'|'to-beam'|'beam'|'to-net'|'net'|'collection'|'puzzle'|'finished'|'dnf';
@@ -44,8 +45,11 @@ export class CoastalEngine {
   if(r.stage==='sprint'&&r.z>=-38){this.transition(r,'crawl');return true;}
   if(r.stage==='to-beam'&&r.z>=-25.6){r.x=LANES[r.lane]!;this.transition(r,'beam');return true;}
   if(r.stage==='to-net'&&r.z>=-8.8){r.x=LANES[r.lane]!;this.transition(r,'net');return true;}
+  if(r.stage==='collection'&&r.z>=15){const i=[-1.1,-.3,.5].findIndex((dx,i)=>!r.bundles[i]&&Math.abs(r.x-LANES[r.lane]!-dx)<.65);if(i>=0){r.bundles[i]=true;if(r.bundles.every(Boolean))this.transition(r,'puzzle');return true;}this.state.notice='Move beside an uncollected bundle on your finish deck.';}
   return false;
  }
+ place(piece:number,slot:number,r=this.player){if(this.state.phase!=='racing'||r.heat!==this.state.heat||r.stage!=='puzzle')return false;const ok=snap(r.slots,piece,slot);this.state.notice=ok?'Carving fits · clean placement':'That carving does not fit here';if(!ok)r.mistakes++;if(r.slots.every(x=>x>=0))this.finish(r);return ok;}
+ resetPuzzle(){if(this.state.phase==='racing'&&this.player.stage==='puzzle')this.player.slots.fill(-1);}
  netGrip(r:Runner,side:number){
   if(r.stage!=='net'||this.elapsed<r.recoverUntil||this.elapsed-r.handAt<.28)return false;
   if(side===r.lastHand){r.mistakes++;r.gripTarget=Math.max(0,r.progress-.04);r.handAt=this.elapsed;return false;}
