@@ -7,7 +7,7 @@ Keep DRAFT and unmerged. Do not deploy, publish, use Replit services/Agent/credi
 ## Bounded checkpoints
 
 1. **Architecture/authorization — complete.** Inspected App welcome/resume, TravelManager/registry/lifecycle, development rehearsal gate, configuration registry, ChallengeScene/HUD and Stillwater session. New hub is Vite development-only with no URL flag; normal production (including URL flags) cannot enable it. Existing explicit rehearsal build/camp-travel authority stays unchanged.
-2. Welcome action and touch-friendly registry-driven hub; readable build/revision marker. Save and verify remotely.
+2. **Welcome/hub UI — complete.** Development-only welcome action, registry-driven cards distinguishing one playable challenge from three environment previews, safe-area styling and public build/revision marker. Selection buttons remain disabled until checkpoint 3 connects the direct-entry API. Authorization/registry tests and TypeScript pass.
 3. Direct entry via the existing TravelManager, with a private temporary testing session while preserving the original WorldSession by identity. Existing ChallengeScene/lazy loading/spawn/lifecycle, no duplicate CampRuntime or map. Save remotely.
 4. One-tap selection starts the actual Stillwater introduction after scene-ready; existing Ready/gameplay/Retry; Hub/Welcome exits cancel and clean inputs. Save remotely.
 5. Actual touch/WebGL flows, three full cycles, original camp/pose/NPC/provider/memory preservation, production gates and resource retention. Save remotely.
@@ -29,4 +29,4 @@ Repository `.replit` names a `Project` Run workflow but contains no command defi
 
 ## Next action
 
-Implement checkpoint 2: registry metadata, the development-only welcome/hub UI, and an inspectable build/revision marker. Then save remotely before direct scene navigation.
+Implement checkpoint 3: scoped temporary WorldSession in the existing TravelManager, safe selected configuration spawn, cancellation/error handling and normal-session preservation. Wire the hub selection buttons and save remotely.

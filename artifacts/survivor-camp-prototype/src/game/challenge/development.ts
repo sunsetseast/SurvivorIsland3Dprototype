@@ -5,3 +5,7 @@ export function challengeRehearsalEnabled() {
     new URLSearchParams(location.search).get("devTravel") === "1" &&
     (import.meta.env?.DEV === true || import.meta.env?.VITE_CHALLENGE_REHEARSAL === "1");
 }
+
+/** The touch testing hub is available automatically in Vite dev, never in a built production app. */
+export function developmentTestingAllowed(env: { DEV?: boolean }) { return env.DEV === true; }
+export function challengeTestingEnabled() { return developmentTestingAllowed(import.meta.env ?? {}); }

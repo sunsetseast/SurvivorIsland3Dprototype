@@ -14,6 +14,9 @@ import { TribalOverlay } from "@/game/tribal/TribalIntro";
 import { camp } from "@/game/CampRuntime";
 import { worldTravel } from "@/game/locations/travel";
 import { LOCATIONS } from "@/game/locations/registry";
+import { challengeTestingEnabled } from "@/game/challenge/development";
+import { ChallengeTestingHub } from "@/game/challenge/ChallengeTestingHub";
+import { BUILD_REVISION } from "@/buildInfo";
 import { TravelHud, developerTravel } from "@/game/locations/TravelHud";
 import {
   SceneLifecycle,
@@ -68,6 +71,7 @@ function App() {
       navigator.hardwareConcurrency <= 4,
   );
   const [overview, setOverview] = useState(false);
+  const [testingHub,setTestingHub]=useState(false);
   const [islandControlsLocked, setIslandControlsLocked] = useState(false);
   const [islandReady, setIslandReady] = useState(false);
   useEffect(() => {
@@ -85,7 +89,7 @@ function App() {
     input.pitch = 0.34;
     dbg.resetRequested = false;
     dbg.teleportRequested = null;
-    if (next === "menu") worldTravel.menu();
+    if (next === "menu") {setTestingHub(false);worldTravel.menu();}
     else if (next === "camp")
       worldTravel.enter("camp_tribe_a", developerTravel && worldTravel.session.locationId !== "challenge_main");
     else if (next === "tribal") worldTravel.enter("tribal_council", true);
@@ -274,7 +278,7 @@ function App() {
             <Hud onMenu={() => enter("menu")} />
           ))}
         <TravelHud blocked={mode === "railay" && islandControlsLocked} />
-        {mode === "menu" && (
+        {mode === "menu" && testingHub && challengeTestingEnabled() ? <ChallengeTestingHub onWelcome={()=>{releaseInput();setTestingHub(false);}}/> : mode === "menu" && (
           <main className="sanctuary-menu">
             <div className="sanctuary-menu-inner">
               <p className="sanctuary-eyebrow">
@@ -297,6 +301,7 @@ function App() {
               >
                 Continue Survivor Session <span>→</span>
               </TouchButton>
+              {challengeTestingEnabled()&&<TouchButton data-testid="challenge-testing" className="sanctuary-secondary testing-welcome-action" onActivate={()=>{releaseInput();setTestingHub(true);}}>Challenge Testing <span>→</span></TouchButton>}
               <TouchButton
                 data-testid="explore-tribal"
                 className="sanctuary-secondary"
@@ -315,6 +320,7 @@ function App() {
               )}
               <p className="sanctuary-footnote">
                 Camp life · Authorized journeys · Landscape recommended
+                <span className="welcome-build" data-testid="welcome-build">{import.meta.env.DEV?"Development preview":"Production build"} · {BUILD_REVISION}</span>
               </p>
             </div>
             <div className="sanctuary-menu-mark" aria-hidden="true">

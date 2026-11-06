@@ -6,10 +6,10 @@ import { validateSpawn } from "../locations/spawn";
 import { heightAt, walkableWithEquipment } from "./surface";
 import type { ChallengeSetup } from "./equipment";
 export const CONFIGURATIONS = {
-  "beach-obstacle": { name:"Main Beach · Coastal Traverse", build:mainCourse },
-  "ocean-relay": { name:"Ocean · Tidebound Relay", build:oceanCourse },
-  "jungle-net": { name:"Jungle · Canopy Passage", build:jungleCourse },
-  "individual-balance": { name:"Individual · Stillwater Balance", build:individualCourse },
+  "beach-obstacle": { name:"Main Beach · Coastal Traverse", build:mainCourse, playable:false, description:"Explore the timber obstacles and puzzle finish decks." },
+  "ocean-relay": { name:"Ocean · Tidebound Relay", build:oceanCourse, playable:false, description:"Inspect the offshore platforms, buoy lanes and relay equipment." },
+  "jungle-net": { name:"Jungle · Canopy Passage", build:jungleCourse, playable:false, description:"Explore the rope towers, beams and forest competition course." },
+  "individual-balance": { name:"Individual · Stillwater Balance", build:individualCourse, playable:true, description:"Practice balance and stacking. Compete against the existing contestants." },
 } as const;
 export type ChallengeId = keyof typeof CONFIGURATIONS;
 export const isChallengeId = (id:unknown):id is ChallengeId => typeof id==="string" && Object.hasOwn(CONFIGURATIONS,id);
