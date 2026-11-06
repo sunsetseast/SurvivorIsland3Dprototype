@@ -196,6 +196,7 @@ try {
         mats = new Set();
       let geometryBytes = 0,
         textureBytesEstimate = 0,
+        fallbackTextureBytesEstimate = 0,
         shelterCompletionBytes = 0,
         groundDetailBytes = 0;
       s.scene.traverse((o) => {
@@ -218,8 +219,9 @@ try {
           ])
             if (t?.isTexture && !tex.has(t)) {
               tex.add(t);
-              textureBytesEstimate +=
-                ((t.image?.width || 0) * (t.image?.height || 0) * 4 * 4) / 3;
+              const bytes=((t.image?.width || 0) * (t.image?.height || 0) * 4 * 4) / 3;
+              textureBytesEstimate += bytes;
+              if(t.isDataTexture && t.image?.width===1 && t.image?.height===1)fallbackTextureBytesEstimate += bytes;
             }
         }
       });
@@ -236,6 +238,7 @@ try {
         shelterCompletionBytes,
         groundDetailBytes,
         textureBytesEstimate,
+        fallbackTextureBytesEstimate,
         materials: mats.size,
         stages: window.__ART_STAGES__,
         longTasks: window.__ART_LONGTASKS__,
