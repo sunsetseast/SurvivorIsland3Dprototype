@@ -3,7 +3,7 @@ export const STEP=1/60, LANES=[-27,-14] as const, HEAT_LIMIT=240;
 export type Stage='sprint'|'crawl'|'to-beam'|'beam'|'to-net'|'net'|'collection'|'puzzle'|'finished'|'dnf';
 export type Entrant={id:number;name:string;physical?:number;dexterity?:number;focus?:number};
 export type Split={stage:Stage;time:number;duration:number};
-export type Runner=Entrant & {lane:number;heat:number;stage:Stage;x:number;z:number;lift:number;progress:number;balance:number;stability:number;mistakes:number;recoverUntil:number;stageStarted:number;splits:Split[];finishTime:number|null;bundles:boolean[];slots:number[];lastHand:number;handAt:number;nextAction:number};
+export type Runner=Entrant & {lane:number;heat:number;stage:Stage;x:number;z:number;lift:number;progress:number;gripTarget:number;balance:number;stability:number;mistakes:number;recoverUntil:number;stageStarted:number;splits:Split[];finishTime:number|null;bundles:boolean[];slots:number[];lastHand:number;handAt:number;nextAction:number};
 export type Phase='introduction'|'tutorial'|'countdown'|'racing'|'paused'|'results'|'cancelled';
 export type RaceState={phase:Phase;resume:Phase;clock:number;heat:number;heatStart:number;countdown:number;runners:Runner[];notice:string;result:ReturnType<typeof rank>|null};
 const clamp=(n:number,a=0,b=1)=>Math.max(a,Math.min(b,n));
@@ -20,7 +20,7 @@ export class CoastalEngine {
  input={x:0,forward:0};
  constructor(entrants:readonly Entrant[],readonly seed=1){
   const seen=new Set([0]);const roster=[{id:0,name:'You',physical:.5,dexterity:.5,focus:.5},...entrants.filter(p=>p.id!==0&&!seen.has(p.id)&&!!seen.add(p.id)).slice(0,7)];
-  this.state={phase:'introduction',resume:'racing',clock:0,heat:0,heatStart:0,countdown:3,notice:'Two lanes. Overall ranking uses each heat’s personal time.',result:null,runners:roster.map((p,i)=>({...p,lane:i%2,heat:Math.floor(i/2),stage:'sprint',x:LANES[i%2]!,z:-50,lift:0,progress:0,balance:0,stability:1,mistakes:0,recoverUntil:0,stageStarted:0,splits:[],finishTime:null,bundles:[false,false,false],slots:Array(6).fill(-1),lastHand:-1,handAt:-100,nextAction:0}))};
+  this.state={phase:'introduction',resume:'racing',clock:0,heat:0,heatStart:0,countdown:3,notice:'Two lanes. Overall ranking uses each heat’s personal time.',result:null,runners:roster.map((p,i)=>({...p,lane:i%2,heat:Math.floor(i/2),stage:'sprint',x:LANES[i%2]!,z:-50,lift:0,progress:0,gripTarget:0,balance:0,stability:1,mistakes:0,recoverUntil:0,stageStarted:0,splits:[],finishTime:null,bundles:[false,false,false],slots:Array(6).fill(-1),lastHand:-1,handAt:-100,nextAction:0}))};
  }
  get player(){return this.state.runners[0]!;}
  get ownsControls(){return this.state.phase!=='cancelled';}
@@ -46,6 +46,12 @@ export class CoastalEngine {
   if(r.stage==='to-net'&&r.z>=-8.8){r.x=LANES[r.lane]!;this.transition(r,'net');return true;}
   return false;
  }
+ netGrip(r:Runner,side:number){
+  if(r.stage!=='net'||this.elapsed<r.recoverUntil||this.elapsed-r.handAt<.28)return false;
+  if(side===r.lastHand){r.mistakes++;r.gripTarget=Math.max(0,r.progress-.04);r.handAt=this.elapsed;return false;}
+  r.lastHand=side;r.handAt=this.elapsed;r.gripTarget=Math.min(1,r.progress+.085);return true;
+ }
+ grip(side:number){return this.state.phase==='racing'&&this.player.heat===this.state.heat&&this.netGrip(this.player,side===0?0:1);}
  protected stepRunner(r:Runner){if(this.elapsed<r.recoverUntil)return;
   const own=r.id===0,x=own?this.input.x:0,forward=own?this.input.forward:0;
   if(r.stage==='sprint')this.walk(r,x,forward,5.5,-38);
@@ -59,6 +65,11 @@ export class CoastalEngine {
    if(r.z>=-17.2)this.transition(r,'to-net');return;
   }
   if(r.stage==='to-net')this.walk(r,x,forward,5,-8.7);
+  if(r.stage==='net'){
+   if(r.progress>0&&this.elapsed-r.handAt>2.2){r.mistakes++;r.gripTarget=Math.max(0,r.progress-.06);r.handAt=this.elapsed;this.state.notice='Grip slipped · alternate hands steadily';}
+   r.progress+=clamp(r.gripTarget-r.progress,-.25*STEP,.25*STEP);r.z=-8.1+6.2*r.progress;r.lift=.1+2.95*(1-Math.abs(2*r.progress-1));
+   if(r.progress>=1-1e-8){r.z=-1.9;this.transition(r,'collection');}return;
+  }
   if(r.stage==='collection')this.walk(r,x,forward,5,16.1);
  }
  advance(dt:number){if(!Number.isFinite(dt)||dt<=0||!['racing','countdown'].includes(this.state.phase))return;

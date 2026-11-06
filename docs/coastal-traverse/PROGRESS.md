@@ -14,7 +14,7 @@ Shared joystick/movement-vector math drives continuous, bounded course movement.
 2. Race engine — complete: fixed-step lifecycle, continuous bounded sprint, stage/split/checkpoint primitives, timed heats, DNF ceiling, deterministic ranking/ties and immutable trait mapping. Three targeted tests passed. Obstacle mechanics and opponents follow in their checkpoints.
 3. Sprint/crawl — complete: continuous joystick/movementVector lane traversal, explicit crouch entry, held crawl progress, safe center corridor and terrain/deck-aware visual pose. Four engine tests pass; render integration follows checkpoint 8.
 4. Beam — complete: moving-forward balance with predictable sway, recoverable stability, actual lean, obstacle-only checkpoint reset and two seconds held penalty. Five tests pass including fall/recovery and successful correction.
-5. Net — pending.
+5. Net — complete: alternating handholds with repeat suppression, smooth fixed-step ascent/descent along the existing A-frame and recoverable grip slips. Six targeted tests pass.
 6. Mosaic — pending.
 7. Contestants — pending.
 8. Presentation/hub integration — pending.
