@@ -19,9 +19,12 @@ export function challengeGroundMaterial() {
         float coast=-61.+.0013*challengeGround.z*challengeGround.z+2.5*sin(challengeGround.z*.045);
         float inland=smoothstep(48.,85.,challengeGround.x-coast);
         vec3 grain=mix(texture2D(challengeSand,challengeGround.xz*.18).rgb,texture2D(challengeLitter,challengeGround.xz*.12).rgb,inland);
-        diffuseColor.rgb*=.78+.6*dot(grain,vec3(.3,.55,.15));`);
+        diffuseColor.rgb*=.78+.6*dot(grain,vec3(.3,.55,.15));
+        float clearing=1.-smoothstep(17.,23.,length(challengeGround.xz-vec2(49.,61.)));
+        float scuff=sin(challengeGround.x*2.7+sin(challengeGround.z*.8))*sin(challengeGround.z*3.1)*.025;
+        diffuseColor.rgb*=1.+clearing*scuff;`);
   };
-  material.customProgramCacheKey=()=>"challenge-continuous-ground-v1";
+  material.customProgramCacheKey=()=>"challenge-continuous-ground-v2-stillwater";
   material.addEventListener("dispose",()=>{active=false;resources.forEach(t=>t.dispose());});
   return material;
 }

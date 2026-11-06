@@ -11,7 +11,7 @@ Branch: `feat/stillwater-balance`. Keep the PR DRAFT; do not merge, deploy, publ
 4. **Interactive station art — complete.** Five shared instanced groups animate footboards, stack platforms, objects, counterweights and tethers from actual competitor values. Existing eight coordinates, solids and safe starts are preserved; static timber has extra lashings/braces. 23 targeted/new-plus-existing tests and TypeScript pass.
 5. **Opponents — complete.** Independent deterministic feedback controllers with phase/lag/error and temporary focus/dexterity/endurance blend. Original roster/player assets are reused at station/spectator marks. Thirteen targeted tests and TypeScript pass, including all available roster sizes, no source mutation, player win/loss and multiple seeded NPC winners.
 6. **Playable presentation — complete.** Single session bridge, gated station entry, original stylized host at existing mark, introduction/rules/tutorial/countdown, compact stability/placement/roster HUD, elimination notices, pause, results, retry and exploration return. Fourteen targeted tests and TypeScript pass. Browser verification and camera polish follow.
-7. Dedicated smooth camera and immediate-clearing polish; actual WebGL captures.
+7. **Camera/WebGL — complete.** Smooth challenge camera takes over after the existing exploration camera and blends back to its safe pose. Separate active/intro/spectator/results framing, local ground scuff detail, title overlap fixed. Actual Chromium 153 SwiftShader smoke run passes, four WebGL captures inspected; 26 combined targeted tests and TypeScript pass. Full touch/repeated-session evidence follows.
 8. Access/exit/retry/preview-switch rule and exact camp preservation; integration tests.
 9. Full regression, Low/High real WebGL resource measurements and repeated retries.
 10. Final report, gallery, performance, limitations, provenance and final remote verification.
@@ -28,4 +28,4 @@ Each numbered checkpoint gets targeted verification, a commit, push, remote SHA 
 
 ## Next action
 
-Polish smooth camera and nearby composition, then capture real WebGL (checkpoint 7).
+Expand real-browser coverage for actual multitouch, win/loss, retry/cancel/preview/camp lifecycle (checkpoint 8).

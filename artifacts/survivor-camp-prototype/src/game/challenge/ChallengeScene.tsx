@@ -29,6 +29,7 @@ import { rehearsalAbility } from "./stillwater/engine";
 import { camp } from "../CampRuntime";
 import { CONTESTANTS } from "../simulation/DemoProvider";
 import { Survivor } from "../Survivor";
+import { StillwaterCamera } from "./stillwater/Camera";
 
 const WORLD: ExplorationWorld = { locationId: "challenge_main", spawn: ARRIVAL, yaw: ARRIVAL.yaw, height: heightAt, move: moveOnTerrain, location: zoneAt };
 function Ground({ low }: { low: boolean }) {
@@ -77,6 +78,11 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
     });
   },[]);
   useEffect(()=>{
+    const blur=()=>{if(stillwater.ownsControls)stillwater.pause();},hidden=()=>{if(document.hidden)blur();};
+    window.addEventListener("blur",blur);document.addEventListener("visibilitychange",hidden);
+    return()=>{window.removeEventListener("blur",blur);document.removeEventListener("visibilitychange",hidden);};
+  },[]);
+  useEffect(()=>{
     const select=(event:Event)=>{
       const id=(event as CustomEvent).detail;
       if(!rehearsalActive()||!isChallengeId(id)||id===selected.current?.id)return;
@@ -115,13 +121,8 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
   useFrame((_,dt)=>{
     const m=selected.current;
     const near=m?.id==="individual-balance"&&rehearsalActive()&&Math.min(...[m.view,...m.starts].map(p=>Math.hypot(dbg.x-p.x,dbg.z-p.z)))<5;
-    stillwater.proximity(!!near);if(document.hidden)stillwater.pause();else stillwater.advance(Math.min(dt,.1));
+    stillwater.proximity(!!near);if(!document.hidden)stillwater.advance(Math.min(dt,.1));
   },-.5);
-  useFrame(()=>{
-    if(!stillwater.ownsControls)return;
-    const active=stillwater.engine?.state.phase==="active"||stillwater.engine?.state.phase==="countdown";
-    camera.position.set(...(active?[33, heightAt(38,56)+4.6,49]:[29,heightAt(49,61)+10,78]) as [number,number,number]);camera.lookAt(active?39.5:48,heightAt(38,56)+1.5,active?56:61);
-  },1);
   useFrame(()=>{if(inspection.current){camera.position.set(...inspection.current.position);camera.lookAt(...inspection.current.target);}},1);
   useFrame(()=>gl.render(scene,camera),2);
   const spawn = useMemo(() => validateSpawn(arrival ?? ARRIVAL, { height: heightAt, walkable }), [arrival]);
@@ -138,6 +139,7 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
       <TrailMarker connectionId="challenge_to_camp" height={heightAt} />
       {model && <group key={model.id} name="challenge-active-configuration"><Assembly pieces={model.pieces} low={low} name={`challenge-equipment-${model.id}`} blocker/>{model.id==="individual-balance"&&<><StillwaterStations low={low} engine={()=>stillwater.ownsControls?stillwater.engine:null}/><group name="stillwater-original-host" position={[model.host.x,heightAt(model.host.x,model.host.z),model.host.z]} rotation={[0,Math.PI/2,0]} scale={1.06}><Survivor motion={hostMotion}/></group></>}{stillwater.ownsControls&&stillwater.engine?<StillwaterRoster engine={()=>stillwater.engine} roster={stillwater.engine.state.competitors}/>:<RehearsalRoster model={model}/>}</group>}
       <group visible={!stillwater.ownsControls}><Player environment={environment} arrival={spawn} /></group>
+      <StillwaterCamera/>
     </group>
   </>;
 }

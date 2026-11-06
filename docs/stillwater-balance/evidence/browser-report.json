@@ -1,0 +1,52 @@
+{
+  "method": "Actual Chromium SwiftShader WebGL; emulated landscape mobile 932x430 DPR1. Manually advanced 60 Hz simulation. No physical iPhone, FPS, thermal or battery certification.",
+  "browser": "153.0.8010.0",
+  "checks": [
+    {
+      "name": "Enter existing individual clearing, staged host introduction and exclusive session"
+    },
+    {
+      "name": "Actual keyboard changes simulation and cancellation restores exploration input"
+    },
+    {
+      "name": "No uncaught or WebGL/shader errors"
+    }
+  ],
+  "screenshots": [
+    "01-introduction-low.jpg",
+    "02-tutorial-low.jpg",
+    "03-active-low.jpg",
+    "04-struggle-low.jpg"
+  ],
+  "samples": [
+    {
+      "label": "exploration-low",
+      "quality": "low",
+      "configuration": "individual-balance",
+      "calls": 106,
+      "triangles": 269776,
+      "geometries": 77,
+      "textures": 8,
+      "activeGeometryBytes": 10078356,
+      "programs": 18,
+      "trackedResources": 120,
+      "listeners": 35,
+      "activeScenes": 1
+    },
+    {
+      "label": "active-low",
+      "quality": "low",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 263178,
+      "geometries": 90,
+      "textures": 11,
+      "activeGeometryBytes": 10617708,
+      "programs": 19,
+      "trackedResources": 130,
+      "listeners": 15,
+      "activeScenes": 1
+    }
+  ],
+  "errors": []
+}

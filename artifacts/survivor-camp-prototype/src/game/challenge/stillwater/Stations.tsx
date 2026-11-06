@@ -21,7 +21,7 @@ export function StillwaterStations({ engine, low }: { engine:()=>StillwaterEngin
       const by=y+2.43+v.tilt*.4;
       put(buckets.current,i,x+.6,by,z+.6,1,1,1);
       for(let j=0;j<2;j++)put(bands.current,i*2+j,x+.6,by+(j?-.14:.14),z+.6,1,1,1,0,Math.PI/2);
-      tool.a.set(x+.6,y+3.03,z+.6);tool.b.set(x+.6,by+.17,z+.6);tool.d.subVectors(tool.b,tool.a);tool.o.position.copy(tool.a).add(tool.b).multiplyScalar(.5);tool.o.quaternion.setFromUnitVectors(tool.up,tool.d.clone().normalize());tool.o.scale.set(1,tool.d.length(),1);tool.o.updateMatrix();ropes.current?.setMatrixAt(i,tool.o.matrix);
+      tool.a.set(x+.6,y+3.03,z+.6);tool.b.set(x+.6,by+.17,z+.6);tool.d.subVectors(tool.b,tool.a);const length=tool.d.length();tool.o.position.copy(tool.a).add(tool.b).multiplyScalar(.5);tool.o.quaternion.setFromUnitVectors(tool.up,tool.d.normalize());tool.o.scale.set(1,length,1);tool.o.updateMatrix();ropes.current?.setMatrixAt(i,tool.o.matrix);
     }
     for(const m of [boards,objects,buckets,ropes,bands])if(m.current)m.current.instanceMatrix.needsUpdate=true;
   },-.3);

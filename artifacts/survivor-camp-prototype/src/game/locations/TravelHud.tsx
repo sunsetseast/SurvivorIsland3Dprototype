@@ -4,9 +4,11 @@ import { camp } from "../CampRuntime";
 import { TouchButton } from "../Hud";
 import { CONNECTIONS, LOCATIONS, localToGeographic } from "./registry";
 import { worldTravel } from "./travel";
+import { stillwater } from "../challenge/stillwater/session";
 export const developerTravel =
   new URLSearchParams(location.search).get("devTravel") === "1";
 export function TravelHud({ blocked = false }: { blocked?: boolean }) {
+  useSyncExternalStore(stillwater.subscribe,stillwater.snapshot);
   const social = useSyncExternalStore(camp.subscribe, camp.getSnapshot);
   const s = useSyncExternalStore(
       worldTravel.subscribe,
@@ -63,6 +65,7 @@ export function TravelHud({ blocked = false }: { blocked?: boolean }) {
         <h2>{s.message}</h2>
       </div>
     );
+  if(session.locationId==="challenge_main"&&stillwater.ownsControls)return null;
   const map = p && localToGeographic(session.locationId, p);
   return (
     <>
