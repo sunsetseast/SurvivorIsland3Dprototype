@@ -8,7 +8,7 @@ import { stillwater } from "../challenge/stillwater/session";
 export const developerTravel =
   new URLSearchParams(location.search).get("devTravel") === "1";
 export function TravelHud({ blocked = false }: { blocked?: boolean }) {
-  useSyncExternalStore(stillwater.subscribe,stillwater.snapshot);
+  useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
   const social = useSyncExternalStore(camp.subscribe, camp.getSnapshot);
   const s = useSyncExternalStore(
       worldTravel.subscribe,

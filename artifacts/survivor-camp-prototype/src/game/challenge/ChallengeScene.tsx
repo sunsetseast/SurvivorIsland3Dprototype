@@ -58,7 +58,7 @@ function Ground({ low }: { low: boolean }) {
   return <mesh name="challenge-ground-ready" geometry={geometry} material={material} receiveShadow/>;
 }
 export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose }) {
-  useSyncExternalStore(stillwater.subscribe,stillwater.snapshot);
+  useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
   const [model,setModel]=useState<ChallengeSetup|null>(()=>validateSetup(CONFIGURATIONS["beach-obstacle"].build()));
   const [switching,setSwitching]=useState(false);
   const selected=useRef<ChallengeSetup|null>(model),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
@@ -144,7 +144,7 @@ export function ChallengeScene({ low, arrival }: { low: boolean; arrival?: Pose 
   </>;
 }
 export function ChallengeHud({ low, setLow, onMenu }: { low: boolean; setLow: (v: boolean) => void; onMenu: () => void }) {
-  useSyncExternalStore(stillwater.subscribe,stillwater.snapshot);
+  useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
   const [selected,setSelected]=useState<ChallengeId>("beach-obstacle");
   useEffect(()=>{const f=(e:Event)=>{const id=(e as CustomEvent).detail;if(isChallengeId(id))setSelected(id);};window.addEventListener(SELECTED_EVENT,f);return ()=>{window.removeEventListener(SELECTED_EVENT,f);clearInput();};},[]);
   return <div className="island-hud">

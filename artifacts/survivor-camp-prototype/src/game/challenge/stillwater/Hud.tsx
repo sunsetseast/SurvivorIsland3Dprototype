@@ -37,6 +37,6 @@ export function StillwaterHud(){
       <div className="sw-actions"><button data-testid="stillwater-retry" onClick={stillwater.retry}>Retry rehearsal</button><button data-testid="stillwater-return" onClick={stillwater.exit}>Return to exploration</button></div>
     </section>}
     {active&&<BalanceControls axis={stillwater.axis} place={stillwater.place} pause={stillwater.pause}/>}
-    <div className="sw-session-actions">{(active||s.phase==="countdown"||s.phase==="player-eliminated")&&<button data-testid="stillwater-pause" onClick={stillwater.pause}>Pause</button>}<button data-testid="stillwater-cancel" onClick={stillwater.exit}>{results?"Explore":"Leave challenge"}</button></div>
+    {!results&&<div className="sw-session-actions">{(active||s.phase==="countdown"||s.phase==="player-eliminated")&&<button data-testid="stillwater-pause" onClick={stillwater.pause}>Pause</button>}<button data-testid="stillwater-cancel" onClick={stillwater.exit}>Leave challenge</button></div>}
   </div>;
 }

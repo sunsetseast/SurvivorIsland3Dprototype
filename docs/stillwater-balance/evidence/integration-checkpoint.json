@@ -1,0 +1,545 @@
+{
+  "method": "Actual Chromium SwiftShader WebGL; emulated landscape mobile 932x430 DPR1. Manually advanced 60 Hz simulation. No physical iPhone, FPS, thermal or battery certification.",
+  "browser": "153.0.8010.0",
+  "checks": [
+    {
+      "name": "Only valid nearby rehearsal can enter; duplicate session rejected; staged host and exclusive session"
+    },
+    {
+      "name": "Actual keyboard changes simulation and cancellation restores exploration input"
+    },
+    {
+      "name": "Real CDP multitouch owns balance without movement/look leakage; touch cancellation returns correction to neutral"
+    },
+    {
+      "name": "Focus/background freeze simulation and release pointers; returning never auto-resumes"
+    },
+    {
+      "name": "Gameplay mistakes eliminate player; remaining real roster determines an independent winner",
+      "detail": {
+        "winnerIds": [
+          4
+        ],
+        "ranking": [
+          {
+            "id": 4,
+            "name": "Boston Rob",
+            "place": 1,
+            "placed": 9,
+            "eliminatedAt": null
+          },
+          {
+            "id": 18,
+            "name": "Russell",
+            "place": 2,
+            "placed": 9,
+            "eliminatedAt": null
+          },
+          {
+            "id": 11,
+            "name": "Sandra",
+            "place": 3,
+            "placed": 8,
+            "eliminatedAt": 85.06666666666666
+          },
+          {
+            "id": 13,
+            "name": "Parvati",
+            "place": 4,
+            "placed": 8,
+            "eliminatedAt": 83.53333333333333
+          },
+          {
+            "id": 0,
+            "name": "You",
+            "place": 5,
+            "placed": 0,
+            "eliminatedAt": 2.716666666666667
+          }
+        ],
+        "duration": 90,
+        "reason": "time-limit",
+        "rehearsal": true
+      }
+    },
+    {
+      "name": "Actual multitouch balance and precise placements complete 90 seconds with a player win and no duplicated placement",
+      "detail": {
+        "winnerIds": [
+          0,
+          4
+        ],
+        "ranking": [
+          {
+            "id": 0,
+            "name": "You",
+            "place": 1,
+            "placed": 9,
+            "eliminatedAt": null
+          },
+          {
+            "id": 4,
+            "name": "Boston Rob",
+            "place": 1,
+            "placed": 9,
+            "eliminatedAt": null
+          },
+          {
+            "id": 18,
+            "name": "Russell",
+            "place": 3,
+            "placed": 9,
+            "eliminatedAt": null
+          },
+          {
+            "id": 11,
+            "name": "Sandra",
+            "place": 4,
+            "placed": 8,
+            "eliminatedAt": 85.06666666666666
+          },
+          {
+            "id": 13,
+            "name": "Parvati",
+            "place": 5,
+            "placed": 8,
+            "eliminatedAt": 83.53333333333333
+          }
+        ],
+        "duration": 90,
+        "reason": "time-limit",
+        "rehearsal": true
+      }
+    },
+    {
+      "name": "Four complete retries plateau GPU/texture/ownership/listener resources in one active scene",
+      "detail": [
+        {
+          "label": "retry-0",
+          "quality": "high",
+          "configuration": "individual-balance",
+          "calls": 93,
+          "triangles": 647222,
+          "geometries": 102,
+          "textures": 11,
+          "activeGeometryBytes": 12770020,
+          "programs": 19,
+          "trackedResources": 142,
+          "listeners": 15,
+          "activeScenes": 1
+        },
+        {
+          "label": "retry-1",
+          "quality": "high",
+          "configuration": "individual-balance",
+          "calls": 93,
+          "triangles": 647222,
+          "geometries": 102,
+          "textures": 11,
+          "activeGeometryBytes": 12770020,
+          "programs": 19,
+          "trackedResources": 142,
+          "listeners": 15,
+          "activeScenes": 1
+        },
+        {
+          "label": "retry-2",
+          "quality": "high",
+          "configuration": "individual-balance",
+          "calls": 93,
+          "triangles": 647222,
+          "geometries": 102,
+          "textures": 11,
+          "activeGeometryBytes": 12770020,
+          "programs": 19,
+          "trackedResources": 142,
+          "listeners": 15,
+          "activeScenes": 1
+        },
+        {
+          "label": "retry-3",
+          "quality": "high",
+          "configuration": "individual-balance",
+          "calls": 93,
+          "triangles": 647222,
+          "geometries": 102,
+          "textures": 11,
+          "activeGeometryBytes": 12770020,
+          "programs": 19,
+          "trackedResources": 142,
+          "listeners": 15,
+          "activeScenes": 1
+        }
+      ]
+    },
+    {
+      "name": "Replacing preview explicitly cancels active challenge and restores exploration"
+    },
+    {
+      "name": "All competitions leave camp clock, NPCs and social memory byte-identical"
+    },
+    {
+      "name": "Return restores exact source camp instance/pose and original NPC/provider/memory identities; camp movement resumes normally",
+      "detail": {
+        "instance": true,
+        "pose": 0,
+        "identity": true,
+        "now": 0.2666666666666666,
+        "npcJSON": "[{\"id\":4,\"x\":-8.7,\"z\":-27.5,\"y\":1.0286753855154371,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"socialize\",\"groupId\":1,\"destination\":null,\"destinationPlace\":null,\"movement\":\"talking\",\"animation\":\"talk\",\"facing\":-1.525774903851083,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"socialize\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":16.2732545245206,\"decisionAt\":0,\"approachCooldown\":18.1073956489563,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":13,\"arrived\":true,\"approach\":\"none\"},{\"id\":11,\"x\":-9,\"z\":-34.15,\"y\":1.0286753855154371,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"rest\",\"groupId\":null,\"destination\":null,\"destinationPlace\":null,\"movement\":\"idle\",\"animation\":\"sit\",\"facing\":0,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"rest\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":31,\"decisionAt\":0,\"approachCooldown\":47.82461816864088,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":null,\"arrived\":true,\"approach\":\"none\"},{\"id\":13,\"x\":-10.7,\"z\":-27.5,\"y\":1.0286753855154371,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"socialize\",\"groupId\":1,\"destination\":null,\"destinationPlace\":null,\"movement\":\"talking\",\"animation\":\"talk\",\"facing\":1.525774903851083,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"socialize\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":20.37540622362867,\"decisionAt\":0,\"approachCooldown\":27.63919614907354,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":4,\"arrived\":true,\"approach\":\"none\"},{\"id\":18,\"x\":-2,\"z\":-29,\"y\":1.0325250117108964,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"observe\",\"groupId\":null,\"destination\":null,\"destinationPlace\":null,\"movement\":\"idle\",\"animation\":\"idle\",\"facing\":-1.8,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"observe\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":8,\"decisionAt\":0,\"approachCooldown\":18.052075821440667,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":null,\"arrived\":true,\"approach\":\"none\"}]",
+        "memoryJSON": "{\"memory\":{\"0\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"witness\",\"sourceId\":null,\"confidence\":0.85,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{\"4\":{\"seen_together\":{\"count\":1,\"confidence\":0.17,\"lastDay\":1}}},\"lastCampDecayDay\":1},\"4\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"participant\",\"sourceId\":4,\"confidence\":1,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{},\"lastCampDecayDay\":1,\"conversationHistory\":[{\"id\":\"3d:line:1\",\"speakerId\":4,\"type\":\"camp_demo\",\"topic\":\"camp\",\"line\":\"There’s a lot to do here. I like having something useful to put my energy into.\",\"day\":1,\"campTime\":0,\"location\":\"campfire\",\"objectiveId\":null,\"delegationId\":null,\"phase\":null,\"semantic\":{\"source\":\"3d-demo\",\"listenerIds\":[13]}}]},\"13\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"participant\",\"sourceId\":4,\"confidence\":1,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{\"4\":{\"seen_together\":{\"count\":1,\"confidence\":0.1,\"lastDay\":1}}},\"lastCampDecayDay\":1,\"conversationHistory\":[{\"id\":\"3d:line:1\",\"speakerId\":4,\"type\":\"camp_demo\",\"topic\":\"camp\",\"line\":\"There’s a lot to do here. I like having something useful to put my energy into.\",\"day\":1,\"campTime\":0,\"location\":\"campfire\",\"objectiveId\":null,\"delegationId\":null,\"phase\":null,\"semantic\":{\"source\":\"3d-demo\",\"listenerIds\":[13]}}]},\"18\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"witness\",\"sourceId\":null,\"confidence\":0.85,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{\"4\":{\"seen_together\":{\"count\":1,\"confidence\":0.17,\"lastDay\":1}}},\"lastCampDecayDay\":1}},\"intelEvents\":[],\"socialEvents\":[],\"structuredEvents\":[]}",
+        "expectedNPC": "[{\"id\":4,\"x\":-8.7,\"z\":-27.5,\"y\":1.0286753855154371,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"socialize\",\"groupId\":1,\"destination\":null,\"destinationPlace\":null,\"movement\":\"talking\",\"animation\":\"talk\",\"facing\":-1.5025034745625874,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"socialize\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":16.2732545245206,\"decisionAt\":0,\"approachCooldown\":18.1073956489563,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":13,\"arrived\":true,\"approach\":\"none\"},{\"id\":11,\"x\":-9,\"z\":-34.15,\"y\":1.0286753855154371,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"rest\",\"groupId\":null,\"destination\":null,\"destinationPlace\":null,\"movement\":\"idle\",\"animation\":\"sit\",\"facing\":0,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"rest\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":31,\"decisionAt\":0,\"approachCooldown\":47.82461816864088,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":null,\"arrived\":true,\"approach\":\"none\"},{\"id\":13,\"x\":-10.7,\"z\":-27.5,\"y\":1.0286753855154371,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"socialize\",\"groupId\":1,\"destination\":null,\"destinationPlace\":null,\"movement\":\"talking\",\"animation\":\"talk\",\"facing\":1.5025034745625874,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"socialize\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":20.37540622362867,\"decisionAt\":0,\"approachCooldown\":27.63919614907354,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":4,\"arrived\":true,\"approach\":\"none\"},{\"id\":18,\"x\":-2,\"z\":-29,\"y\":1.0325250117108964,\"place\":\"campfire\",\"traveling\":false,\"available\":true,\"activity\":\"observe\",\"groupId\":null,\"destination\":null,\"destinationPlace\":null,\"movement\":\"idle\",\"animation\":\"idle\",\"facing\":-1.8,\"speed\":0,\"distance\":0,\"route\":[],\"routeIndex\":0,\"intent\":{\"activity\":\"observe\",\"place\":\"campfire\",\"duration\":20,\"reason\":\"Watch camp\"},\"until\":8,\"decisionAt\":0,\"approachCooldown\":18.052075821440667,\"blockedFor\":0,\"repathAt\":0,\"travelId\":null,\"fromPlace\":null,\"targetId\":null,\"arrived\":true,\"approach\":\"none\"}]",
+        "expectedMemory": "{\"memory\":{\"0\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"witness\",\"sourceId\":null,\"confidence\":0.85,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{\"4\":{\"seen_together\":{\"count\":1,\"confidence\":0.17,\"lastDay\":1}}},\"lastCampDecayDay\":1},\"4\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"participant\",\"sourceId\":4,\"confidence\":1,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{},\"lastCampDecayDay\":1,\"conversationHistory\":[{\"id\":\"3d:line:1\",\"speakerId\":4,\"type\":\"camp_demo\",\"topic\":\"camp\",\"line\":\"There’s a lot to do here. I like having something useful to put my energy into.\",\"day\":1,\"campTime\":0,\"location\":\"campfire\",\"objectiveId\":null,\"delegationId\":null,\"phase\":null,\"semantic\":{\"source\":\"3d-demo\",\"listenerIds\":[13]}}]},\"13\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"participant\",\"sourceId\":4,\"confidence\":1,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{\"4\":{\"seen_together\":{\"count\":1,\"confidence\":0.1,\"lastDay\":1}}},\"lastCampDecayDay\":1,\"conversationHistory\":[{\"id\":\"3d:line:1\",\"speakerId\":4,\"type\":\"camp_demo\",\"topic\":\"camp\",\"line\":\"There’s a lot to do here. I like having something useful to put my energy into.\",\"day\":1,\"campTime\":0,\"location\":\"campfire\",\"objectiveId\":null,\"delegationId\":null,\"phase\":null,\"semantic\":{\"source\":\"3d-demo\",\"listenerIds\":[13]}}]},\"18\":{\"targetRequests\":[],\"lies\":[],\"secretsShared\":[],\"idolInfo\":[],\"warningsGiven\":[],\"betrayals\":[],\"promises\":[],\"voteHistory\":[],\"trust\":50,\"reliability\":50,\"gossip\":[],\"trustStatements\":[],\"targetPreferences\":[],\"deals\":[],\"confrontations\":[],\"apologies\":[],\"meetingNotes\":[],\"allianceInvites\":[],\"playerSecrets\":[],\"intel\":[],\"namedIntel\":[],\"intelEvents\":[],\"conversationIntents\":[],\"structuredEvents\":[],\"plotPackets\":[],\"accusations\":[],\"nameMentions\":[],\"dailyCounters\":{},\"misc\":[],\"lastTopics\":[],\"lastLines\":[],\"committedAllianceId\":null,\"lastTopicKey\":null,\"timesPressedRecently\":0,\"lastPressAt\":0,\"campObservations\":[{\"id\":\"3d:1\",\"actorId\":4,\"participantIds\":[13],\"type\":\"seen_together\",\"location\":\"campfire\",\"day\":1,\"campTime\":0,\"origin\":\"witness\",\"sourceId\":null,\"confidence\":0.85,\"salience\":\"medium\",\"visibility\":\"visible\",\"detail\":\"Boston Rob spent time with Parvati.\"}],\"campImpressions\":{\"4\":{\"seen_together\":{\"count\":1,\"confidence\":0.17,\"lastDay\":1}}},\"lastCampDecayDay\":1}},\"intelEvents\":[],\"socialEvents\":[],\"structuredEvents\":[]}",
+        "challengeAbsent": true,
+        "active": 1
+      }
+    },
+    {
+      "name": "No uncaught or WebGL/shader errors"
+    }
+  ],
+  "screenshots": [
+    "01-introduction-low.jpg",
+    "02-tutorial-low.jpg",
+    "03-active-low.jpg",
+    "04-struggle-low.jpg",
+    "05-player-eliminated-low.jpg",
+    "06-results-loss-low.jpg",
+    "07-active-stack-low.jpg",
+    "08-results-win-low.jpg",
+    "09-introduction-high.jpg",
+    "10-active-high.jpg"
+  ],
+  "samples": [
+    {
+      "label": "exploration-low",
+      "quality": "low",
+      "configuration": "individual-balance",
+      "calls": 106,
+      "triangles": 269776,
+      "geometries": 77,
+      "textures": 8,
+      "activeGeometryBytes": 10078356,
+      "programs": 18,
+      "trackedResources": 120,
+      "listeners": 35,
+      "activeScenes": 1
+    },
+    {
+      "label": "active-low",
+      "quality": "low",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 263178,
+      "geometries": 90,
+      "textures": 11,
+      "activeGeometryBytes": 10617708,
+      "programs": 19,
+      "trackedResources": 130,
+      "listeners": 15,
+      "activeScenes": 1
+    },
+    {
+      "label": "active-high",
+      "quality": "high",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 647222,
+      "geometries": 102,
+      "textures": 11,
+      "activeGeometryBytes": 12770020,
+      "programs": 19,
+      "trackedResources": 142,
+      "listeners": 15,
+      "activeScenes": 1
+    },
+    {
+      "label": "retry-0",
+      "quality": "high",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 647222,
+      "geometries": 102,
+      "textures": 11,
+      "activeGeometryBytes": 12770020,
+      "programs": 19,
+      "trackedResources": 142,
+      "listeners": 15,
+      "activeScenes": 1
+    },
+    {
+      "label": "retry-1",
+      "quality": "high",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 647222,
+      "geometries": 102,
+      "textures": 11,
+      "activeGeometryBytes": 12770020,
+      "programs": 19,
+      "trackedResources": 142,
+      "listeners": 15,
+      "activeScenes": 1
+    },
+    {
+      "label": "retry-2",
+      "quality": "high",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 647222,
+      "geometries": 102,
+      "textures": 11,
+      "activeGeometryBytes": 12770020,
+      "programs": 19,
+      "trackedResources": 142,
+      "listeners": 15,
+      "activeScenes": 1
+    },
+    {
+      "label": "retry-3",
+      "quality": "high",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 647222,
+      "geometries": 102,
+      "textures": 11,
+      "activeGeometryBytes": 12770020,
+      "programs": 19,
+      "trackedResources": 142,
+      "listeners": 15,
+      "activeScenes": 1
+    },
+    {
+      "label": "exploration-high-after-retries",
+      "quality": "high",
+      "configuration": "individual-balance",
+      "calls": 45,
+      "triangles": 566990,
+      "geometries": 61,
+      "textures": 11,
+      "activeGeometryBytes": 12230668,
+      "programs": 18,
+      "trackedResources": 132,
+      "listeners": 35,
+      "activeScenes": 1
+    }
+  ],
+  "errors": [],
+  "touchTrace": [
+    {
+      "phase": "active",
+      "elapsed": 0.016666666666666666,
+      "input": -0.294615604108775,
+      "place": false,
+      "placed": 0,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": 0.00013058149912146527,
+        "velocity": 0.007834889947287916,
+        "control": 0,
+        "stability": 1,
+        "placed": 0,
+        "strikes": 0,
+        "nextPlacement": 8,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "none",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 10.016666666666666,
+      "input": -0.20042268067641625,
+      "place": false,
+      "placed": 1,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": 0.021662804868427255,
+        "velocity": 0.025587038525114607,
+        "control": -0.11130631852472009,
+        "stability": 1,
+        "placed": 1,
+        "strikes": 0,
+        "nextPlacement": 18,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 20.016666666666666,
+      "input": 0.20868534274341877,
+      "place": false,
+      "placed": 2,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": -0.004986966336936773,
+        "velocity": 0.03673291240996677,
+        "control": 0.3007614828676055,
+        "stability": 1,
+        "placed": 2,
+        "strikes": 0,
+        "nextPlacement": 28,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 30.15,
+      "input": 0.3748497208042698,
+      "place": false,
+      "placed": 3,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": -0.03085488054768732,
+        "velocity": 0.025684645745873744,
+        "control": 0.41191693722900935,
+        "stability": 1,
+        "placed": 3,
+        "strikes": 0,
+        "nextPlacement": 38,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 40.15,
+      "input": 0.2542182111924523,
+      "place": false,
+      "placed": 4,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": -0.034440058101451676,
+        "velocity": -0.004466062314635493,
+        "control": 0.2161143393184086,
+        "stability": 1,
+        "placed": 4,
+        "strikes": 0,
+        "nextPlacement": 48,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 50.15,
+      "input": 0.16657409624819217,
+      "place": false,
+      "placed": 5,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": -0.017656187262172128,
+        "velocity": -0.030395238625010416,
+        "control": 0.0807465174423928,
+        "stability": 1,
+        "placed": 5,
+        "strikes": 0,
+        "nextPlacement": 58,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 60.15,
+      "input": 0.13207952534273842,
+      "place": false,
+      "placed": 6,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": -0.003885498922018,
+        "velocity": -0.042862743578556545,
+        "control": 0.016018593856787423,
+        "stability": 1,
+        "placed": 6,
+        "strikes": 0,
+        "nextPlacement": 68,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 70.15,
+      "input": -0.24475487450736982,
+      "place": false,
+      "placed": 7,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": 0.015559152929685242,
+        "velocity": -0.03970344474926322,
+        "control": -0.34560051786135143,
+        "stability": 1,
+        "placed": 7,
+        "strikes": 0,
+        "nextPlacement": 78,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    },
+    {
+      "phase": "active",
+      "elapsed": 80.15,
+      "input": -0.7207298886996777,
+      "place": false,
+      "placed": 8,
+      "competitor": {
+        "id": 0,
+        "name": "You",
+        "ability": 0.65,
+        "station": 0,
+        "balance": 0.04800427596162687,
+        "velocity": -0.010891111978960184,
+        "control": -0.7110033337672532,
+        "stability": 1,
+        "placed": 8,
+        "strikes": 0,
+        "nextPlacement": 88,
+        "eliminatedAt": null,
+        "placementFlash": 0,
+        "lastPlacement": "success",
+        "phase": 1.046661493149533
+      }
+    }
+  ]
+}
