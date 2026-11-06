@@ -1,0 +1,377 @@
+{
+  "method": "Real Chromium software WebGL; emulated mobile landscape 932x430 DPR1; trusted touchscreen/CDP events, manual 60Hz simulation. No actual Replit access or physical iPhone certification.",
+  "browser": "153.0.8010.0",
+  "checks": [
+    {
+      "name": "Normal production welcome rejects URL-based hub unlock"
+    },
+    {
+      "name": "Welcome → hub needs no URL flag, loads no ChallengeScene and lists one playable/three previews"
+    },
+    {
+      "name": "One tap and rapid duplicate tap load one existing scene and auto-start the real introduction"
+    },
+    {
+      "name": "Ready and Hub/Welcome touch exits preserve original normal/camp/social identities and clock"
+    },
+    {
+      "name": "Continue normal session after cold-start testing reaches the original camp default spawn"
+    },
+    {
+      "name": "Portrait primary Play and all landscape cards respect visible 44px touch targets and bottom spacing"
+    },
+    {
+      "name": "Three full touch-only hub → real results → hub cycles release all scene/GPU ownership and plateau active resources/listeners",
+      "detail": {
+        "active": [
+          {
+            "label": "active-cycle-0",
+            "quality": "low",
+            "configuration": "individual-balance",
+            "calls": 93,
+            "triangles": 263178,
+            "geometries": 81,
+            "textures": 16,
+            "activeGeometryBytes": 10617708,
+            "programs": 13,
+            "listeners": 23,
+            "ownership": 130,
+            "activeScenes": 1,
+            "peakActive": 1,
+            "contextLost": false
+          },
+          {
+            "label": "active-cycle-1",
+            "quality": "low",
+            "configuration": "individual-balance",
+            "calls": 93,
+            "triangles": 263178,
+            "geometries": 81,
+            "textures": 16,
+            "activeGeometryBytes": 10617708,
+            "programs": 13,
+            "listeners": 23,
+            "ownership": 130,
+            "activeScenes": 1,
+            "peakActive": 1,
+            "contextLost": false
+          },
+          {
+            "label": "active-cycle-2",
+            "quality": "low",
+            "configuration": "individual-balance",
+            "calls": 93,
+            "triangles": 263178,
+            "geometries": 81,
+            "textures": 16,
+            "activeGeometryBytes": 10617708,
+            "programs": 13,
+            "listeners": 23,
+            "ownership": 130,
+            "activeScenes": 1,
+            "peakActive": 1,
+            "contextLost": false
+          }
+        ],
+        "menus": [
+          {
+            "label": "hub-cycle-0",
+            "listeners": 27,
+            "canvases": 0,
+            "activeScenes": 0,
+            "ownership": 0,
+            "geometries": 0,
+            "textures": 1,
+            "contextLost": true
+          },
+          {
+            "label": "hub-cycle-1",
+            "listeners": 27,
+            "canvases": 0,
+            "activeScenes": 0,
+            "ownership": 0,
+            "geometries": 0,
+            "textures": 1,
+            "contextLost": true
+          },
+          {
+            "label": "hub-cycle-2",
+            "listeners": 27,
+            "canvases": 0,
+            "activeScenes": 0,
+            "ownership": 0,
+            "geometries": 0,
+            "textures": 1,
+            "contextLost": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real two-finger player win, actual-input loss, pause/resume and existing Retry all work without refresh"
+    },
+    {
+      "name": "All three clearly labelled previews use the selected equipment, normal touch movement and safe Hub exit"
+    },
+    {
+      "name": "Direct Welcome exit and Continue restore the exact non-default original camp instance/pose with neutral inputs",
+      "detail": {
+        "sameSession": true,
+        "sameInstance": true,
+        "sameParticipant": true,
+        "poseError": 0,
+        "yawError": 0,
+        "pendingTeleport": null,
+        "input": [
+          0,
+          0
+        ],
+        "testing": null,
+        "engine": null
+      }
+    },
+    {
+      "name": "No uncaught or shader/WebGL errors"
+    }
+  ],
+  "screenshots": [
+    "01-welcome.jpg",
+    "02-hub-landscape.jpg",
+    "03-direct-introduction.jpg",
+    "04-active-touch-controls.jpg",
+    "06-hub-portrait.jpg",
+    "05-two-finger-play.jpg",
+    "07-results-hub-welcome.jpg"
+  ],
+  "samples": [
+    {
+      "label": "hub-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "active-cycle-0",
+      "quality": "low",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 263178,
+      "geometries": 81,
+      "textures": 16,
+      "activeGeometryBytes": 10617708,
+      "programs": 13,
+      "listeners": 23,
+      "ownership": 130,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "hub-cycle-0",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "active-cycle-1",
+      "quality": "low",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 263178,
+      "geometries": 81,
+      "textures": 16,
+      "activeGeometryBytes": 10617708,
+      "programs": 13,
+      "listeners": 23,
+      "ownership": 130,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "hub-cycle-1",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "active-cycle-2",
+      "quality": "low",
+      "configuration": "individual-balance",
+      "calls": 93,
+      "triangles": 263178,
+      "geometries": 81,
+      "textures": 16,
+      "activeGeometryBytes": 10617708,
+      "programs": 13,
+      "listeners": 23,
+      "ownership": 130,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "hub-cycle-2",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "beach-obstacle-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "ocean-relay-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "jungle-net-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "introduction-high",
+      "quality": "high",
+      "configuration": "individual-balance",
+      "calls": 112,
+      "triangles": 654146,
+      "geometries": 90,
+      "textures": 16,
+      "activeGeometryBytes": 12770020,
+      "programs": 13,
+      "listeners": 19,
+      "ownership": 130,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    }
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:5210/src/game/challenge/ChallengeScene.tsx"
+  ],
+  "touchWin": {
+    "winnerIds": [
+      0,
+      4
+    ],
+    "ranking": [
+      {
+        "id": 0,
+        "name": "You",
+        "place": 1,
+        "placed": 9,
+        "eliminatedAt": null
+      },
+      {
+        "id": 4,
+        "name": "Boston Rob",
+        "place": 1,
+        "placed": 9,
+        "eliminatedAt": null
+      },
+      {
+        "id": 18,
+        "name": "Russell",
+        "place": 3,
+        "placed": 9,
+        "eliminatedAt": null
+      },
+      {
+        "id": 11,
+        "name": "Sandra",
+        "place": 4,
+        "placed": 8,
+        "eliminatedAt": 85.06666666666666
+      },
+      {
+        "id": 13,
+        "name": "Parvati",
+        "place": 5,
+        "placed": 8,
+        "eliminatedAt": 83.53333333333333
+      }
+    ],
+    "duration": 90,
+    "reason": "time-limit",
+    "rehearsal": true
+  },
+  "retryLoss": {
+    "winnerIds": [
+      4
+    ],
+    "ranking": [
+      {
+        "id": 4,
+        "name": "Boston Rob",
+        "place": 1,
+        "placed": 9,
+        "eliminatedAt": null
+      },
+      {
+        "id": 18,
+        "name": "Russell",
+        "place": 2,
+        "placed": 9,
+        "eliminatedAt": null
+      },
+      {
+        "id": 11,
+        "name": "Sandra",
+        "place": 3,
+        "placed": 8,
+        "eliminatedAt": 85.06666666666666
+      },
+      {
+        "id": 13,
+        "name": "Parvati",
+        "place": 4,
+        "placed": 8,
+        "eliminatedAt": 83.53333333333333
+      },
+      {
+        "id": 0,
+        "name": "You",
+        "place": 5,
+        "placed": 0,
+        "eliminatedAt": 1.6666666666666667
+      }
+    ],
+    "duration": 90,
+    "reason": "time-limit",
+    "rehearsal": true
+  }
+}

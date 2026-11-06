@@ -1,0 +1,68 @@
+{
+  "runtimeCommit": "c1a940de627ebd8f349242066893063cab3081f7",
+  "note": "These runs test the frozen runtime/harness bytes. Subsequent evidence/documentation saves preserve source-manifest.json. See PR body for latest final-head status.",
+  "workflows": [
+    {
+      "id": 42181799472,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42181799472"
+    },
+    {
+      "id": 42181799473,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42181799473"
+    },
+    {
+      "id": 42181799475,
+      "name": "Connected island journeys",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42181799475"
+    },
+    {
+      "id": 42181799494,
+      "name": "Challenge Beach rehearsal and WebGL",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42181799494"
+    },
+    {
+      "id": 42181799486,
+      "name": "Stillwater Balance playable rehearsal",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42181799486"
+    },
+    {
+      "id": 42181799474,
+      "name": "Living camp checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42181799474"
+    }
+  ],
+  "hubArtifact": {
+    "id": 13486497008,
+    "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42181799486/artifacts/13486497008",
+    "sha256": "668c0bf8ed2a6c1b0ca60bb4d037035def5b3a8ea900088df346a0d1ee1bcefd",
+    "verifiedDownloadedArchive": true,
+    "rawReport": "ci-browser-report.json",
+    "browser": "156.0.8078.4",
+    "checks": 11
+  },
+  "local": {
+    "tests": 159,
+    "passed": 159,
+    "failed": 0,
+    "typecheck": "passed",
+    "worldCollisionChecks": 294,
+    "worldChecks": 6,
+    "productionBuild": "passed",
+    "touchWebGLGroups": 11,
+    "browser": "153.0.8010.0"
+  }
+}

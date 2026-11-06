@@ -1,0 +1,244 @@
+$ node --import tsx --test tests/*.test.mjs
+✔ daytime remains the default; art presets require the developer gate and own names (1.659397ms)
+✔ all atmosphere presets keep sky/water inputs finite and use the visible sun's normalized direction (2.808595ms)
+✔ cloud atlas retains its declared dimensions and verified authoring provenance (0.629241ms)
+✔ both projecting cave cheeks reject body penetration on the apron and inside (2.36899ms)
+✔ cave centre and both edges allow entry, turning, exit and NPC routes (139.165494ms)
+✔ challenge body, camera, host and ten staging spawns have safe terrain clearance (8.960311ms)
+✔ movement adapter traverses every blueprint route and its reverse without entering unsupported water (94.676329ms)
+✔ ordinary builds, direct menu entry, missing grants and wrong scopes cannot admit a challenge (13.080187ms)
+✔ rehearsal admission consumes one grant and returns to the exact source instance/pose without changing tribe (27.68489ms)
+✔ wrong participant/origin, revoked admission and out-of-range travel fail closed (24.119912ms)
+✔ failed challenge loading, retry and canceled stale loads preserve the source session (31.082044ms)
+✔ visible cliff/trunk collision stays outside walking corridors and stops body penetration (26.76018ms)
+✔ main mockup keeps host/contestant spawns and perimeter routes free while blocking static obstacles (19.980186ms)
+✔ ocean relay has dry safe staging/finish and unreachable offshore platforms until swimming exists (11.285475ms)
+✔ jungle net course leaves its west entrance, host, roster and perimeter path navigable (6.12059ms)
+✔ eight individual balance/endurance stations leave valid distinct starts and a free viewing/host edge (3.46718ms)
+✔ every selected configuration validates equipment, roster positions and the complete reversible route network (221.192458ms)
+✔ hub authorization requires actual development; URL and rehearsal build flags cannot authorize production (0.97299ms)
+✔ hub metadata reuses all four registered configurations and labels only real Stillwater gameplay playable (1.405825ms)
+✔ direct testing denies production, invalid configuration and duplicate taps (14.168793ms)
+✔ each direct configuration gets a safe spawn, one scene load and an isolated scope (40.683174ms)
+✔ three direct sessions preserve original session, instance, participant, permissions and pose identities (42.874224ms)
+✔ stale loads, retry, safe return and revoked testing scope cannot replace the normal session (29.18775ms)
+✔ registry has distinct coastal camps; planned locations load no scene; transforms round trip (1.183078ms)
+✔ real source/destination body and camera spawn safety (705.514863ms)
+✔ authorization, proximity, one journey grant, stable return instance and participant identity (25.466857ms)
+✔ stale loads cannot activate a canceled destination; rejection supports retry and safe return (16.548139ms)
+✔ old prototype session defaults to tribe camp without invented game systems (1.101244ms)
+✔ paired comparison accepts identical captures (126.37206ms)
+✔ paired comparison still rejects a three-draw regression (138.681352ms)
+✔ paired comparison rejects changed NPC staging and renderer conditions (235.249171ms)
+✔ paired comparison rejects geometry growth outside the measured shelter addition (123.120887ms)
+✔ paired comparison accepts only the measured shelter and bounded debris accounting (262.102634ms)
+✔ shipped cliff contains scan-derived relief within the fixed LOD budgets (644.811383ms)
+✔ actual exported near/far walls preserve coverage and stay within the existing LOD tolerance (97.982818ms)
+✔ actual exported near/far rock leaves all reachable southern body samples clear of intersections (2126.217506ms)
+{"navigationBuildOrReuseMs":0.03690599999981714,"nodes":24905,"colliders":463}
+(node:51) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ expanded irregular territory and remote spring have meaningful scale (35.660862ms)
+✔ every authored trail centreline is traversable by the real body solver (116.463516ms)
+✔ all expanded activity spaces and NPC anchors are graph-connected (345.593199ms)
+✔ southern limestone is accessible but solid faces cannot be crossed or climbed (1.38339ms)
+✔ 39 future hiding candidates have stable IDs, grounded reachable approaches, no spawning side effects (540.256645ms)
+✔ an NPC physically completes the remote water trip and returns without expiring its intent en route (464.84536ms)
+✔ navigation can retreat out of a newly overlapping NPC avoidance ring (1.570263ms)
+✔ real cliff triangles leave the cave mouth open and agree with near-contact collision (246.005287ms)
+✔ optimized CC0 binary assets match provenance hashes and enforce a reusable mobile budget (37.313731ms)
+✔ solid cliff scan has three-dimensional mass; tree roots are centered at collision origins (4.012434ms)
+✔ all simulation anchors, private strategy spaces, shelter ramp and departure remain physically connected (311.621149ms)
+✔ camera corridor uses the existing cutout pass and a live shared focus (5.39908ms)
+✔ 0 attendees share exactly 0 unique furniture, collision, torch and cinematic anchors (9.384102ms)
+✔ 1 attendees share exactly 1 unique furniture, collision, torch and cinematic anchors (8.736042ms)
+✔ 4 attendees share exactly 4 unique furniture, collision, torch and cinematic anchors (3.05004ms)
+✔ 5 attendees share exactly 5 unique furniture, collision, torch and cinematic anchors (1.878018ms)
+✔ 7 attendees share exactly 7 unique furniture, collision, torch and cinematic anchors (10.850779ms)
+✔ 8 attendees share exactly 8 unique furniture, collision, torch and cinematic anchors (1.890758ms)
+✔ 10 attendees share exactly 10 unique furniture, collision, torch and cinematic anchors (1.722403ms)
+✔ 12 attendees share exactly 12 unique furniture, collision, torch and cinematic anchors (1.850797ms)
+✔ invalid rosters are rejected atomically; count helper handles numeric edge cases (0.488177ms)
+✔ five hero meshes have finite surface masks, distinct silhouettes and bounded draw/triangle budgets (357.932438ms)
+✔ presence is deterministic, desynchronised and shortest-arc heading eases across pi (6.862992ms)
+✔ seated soles meet ground for all hero heights and every stool tier (0.565885ms)
+Southern body-clearance grid samples 2299
+✔ western cliff has genuine cross-sectional relief, submerged feet and outward normals in both LODs (48.435779ms)
+✔ near and far silhouettes agree without flattening the eroded side (31.1202ms)
+✔ reconstructed rock adds no body penetration across the entire southern and inland-edge walkable grid (2503.68141ms)
+Certified 361 directed spot routes
+Certified 44769 physical travel frames
+{"activities":{"4":["socialize","observe","collect_water","explore","chores","rest"],"11":["rest","explore","observe","collect_water","chores","private_chat"],"13":["socialize","explore","collect_water","observe","chores","rest"],"18":["observe","socialize","rest","explore","collect_water","chores","private_chat"]},"exchanges":8,"departures":106}
+✔ production snapshots remain byte-identical to the audited source manifest (4.238716ms)
+✔ every major activity spot has a collision-validated path to every other spot (4402.198632ms)
+✔ four contestants physically traverse all five landmarks with no early arrival or teleport (613.525711ms)
+✔ proximity, responses, exit and interrupted intent recover without a false arrival (8.900021ms)
+✔ approaches walk physically, can be accepted/declined and cancel when the player leaves (37.110424ms)
+✔ private meeting knowledge is owner-scoped; movement never grants a witness destination presence (2.316111ms)
+✔ autonomous providers vary activities and decision times, form and leave real groups (1435.920461ms)
+✔ walking stance feet stay planted and articulated legs solve ground targets (1.827622ms)
+✔ sprint observers read the gameplay latch synchronously, including resets (13.338797ms)
+✔ every explicit reset clears sprint and invalidates interrupted gestures (0.210808ms)
+(node:328) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✔ geographic conversion uses metres and round-trips longitude/latitude (1.341457ms)
+✔ four coastal zones and lagoon retain correct relative topology (0.459714ms)
+✔ all sampled terrain heights are finite and dimensions match the geography grid (99.35762ms)
+✔ terrain chunk edges share identical coordinate / height samples (1.632857ms)
+✔ triangle interpolation grounds navigation on the rendered triangle (0.510181ms)
+✔ every exploration destination spawns above water on traversable ground (353.002862ms)
+✔ step subdivision stops water entry and sheer cliff ascent; invalid movement is rejected (3.208269ms)
+✔ small player steps progress and stay grounded (0.4566ms)
+✔ quality modes change LOD distance, preserving coordinates and collision data (97.542952ms)
+✔ ecological placement is deterministic, grounded, varied and cheaper in low mode (238.156926ms)
+✔ future location anchors contain planning data only (0.31777ms)
+✔ Blender geology is complete and matches its declared binary hash (1.669103ms)
+✔ actual terrain mesh vertices / triangle winding match movement height samples (747.034866ms)
+✔ camera cliff envelopes use fewer triangles than the visible karst (21.238425ms)
+✔ reserved challenge footprint is usable natural beach ground (0.19193ms)
+✔ hero karst footprints have no crossing boundary segments (1.51525ms)
+✔ production kits are finite, bounded, independently hashed and low downloads no near meshes (68.702456ms)
+✔ both shelter LODs cover the communal deck above standing head height and retain its navigation surface (70.409557ms)
+✔ understory inhabits five habitats while protecting every trail and hiding approach (19.709306ms)
+✔ offline kit hashes, mobile-only payload, and editable model source remain synchronized (7.02068ms)
+✔ baked graph matches independently reconstructed body-valid edges and costs exactly (4258.887163ms)
+✔ 39 stable future candidates have real mesh anchors, independent reachable approaches and unburied positions (673.603571ms)
+✔ new rock passages use scan footprints and release original invisible corners (76.650691ms)
+✔ wood lofts have outward normals, open log ends and a genuine stump cavity (1.682673ms)
+✔ disposed detached geometry, materials and textures release tracking references and listeners (1.820031ms)
+✔ a disposed asset still attached to the scene remains owned for a possible GPU re-upload (0.362018ms)
+✔ a detached asset awaiting asynchronous disposal stays owned until released (0.302277ms)
+✔ 64 equipment replacements retain only current assets and can observe a reused asset again (1.564234ms)
+✔ actual Blender GLBs contain complete finite Y-up meshes, embedded PBR atlases, and a cheaper fallback (98.370783ms)
+✔ authored decorations reserve a conservative footprint around all ceremony routes (6.057935ms)
+✔ reclaimed ground exposes soil without removing stone from the ceremonial walking lanes (7.330979ms)
+reconstruction.glb { addedResidentBytes: 34916 }
+reconstruction-low.glb { addedResidentBytes: 34916 }
+✔ both finished shelter LODs retain deck/roof clearance, fixed draws and bounded resident geometry (269.922326ms)
+✔ touch suppression survives replacing Decline with Talk while preserving keyboard access (0.92631ms)
+✔ explicit intro, tutorial, ready/countdown and exclusive session transitions (2.029217ms)
+✔ fixed step determinism is independent of render delta partitioning (3.067816ms)
+✔ placement precision, early actions, strikes, deadline and recovery are actual state (0.484252ms)
+✔ difficulty tightens continuously with bounded end values (0.181664ms)
+✔ pause freezes countdown and active simulation; resume releases inputs (0.467126ms)
+✔ real mistakes eliminate; results occur once; retry is pristine and cancellation stops advancement (0.610583ms)
+✔ valid station assignments deduplicate and cap actual identities without mutating source (0.542751ms)
+✔ successful feedback control can survive a complete solo rehearsal and earn placements (8.452213ms)
+✔ balance/placement have independent pointer owners; stray and cancelled touches cannot activate (1.618886ms)
+✔ keyboard releases, repeat suppression, accessible sensitivity and focus-reset ownership (0.438402ms)
+✔ eight original station positions and visible tilt/stack/failure are driven by actual state (0.390961ms)
+✔ independent seeded opponents use temporary existing traits and produce valid results at all roster sizes (86.781228ms)
+✔ player can defeat opponents by feedback control and lose by mistakes; no scripted elimination order (71.01417ms)
+✔ session admits once near a valid owner, restores pose, and tears down with no stale subscribers (0.62232ms)
+✔ last standing, all-out failure, exact ties and timed survivor tiebreak follow documented rules (0.550382ms)
+✔ quality files have verifiable bytes, bounded geometry and a genuinely lower mobile budget (32.914713ms)
+✔ the new sculpt changes the skyline, while preserving the walk-height rock envelope (15.074402ms)
+✔ cliff gardens root on upward-facing triangles of the actual high mesh (397.378699ms)
+✔ Limestone Cove is an actual walkable part of Tonsai with free beach traversal (328.804672ms)
+✔ new coastal understory is deterministic, path-safe, rooted and quality-stable (91.287548ms)
+✔ botanical assets contain genuinely different silhouettes and lighter distant meshes (6.971385ms)
+✔ Tonsai uses the unchanged original world coastline and existing massif footprints (3.182159ms)
+✔ Blender main formations are valid, bounded and independently optimized for low quality (49.947765ms)
+✔ network fallback contains the new volumetric silhouettes, without ring-wall generation (1.62777ms)
+✔ forest candidates are deterministic, use multiple real mesh variants, and low quality is a stable subset (980.082594ms)
+✔ spawn and direct beach movement stay outside rocks and above the water (251.47998ms)
+✔ the complete authored inland route remains traversable through the actual movement solver (34.270336ms)
+✔ low-height collision follows the actual sculpt field, without remote cliff barriers (0.58232ms)
+✔ authored prang has a finite, correctly oriented recessed silhouette (17.818158ms)
+✔ environment interests are reachable and practice ballots remain separate from season outcomes (1.173093ms)
+✔ pavement is grounded, finite and continuously covers the courtyard, booth and new exit (217.550294ms)
+✔ locked geography is never mirrored or rotated (1.35653ms)
+✔ arrival route is physically walkable both ways (116.189727ms)
+✔ vote route is physically walkable both ways (95.367926ms)
+✔ exit route is physically walkable both ways (65.23717ms)
+✔ jury route is physically walkable both ways (44.683818ms)
+✔ each contestant can leave a stump into a broad shared aisle (41.352104ms)
+✔ collision substeps prevent tunnelling through fire, tree trunks, walls and furniture (3.553611ms)
+✔ future anchors have unique stable IDs and finite stage/camera coordinates (0.557092ms)
+✔ opening stages drone, ruin detail, Jeff, arrivals, then seated handoff (278.519795ms)
+✔ intimate host, fire and cast proportions retain body clearance (0.561488ms)
+✔ entrance has twelve physical risers, level bridge and continuous landings (1.389139ms)
+✔ ceremony ambience continues after seating and returning to seat is reversible (0.254725ms)
+✔ host can distinguish the five attending faces despite the alternating stagger (0.191449ms)
+✔ scenery footprints protect the complete ceremonial corridor and arrival group width (11.820584ms)
+✔ voting privacy uses the attached pavilion envelope, with both freestanding walls deleted (6.262274ms)
+✔ elimination approaches Jeff, pauses to snuff, then departs by the side apron (273.615462ms)
+✔ front route crosses frontage opening and reaches writing mark; east side is closed (22.582713ms)
+✔ portrait requires table side, facing and inner threshold; exit has hysteresis (4.43998ms)
+✔ manual/stationary inspection retains yaw; moving follow takes shortest turn behind heading (0.596782ms)
+✔ practice ballot folds/deposits once, refuses duplicates; cancel releases portrait (0.200693ms)
+✔ focus/scene release clears movement, run and camera without relying on keyup (1.017367ms)
+✔ real Blender close-up assets have finite meshes, compatible mouth and bounded cost (72.271727ms)
+ℹ tests 159
+ℹ suites 0
+ℹ pass 159
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8325.933653
+Solid collision checks: 294
+{
+  "passed": [
+    "Spawn is unobstructed",
+    "Shared organic shoreline contains the player",
+    "Substeps prevent tunnelling into solid props and vegetation",
+    "Shelter ramp enters and exits the visible raised floor",
+    "Deck cannot be entered by walking through its raised side",
+    "Landmark path centres remain connected"
+  ]
+}
+$ tsc -p tsconfig.json --noEmit
+$ vite build --config vite.config.ts
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 758 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) /workspace/scratch/41297656634b/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/Scene.tsx is dynamically imported by /workspace/scratch/41297656634b/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/game/locations/travel.ts but also statically imported by /workspace/scratch/41297656634b/SurvivorIsland3Dprototype/artifacts/survivor-camp-prototype/src/App.tsx, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/public/index.html                                          1.33 kB │ gzip:     0.57 kB
+dist/public/assets/fern-fWCX6G_p.png                           24.63 kB
+dist/public/assets/broadleaf-DJo94Nsg.png                      44.58 kB
+dist/public/assets/sand_02-normal-BLCxg0jx.jpg                 59.00 kB
+dist/public/assets/brown_mud_leaves_01-normal-Bj8DOn56.jpg    120.55 kB
+dist/public/assets/tropical-clouds-20pSrmJI.png               120.79 kB
+dist/public/assets/leaf-sprays-g6mRu1OV.png                   147.36 kB
+dist/public/assets/geology-BIPUa6jz.glb                       161.58 kB
+dist/public/assets/coast_rocks_05-vztNENlk.glb                272.24 kB
+dist/public/assets/sand_02-diff-BQzakbQ5.jpg                  331.64 kB
+dist/public/assets/brown_mud_leaves_01-diff-Cq1rge4_.jpg      423.03 kB
+dist/public/assets/fern_02-SrGECGLv.glb                       481.48 kB
+dist/public/assets/rock_06_nor_gl_1k-JDIemyFe.jpg             703.28 kB
+dist/public/assets/limestone-CG-3UH2o.glb                     724.02 kB
+dist/public/assets/palms-Dq4xC_Td.glb                         901.24 kB
+dist/public/assets/rock_06_diff_1k-D1Qsa8Fl.jpg               913.68 kB
+dist/public/assets/landmarks-low-xEBUFOZY.glb               1,006.01 kB
+dist/public/assets/karsts-low-ge9WS8yJ.glb                  1,366.02 kB
+dist/public/assets/botanical-MY7NnqJm.glb                   1,641.87 kB
+dist/public/assets/coastal-tree-riod1bi9.glb                1,704.46 kB
+dist/public/assets/voting-props-C8V7mVEO.glb                1,819.87 kB
+dist/public/assets/sanctuary-kit-low-Dz1KIqQ9.glb           2,460.07 kB
+dist/public/assets/reconstruction-low-kFKgZRyt.glb          2,963.14 kB
+dist/public/assets/landmarks-Cy9Ood0G.glb                   3,841.19 kB
+dist/public/assets/karsts-high-DruJMwkt.glb                 4,436.90 kB
+dist/public/assets/reconstruction-BQs1TfTb.glb              4,788.65 kB
+dist/public/assets/sanctuary-kit-BTU5bH4I.glb               6,883.36 kB
+dist/public/assets/ChallengeScene-Gu9HGYQ4.css                  6.20 kB │ gzip:     1.93 kB
+dist/public/assets/index-CWDkVual.css                         113.77 kB │ gzip:    20.37 kB
+dist/public/assets/leaf-sprays-BhQNdUIs.js                      4.38 kB │ gzip:     1.90 kB
+dist/public/assets/IslandHud-DRWJBc0W.js                        6.31 kB │ gzip:     2.79 kB
+dist/public/assets/ChallengeScene-BanfH40u.js                  36.47 kB │ gzip:    13.45 kB
+dist/public/assets/TribalScene-Bjv88wxf.js                     42.21 kB │ gzip:    16.66 kB
+dist/public/assets/IslandScene-4t94xZ61.js                    343.50 kB │ gzip:   111.23 kB
+dist/public/assets/index-dD9hLpWA.js                        1,855.22 kB │ gzip:   552.28 kB
+dist/public/assets/terrain-CcJ_IZNX.js                      3,705.76 kB │ gzip: 1,047.81 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.93s
