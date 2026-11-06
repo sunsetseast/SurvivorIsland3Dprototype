@@ -12,7 +12,7 @@ export function ChallengeTestingHub({ onSelect, onWelcome }: { onSelect?: (id:Ch
     <div className="testing-cards">{entries.map(([id,c])=>{
       const [zone,title]=c.name.split(" · ");
       return <article key={id} className={c.playable?"testing-card playable":"testing-card"}>
-        <small>{zone} · {c.playable?"Individual Immunity — Playable":"Environment Preview"}</small><h2>{title}</h2><p>{c.description}</p>
+        <small>{c.playable?"Individual Immunity · Playable":`${zone} · Environment Preview`}</small><h2>{title}</h2><p>{c.description}</p>
         <TouchButton data-testid={`hub-${id}`} disabled={!onSelect} onActivate={()=>onSelect?.(id as ChallengeId)}>{c.playable?"Play Stillwater Balance":"Preview environment"}<span aria-hidden="true"> →</span></TouchButton>
       </article>;
     })}</div>
