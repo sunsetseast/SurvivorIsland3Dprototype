@@ -74,6 +74,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   const {scene,camera,gl}=useThree();
   const hostMotion=useRef({speed:0,running:false,distance:0,talking:true});
   const autoStarted=useRef<string|null>(null);
+  const coastalReturn=useRef<Pose|null>(null);
   selected.current=model;
   const environment=useMemo(()=>({...WORLD,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls||coastal.ownsControls,
     move:(p:{x:number;z:number},dx:number,dz:number)=>moveOnTerrain(p,dx,dz,model?.solids??[])}),[model,switching]);
@@ -90,10 +91,10 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
     admit:()=>rehearsalActive()&&selected.current?.id==="beach-obstacle",
     roster:()=>camp.npcs.slice(0,7).map(n=>{const p=CONTESTANTS.find(p=>p.id===n.id);return {id:n.id,name:p?.firstName??`Contestant ${n.id}`,...traits(p??{})};}),
     capture:()=>({x:dbg.x,z:dbg.z,yaw:input.yaw,pitch:input.pitch,facing:dbg.face}),
-    restore:p=>{dbg.teleportRequested={x:p.x,z:p.z};input.yaw=p.yaw;input.pitch=p.pitch;},release:clearInput,
+    restore:p=>{coastalReturn.current={...p};dbg.teleportRequested={x:p.x,z:p.z};input.yaw=p.yaw;input.pitch=p.pitch;},release:clearInput,
   }),[]);
   useEffect(()=>{
-   const down=(e:KeyboardEvent)=>{if(!coastal.ownsControls)return;const k=e.key.toLowerCase();if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','q','e','escape'].includes(k)){e.preventDefault();coastal.keys.add(k);if(!e.repeat){if(k===' ')coastal.action();if(k==='q')coastal.grip(0);if(k==='e')coastal.grip(1);if(k==='escape')coastal.pause();}}},up=(e:KeyboardEvent)=>coastal.keys.delete(e.key.toLowerCase()),reset=()=>coastal.keys.clear();
+   const down=(e:KeyboardEvent)=>{if(!coastal.ownsControls)return;const k=e.key.toLowerCase();if(k===' '&&e.target instanceof Element&&e.target.closest('button,input,select,textarea'))return;if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','q','e','escape'].includes(k)){e.preventDefault();coastal.keys.add(k);if(!e.repeat){if(k===' ')coastal.action();if(k==='q')coastal.grip(0);if(k==='e')coastal.grip(1);if(k==='escape')coastal.pause();}}},up=(e:KeyboardEvent)=>coastal.keys.delete(e.key.toLowerCase()),reset=()=>coastal.keys.clear();
    window.addEventListener('keydown',down);window.addEventListener('keyup',up);window.addEventListener('survivor-input-clear',reset);return()=>{window.removeEventListener('keydown',down);window.removeEventListener('keyup',up);window.removeEventListener('survivor-input-clear',reset);};
   },[]);
   useEffect(()=>{
@@ -162,7 +163,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
       <InlandEnvironment low={low} />
       <TrailMarker connectionId="challenge_to_camp" height={heightAt} />
       {model && <group key={model.id} name="challenge-active-configuration"><Assembly pieces={model.pieces} low={low} name={`challenge-equipment-${model.id}`} blocker/>{model.id==="individual-balance"&&<><StillwaterStations low={low} engine={()=>stillwater.ownsControls?stillwater.engine:null}/><group name="stillwater-original-host" position={[model.host.x,heightAt(model.host.x,model.host.z),model.host.z]} rotation={[0,Math.PI/2,0]} scale={1.06}><Survivor motion={hostMotion}/></group></>}{model.id==="beach-obstacle"&&<group name="coastal-original-host" position={[model.host.x,heightAt(model.host.x,model.host.z),model.host.z]} rotation={[0,Math.PI/2,0]}><Survivor motion={hostMotion}/></group>}{coastal.ownsControls&&coastal.engine?<><CoastalRoster key={coastal.engine.seed} engine={coastal.engine}/><MosaicBoards key={`board-${coastal.engine.seed}`} engine={coastal.engine}/></>:stillwater.ownsControls&&stillwater.engine?<StillwaterRoster engine={()=>stillwater.engine} roster={stillwater.engine.state.competitors}/>:<RehearsalRoster model={model}/>}</group>}
-      <group visible={!stillwater.ownsControls&&!coastal.ownsControls}><Player environment={environment} arrival={spawn} /></group>
+      {!coastal.ownsControls&&<group visible={!stillwater.ownsControls}><Player environment={environment} arrival={coastalReturn.current??spawn} /></group>}
       <StillwaterCamera/><CoastalCamera/>
     </group>
   </>;

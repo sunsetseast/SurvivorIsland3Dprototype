@@ -23,3 +23,9 @@ Shared joystick/movement-vector math drives continuous, bounded course movement.
 11. Final rules/guide/gallery/performance/limitations/report — pending.
 
 Every milestone: targeted checks, commit, authenticated GitHub save, verify remote ref/tree, update existing draft. Stop implementing if all remote saves fail. Final documents must distinguish actual WebGL emulation from physical iPhone testing. Preserve source when interrupted; resume this branch/PR, do not duplicate.
+
+## Latest verification
+
+Full local regression passes 171/171 tests, TypeScript, 294 collision/six world checks and production build. New Coastal CI job added alongside existing Stillwater/hub regression, with actual WebGL artifact upload. Extra tests cover session cleanup, support heights and full-heat determinism over different render partitions and roster sizes.
+
+Touch acceptance remains in progress: real complete comeback win, two slower complete losses and Retry reached results in an earlier browser run. Resource comparison exposed transient uploads from the inactive exploration avatar; Coastal now unmounts it while owning controls and preserves its return pose. Repeat the current harness after this fix, including genuine second-finger puzzle ownership (single-finger/cancel/reset already passed). Do not claim complete until final raw browser report and CI pass.

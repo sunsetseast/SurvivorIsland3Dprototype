@@ -42,9 +42,10 @@ export class CoastalEngine {
   r.x=clamp(r.x+v.x*speed*STEP,lane-1.5,lane+1.5);r.z=clamp(r.z+v.z*speed*STEP,-50,limit);
  }
  action(r=this.player){if(this.state.phase!=='racing'||r.heat!==this.state.heat||this.elapsed<r.recoverUntil)return false;
+  if(['sprint','to-beam','to-net'].includes(r.stage)&&Math.abs(r.x-LANES[r.lane]!)>.35){this.state.notice='Center yourself in the marked lane before mounting';return false;}
   if(r.stage==='sprint'&&r.z>=-38){this.transition(r,'crawl');return true;}
-  if(r.stage==='to-beam'&&r.z>=-25.6){r.x=LANES[r.lane]!;this.transition(r,'beam');return true;}
-  if(r.stage==='to-net'&&r.z>=-8.8){r.x=LANES[r.lane]!;this.transition(r,'net');return true;}
+  if(r.stage==='to-beam'&&r.z>=-25.6){this.transition(r,'beam');return true;}
+  if(r.stage==='to-net'&&r.z>=-8.8){this.transition(r,'net');return true;}
   if(r.stage==='collection'&&r.z>=15){const i=[-1.1,-.3,.5].findIndex((dx,i)=>!r.bundles[i]&&Math.abs(r.x-LANES[r.lane]!-dx)<.65);if(i>=0){r.bundles[i]=true;if(r.bundles.every(Boolean))this.transition(r,'puzzle');return true;}this.state.notice='Move beside an uncollected bundle on your finish deck.';}
   return false;
  }
@@ -73,13 +74,13 @@ export class CoastalEngine {
   const x=own?this.input.x:r.stage==='beam'?-r.balance*1.8+Math.sin(this.elapsed*1.3+r.id+this.seed)*(.9-(r.focus??.5)):r.stage==='collection'?.8*Math.sign(LANES[r.lane]!+[-1.1,-.3,.5][Math.max(0,r.bundles.findIndex(v=>!v))]!-r.x):0,forward=own?this.input.forward:1;
   const pace=own?1:.8+(r.physical??.5)*.5;
   if(r.stage==='sprint')this.walk(r,x,forward,5.5*pace,-38);
-  if(r.stage==='crawl'){this.walk(r,0,forward,1.65*pace,-30);r.x=LANES[r.lane]!;if(r.z>=-30)this.transition(r,'to-beam');return;}
+  if(r.stage==='crawl'){this.walk(r,0,forward,1.65*pace,-30);r.x+=clamp(LANES[r.lane]!-r.x,-STEP,STEP);if(r.z>=-30)this.transition(r,'to-beam');return;}
   if(r.stage==='to-beam')this.walk(r,x,forward,5*pace,-25.5);
   if(r.stage==='beam'){
    r.balance+=(.16*Math.sin(this.elapsed*1.7+this.seed)+x*.9)*STEP;
    r.stability=clamp(r.stability+(Math.abs(r.balance)<.3?.22:-Math.abs(r.balance)*.45)*STEP);
    if(Math.abs(r.balance)>1||r.stability<=0){this.recover(r,'beam');return;}
-   r.z=Math.min(-17.2,r.z+Math.max(0,forward)*1.35*STEP);r.x=LANES[r.lane]!+r.balance*.12;r.lift=.59;
+   r.z=Math.min(-17.2,r.z+Math.max(0,forward)*1.35*STEP);r.x+=clamp(LANES[r.lane]!+r.balance*.12-r.x,-STEP,STEP);r.lift=.59;
    if(r.z>=-17.2)this.transition(r,'to-net');return;
   }
   if(r.stage==='to-net')this.walk(r,x,forward,5*pace,-8.7);
