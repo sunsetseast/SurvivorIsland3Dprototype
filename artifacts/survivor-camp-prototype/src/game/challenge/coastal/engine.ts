@@ -77,7 +77,7 @@ export class CoastalEngine {
   if(r.stage==='crawl'){this.walk(r,0,forward,1.65*pace,-30);r.x+=clamp(LANES[r.lane]!-r.x,-STEP,STEP);if(r.z>=-30)this.transition(r,'to-beam');return;}
   if(r.stage==='to-beam')this.walk(r,x,forward,5*pace,-25.5);
   if(r.stage==='beam'){
-   r.balance+=(.16*Math.sin(this.elapsed*1.7+this.seed)+x*.9)*STEP;
+   r.balance+=(.28+.45*Math.sin(this.elapsed*1.7+this.seed)+x*.9)*STEP;
    r.stability=clamp(r.stability+(Math.abs(r.balance)<.3?.22:-Math.abs(r.balance)*.45)*STEP);
    if(Math.abs(r.balance)>1||r.stability<=0){this.recover(r,'beam');return;}
    r.z=Math.min(-17.2,r.z+Math.max(0,forward)*1.35*STEP);r.x+=clamp(LANES[r.lane]!+r.balance*.12-r.x,-STEP,STEP);r.lift=.59;
@@ -86,8 +86,8 @@ export class CoastalEngine {
   if(r.stage==='to-net')this.walk(r,x,forward,5*pace,-8.7);
   if(r.stage==='net'){
    if(r.progress>0&&this.elapsed-r.handAt>2.2){r.mistakes++;r.gripTarget=Math.max(0,r.progress-.06);r.handAt=this.elapsed;this.state.notice='Grip slipped · alternate hands steadily';}
-   r.progress+=clamp(r.gripTarget-r.progress,-.25*STEP,.25*STEP);r.z=-8.1+6.2*r.progress;r.lift=.1+2.95*(1-Math.abs(2*r.progress-1));
-   if(r.progress>=1-1e-8){r.z=-1.9;this.transition(r,'collection');}return;
+   r.progress+=clamp(r.gripTarget-r.progress,-.25*STEP,.25*STEP);r.z+=clamp(-8.1+6.2*r.progress-r.z,-1.55*STEP,1.55*STEP);const supported=clamp((r.z+8.1)/6.2);r.lift=(.1+2.95*(1-Math.abs(2*supported-1)))*clamp((r.z+8.7)/.6);
+   if(r.progress>=1-1e-8&&r.z>=-1.9-1e-8){r.z=-1.9;this.transition(r,'collection');}return;
   }
   if(r.stage==='collection')this.walk(r,x,forward,5*pace,16.1);
  }
