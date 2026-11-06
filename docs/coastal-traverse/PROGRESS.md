@@ -11,7 +11,7 @@ Shared joystick/movement-vector math drives continuous, bounded course movement.
 ## Checkpoints
 
 1. Architecture/design — complete: inspected mainCourse, Stillwater bridge, existing character assets/traits, camera/control math and hub/travel admission. Save plan remotely, then draft PR.
-2. Race engine — next: fixed-step stages, input, splits, penalties, heats/ranking and targeted tests.
+2. Race engine — complete: fixed-step lifecycle, continuous bounded sprint, stage/split/checkpoint primitives, timed heats, DNF ceiling, deterministic ranking/ties and immutable trait mapping. Three targeted tests passed. Obstacle mechanics and opponents follow in their checkpoints.
 3. Sprint/crawl — pending.
 4. Beam — pending.
 5. Net — pending.
