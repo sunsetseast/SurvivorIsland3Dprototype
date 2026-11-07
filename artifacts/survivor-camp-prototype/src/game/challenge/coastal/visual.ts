@@ -7,5 +7,5 @@ export function runnerVisual(r:Runner,activeHeat:number){
  if(r.stage==='beam')lift=.59*Math.max(0,Math.min(1,r.z+25.5,(-17.2-r.z)/.5));
  if(['collection','puzzle','finished'].includes(r.stage))lift=.45*Math.max(0,Math.min(1,(r.z-15.5)/.6));
  if(r.stage==='sprint')lift=.32*Math.max(0,Math.min(1,(r.z+47)/.5,(-42.5-r.z)/.5));
- return {x:r.x,z:r.z,y:heightAt(r.x,r.z)+lift,scaleY:r.stage==='crawl'?.43:1,lean:r.stage==='crawl'?.5:r.stage==='beam'?r.balance*.35:0,working:r.stage==='net'||r.stage==='puzzle'};
+ return {x:r.x,z:r.z,y:heightAt(r.x,r.z)+lift,scaleY:1,lean:r.stage==='crawl'?.5:r.stage==='beam'?r.balance*.35:0,working:r.stage==='net'||r.stage==='puzzle'};
 }

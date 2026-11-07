@@ -8,7 +8,11 @@ export const createPose=():JointPose=>({hipY:.98,spine:0,head:0,armL:0,armR:0,el
 export function sampleTraversalPose(out:JointPose,m:LocomotionMotion){
  const phase=m.distance*2*Math.PI/1.3,s=Math.sin(phase),c=Math.cos(phase),state=locomotionState(m);
  Object.assign(out,{hipY:.98,spine:0,head:0,armL:0,armR:0,elbowL:0,elbowR:0,legL:0,legR:0,kneeL:0,kneeR:0,ankleL:0,ankleR:0,roll:0,armsOut:0});
- // State-specific articulation is populated below; gait remains displacement driven.
+ if(state==='crawl'||state==='crouch')Object.assign(out,{
+  hipY:.38+.012*c,spine:1.25,head:-1.12,
+  armL:-1.25+s*.24,armR:-1.25-s*.24,elbowL:-.25-Math.max(0,-s)*.5,elbowR:-.25-Math.max(0,s)*.5,
+  legL:-1.2-s*.18,legR:-1.2+s*.18,kneeL:2.2+s*.15,kneeR:2.2-s*.15,ankleL:-.9,ankleR:-.9,armsOut:.08
+ });
  return state;
 }
 export type JointRef={current:{rotation:{x:number;y:number;z:number};position:{x:number;y:number;z:number};scale:{set:(x:number,y:number,z:number)=>unknown}}|null};
