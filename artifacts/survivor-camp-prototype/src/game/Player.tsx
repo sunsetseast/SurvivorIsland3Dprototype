@@ -1,3 +1,4 @@
+import {sampleFoot} from "./characterMotion";
 import { CameraEnvelope } from "./cameraEnvelope";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
@@ -69,6 +70,7 @@ export function Player({
     distance: 0,
     talking: false,
     seated: !!environment.standFrom,
+    footL:0,footR:0,
   });
   const driveState = useRef(createDrive(yaw));
   const state = useRef({
@@ -205,6 +207,8 @@ export function Player({
     motion.current.running = wantsRun && actualSpeed > 3.6;
     motion.current.distance += traveled;
     const y = groundHeight(s.pos.x, s.pos.z);
+    const footOffset=(opposite:boolean)=>{const z=sampleFoot(motion.current.distance,.96,opposite).z*.96;return Math.max(-.18,Math.min(.18,(groundHeight(s.pos.x+Math.sin(s.face)*z,s.pos.z+Math.cos(s.face)*z)-y)/.96));};
+    motion.current.footL=footOffset(false);motion.current.footR=footOffset(true);
     if (isCamp && !worldTravel.blocked)
       camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
     motion.current.talking = isCamp && !!camp.conversation;

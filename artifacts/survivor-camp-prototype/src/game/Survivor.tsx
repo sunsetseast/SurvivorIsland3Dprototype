@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { M, V, limb, merge, mk, type Geo } from "./geo";
-import { solveSeatedLeg } from "./characterMotion";
+import { solveSeatedLeg, solveLeg, sampleFoot } from "./characterMotion";
 
 type Motion = LocomotionMotion & {
   speed: number;
@@ -12,6 +12,7 @@ type Motion = LocomotionMotion & {
   talking?: boolean;
   seated?: boolean;
   seatHeight?: number;
+  footL?:number; footR?:number;
 };
 const SKIN = "#c98d62",
   SKIN_L = "#dba074",
@@ -357,7 +358,7 @@ export function Survivor({
     const runK = clamp((m.running ? 1 : 0) * clamp(m.speed / 4.5, 0, 1), 0, 1);
     s.run += (runK - s.run) * (1 - Math.exp(-dt * 8));
     s.move += (clamp(m.speed / 0.9, 0, 1) - s.move) * (1 - Math.exp(-dt * 12));
-    s.phase += dd * ((Math.PI * 2) / (2.5 + s.run * 1.2));
+    s.phase += dd * ((Math.PI * 2) / (1.2 + s.run * .65));
     const ph = s.phase,
       A = (0.5 + 0.38 * s.run) * s.move,
       mv = s.move,
@@ -376,12 +377,11 @@ export function Survivor({
     ) => {
       if (g.current) g.current.rotation.set(x, y, z);
     };
-    set(legL, -sinL * A * 0.95);
-    set(legR, -sinR * A * 0.95);
-    set(knL, kn(cosL) * A * 1.4);
-    set(knR, kn(cosR) * A * 1.4);
-    set(ankL, sinL * A * 0.35 - kn(cosL) * 0.15);
-    set(ankR, sinR * A * 0.35 - kn(cosR) * 0.15);
+    const hipHeight=.98-.09*mv;
+    for(const [leg,knee,ankle,opposite,terrain] of [[legL,knL,ankL,false,m.footL??0],[legR,knR,ankR,true,m.footR??0]] as const){
+      const f=sampleFoot(m.distance,.96,opposite),pose=solveLeg(.072-hipHeight+.02+f.lift*mv+terrain,f.z*mv,.47,.41);
+      set(leg,pose.hip);set(knee,pose.knee);set(ankle,pose.ankle);
+    }
     const idle = Math.sin(t * 1.3) * 0.02;
     const gesture = m.talking
       ? Math.max(0, Math.sin(t * 1.2)) * Math.max(0, Math.sin(t * 0.5)) * 0.2
@@ -399,7 +399,7 @@ export function Survivor({
     if (hips.current) {
       hips.current.position.set(
         Math.sin(ph) * 0.02 * A,
-        0.98 + Math.cos(ph * 2) * 0.03 * A * (1 + rn) - mv * 0.02,
+        hipHeight + Math.cos(ph * 2) * 0.008 * mv,
         0,
       );
       hips.current.rotation.set(
