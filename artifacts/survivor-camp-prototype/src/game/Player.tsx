@@ -18,10 +18,10 @@ import { distance as physicalDistance } from "./navigation";
 
 import {
   followYaw,
-  movementVector,
   votingZone,
   ease,
 } from "./cameraController";
+import { createDrive, drive, cancelDrive, turnHeading } from "./locomotion";
 import { VOTING } from "./tribal/votingAnchors";
 
 /** Locomotion and camera are independent from the art/rig and simulation. */
@@ -68,6 +68,7 @@ export function Player({
     talking: false,
     seated: !!environment.standFrom,
   });
+  const driveState = useRef(createDrive(yaw));
   const state = useRef({
     pos: { ...(environment.standFrom || spawn) },
     face:
@@ -106,6 +107,11 @@ export function Player({
     [],
   );
 
+  useEffect(() => {
+    const cancel=()=>cancelDrive(driveState.current);
+    window.addEventListener("survivor-input-clear",cancel);
+    return ()=>window.removeEventListener("survivor-input-clear",cancel);
+  },[]);
   useEffect(
     () => () => {
       clearInput();
@@ -126,6 +132,7 @@ export function Player({
       s.entryTime = 1;
       dbg.teleportRequested = null;
       s.velocity = 0;
+      cancelDrive(driveState.current);
       s.voting = false;
       s.blend = 0;
       s.initialized = false;
@@ -139,6 +146,7 @@ export function Player({
       s.entryTime = 1;
       s.pos = { ...(environment.resetSpawn || environment.spawn) };
       s.velocity = 0;
+      cancelDrive(driveState.current);
       s.initialized = false;
       input.yaw = yaw;
       input.pitch = 0.34;
@@ -171,42 +179,16 @@ export function Player({
       ix = 0;
       iy = 0;
     }
-    const magnitude = Math.hypot(ix, iy);
-    if (magnitude > 1) {
-      ix /= magnitude;
-      iy /= magnitude;
-    }
-    const pressure = magnitude < 0.12 ? 0 : Math.min(1, magnitude);
-    const wantsRun = (input.run || keys.run) && pressure > 0;
-    const targetSpeed = pressure * (wantsRun ? 6.4 : 3.25);
-    s.velocity = THREE.MathUtils.damp(
-      s.velocity,
-      targetSpeed,
-      pressure ? 12 : 18,
-      dt,
-    );
-    // Freeze the movement basis for one continuous stick/key gesture. Auto-follow
-    // and right-thumb inspection cannot feed their yaw back into diagonal/backwards travel.
-    if (pressure > 0 && !s.moving) s.moveYaw = input.yaw;
-    s.moving = pressure > 0;
-    const { x: wx, z: wz } = movementVector(ix, iy, s.moveYaw);
+    if (locked) cancelDrive(driveState.current);
+    const wantsRun = !!(input.run || keys.run);
+    const d = drive(driveState.current, ix, iy, input.yaw, wantsRun, dt);
     let traveled = 0;
-    if (pressure > 0 && s.velocity > 0.02) {
-      const len = Math.hypot(wx, wz) || 1;
-      const next = environment.move(
-        s.pos,
-        (wx / len) * s.velocity * dt,
-        (wz / len) * s.velocity * dt,
-      );
+    if (d.speed > .01) {
+      const next = environment.move(s.pos, d.dx, d.dz);
       if (!isCamp || !camp.npcs.some((n) => physicalDistance(next, n) < 0.78)) {
-        traveled = Math.hypot(next.x - s.pos.x, next.z - s.pos.z);
-        s.pos = next;
-      }
-      if (traveled > 0.0001) {
-        const angle = Math.atan2(wx, wz);
-        s.face +=
-          Math.atan2(Math.sin(angle - s.face), Math.cos(angle - s.face)) *
-          (1 - Math.exp(-dt * 15));
+        traveled = Math.hypot(next.x-s.pos.x,next.z-s.pos.z);
+        if (traveled > .0001) s.face=turnHeading(s.face,next.x-s.pos.x,next.z-s.pos.z,dt);
+        s.pos=next;
       }
     }
     // Actual displacement, not requested input, controls gait and animation.

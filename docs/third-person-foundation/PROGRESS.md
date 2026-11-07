@@ -5,7 +5,7 @@ Branch: `feat/third-person-foundation`; base: `af9c61cda4b998a775af6e91fc009f2d3
 | Checkpoint | Status / validation |
 | --- | --- |
 | 1 Root causes | Complete; actual Player, Hud, rigs, Coastal engine/roster/camera, terrain and scene ownership inspected. `git diff --check`. |
-| 2 Shared movement | Pending |
+| 2 Shared movement | Complete: shared continuous radial deadzone, normalized analog, actual release deceleration, bounded turning, gesture basis and course adapter; 4 targeted tests pass. Focus/epoch clear cancels velocity. |
 | 3 Camera | Pending |
 | 4 Animation architecture | Pending |
 | 5 Crawl | Pending |
