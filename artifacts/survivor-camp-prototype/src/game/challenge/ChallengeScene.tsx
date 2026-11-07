@@ -128,6 +128,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
     if(!challengeRehearsalEnabled()&&!challengeTestingEnabled())return;
     const w=window as any;
     w.__CHALLENGE__={
+      get drive(){return raceDrive.current;},
       get configuration(){return selected.current?.id??null;},
       get setup(){return selected.current;},
       select:requestPreview,
