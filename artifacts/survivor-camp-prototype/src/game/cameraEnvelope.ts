@@ -1,3 +1,4 @@
+import type { Piece } from "./challenge/equipment";
 import * as T from "three";
 /** Cached marked meshes only; bounded local candidates, no scene-wide per-frame rays. */
 export class CameraEnvelope {
@@ -6,6 +7,14 @@ export class CameraEnvelope {
   private local: T.Object3D[] = [];
   private boxes: T.Box3[] = [];
   private localBoxes: T.Box3[] = [];
+  private segments: {
+    a: T.Vector3;
+    b: T.Vector3;
+    r: number;
+    bounds: T.Box3;
+  }[] = [];
+  private localSegments: typeof this.segments = [];
+  private segmentPoint = new T.Vector3();
   private hitPoint = new T.Vector3();
   private ray = new T.Raycaster();
   private direction = new T.Vector3();
@@ -24,6 +33,7 @@ export class CameraEnvelope {
       this.age = 0;
       this.blockers.length = 0;
       this.boxes.length = 0;
+      this.segments.length = 0;
       scene.updateMatrixWorld();
       scene.traverse((o) => {
         const proxies = o.userData.cameraCylinders as
@@ -37,6 +47,35 @@ export class CameraEnvelope {
                 new T.Vector3(p.x + p.r, p.y + p.h, p.z + p.r),
               ),
             );
+        const pieces = o.userData.cameraPieces as Piece[] | undefined;
+        if (pieces) {
+          for (const p of pieces) {
+            if (p.kind === "beam") {
+              const a = new T.Vector3(...p.a).applyMatrix4(o.matrixWorld),
+                b = new T.Vector3(...p.b).applyMatrix4(o.matrixWorld),
+                r = p.radius * o.matrixWorld.getMaxScaleOnAxis() + 0.08;
+              this.segments.push({
+                a,
+                b,
+                r,
+                bounds: new T.Box3().setFromPoints([a, b]).expandByScalar(r),
+              });
+            } else {
+              const size = p.kind === "box" ? p.size : p.size.map((n) => n * 2),
+                box = new T.Box3(
+                  new T.Vector3(-size[0]! / 2, -size[1]! / 2, -size[2]! / 2),
+                  new T.Vector3(size[0]! / 2, size[1]! / 2, size[2]! / 2),
+                );
+              const matrix = new T.Matrix4().makeRotationY(
+                p.kind === "box" ? (p.turn ?? 0) : 0,
+              );
+              matrix.setPosition(...p.at);
+              matrix.premultiply(o.matrixWorld);
+              this.boxes.push(box.applyMatrix4(matrix).expandByScalar(0.08));
+            }
+          }
+          return;
+        }
         const m = o as T.Mesh;
         if (!m.isMesh || !o.userData.cameraBlocker) return;
         if ((m as T.InstancedMesh).isInstancedMesh) {
@@ -69,6 +108,10 @@ export class CameraEnvelope {
     this.direction.normalize();
     this.local.length = 0;
     this.localBoxes.length = 0;
+    this.localSegments.length = 0;
+    for (const s of this.segments)
+      if (s.bounds.distanceToPoint(target) < safe + 0.5)
+        this.localSegments.push(s);
     for (const b of this.boxes)
       if (b.distanceToPoint(target) < safe + 0.5) this.localBoxes.push(b);
     for (const b of this.blockers)
@@ -83,6 +126,20 @@ export class CameraEnvelope {
       this.ray.far = safe + 0.35;
       this.hits.length = 0;
       this.ray.intersectObjects(this.local, false, this.hits);
+      for (const s of this.localSegments) {
+        const d2 = this.ray.ray.distanceSqToSegment(
+          s.a,
+          s.b,
+          this.hitPoint,
+          this.segmentPoint,
+        );
+        if (d2 <= s.r * s.r) {
+          const entry =
+            this.hitPoint.distanceTo(this.probe) -
+            Math.sqrt(Math.max(0, s.r * s.r - d2));
+          safe = Math.min(safe, Math.max(0.65, entry - 0.22));
+        }
+      }
       for (const b of this.localBoxes)
         if (this.ray.ray.intersectBox(b, this.hitPoint))
           safe = Math.min(
@@ -109,6 +166,7 @@ export class CameraEnvelope {
       this.boxes.length =
       this.localBoxes.length =
         0;
+    this.segments.length = this.localSegments.length = 0;
     this.age = 10;
   }
 }
