@@ -16,9 +16,9 @@ Camp/session/participant identities, original non-default pose, NPC/provider/mem
 
 ## Verification
 
-- Full local and CI tests: **173 tests** after the explicit image-budget guard; TypeScript, 294 collision/six world checks and production build were verified. Final workflow conclusions are recorded in evidence/CI_RESULTS.json.
-- **Six grouped real WebGL/touch checks passed independently locally and in GitHub CI** at `629bb366bfdadb336e0bb772c10d517aaf9005a5`: actual course with beam fall/recovery, collection, puzzle wrong/cancel/second-finger/reset, comeback win, two slow-puzzle losses, Retry/three full races, stable resources, Stillwater, both previews, High mode and exact camp resume. No uncaught or shader errors. [Raw report](evidence/browser-report.json).
-- Thirteen new Coastal tests cover lifecycle, movement, obstacle failures/recovery, puzzle solvability, pointer ownership, immutable traits, variable winners, ties and full-heat determinism. An image-storage guard preserves the zero-growth ceiling and rejects even one unaccounted byte.
+- Full local and CI tests: **174 tests** after the explicit image-budget guard; TypeScript, 294 collision/six world checks and production build were verified. Final workflow conclusions are recorded in evidence/CI_RESULTS.json.
+- **Six grouped real WebGL/touch checks passed independently locally and in GitHub CI** at `72cf39eb8bbac8af83ae57ae95e973bf17898722`: actual course with beam fall/recovery, collection, puzzle wrong/cancel/second-finger/reset, comeback win, two slow-puzzle losses, Retry/three full races, stable resources, Stillwater, both previews, High mode and exact camp resume. No uncaught or shader errors. [Raw report](evidence/browser-report.json).
+- Fourteen new Coastal tests cover lifecycle, movement, obstacle failures/recovery, puzzle solvability, pointer ownership, immutable traits, variable winners, ties and full-heat determinism. An image-storage guard preserves the zero-growth ceiling and rejects even one unaccounted byte.
 - The remaining older scenery readiness test is being updated to inspect both real decoded 512×512 foliage textures independently of camera LOD; its resolution/count requirements remain intact. Mobile's cancelled browser installation was retried separately.
 
 [Rules](GAMEPLAY_RULES.md) · [iPhone guide](IPHONE_TEST_GUIDE.md) · [actual screenshots](GALLERY.md) · [performance](PERFORMANCE.md) · [limits](KNOWN_LIMITATIONS.md).
@@ -30,3 +30,5 @@ Low repeats retain 72 calls / 215,058 triangles / 80 geometries / 11 textures / 
 All gameplay checkpoints are remotely saved. The original scratch was replaced, so screenshots/report were recovered from a checksum-verified CI archive rather than recreated as mockups. The final documentation commit and exact verified SHA are recorded in the PR body/delivery; a commit cannot embed its own SHA. [Progress](PROGRESS.md).
 
 Physical iPhone Safari and live hosted preview were not tested or accessed. The guide requires no Mac/terminal/console/URL changes to play once the branch is synced in the existing development workflow. Full crawling rigs, IK, rigid-body rope simulation, a random puzzle library and authoritative season awards remain future work.
+
+Final movement guard: backward input is bounded to the current course segment, preventing re-entry through completed obstacle geometry in an incompatible pose. A targeted regression covers all walking segments. Forward race behavior and rendering are unchanged.

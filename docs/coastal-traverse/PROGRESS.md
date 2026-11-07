@@ -44,3 +44,5 @@ CI caught the intended five-and-one-third-byte removal of one 1×1 fallback in t
 ## Recovery checkpoint after scratch replacement
 
 Recovered source 629bb366 from GitHub, and all seven screenshots plus six-group passing report from verified artifact 13520065217 (SHA-256 b11a7d988f7472062460349fb0fb1f7409bfc50938e041293619e3facd657d8f). All seven final documents are now being saved with this checkpoint. Ten workflows passed on 629bb366; the remaining historical Railay readiness test only saw visible leaf maps and stalled when restored camera LOD hid ferns. It now verifies both real hook-owned decoded 512×512 foliage textures as well as geology, preserving count/resolution requirements. No gameplay mechanics changed. Local 173 tests and TypeScript pass; follow the new checkpoint CI before final completion.
+
+Final collision guard: per-stage backward limits prevent standing backtracking through completed crawl/net/beam equipment. All 14 Coastal tests, 174 total tests and TypeScript pass. Forward-path frames/results do not change. This bounded correction is saved before final CI wait; no further gameplay additions are planned.

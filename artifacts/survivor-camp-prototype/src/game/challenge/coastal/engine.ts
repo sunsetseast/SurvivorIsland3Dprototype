@@ -2,6 +2,7 @@ import { snap } from './mosaic';
 import { movementVector } from '../../cameraController';
 export const STEP=1/60, LANES=[-27,-14] as const, HEAT_LIMIT=240;
 export type Stage='sprint'|'crawl'|'to-beam'|'beam'|'to-net'|'net'|'collection'|'puzzle'|'finished'|'dnf';
+const WALK_FLOORS:Partial<Record<Stage,number>>={sprint:-50,crawl:-38,'to-beam':-30,'to-net':-17.2,collection:-1.9};
 export type Entrant={id:number;name:string;physical?:number;dexterity?:number;focus?:number};
 export type Split={stage:Stage;time:number;duration:number};
 export type Runner=Entrant & {lane:number;heat:number;stage:Stage;x:number;z:number;lift:number;progress:number;gripTarget:number;balance:number;stability:number;mistakes:number;recoverUntil:number;stageStarted:number;splits:Split[];finishTime:number|null;bundles:boolean[];slots:number[];lastHand:number;handAt:number;nextAction:number};
@@ -39,7 +40,7 @@ export class CoastalEngine {
  recover(r:Runner,stage:'beam'|'net') {r.mistakes++;r.recoverUntil=this.elapsed+2;r.z=stage==='beam'?-24.5:-8.1;r.x=LANES[r.lane]!;r.lift=0;r.progress=0;r.balance=0;r.stability=1;this.state.notice=`${r.name}: checkpoint recovery · 2 seconds`;}
  walk(r:Runner,x:number,forward:number,speed:number,limit:number){
   const v=movementVector(x,-forward,0),lane=LANES[r.lane]!;
-  r.x=clamp(r.x+v.x*speed*STEP,lane-1.5,lane+1.5);r.z=clamp(r.z+v.z*speed*STEP,-50,limit);
+  r.x=clamp(r.x+v.x*speed*STEP,lane-1.5,lane+1.5);r.z=clamp(r.z+v.z*speed*STEP,WALK_FLOORS[r.stage]??-50,limit);
  }
  action(r=this.player){if(this.state.phase!=='racing'||r.heat!==this.state.heat||this.elapsed<r.recoverUntil)return false;
   if(['sprint','to-beam','to-net'].includes(r.stage)&&Math.abs(r.x-LANES[r.lane]!)>.35){this.state.notice='Center yourself in the marked lane before mounting';return false;}

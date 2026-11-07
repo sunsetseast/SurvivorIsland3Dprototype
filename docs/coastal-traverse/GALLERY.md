@@ -1,6 +1,6 @@
 # Actual WebGL evidence
 
-These are the running application's GitHub CI screenshots at source `629bb366bfdadb336e0bb772c10d517aaf9005a5`, Chromium 156 software WebGL, mobile 932×430 DPR1. Archive SHA-256: `b11a7d988f7472062460349fb0fb1f7409bfc50938e041293619e3facd657d8f`. No generated mockups or physical iPhone claim. [Raw report](evidence/browser-report.json).
+These are the running application's GitHub CI screenshots at source `72cf39eb8bbac8af83ae57ae95e973bf17898722`, Chromium 156 software WebGL, mobile 932×430 DPR1. Archive SHA-256: `164b6f28ba701a14ffe174a76cb646176f74b2f99983212442e036b3716eac3f`. No generated mockups or physical iPhone claim. [Raw report](evidence/browser-report.json).
 
 ![Main Beach introduction and two-lane course](evidence/01-introduction.jpg)
 

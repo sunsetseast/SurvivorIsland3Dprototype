@@ -1,6 +1,6 @@
 {
   "testedSource": "629bb366bfdadb336e0bb772c10d517aaf9005a5",
-  "note": "Gameplay/Stillwater/hub passed. One legacy foliage-LOD readiness assertion is corrected in the next checkpoint; final conclusions will be appended after that check.",
+  "note": "Historical validation snapshot; final collision-guard checkpoint CI is pending. The previously failing foliage readiness workflow passes on source 72cf39e.",
   "workflows": [
     {
       "id": 42249400219,
@@ -81,16 +81,16 @@
     }
   ],
   "coastalArtifact": {
-    "id": 13520065217,
-    "run": 42249400157,
-    "sha256": "b11a7d988f7472062460349fb0fb1f7409bfc50938e041293619e3facd657d8f",
+    "id": 13556220556,
+    "run": 42327197493,
+    "sha256": "164b6f28ba701a14ffe174a76cb646176f74b2f99983212442e036b3716eac3f",
     "checksumVerified": true,
-    "source": "629bb366bfdadb336e0bb772c10d517aaf9005a5",
+    "source": "72cf39eb8bbac8af83ae57ae95e973bf17898722",
     "browserGroups": 6
   },
   "local": {
-    "tests": 173,
-    "passed": 173,
+    "tests": 174,
+    "passed": 174,
     "failed": 0,
     "typecheck": "passed",
     "priorWorldCollisionChecks": 294,

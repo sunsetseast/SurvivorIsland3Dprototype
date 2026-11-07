@@ -1,6 +1,6 @@
 {
   "gameplayTestedSource": "629bb366bfdadb336e0bb772c10d517aaf9005a5",
-  "note": "Includes current foliage-readiness fix; final checkpoint SHA is recorded in PR body. Gameplay unchanged from tested source.",
+  "note": "Current code includes foliage readiness metadata and stage backtracking guard; screenshots/forward-path gameplay verified at 72cf39e. Final tested checkpoint SHA is recorded in PR body.",
   "sha256": {
     ".github/workflows/stillwater-balance.yml": "d0c0e95585a30b274b204d18f7a97b6c438a790c11e3e3ebaa1bd70fe99bbe26",
     "artifacts/survivor-camp-prototype/scripts/challenge-testing-qa.mjs": "e3ef58cf36c9fd5190ca5244ce3493b3e29f316b21839e9b87b39e7a9106a77d",
@@ -19,7 +19,7 @@
     "artifacts/survivor-camp-prototype/src/game/challenge/coastal/Puzzle.tsx": "eebd78f6a3ac5898483233485516f71a253e399c9bde35b91c38e6a711bb7df0",
     "artifacts/survivor-camp-prototype/src/game/challenge/coastal/Roster.tsx": "838dad43cbd36eed2c52cb2ec9297604f1ed8e070f56d16f6c849887a6958739",
     "artifacts/survivor-camp-prototype/src/game/challenge/coastal/coastal.css": "4e6a0e6503caa5841f65d5aa0a7ac793c09ed73e61e26044fcae083e44d90f9b",
-    "artifacts/survivor-camp-prototype/src/game/challenge/coastal/engine.ts": "e002d4c558db2a9206b6da7a355df007b1beba52694c6d7bea6b422b0e796d75",
+    "artifacts/survivor-camp-prototype/src/game/challenge/coastal/engine.ts": "b104e46b53958c51795a8d475195d883b586c72965048884fa4ad6078168a9c8",
     "artifacts/survivor-camp-prototype/src/game/challenge/coastal/mosaic.ts": "c733b9a41d31954edf5ddfc3142da7e1348a297d41c64225989cb8f4440c5244",
     "artifacts/survivor-camp-prototype/src/game/challenge/coastal/session.ts": "286729222fba5d65e8b778ba9f7c81ddf7aa19c181a3becd271048c0116adcea",
     "artifacts/survivor-camp-prototype/src/game/challenge/coastal/visual.ts": "fbd2483cc88bc51d406a127c2c7531e7b2092e3212057af27016ec9b9a0d69ff",
@@ -31,7 +31,7 @@
     "artifacts/survivor-camp-prototype/src/game/railay/Vegetation.tsx": "c2a502cc5eec8bf8036a0a20ed712ec7455077fc161b13a46a13aa5589d99ae1",
     "artifacts/survivor-camp-prototype/src/game/railay/tonsai/rockMaterial.ts": "db4b12b016901736966f25add2f4feae530f7ea6a0178fda58578c46fdf98c23",
     "artifacts/survivor-camp-prototype/tests/challenge-testing.test.mjs": "91b1c60fee4f754e4f404bceddd34b79223960423b1c74654f1dee2bc7eea882",
-    "artifacts/survivor-camp-prototype/tests/coastal.test.mjs": "bdfc6bb75fd3828a71a4a1509a18d74883026c96da8a6527910c8de8e6d809dd",
+    "artifacts/survivor-camp-prototype/tests/coastal.test.mjs": "cb15d364fdcbf2ee460b8abe175513168b16a2280cfbb478683abd810a6a61e6",
     "artifacts/survivor-camp-prototype/tests/environment-art-comparison.test.mjs": "a2f4a9c2e437badb02eda99fe6a1630ba17021d3046e7b191fbb7e3dc8524b07",
     "artifacts/survivor-camp-prototype/tests/image-storage-budget.test.mjs": "504eee0f5cdcc1d2c1a4d07819f62930795f4c1b56d8a589ee521e98f61a924a"
   }
