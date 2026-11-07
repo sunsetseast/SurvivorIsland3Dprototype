@@ -803,6 +803,10 @@ try {
       .evaluate(() => ({
         input: { ...window.sprintQA?.io.input },
         position: { ...window.__CAMP_DEBUG__?.position },
+        buttons:[...document.querySelectorAll('[data-testid="button-run"]')].map(b=>b.outerHTML),
+        travel:window.__WORLD_RENDER__?.state?.scene?.name,
+        conversation:window.__CAMP_DEBUG__?.camp?.conversation,
+        panels:[...document.querySelectorAll('[role="dialog"],.conversation-panel,.world-transition')].map(b=>b.outerHTML.slice(0,500)),
       }))
       .catch(() => null);
   report.failure = error.stack;

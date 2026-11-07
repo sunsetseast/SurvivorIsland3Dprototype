@@ -369,7 +369,12 @@ try {
         z: window.__CAMP_DEBUG__.position.z,
       }));
     const walk = async (target, run) => {
-      for (let gesture = 0; gesture < 10; gesture++) {
+      for (let gesture = 0; gesture < 40; gesture++) {
+        // Release has real inertia now. Brake first, then aim from the settled
+        // position; the previous fixture aimed before braking and chased overshoots.
+        await page.keyboard.up("w");
+        await page.keyboard.up("Shift");
+        await act(30);
         const p = await position(),
           dx = target.x - p.x,
           dz = target.z - p.z,
@@ -407,6 +412,7 @@ try {
                 );
                 if (d < 0.045) return "reached";
                 if (sprinting && d < 0.8) return "brake";
+                if (!sprinting && d < .45) return "brake";
                 if (d > previous + 0.001 && d < 0.2) return "correct";
                 blocked = d >= previous - 0.0001 ? blocked + 1 : 0;
                 if (blocked > 12) return "blocked";
