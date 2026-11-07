@@ -1,10 +1,11 @@
+import { TraversalBlend, type LocomotionMotion } from "./locomotionPose";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { M, V, limb, merge, mk, type Geo } from "./geo";
 import { solveSeatedLeg } from "./characterMotion";
 
-type Motion = {
+type Motion = LocomotionMotion & {
   speed: number;
   running: boolean;
   distance: number;
@@ -330,6 +331,8 @@ export function Survivor({
     knR = useRef<THREE.Group>(null);
   const ankL = useRef<THREE.Group>(null),
     ankR = useRef<THREE.Group>(null);
+  const traversal=useMemo(()=>new TraversalBlend(),[]);
+  const rig=useMemo(()=>({hips,spine,head,armL,armR,elbowL:elL,elbowR:elR,legL,legR,kneeL:knL,kneeR:knR,ankleL:ankL,ankleR:ankR}),[]);
   const st = useRef({
     phase: 0,
     last: 0,
@@ -436,7 +439,7 @@ export function Survivor({
         -Math.sin(ph) * 0.2 * A,
         -Math.sin(ph) * 0.04 * A,
       );
-      spine.current.scale.y = 1 + Math.sin(t * 1.6) * 0.006;
+      spine.current.scale.set(1,1,1);
     }
     if (head.current)
       head.current.rotation.set(
@@ -444,6 +447,7 @@ export function Survivor({
         Math.sin(ph) * 0.1 * A + Math.sin(t * 0.5) * 0.05 * (1 - mv),
         0,
       );
+    traversal.apply(rig,m,dt);
     if (tail.current)
       tail.current.rotation.set(
         0.35 + Math.sin(ph * 2) * 0.22 * A * (1 + rn) + rn * 0.4 * mv,

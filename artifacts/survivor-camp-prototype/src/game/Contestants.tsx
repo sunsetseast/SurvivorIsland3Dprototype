@@ -1,3 +1,4 @@
+import { TraversalBlend, type LocomotionMotion } from "./locomotionPose";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -20,7 +21,7 @@ export const characterAnimationMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
 export type StagedPerson = Pick<
   NpcState,
   "id" | "x" | "y" | "z" | "animation" | "speed" | "distance" | "facing"
-> & { seatHeight?: number };
+> & { seatHeight?: number; locomotion?: LocomotionMotion };
 export function Contestant({
   npc,
   terrain = groundHeight,
@@ -64,6 +65,8 @@ export function Contestant({
     kneeR = useRef<THREE.Group>(null),
     ankleL = useRef<THREE.Group>(null),
     ankleR = useRef<THREE.Group>(null);
+  const traversal=useMemo(()=>new TraversalBlend(),[]);
+  const rig=useMemo(()=>({hips,spine,head,armL:upperL,armR:upperR,elbowL,elbowR,legL:thighL,legR:thighR,kneeL,kneeR,ankleL,ankleR}),[]);
   const smooth = useRef({
     move: 0,
     sit: npc.animation === "sit" ? 1 : 0,
@@ -173,6 +176,7 @@ export function Contestant({
       -presence.lean * 0.65 + presence.nod + s.talk * Math.sin(t * 2.1) * 0.025,
       presence.glance * (1 - s.move) * (1 - s.talk),
     );
+    if(npc.locomotion)traversal.apply(rig,npc.locomotion,dt,.92);
     const cost = performance.now() - animationStart;
     characterAnimationMetrics.updates++;
     characterAnimationMetrics.totalMs += cost;
