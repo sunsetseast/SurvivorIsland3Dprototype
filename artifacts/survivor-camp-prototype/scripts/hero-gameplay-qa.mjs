@@ -326,8 +326,17 @@ try {
         }
       }
     });
+    // Fern meshes only mount at nearby LOD2; restored camera positions may hide them.
+    // Verify the real hook-owned decoded textures too, preserving both 512px requirements.
+    const foliage=window.__RAILAY__.scene.getObjectByName("railay-vegetation");
+    let decodedFoliage=0;
+    for(const texture of foliage?.userData.foliageTextures || []) {
+      if(texture.image?.width===512 && texture.image?.height===512) {
+        decodedFoliage++;if(!seen.has(texture)){seen.add(texture);count++;}
+      }
+    }
     return (
-      count >= 2 &&
+      count >= 2 && decodedFoliage >= 2 &&
       window.__RAILAY__.scene.getObjectByName("railay-geology-ready")
     );
   });

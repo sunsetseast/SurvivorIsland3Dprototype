@@ -10,6 +10,8 @@ on:
       - 'artifacts/survivor-camp-prototype/tests/challenge-testing.test.mjs'
       - 'artifacts/survivor-camp-prototype/src/App.tsx'
       - 'artifacts/survivor-camp-prototype/vite.config.ts'
+      - 'artifacts/survivor-camp-prototype/scripts/coastal-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/coastal.test.mjs'
       - '.github/workflows/stillwater-balance.yml'
   workflow_dispatch:
 permissions:
@@ -45,3 +47,23 @@ jobs:
         with:
           name: challenge-testing-hub-webgl-evidence
           path: docs/challenge-testing/evidence/
+
+  coastal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+      - run: PORT=5220 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec node scripts/coastal-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coastal-traverse-touch-webgl
+          path: docs/coastal-traverse/evidence/

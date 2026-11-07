@@ -1,0 +1,111 @@
+{
+  "testedSource": "fcbb8751de85a5c1aeea4561a7cd46b597f2d700",
+  "note": "All 11 applicable workflows pass on the final implementation source. Final evidence/documentation save contains no implementation changes; source-manifest hashes are verified.",
+  "observedAt": "2026-11-07T02:33:32.960Z",
+  "workflows": [
+    {
+      "id": 42328080005,
+      "name": "Challenge Beach rehearsal and WebGL",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080005"
+    },
+    {
+      "id": 42328080032,
+      "name": "Tonsai limestone reconstruction checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080032"
+    },
+    {
+      "id": 42328080043,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080043"
+    },
+    {
+      "id": 42328080054,
+      "name": "Connected island journeys",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080054"
+    },
+    {
+      "id": 42328080006,
+      "name": "Tonsai environment art checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080006"
+    },
+    {
+      "id": 42328080146,
+      "name": "Tonsai environment checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080146"
+    },
+    {
+      "id": 42328080004,
+      "name": "Tonsai atmosphere visual checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080004"
+    },
+    {
+      "id": 42328080010,
+      "name": "Tonsai reconstruction visual checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080010"
+    },
+    {
+      "id": 42328080097,
+      "name": "Living camp checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080097"
+    },
+    {
+      "id": 42328080018,
+      "name": "Stillwater Balance playable rehearsal",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080018"
+    },
+    {
+      "id": 42328080013,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42328080013"
+    }
+  ],
+  "coastalArtifact": {
+    "id": 13556133657,
+    "run": 42328080018,
+    "sha256": "983e4cae72ea0d0049c271a061e6470298fb48d650887f6eb73e44f3a206508e",
+    "checksumVerified": true,
+    "source": "fcbb8751de85a5c1aeea4561a7cd46b597f2d700",
+    "browserGroups": 6,
+    "job": 128268050668
+  },
+  "local": {
+    "tests": 174,
+    "passed": 174,
+    "failed": 0,
+    "typecheck": "passed",
+    "worldCollisionChecks": 294,
+    "worldChecks": 6,
+    "build": "passed"
+  },
+  "retry": {
+    "run": 42328080097,
+    "initialJob": 128267960448,
+    "successfulJob": 128270445280,
+    "step": "qa:heroes",
+    "initialFailure": "Legacy hero-foot samples were non-finite in one run; unchanged code passed on the preceding checkpoint and on the isolated failed-job rerun.",
+    "assertionsChanged": false,
+    "conclusion": "success"
+  }
+}

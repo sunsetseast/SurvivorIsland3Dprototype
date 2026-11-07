@@ -28,8 +28,7 @@ export function mainCourse():ChallengeSetup {
     y=heightAt(x,18);deck(p,x,18,y,5,5,0.45);solids.push({x,z:18,hx:2.6,hz:2.6});
     for(const sx of [-1,1]){p.push(beam([x+sx*1.8,y+0.45,19.2],[x+sx*1.8,y+2.6,19.2],0.11,WOOD),beam([x+sx*1.8,y+1.9,19.2],[x+sx*2.1,y+0.45,20.1],0.075,WOOD));}
     p.push(box([x,y+1.75,19.2],[3.65,1.5,0.14],"#645640"));
-    for(let row=0;row<3;row++)for(let col=0;col<5;col++)if(row!==2||col<3)p.push(box([x+(col-2)*0.67,y+1.25+row*0.45,19.09],[0.6,0.38,0.15],(row+col)%2?color:CUT));
-    for(let i=0;i<3;i++)p.push(box([x-1.1+i*0.8,y+0.58,16.7],[0.6,0.16,0.4],color));
+    // Live mosaic and collectible bundles are owned by the Coastal race presentation.
     // Readable progression accents; no television branding.
     for(const z of [-40,-27,-13,7])p.push(box([x,heightAt(x,z)+0.025,z],[0.75,0.04,1.2],color));
   }

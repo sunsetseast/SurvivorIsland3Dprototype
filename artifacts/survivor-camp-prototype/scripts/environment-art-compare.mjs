@@ -1,3 +1,4 @@
+import {assertImageStorage} from './image-storage-budget.mjs';
 /** Compare genuine saved renders; camera parity and resource budgets are independent of image appearance. */
 import assert from "node:assert/strict";
 import { readFile, writeFile } from "node:fs/promises";
@@ -87,15 +88,12 @@ for (const a of before.samples) {
     a.geometryBytes + finishing(b) - finishing(a) + debrisDelta,
     "no unaccounted resident geometry arrays",
   );
-  assert.equal(
-    b.textureBytesEstimate,
-    a.textureBytesEstimate,
-    "no additional image storage",
-  );
+  const removedFallbackBytes=assertImageStorage(a,b);
   assert.equal(b.calls, a.calls, "spawn draw calls remain unchanged");
   assert.ok(b.triangles <= a.triangles * 1.05, "spawn triangle budget");
   summary.samples.push({
     quality: a.quality,
+    removedFallbackBytes,
     shelterCompletionBytes: finishing(b) - finishing(a),
     groundDetailBytes: debrisDelta,
     before: {

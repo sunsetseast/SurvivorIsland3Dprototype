@@ -1,0 +1,649 @@
+{
+  "method": "Real Chromium software WebGL; emulated mobile landscape 932x430 DPR1; trusted touchscreen/CDP events, manual 60Hz player simulation and 100ms spectator advancement. No actual Replit access or physical iPhone certification.",
+  "browser": "156.0.8078.4",
+  "checks": [
+    {
+      "name": "Production hub remains inaccessible"
+    },
+    {
+      "name": "Direct real intro/Ready/countdown, pause/resume and focus-loss cleanup"
+    },
+    {
+      "name": "Continuous sprint/crawl/beam fall recovery/net/collection, actual touch mosaic wrong/cancel/multitouch/reset, comeback win"
+    },
+    {
+      "name": "Input-driven puzzle loss, Retry and three full completed races; stable repeat ownership/listeners"
+    },
+    {
+      "name": "Stillwater, both previews, High mode, Welcome and exact original camp resume"
+    },
+    {
+      "name": "No uncaught or shader/WebGL errors"
+    }
+  ],
+  "screenshots": [
+    "01-introduction.jpg",
+    "02-crawl.jpg",
+    "02-beam.jpg",
+    "02-net.jpg",
+    "03-karst-mosaic.jpg",
+    "04-real-results.jpg",
+    "05-high-course.jpg"
+  ],
+  "samples": [
+    {
+      "label": "race-low",
+      "quality": "low",
+      "configuration": "beach-obstacle",
+      "calls": 72,
+      "triangles": 215058,
+      "geometries": 80,
+      "textures": 11,
+      "activeGeometryBytes": 8873244,
+      "programs": 13,
+      "listeners": 34,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "repeat-active-0",
+      "quality": "low",
+      "configuration": "beach-obstacle",
+      "calls": 72,
+      "triangles": 215058,
+      "geometries": 80,
+      "textures": 11,
+      "activeGeometryBytes": 8873244,
+      "programs": 13,
+      "listeners": 34,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "coastal-hub-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "repeat-active-1",
+      "quality": "low",
+      "configuration": "beach-obstacle",
+      "calls": 72,
+      "triangles": 215058,
+      "geometries": 80,
+      "textures": 11,
+      "activeGeometryBytes": 8873244,
+      "programs": 13,
+      "listeners": 34,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "coastal-hub-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "race-high",
+      "quality": "high",
+      "configuration": "beach-obstacle",
+      "calls": 72,
+      "triangles": 592590,
+      "geometries": 80,
+      "textures": 11,
+      "activeGeometryBytes": 10601204,
+      "programs": 13,
+      "listeners": 34,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    }
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:5220/src/game/challenge/ChallengeScene.tsx"
+  ],
+  "puzzleArrival": {
+    "phase": "racing",
+    "resume": "racing",
+    "clock": 37.299999999999166,
+    "heat": 0,
+    "heatStart": 0,
+    "countdown": 5.655198531684391e-15,
+    "notice": "You: puzzle",
+    "result": null,
+    "runners": [
+      {
+        "id": 0,
+        "name": "You",
+        "physical": 0.5,
+        "dexterity": 0.5,
+        "focus": 0.5,
+        "lane": 0,
+        "heat": 0,
+        "stage": "puzzle",
+        "x": -26.50000000000003,
+        "z": 16.1,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 1,
+        "balance": 0.39668601908866263,
+        "stability": 0.85904301124607,
+        "mistakes": 1,
+        "recoverUntil": 13.183333333333469,
+        "stageStarted": 37.299999999999166,
+        "splits": [
+          {
+            "stage": "sprint",
+            "time": 3.9166666666666576,
+            "duration": 3.9166666666666576
+          },
+          {
+            "stage": "crawl",
+            "time": 8.933333333333357,
+            "duration": 5.0166666666666995
+          },
+          {
+            "stage": "to-beam",
+            "time": 10.083333333333414,
+            "duration": 1.1500000000000572
+          },
+          {
+            "stage": "beam",
+            "time": 19.40000000000018,
+            "duration": 9.316666666666766
+          },
+          {
+            "stage": "to-net",
+            "time": 22.033333333333363,
+            "duration": 2.6333333333331836
+          },
+          {
+            "stage": "net",
+            "time": 27.049999999999745,
+            "duration": 5.0166666666663815
+          },
+          {
+            "stage": "collection",
+            "time": 37.299999999999166,
+            "duration": 10.249999999999421
+          }
+        ],
+        "finishTime": null,
+        "bundles": [
+          true,
+          true,
+          true
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": 1,
+        "handAt": 26.783333333333093,
+        "nextAction": 0
+      },
+      {
+        "id": 4,
+        "name": "Boston Rob",
+        "physical": 0.65,
+        "dexterity": 0.8,
+        "focus": 0.7,
+        "lane": 1,
+        "heat": 0,
+        "stage": "puzzle",
+        "x": -14.142012203274298,
+        "z": 16.1,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 1,
+        "balance": 0.06656497271417795,
+        "stability": 0.8980697117828003,
+        "mistakes": 1,
+        "recoverUntil": 0,
+        "stageStarted": 24.3499999999999,
+        "splits": [
+          {
+            "stage": "sprint",
+            "time": 1.9666666666666646,
+            "duration": 1.9666666666666646
+          },
+          {
+            "stage": "crawl",
+            "time": 6.26666666666665,
+            "duration": 4.299999999999985
+          },
+          {
+            "stage": "to-beam",
+            "time": 7.066666666666647,
+            "duration": 0.7999999999999972
+          },
+          {
+            "stage": "beam",
+            "time": 13.283333333333573,
+            "duration": 6.216666666666926
+          },
+          {
+            "stage": "to-net",
+            "time": 14.800000000000315,
+            "duration": 1.516666666666742
+          },
+          {
+            "stage": "net",
+            "time": 21.100000000000083,
+            "duration": 6.299999999999768
+          },
+          {
+            "stage": "collection",
+            "time": 24.3499999999999,
+            "duration": 3.2499999999998153
+          }
+        ],
+        "finishTime": null,
+        "bundles": [
+          true,
+          true,
+          true
+        ],
+        "slots": [
+          0,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": 1,
+        "handAt": 20.850000000000097,
+        "nextAction": 43.863177034828084
+      },
+      {
+        "id": 11,
+        "name": "Sandra",
+        "physical": 0.6,
+        "dexterity": 0.7,
+        "focus": 0.5,
+        "lane": 0,
+        "heat": 1,
+        "stage": "sprint",
+        "x": -27,
+        "z": -50,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 0,
+        "balance": 0,
+        "stability": 1,
+        "mistakes": 0,
+        "recoverUntil": 0,
+        "stageStarted": 0,
+        "splits": [],
+        "finishTime": null,
+        "bundles": [
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": -1,
+        "handAt": -100,
+        "nextAction": 0
+      },
+      {
+        "id": 13,
+        "name": "Parvati",
+        "physical": 0.65,
+        "dexterity": 0.6,
+        "focus": 0.6,
+        "lane": 1,
+        "heat": 1,
+        "stage": "sprint",
+        "x": -14,
+        "z": -50,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 0,
+        "balance": 0,
+        "stability": 1,
+        "mistakes": 0,
+        "recoverUntil": 0,
+        "stageStarted": 0,
+        "splits": [],
+        "finishTime": null,
+        "bundles": [
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": -1,
+        "handAt": -100,
+        "nextAction": 0
+      },
+      {
+        "id": 18,
+        "name": "Russell",
+        "physical": 0.85,
+        "dexterity": 0.7,
+        "focus": 0.7,
+        "lane": 0,
+        "heat": 2,
+        "stage": "sprint",
+        "x": -27,
+        "z": -50,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 0,
+        "balance": 0,
+        "stability": 1,
+        "mistakes": 0,
+        "recoverUntil": 0,
+        "stageStarted": 0,
+        "splits": [],
+        "finishTime": null,
+        "bundles": [
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": -1,
+        "handAt": -100,
+        "nextAction": 0
+      }
+    ]
+  },
+  "win": [
+    {
+      "id": 0,
+      "name": "You",
+      "time": 37.46666666666667,
+      "place": 1,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 3.9166666666666576,
+          "duration": 3.9166666666666576
+        },
+        {
+          "stage": "crawl",
+          "time": 8.933333333333357,
+          "duration": 5.0166666666666995
+        },
+        {
+          "stage": "to-beam",
+          "time": 10.083333333333414,
+          "duration": 1.1500000000000572
+        },
+        {
+          "stage": "beam",
+          "time": 19.40000000000018,
+          "duration": 9.316666666666766
+        },
+        {
+          "stage": "to-net",
+          "time": 22.033333333333363,
+          "duration": 2.6333333333331836
+        },
+        {
+          "stage": "net",
+          "time": 27.049999999999745,
+          "duration": 5.0166666666663815
+        },
+        {
+          "stage": "collection",
+          "time": 37.299999999999166,
+          "duration": 10.249999999999421
+        },
+        {
+          "stage": "puzzle",
+          "time": 37.46666666666582,
+          "duration": 0.1666666666666572
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 2
+    },
+    {
+      "id": 18,
+      "name": "Russell",
+      "time": 67.23333333333333,
+      "place": 2,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 1.8000000000014325,
+          "duration": 1.8000000000014325
+        },
+        {
+          "stage": "crawl",
+          "time": 5.750000000004576,
+          "duration": 3.9500000000031434
+        },
+        {
+          "stage": "to-beam",
+          "time": 6.500000000005173,
+          "duration": 0.7500000000005969
+        },
+        {
+          "stage": "beam",
+          "time": 12.650000000010067,
+          "duration": 6.150000000004894
+        },
+        {
+          "stage": "to-net",
+          "time": 14.050000000011181,
+          "duration": 1.4000000000011141
+        },
+        {
+          "stage": "net",
+          "time": 20.900000000016632,
+          "duration": 6.850000000005451
+        },
+        {
+          "stage": "collection",
+          "time": 23.88333333335234,
+          "duration": 2.9833333333357075
+        },
+        {
+          "stage": "puzzle",
+          "time": 67.23333333338684,
+          "duration": 43.3500000000345
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 0
+    },
+    {
+      "id": 13,
+      "name": "Parvati",
+      "time": 80.56666666666666,
+      "place": 3,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 1.9666666666665549,
+          "duration": 1.9666666666665549
+        },
+        {
+          "stage": "crawl",
+          "time": 6.2666666666663104,
+          "duration": 4.299999999999756
+        },
+        {
+          "stage": "to-beam",
+          "time": 7.066666666666265,
+          "duration": 0.7999999999999545
+        },
+        {
+          "stage": "beam",
+          "time": 13.283333333332578,
+          "duration": 6.216666666666313
+        },
+        {
+          "stage": "to-net",
+          "time": 14.799999999999159,
+          "duration": 1.5166666666665805
+        },
+        {
+          "stage": "net",
+          "time": 22.016666666665415,
+          "duration": 7.2166666666662564
+        },
+        {
+          "stage": "collection",
+          "time": 25.283333333331896,
+          "duration": 3.266666666666481
+        },
+        {
+          "stage": "puzzle",
+          "time": 80.56666666669588,
+          "duration": 55.283333333363984
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 1
+    },
+    {
+      "id": 4,
+      "name": "Boston Rob",
+      "time": 87.08333333333333,
+      "place": 4,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 1.9666666666666646,
+          "duration": 1.9666666666666646
+        },
+        {
+          "stage": "crawl",
+          "time": 6.26666666666665,
+          "duration": 4.299999999999985
+        },
+        {
+          "stage": "to-beam",
+          "time": 7.066666666666647,
+          "duration": 0.7999999999999972
+        },
+        {
+          "stage": "beam",
+          "time": 13.283333333333573,
+          "duration": 6.216666666666926
+        },
+        {
+          "stage": "to-net",
+          "time": 14.800000000000315,
+          "duration": 1.516666666666742
+        },
+        {
+          "stage": "net",
+          "time": 21.100000000000083,
+          "duration": 6.299999999999768
+        },
+        {
+          "stage": "collection",
+          "time": 24.3499999999999,
+          "duration": 3.2499999999998153
+        },
+        {
+          "stage": "puzzle",
+          "time": 87.08333333332968,
+          "duration": 62.73333333332978
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 2
+    },
+    {
+      "id": 11,
+      "name": "Sandra",
+      "time": 88.5,
+      "place": 5,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 2.016666666666552,
+          "duration": 2.016666666666552
+        },
+        {
+          "stage": "crawl",
+          "time": 6.416666666666302,
+          "duration": 4.39999999999975
+        },
+        {
+          "stage": "to-beam",
+          "time": 7.249999999999588,
+          "duration": 0.833333333333286
+        },
+        {
+          "stage": "beam",
+          "time": 13.399999999999238,
+          "duration": 6.14999999999965
+        },
+        {
+          "stage": "to-net",
+          "time": 14.94999999999915,
+          "duration": 1.549999999999912
+        },
+        {
+          "stage": "net",
+          "time": 21.79999999999876,
+          "duration": 6.849999999999611
+        },
+        {
+          "stage": "collection",
+          "time": 25.133333333331905,
+          "duration": 3.333333333333144
+        },
+        {
+          "stage": "puzzle",
+          "time": 88.50000000003553,
+          "duration": 63.36666666670362
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 1
+    }
+  ]
+}

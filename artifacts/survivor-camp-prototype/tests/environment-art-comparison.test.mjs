@@ -12,7 +12,8 @@ function compare(change = () => {}) {
   const root = mkdtempSync(join(tmpdir(), 'art-comparison-'));
   const before = structuredClone(saved);
   before.captureContract = 'static-camp-v1';
-  before.samples.forEach(s => { s.npcSnapshot = [{id:11,x:0,y:0,z:0,animation:'sit'}]; });
+  // Historical fixtures grant no fallback-removal allowance; real paired captures measure it explicitly.
+  before.samples.forEach(s => { s.fallbackTextureBytesEstimate = 0; s.npcSnapshot = [{id:11,x:0,y:0,z:0,animation:'sit'}]; });
   const after = structuredClone(before);
   change(after);
   for (const [phase, report] of [['before',before],['after',after]]) {
