@@ -248,6 +248,7 @@ export function Player({
     if (root.current) root.current.userData.locomotion = motion.current;
     if (heading.current) heading.current.rotation.y = s.face;
 
+    Object.assign(dbg,{controlsLocked:locked,moving:actualSpeed>.08,running:motion.current.running,speed:actualSpeed});
     if (environment.cameraLocked?.()) return;
     const cameraStart = performance.now();
     const t = tools;

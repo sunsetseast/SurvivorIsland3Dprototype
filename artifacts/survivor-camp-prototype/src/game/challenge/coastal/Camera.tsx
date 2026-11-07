@@ -62,7 +62,7 @@ export function CoastalCamera() {
       dt,
     );
     if (!input.looking && input.lookGrace <= 0)
-      input.pitch += (0.34 - input.pitch) * ease(dt, 2);
+      input.pitch += ((r.stage==="crawl"?.09:.34) - input.pitch) * ease(dt, 4);
     if (mode === "cinematic-introduction") {
       v.goal.set(-42, h + 30, -72);
       v.look.set(-20, h + 1, -8);
