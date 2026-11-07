@@ -238,6 +238,7 @@ export function Player({
       input.lookGrace,
       dt,
     );
+    if(!input.looking&&input.lookGrace<=0)input.pitch+=(.34-input.pitch)*ease(dt,3);
     const voting = environment.voting;
     if (voting) {
       if (

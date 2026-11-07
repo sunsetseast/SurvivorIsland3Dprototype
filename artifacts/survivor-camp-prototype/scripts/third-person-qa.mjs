@@ -69,7 +69,7 @@ async function multiLook(){
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[contact,p]});p.x=660;p.y=150;
  await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[contact,p]});await advance(18,true);await capture('free-look-'+(await state()?'race':'camp'));
  const after=await page.evaluate(()=>({...window.hubQA.io.dbg,yaw:window.hubQA.io.input.yaw,joy:window.hubQA.io.input.joyY}));
- assert.ok(Math.abs(after.yaw-before.yaw)>.4);assert.ok(after.joy>0);assert.ok(after.z!==before.z||after.x!==before.x);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[contact]});
+ assert.ok(Math.abs(after.yaw-before.yaw)>.4);assert.ok(after.joy>0);assert.ok(after.z!==before.z||after.x!==before.x);p.y=1000;await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[contact,p]});await page.waitForFunction(()=>Math.abs(window.hubQA.io.input.pitch-1.15)<.001);p.y=-1000;await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[contact,p]});await page.waitForFunction(()=>Math.abs(window.hubQA.io.input.pitch+.25)<.001);check('Trusted orbit respects both pitch limits');await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[contact]});
  check('Trusted simultaneous joystick and right-thumb orbit without input theft',{before,after});
 }
 async function crawlLook(){

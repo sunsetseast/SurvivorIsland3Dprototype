@@ -181,8 +181,8 @@ export function sampleTraversalPose(
       legR: b.hip,
       kneeL: a.knee,
       kneeR: b.knee,
-      ankleL: a.ankle,
-      ankleR: b.ankle,
+      ankleL: a.ankle-Math.atan(slope),
+      ankleR: b.ankle-Math.atan(slope),
       armsOut: 0.06,
     });
   }
