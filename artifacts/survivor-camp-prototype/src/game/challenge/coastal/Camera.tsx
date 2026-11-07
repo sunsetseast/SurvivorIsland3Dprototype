@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import * as T from "three";
 import { coastal } from "./session";
 import { heightAt } from "../surface";
-import { runnerVisual } from "./visual";
+import { runnerVisual, runnerPresentations } from "./visual";
 import { input, dbg } from "../../state";
 import { cameraMode, recenterYaw, ease } from "../../cameraController";
 import { CameraEnvelope } from "../../cameraEnvelope";
@@ -41,7 +41,7 @@ export function CoastalCamera() {
           : (s.runners.find(
               (r) => r.heat === s.heat && r.stage !== "finished",
             ) ?? s.runners.find((r) => r.heat === s.heat)!);
-    const visual = runnerVisual(r, s.heat),
+    const visual = runnerPresentations.get(r) ?? runnerVisual(r, s.heat),
       mode = cameraMode(s.phase, r.stage),
       h = visual.y;
     if (!owned.current) {
@@ -53,7 +53,7 @@ export function CoastalCamera() {
     const facing =
       r.stage === "beam" || r.stage === "net" || r.stage === "crawl"
         ? 0
-        : ((r as typeof r & { facing?: number }).facing ?? 0);
+        : (runnerPresentations.get(r)?.facing ?? 0);
     input.yaw = recenterYaw(
       input.yaw,
       facing,
@@ -79,7 +79,7 @@ export function CoastalCamera() {
       v.look.set(r.x, h + 1.8, 19.2);
     } else {
       const distance = r.stage === "crawl" ? 5.2 : 6.2;
-      v.look.set(r.x, h + (r.stage === "crawl" ? 0.65 : 1.25), r.z);
+      v.look.set(visual.x, h + (r.stage === "crawl" ? 0.65 : 1.25), visual.z);
       v.goal.set(
         v.look.x + Math.sin(input.yaw) * Math.cos(input.pitch) * distance,
         v.look.y + Math.sin(input.pitch) * distance,

@@ -4,7 +4,7 @@ import * as T from "three";
 import { Contestant, type StagedPerson } from "../../Contestants";
 import { Survivor } from "../../Survivor";
 import { createCharacterMaterial } from "../../characterSurface";
-import { runnerVisual, challengeGait } from "./visual";
+import { runnerVisual, challengeGait, runnerPresentations } from "./visual";
 import type { CoastalEngine, Runner } from "./engine";
 import type { LocomotionMotion } from "../../locomotionPose";
 import { turnHeading } from "../../locomotion";
@@ -22,6 +22,11 @@ function Actor({
     last = useRef({ x: r.x, z: r.z }),
     face = useRef(0),
     recovery = useRef({ until: 0, x: r.x, z: r.z, y: 0 });
+  const presentation = useMemo(() => {
+    const p = { x: r.x, y: 0, z: r.z, facing: 0 };
+    runnerPresentations.set(r, p);
+    return p;
+  }, [r]);
   const motion = useRef<LocomotionMotion>({
     speed: 0,
     running: false,
@@ -91,7 +96,7 @@ function Actor({
         z - group.current.position.z,
         dt,
       );
-    r.facing = face.current;
+    Object.assign(presentation, { x, y, z, facing: face.current });
     group.current.position.set(x, y, z);
     group.current.rotation.set(0, face.current, 0);
     const m = motion.current;

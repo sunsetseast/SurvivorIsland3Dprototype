@@ -17,3 +17,5 @@ Branch: `feat/third-person-foundation`; base: `af9c61cda4b998a775af6e91fc009f2d3
 | 11 Evidence/reports | Pending |
 
 Recovery: fetch origin, inspect draft PR head and this branch before editing. Do not reset or recreate completed work. Use existing pnpm dependencies, `node --import tsx --test tests/*.test.mjs` from prototype; local Playwright Chromium at `/usr/bin/chromium`. Push and verify each checkpoint before starting the next. Keep PR draft; no merge, deployment, Replit tools or reference repo writes. Record actual results and limitations here; never reuse earlier evidence as proof of changed source.
+
+Browser correction: Pause test caught smoothed facing written into deterministic Runner state by presentation. Facing and rendered recovery position now live in a WeakMap outside engine state; paused simulation remains byte-identical. Added fresh-main touch-driven before captures to CI.

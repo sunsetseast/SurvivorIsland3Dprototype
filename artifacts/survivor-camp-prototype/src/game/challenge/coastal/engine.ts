@@ -5,7 +5,7 @@ export type Stage='sprint'|'crawl'|'to-beam'|'beam'|'to-net'|'net'|'collection'|
 const WALK_FLOORS:Partial<Record<Stage,number>>={sprint:-50,crawl:-38,'to-beam':-30,'to-net':-17.2,collection:-1.9};
 export type Entrant={id:number;name:string;physical?:number;dexterity?:number;focus?:number};
 export type Split={stage:Stage;time:number;duration:number};
-export type Runner=Entrant & {lane:number;heat:number;facing?:number;stage:Stage;x:number;z:number;lift:number;progress:number;gripTarget:number;balance:number;stability:number;mistakes:number;recoverUntil:number;stageStarted:number;splits:Split[];finishTime:number|null;bundles:boolean[];slots:number[];lastHand:number;handAt:number;nextAction:number};
+export type Runner=Entrant & {lane:number;heat:number;stage:Stage;x:number;z:number;lift:number;progress:number;gripTarget:number;balance:number;stability:number;mistakes:number;recoverUntil:number;stageStarted:number;splits:Split[];finishTime:number|null;bundles:boolean[];slots:number[];lastHand:number;handAt:number;nextAction:number};
 export type Phase='introduction'|'tutorial'|'countdown'|'racing'|'paused'|'results'|'cancelled';
 export type RaceState={phase:Phase;resume:Phase;clock:number;heat:number;heatStart:number;countdown:number;runners:Runner[];notice:string;result:ReturnType<typeof rank>|null};
 const clamp=(n:number,a=0,b=1)=>Math.max(a,Math.min(b,n));

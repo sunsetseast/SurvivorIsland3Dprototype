@@ -4,6 +4,7 @@ on:
     paths:
       - 'artifacts/survivor-camp-prototype/src/game/**'
       - 'artifacts/survivor-camp-prototype/scripts/third-person-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/scripts/third-person-before-qa.mjs'
       - 'artifacts/survivor-camp-prototype/tests/**'
       - '.github/workflows/third-person-foundation.yml'
   workflow_dispatch:
@@ -29,6 +30,14 @@ jobs:
       - run: PORT=5220 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
       - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
       - run: pnpm --filter @workspace/survivor-camp-prototype exec node scripts/third-person-qa.mjs
+      - uses: actions/checkout@v4
+        with:
+          ref: af9c61cda4b998a775af6e91fc009f2d393ca785
+          path: baseline
+      - run: |
+          ln -s "$GITHUB_WORKSPACE/node_modules" baseline/node_modules
+          ln -s "$GITHUB_WORKSPACE/artifacts/survivor-camp-prototype/node_modules" baseline/artifacts/survivor-camp-prototype/node_modules
+          BASELINE_ROOT="$GITHUB_WORKSPACE/baseline" pnpm --filter @workspace/survivor-camp-prototype exec node scripts/third-person-before-qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

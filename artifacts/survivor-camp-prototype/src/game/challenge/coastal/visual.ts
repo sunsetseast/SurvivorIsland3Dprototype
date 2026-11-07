@@ -19,3 +19,6 @@ export function challengeGait(stage:Runner['stage'],speed:number){
  if(speed<.08)return 'idle' as const;
  return 'run' as const;
 }
+
+/** Presentation is deliberately outside deterministic engine state (including pause). */
+export const runnerPresentations=new WeakMap<Runner,{x:number;y:number;z:number;facing:number}>();
