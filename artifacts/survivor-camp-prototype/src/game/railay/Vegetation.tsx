@@ -246,7 +246,7 @@ export function Vegetation({ low }: { low: boolean }) {
     return a;
   }, []);
   return (
-    <group name="railay-vegetation">
+    <group name="railay-vegetation" userData={{foliageTextures:textures}}>
       {cells.map((c) => (
         <Patch
           key={`${c.x}-${c.z}`}

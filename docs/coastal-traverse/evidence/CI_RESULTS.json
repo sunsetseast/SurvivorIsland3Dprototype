@@ -1,0 +1,100 @@
+{
+  "testedSource": "629bb366bfdadb336e0bb772c10d517aaf9005a5",
+  "note": "Gameplay/Stillwater/hub passed. One legacy foliage-LOD readiness assertion is corrected in the next checkpoint; final conclusions will be appended after that check.",
+  "workflows": [
+    {
+      "id": 42249400219,
+      "name": "Tonsai atmosphere visual checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400219"
+    },
+    {
+      "id": 42249400253,
+      "name": "Challenge Beach rehearsal and WebGL",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400253"
+    },
+    {
+      "id": 42249400200,
+      "name": "Tonsai environment checks",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400200"
+    },
+    {
+      "id": 42249400194,
+      "name": "Tonsai environment art checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400194"
+    },
+    {
+      "id": 42249400264,
+      "name": "Flagship camp visual and gameplay checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400264"
+    },
+    {
+      "id": 42249400578,
+      "name": "Tonsai limestone reconstruction checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400578"
+    },
+    {
+      "id": 42249400132,
+      "name": "Tonsai reconstruction visual checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400132"
+    },
+    {
+      "id": 42249400157,
+      "name": "Stillwater Balance playable rehearsal",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400157"
+    },
+    {
+      "id": 42249400124,
+      "name": "Living camp checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400124"
+    },
+    {
+      "id": 42249400143,
+      "name": "Connected island journeys",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400143"
+    },
+    {
+      "id": 42249400115,
+      "name": "Mobile gameplay controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42249400115"
+    }
+  ],
+  "coastalArtifact": {
+    "id": 13520065217,
+    "run": 42249400157,
+    "sha256": "b11a7d988f7472062460349fb0fb1f7409bfc50938e041293619e3facd657d8f",
+    "checksumVerified": true,
+    "source": "629bb366bfdadb336e0bb772c10d517aaf9005a5",
+    "browserGroups": 6
+  },
+  "local": {
+    "tests": 173,
+    "passed": 173,
+    "failed": 0,
+    "typecheck": "passed",
+    "priorWorldCollisionChecks": 294,
+    "priorWorldChecks": 6,
+    "priorBuild": "passed"
+  }
+}
