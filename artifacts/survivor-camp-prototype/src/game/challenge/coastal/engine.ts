@@ -75,7 +75,7 @@ export class CoastalEngine {
   const x=own?this.input.x:r.stage==='beam'?-r.balance*1.8+Math.sin(this.elapsed*1.3+r.id+this.seed)*(.9-(r.focus??.5)):r.stage==='collection'?.8*Math.sign(LANES[r.lane]!+[-1.1,-.3,.5][Math.max(0,r.bundles.findIndex(v=>!v))]!-r.x):0,forward=own?this.input.forward:1;
   const pace=own?1:.8+(r.physical??.5)*.5;
   if(r.stage==='sprint')this.walk(r,x,forward,5.5*pace,-38);
-  if(r.stage==='crawl'){this.walk(r,0,forward,1.65*pace,-30);r.x+=clamp(LANES[r.lane]!-r.x,-STEP,STEP);if(r.z>=-30)this.transition(r,'to-beam');return;}
+  if(r.stage==='crawl'){if(this.elapsed-r.stageStarted<.25)return;this.walk(r,0,forward,1.65*pace,-30);r.x+=clamp(LANES[r.lane]!-r.x,-STEP,STEP);if(r.z>=-30)this.transition(r,'to-beam');return;}
   if(r.stage==='to-beam')this.walk(r,x,forward,5*pace,-25.5);
   if(r.stage==='beam'){
    r.balance+=(.28+.45*Math.sin(this.elapsed*1.7+this.seed)+x*.9)*STEP;

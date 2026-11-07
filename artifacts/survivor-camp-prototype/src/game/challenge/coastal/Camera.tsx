@@ -29,6 +29,7 @@ export function CoastalCamera() {
   useFrame(({ camera, scene }, rawDt) => {
     const e = coastal.engine;
     if (!coastal.ownsControls || !e) {
+      if(owned.current)envelope.clear();
       owned.current = false;
       return;
     }
