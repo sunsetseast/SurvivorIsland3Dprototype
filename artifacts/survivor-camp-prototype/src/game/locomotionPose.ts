@@ -129,8 +129,10 @@ export function sampleTraversalPose(
   }
   if (state === "climb") {
     const slope = m.climbSlope ?? 0.95,
-      hip = slope >= 0 ? 0.48 : 0.32,
-      spine = slope >= 0 ? 0.78 : 2.2,
+      downhill=Math.max(0,Math.min(1,(.2-slope)/.4)),
+      blend=downhill*downhill*(3-2*downhill),
+      hip = .48-.16*blend,
+      spine = .78+1.42*blend,
       upper = rigHeight === 0.98 ? 0.47 : 0.43,
       lower = rigHeight === 0.98 ? 0.41 : 0.405;
     const leg = (z: number) =>

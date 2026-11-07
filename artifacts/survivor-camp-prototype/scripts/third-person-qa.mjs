@@ -74,12 +74,12 @@ async function multiLook(){
 }
 async function inspectCrawl(name){
  const sample=await page.evaluate(async()=>{
-  const T=await import('three'),w=window.__WORLD_RENDER__,body=w.scene.getObjectByName('coastal-runner-0');w.scene.updateMatrixWorld(true);
-  const box=new T.Box3().setFromObject(body),joints={};body.traverse(o=>{if(o.name.startsWith('joint-'))joints[o.name]={rotation:o.rotation.toArray(),scale:o.scale.toArray()};});
+  const w=window.__WORLD_RENDER__,body=w.scene.getObjectByName('coastal-runner-0');w.scene.updateMatrixWorld(true);
+  let bounds;body.traverse(o=>{if(!bounds&&o.isMesh){o.geometry.computeBoundingBox();bounds=o.geometry.boundingBox.clone();}});const box=bounds.setFromObject(body),joints={};body.traverse(o=>{if(o.name.startsWith('joint-'))joints[o.name]={rotation:o.rotation.toArray(),scale:o.scale.toArray()};});
   return {z:window.hubQA.co.engine.player.z,height:box.max.y-body.position.y,scale:body.scale.toArray(),joints};
  });assert.ok(sample.height<1.05,JSON.stringify(sample));assert.deepEqual(sample.scale,[1,1,1]);report.checks.push({name:'Rendered crawl aperture '+name,detail:sample});await capture(name);
 }
-async function inspectNet(){const sample=await page.evaluate(async()=>{const T=await import('three'),root=window.__WORLD_RENDER__.scene.getObjectByName('coastal-runner-0'),r=window.hubQA.co.engine.player,elbow=root.getObjectByName('joint-elL'),hand=new T.Vector3(0,-.32,.01);elbow.localToWorld(hand);const base=window.__CHALLENGE__.surface.height(r.x,-5),surface=base+.1+2.95*(1-Math.abs(2*Math.max(0,Math.min(1,(hand.z+8.1)/6.2))-1));return {z:r.z,hand:hand.toArray(),surface,error:Math.abs(hand.y-surface)};});report.checks.push({name:'Actual net hand contact',detail:sample});assert.ok(sample.error<.45,JSON.stringify(sample));}
+async function inspectNet(){const sample=await page.evaluate(async()=>{const root=window.__WORLD_RENDER__.scene.getObjectByName('coastal-runner-0'),r=window.hubQA.co.engine.player,elbow=root.getObjectByName('joint-elL'),hand=root.position.clone().set(0,-.32,.01);elbow.localToWorld(hand);const base=window.__CHALLENGE__.surface.height(r.x,-5),surface=base+.1+2.95*(1-Math.abs(2*Math.max(0,Math.min(1,(hand.z+8.1)/6.2))-1));return {z:r.z,hand:hand.toArray(),surface,error:Math.abs(hand.y-surface)};});report.checks.push({name:'Actual net hand contact',detail:sample});assert.ok(sample.error<.45,JSON.stringify(sample));}
 async function cpuSample(quality){
  const metrics=await page.evaluate(async()=>{const {characterAnimationMetrics:m}=await import('/src/game/Contestants.tsx'),q=window.hubQA,old={...m},cost=[];q.s.gl.render=()=>{};for(let i=0;i<180;i++){q.clock+=1/60;q.s.advance(q.clock,false);cost.push(q.io.dbg.cameraCpuMs);}q.s.gl.render=q.render;cost.sort((a,b)=>a-b);return {frames:cost.length,cameraMeanMs:cost.reduce((a,b)=>a+b,0)/cost.length,cameraP95Ms:cost[Math.floor(cost.length*.95)],contestantMeanMs:(m.totalMs-old.totalMs)/(m.updates-old.updates),...window.__CHALLENGE__.stats()};});report.samples.push({label:'cpu-'+quality,...metrics});
 }
