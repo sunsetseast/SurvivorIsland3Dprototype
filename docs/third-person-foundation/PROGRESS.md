@@ -8,13 +8,13 @@ Branch: `feat/third-person-foundation`; base: `af9c61cda4b998a775af6e91fc009f2d3
 | 2 Shared movement | Complete: shared continuous radial deadzone, normalized analog, actual release deceleration, bounded turning, gesture basis and course adapter; 4 targeted tests pass. Focus/epoch clear cancels velocity. |
 | 3 Camera | Complete: shared cached local camera envelope, behind follow, 1.6s free-look grace, pitch recenter, explicit race modes and staged-owner suppression. 6 targeted tests + TypeScript pass. |
 | 4 Animation architecture | Complete: common typed locomotion contract and reusable interruptible joint blend in both existing articulated rigs. 7 targeted tests + TypeScript pass. |
-| 5 Crawl | Complete: removed root scaling; articulated hips/spine/head/shoulders/elbows/thighs/knees/ankles with alternating displacement cadence in player and rivals. Facing derives from travel. 8 targeted tests + TypeScript pass; rendered clearance check scheduled. |
+| 5 Crawl | Complete: removed root scaling; articulated hips/spine/head/shoulders/elbows/thighs/knees/ankles with alternating displacement cadence in player and rivals. Facing derives from travel. targeted tests + TypeScript pass; final WebGL sequence measures 0.997–1.019m below the 1.05m opening without scaling. |
 | 6 Beam | Complete: displacement-driven supported legs, spread arms, torso instability without tipping the feet; visible fall/drop, checkpoint return and rise over the existing two-second penalty. Deterministic rules unchanged. 9 targeted tests + TypeScript pass. |
 | 7 Net | Complete: authored slope-aware two-link arm/leg poses, alternating hands/feet, blended crest orientation and original grip timing/continuous progress. No course rebuild. 10 targeted tests + TypeScript pass. |
 | 8 Cross-scene | Complete: all Player worlds share analog/camera changes; displacement-based planted gait and sampled slope contact added to player. Stillwater/inspection camera ownership preserved. Legacy crawl assertion now rejects scaling. 25 targeted tests and TypeScript pass (11 foundation +14 Coastal). |
-| 9 Touch browser | Test implementation saved: trusted CDP simultaneous joystick/orbit; rendered crawl envelope and consecutive captures; beam/net contact; puzzle restoration and full race/retry/results/camp preservation. Local Chromium blocked by socket policy; GitHub CI execution pending. |
-| 10 Performance/regression | 187/187 local tests, TypeScript and production build pass. First CI confirmed camp/race simultaneous touch and behind recenter; caught orbit intercepting Pause. Fixed stacking ownership. Additional correction: instanced tree collision envelopes, intelligent default-run challenge state and screen-correct beam steering. Awaiting full CI validation. |
-| 11 Evidence/reports | Pending |
+| 9 Touch browser | Complete on `bfb1416c`: trusted simultaneous joystick/orbit, both pitch limits, behind recenter, crawl frames, net contact, three complete races, puzzle restoration and camp preservation all pass. Existing mobile controls pass Chromium and WebKit. |
+| 10 Performance/regression | 192/192 tests, TypeScript/build and 294 collision/six world checks pass. Foundation, mobile, journeys, Challenge Beach and Stillwater workflows pass. Final camp route/resource workflows are finishing. CPU camera mean .057ms Low / .029ms High; exact ownership/scene geometry/listener stability. |
+| 11 Evidence/reports | Final actual WebGL artifact `13592638459` downloaded and SHA-256 verified; reviewed side crawl, net/beam and original-main before images. All eight documents prepared; final remote documentation/evidence save follows completed CI. |
 
 Recovery: fetch origin, inspect draft PR head and this branch before editing. Do not reset or recreate completed work. Use existing pnpm dependencies, `node --import tsx --test tests/*.test.mjs` from prototype; local Playwright Chromium at `/usr/bin/chromium`. Push and verify each checkpoint before starting the next. Keep PR draft; no merge, deployment, Replit tools or reference repo writes. Record actual results and limitations here; never reuse earlier evidence as proof of changed source.
 
@@ -33,3 +33,25 @@ Final clearance correction: the low-frame action now allows .25 seconds for arti
 The course test robot now converts requested world travel using the controller's actual held camera basis, exposed read-only through the existing development QA bridge. Assuming the current camera yaw during a frozen gesture produced slow lateral travel after a side-look and invalidated the expected winning-time fixture. The independent simultaneous-touch check now also asserts that the actual held basis is unchanged by orbit. Inputs remain trusted touch events; no race state is advanced by stage assignment.
 
 Resume from remotely verified head `7800dbae`: fresh checkout restored all saved work after the transient worktree was cleared. CI confirms Living Camp (including social/Tribal), Connected Journeys, Challenge Beach and Stillwater succeed. Remaining fixture corrections: use the actual per-scene pitch minimum (.12 camp / -.25 race) and keep trusted drag coordinates inside the viewport; route robot brakes before sampling/aiming at close waypoints; mobile repeat-scene failure now records HUD/readiness diagnostics. No runtime thresholds or collision assertions were relaxed.
+
+## Verified remote implementation checkpoints
+
+| Checkpoint | GitHub commit |
+| --- | --- |
+| Root causes | `2bb1173` |
+| Shared movement | `3e2244d` |
+| Shared camera | `6b818ac` |
+| Animation contract | `b3ce3ca` |
+| Proportional crawl | `f9519a2` |
+| Beam/recovery | `b70786b` |
+| Cargo net | `f924aba` |
+| Cross-scene integration | `fdb52c1` |
+| Touch/WebGL harness | `c9ffeda` |
+| Automatic challenge running | `d1e2a28` |
+| Camera CPU envelopes | `06b9d41`, `797a68a` |
+| Pause/state and crest corrections | `a55e775`, `3554e24`, `6b62ea1` |
+| Crawl clearance / test robot / final fixtures | `fe51e87`, `a96d3f8`, `bfb1416` |
+
+The tested source is `bfb1416c8b8d2bb3db9c62efff698777c1c67861`; subsequent final evidence/report changes must not alter the implementation hashes in `evidence/source-manifest.json`. Draft PR: https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/27. Final documentation SHA belongs in the PR description/delivery, as a commit cannot contain its own hash.
+
+The final extended sweep physically completed every route and hiding-site approach. Its last NPC-follow fixture used a fixed x+1.8/z+2.5 offset, which landed outside reachable trail ground after the longer expedition. It now finds a nearby walkable, NPC-clear, pathfinder-reachable approach and still follows it through real keyboard movement. Actor positions are never assigned; collision, distance and route assertions remain intact. All six other workflows already passed on the unchanged gameplay source.

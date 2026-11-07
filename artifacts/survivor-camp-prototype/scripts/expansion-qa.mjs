@@ -677,11 +677,21 @@ try {
         };
       });
       if (n.d < 5) break;
-      await go(
-        "Follow water-collecting NPC " + i,
-        [{ x: n.x + 1.8, z: n.z + 2.5 }],
-        true,
-      );
+      const approach = await page.evaluate(() => {
+        const q = window.campQA, n = q.camp.npc(q.followId);
+        const avoid = q.camp.npcs.map(actor => ({x:actor.x,z:actor.z,radius:.95}));
+        // The NPC can be anywhere along a narrow trail after the expedition.
+        // Select actual reachable ground around it, rather than a fixed offset
+        // which can land inside a rock or outside the walkable trail.
+        const candidates = [2.5,1.8,3.5].flatMap(radius => Array.from({length:16},(_,j)=>({
+          x:n.x+Math.cos(j*Math.PI/8)*radius,
+          z:n.z+Math.sin(j*Math.PI/8)*radius,
+        }))).filter(p=>q.world.isWalkable(p.x,p.z)&&!avoid.some(a=>Math.hypot(a.x-p.x,a.z-p.z)<1.25))
+          .sort((a,b)=>Math.hypot(a.x-q.io.dbg.x,a.z-q.io.dbg.z)-Math.hypot(b.x-q.io.dbg.x,b.z-q.io.dbg.z));
+        return candidates.find(p=>q.camp.navigation.route(q.io.dbg,p,avoid))??null;
+      });
+      assert.ok(approach, "No reachable ground beside the physically moving water NPC");
+      await go("Follow water-collecting NPC " + i, [approach], true);
     }
     await page.evaluate(() => {
       const q = window.campQA,
