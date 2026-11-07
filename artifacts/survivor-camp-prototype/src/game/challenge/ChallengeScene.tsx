@@ -78,7 +78,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   const raceDrive=useRef(createDrive(Math.PI));
   const coastalReturn=useRef<Pose|null>(null);
   selected.current=model;
-  const environment=useMemo(()=>({...WORLD,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls||coastal.ownsControls,
+  const environment=useMemo(()=>({...WORLD,cameraLocked:()=>!!inspection.current||stillwater.ownsControls||coastal.ownsControls,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls||coastal.ownsControls,
     move:(p:{x:number;z:number},dx:number,dz:number)=>moveOnTerrain(p,dx,dz,model?.solids??[])}),[model,switching]);
   useEffect(()=>{
     return stillwater.configure({

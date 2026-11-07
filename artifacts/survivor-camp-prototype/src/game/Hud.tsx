@@ -1,3 +1,4 @@
+import { LOOK_IDLE_SECONDS } from "./cameraController";
 import { createPortal } from "react-dom";
 import {
   TERRITORY,
@@ -221,7 +222,7 @@ export function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
       input.looking = false;
     },
     (e) => {
-      input.lookGrace = 0.85;
+      input.lookGrace = LOOK_IDLE_SECONDS;
       input.yaw -= (e.clientX - last.current.x) * 0.007;
       input.pitch = Math.max(
         allowLookUp ? -0.25 : 0.12,
@@ -231,7 +232,7 @@ export function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
     },
   );
   const end = (e: React.PointerEvent) => {
-    if (pointer.end(e)) input.lookGrace = 0.85;
+    if (pointer.end(e)) input.lookGrace = LOOK_IDLE_SECONDS;
   };
   return (
     <div
@@ -249,7 +250,7 @@ export function OrbitZone({ allowLookUp = false }: { allowLookUp?: boolean }) {
       onPointerDown={(e) => {
         if (!pointer.acquire(e)) return;
         input.looking = true;
-        input.lookGrace = 0.85;
+        input.lookGrace = LOOK_IDLE_SECONDS;
         last.current = { x: e.clientX, y: e.clientY };
       }}
       onPointerUp={end}

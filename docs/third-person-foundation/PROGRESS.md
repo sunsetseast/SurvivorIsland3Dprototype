@@ -6,7 +6,7 @@ Branch: `feat/third-person-foundation`; base: `af9c61cda4b998a775af6e91fc009f2d3
 | --- | --- |
 | 1 Root causes | Complete; actual Player, Hud, rigs, Coastal engine/roster/camera, terrain and scene ownership inspected. `git diff --check`. |
 | 2 Shared movement | Complete: shared continuous radial deadzone, normalized analog, actual release deceleration, bounded turning, gesture basis and course adapter; 4 targeted tests pass. Focus/epoch clear cancels velocity. |
-| 3 Camera | Pending |
+| 3 Camera | Complete: shared cached local camera envelope, behind follow, 1.6s free-look grace, pitch recenter, explicit race modes and staged-owner suppression. 6 targeted tests + TypeScript pass. |
 | 4 Animation architecture | Pending |
 | 5 Crawl | Pending |
 | 6 Beam | Pending |

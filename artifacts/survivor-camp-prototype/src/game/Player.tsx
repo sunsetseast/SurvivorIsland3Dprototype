@@ -1,3 +1,4 @@
+import { CameraEnvelope } from "./cameraEnvelope";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
@@ -17,7 +18,7 @@ import type { LocationId, Pose } from "./locations/registry";
 import { distance as physicalDistance } from "./navigation";
 
 import {
-  followYaw,
+  recenterYaw,
   votingZone,
   ease,
 } from "./cameraController";
@@ -32,6 +33,7 @@ export type ExplorationWorld = {
   voting?: { suppressed: () => boolean; release: () => void };
   standFrom?: Point & { facing: number };
   controlsLocked?: () => boolean;
+  cameraLocked?: () => boolean;
   spawn: Point;
   resetSpawn?: Point;
   yaw: number;
@@ -91,6 +93,7 @@ export function Player({
     blend: 0,
   });
   const [, getKeys] = useKeyboardControls();
+  const envelope = useMemo(()=>new CameraEnvelope(),[]);
   const tools = useMemo(
     () => ({
       target: new THREE.Vector3(),
@@ -213,10 +216,9 @@ export function Player({
         (1 - Math.exp(-dt * 8));
     }
     input.lookGrace = Math.max(0, input.lookGrace - dt);
-    input.yaw = followYaw(
+    input.yaw = recenterYaw(
       input.yaw,
       s.face,
-      actualSpeed > 0.08,
       input.looking,
       input.lookGrace,
       dt,
@@ -240,19 +242,11 @@ export function Player({
     if (root.current) root.current.userData.locomotion = motion.current;
     if (heading.current) heading.current.rotation.y = s.face;
 
+    if(environment.cameraLocked?.())return;
     const cameraStart = performance.now();
-    s.obstacleTime += dt;
-    if (s.obstacleTime > 1) {
-      s.obstacles = [];
-      scene.traverse((object) => {
-        if (object.userData.cameraBlocker && (object as THREE.Mesh).isMesh)
-          s.obstacles.push(object);
-      });
-      s.obstacleTime = 0;
-    }
     const t = tools;
     t.target.set(s.pos.x, y + 1.5, s.pos.z);
-    const distance = 7.4,
+    const distance = 6.2,
       pitch = input.pitch;
     t.desired.set(
       t.target.x + sy * Math.cos(pitch) * distance,
@@ -298,42 +292,8 @@ export function Player({
       s.initialized = true;
     }
     t.camera.lerp(t.desired, 1 - Math.exp(-dt * 9));
-    t.direction.subVectors(t.camera, t.target);
-    let safeDistance = t.direction.length();
-    t.direction.normalize();
-    // Five parallel rays provide a collision envelope around the lens.
-    for (const [lateral, vertical] of [
-      [-0.24, 0],
-      [0, 0],
-      [0.24, 0],
-      [0, 0.24],
-      [0, -0.24],
-    ]) {
-      t.offset.set(cy * lateral!, vertical!, -sy * lateral!);
-      t.probe.copy(t.target).add(t.offset);
-      t.ray.set(t.probe, t.direction);
-      t.ray.far = safeDistance + 0.3;
-      t.hits.length = 0;
-      t.ray.intersectObjects(s.obstacles, false, t.hits);
-      if (t.hits.length)
-        safeDistance = Math.min(
-          safeDistance,
-          Math.max(0.7, t.hits[0]!.distance - 0.4),
-        );
-    }
-    // Sample the whole boom against hills, not just its far endpoint.
-    for (let d = 0.8; d <= safeDistance; d += 0.25) {
-      t.probe.copy(t.target).addScaledVector(t.direction, d);
-      if (t.probe.y < groundHeight(t.probe.x, t.probe.z) + 0.3) {
-        safeDistance = Math.max(0.7, d - 0.3);
-        break;
-      }
-    }
-    camera.position.copy(t.target).addScaledVector(t.direction, safeDistance);
-    camera.position.y = Math.max(
-      camera.position.y,
-      groundHeight(camera.position.x, camera.position.z) + 0.3,
-    );
+    const safeDistance=envelope.resolve(scene,t.target,t.camera,groundHeight,dt);
+    camera.position.copy(t.camera);
     t.smoothLook.lerp(t.look, ease(dt, 9));
     camera.lookAt(t.smoothLook);
     // Portrait uses the live viewport aspect, including visualViewport/keyboard resize.

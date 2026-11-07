@@ -1,4 +1,4 @@
-import type { CameraOwner } from "./cameraController";
+import type { CameraOwner, ThirdPersonMode } from "./cameraController";
 // One sprint authority, including legacy reset writers. React observes this
 // exact value rather than polling or maintaining a separate visual latch.
 let run = false;
@@ -50,7 +50,7 @@ export const dbg = {
   fps: 0,
   resetRequested: false,
   face: 0,
-  cameraOwner: "ceremony" as CameraOwner,
+  cameraOwner: "ceremony" as CameraOwner | ThirdPersonMode,
   votingBlend: 0,
   cameraCpuMs: 0,
   speed: 0,
