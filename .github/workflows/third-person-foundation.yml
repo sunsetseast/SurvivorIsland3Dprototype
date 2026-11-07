@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: third-person-${{ github.ref }}
+  group: third-person-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   touch-webgl:

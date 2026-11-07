@@ -90,8 +90,9 @@ export function Contestant({
     if (root.current) root.current.rotation.y = s.facing;
     const presence = samplePresence(npc.id, t, s.sit);
     const seatedLeg = solveSeatedLeg(p.look.height, npc.seatHeight ?? 0.535);
-    const ph = (npc.distance / (1.2 * p.look.height)) * Math.PI * 2,
-      gait = 0.35 * s.move,
+    const running=npc.locomotion?.running??npc.speed>3.6;
+    const ph = (npc.distance / ((running?1.8:1.2) * p.look.height)) * Math.PI * 2,
+      gait = (running?.6:.35) * s.move,
       idle = Math.sin(t * 1.55 + npc.id) * 0.012;
     const set = (
       ref: React.RefObject<THREE.Group | null>,
@@ -103,7 +104,7 @@ export function Contestant({
       [thighL, kneeL, ankleL, false],
       [thighR, kneeR, ankleR, true],
     ] as const) {
-      const foot = sampleFoot(npc.distance, p.look.height, opposite);
+      const foot = sampleFoot(npc.distance, p.look.height*(running?1.5:1), opposite);
       const z = foot.z * s.move;
       const terrainOffset =
         (terrain(
@@ -161,7 +162,7 @@ export function Contestant({
     }
     set(
       spine,
-      presence.lean + s.move * 0.035 + s.work * 0.1 + s.sit * idle,
+      presence.lean + s.move * (running?.2:.035) + s.work * 0.1 + s.sit * idle,
       Math.sin(ph) * -0.04 * s.move,
       presence.tilt + idle * 0.4,
     );

@@ -2,3 +2,5 @@
 /* Keep navigation away from the existing lower-left movement pad. */
 .ct-navigation{left:auto;right:max(18px,env(safe-area-inset-right))}.ct-notice{bottom:72px;left:30%;max-width:55%}
 .ct-overlay[data-stage=puzzle] .ct-roster{left:max(18px,env(safe-area-inset-left));right:auto;top:90px}.ct-notice{left:max(18px,env(safe-area-inset-left));max-width:45%}
+/* Orbit owns only unclaimed scenery; obstacle actions and navigation stay tappable. */
+.ct-navigation,.ct-action,.ct-hands,.ct-card,.ct-puzzle{z-index:6}

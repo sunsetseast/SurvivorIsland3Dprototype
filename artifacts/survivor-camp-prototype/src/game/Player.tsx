@@ -1,4 +1,4 @@
-import {sampleFoot} from "./characterMotion";
+import { sampleFoot } from "./characterMotion";
 import { CameraEnvelope } from "./cameraEnvelope";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
@@ -18,11 +18,7 @@ import { worldTravel } from "./locations/travel";
 import type { LocationId, Pose } from "./locations/registry";
 import { distance as physicalDistance } from "./navigation";
 
-import {
-  recenterYaw,
-  votingZone,
-  ease,
-} from "./cameraController";
+import { recenterYaw, votingZone, ease } from "./cameraController";
 import { createDrive, drive, cancelDrive, turnHeading } from "./locomotion";
 import { VOTING } from "./tribal/votingAnchors";
 
@@ -70,7 +66,8 @@ export function Player({
     distance: 0,
     talking: false,
     seated: !!environment.standFrom,
-    footL:0,footR:0,
+    footL: 0,
+    footR: 0,
   });
   const driveState = useRef(createDrive(yaw));
   const state = useRef({
@@ -81,46 +78,38 @@ export function Player({
       environment.facing ??
       Math.PI,
     entryTime: 0,
-    velocity: 0,
     initialized: false,
     firstFrame: true,
     fpsTime: 0,
     fpsFrames: 0,
-    obstacleTime: 10,
-    obstacles: [] as THREE.Object3D[],
-    moving: false,
     locked: false,
-    moveYaw: yaw,
     voting: false,
     blend: 0,
   });
   const [, getKeys] = useKeyboardControls();
-  const envelope = useMemo(()=>new CameraEnvelope(),[]);
+  const envelope = useMemo(() => new CameraEnvelope(), []);
   const tools = useMemo(
     () => ({
       target: new THREE.Vector3(),
       look: new THREE.Vector3(),
       smoothLook: new THREE.Vector3(),
       desired: new THREE.Vector3(),
-      direction: new THREE.Vector3(),
-      camera: new THREE.Vector3(),
       probe: new THREE.Vector3(),
-      offset: new THREE.Vector3(),
-      ray: new THREE.Raycaster(),
-      hits: [] as THREE.Intersection[],
+      camera: new THREE.Vector3(),
     }),
     [],
   );
 
   useEffect(() => {
-    const cancel=()=>cancelDrive(driveState.current);
-    window.addEventListener("survivor-input-clear",cancel);
-    return ()=>window.removeEventListener("survivor-input-clear",cancel);
-  },[]);
+    const cancel = () => cancelDrive(driveState.current);
+    window.addEventListener("survivor-input-clear", cancel);
+    return () => window.removeEventListener("survivor-input-clear", cancel);
+  }, []);
   useEffect(
     () => () => {
       clearInput();
       dbg.votingBlend = 0;
+      envelope.clear();
     },
     [],
   );
@@ -136,7 +125,6 @@ export function Player({
       s.pos = { ...dbg.teleportRequested };
       s.entryTime = 1;
       dbg.teleportRequested = null;
-      s.velocity = 0;
       cancelDrive(driveState.current);
       s.voting = false;
       s.blend = 0;
@@ -147,10 +135,8 @@ export function Player({
       clearInput();
       s.voting = false;
       s.blend = 0;
-      s.moving = false;
       s.entryTime = 1;
       s.pos = { ...(environment.resetSpawn || environment.spawn) };
-      s.velocity = 0;
       cancelDrive(driveState.current);
       s.initialized = false;
       input.yaw = yaw;
@@ -188,12 +174,13 @@ export function Player({
     const wantsRun = !!(input.run || keys.run);
     const d = drive(driveState.current, ix, iy, input.yaw, wantsRun, dt);
     let traveled = 0;
-    if (d.speed > .01) {
+    if (d.speed > 0.01) {
       const next = environment.move(s.pos, d.dx, d.dz);
       if (!isCamp || !camp.npcs.some((n) => physicalDistance(next, n) < 0.78)) {
-        traveled = Math.hypot(next.x-s.pos.x,next.z-s.pos.z);
-        if (traveled > .0001) s.face=turnHeading(s.face,next.x-s.pos.x,next.z-s.pos.z,dt);
-        s.pos=next;
+        traveled = Math.hypot(next.x - s.pos.x, next.z - s.pos.z);
+        if (traveled > 0.0001)
+          s.face = turnHeading(s.face, next.x - s.pos.x, next.z - s.pos.z, dt);
+        s.pos = next;
       }
     }
     // Actual displacement, not requested input, controls gait and animation.
@@ -207,8 +194,23 @@ export function Player({
     motion.current.running = wantsRun && actualSpeed > 3.6;
     motion.current.distance += traveled;
     const y = groundHeight(s.pos.x, s.pos.z);
-    const footOffset=(opposite:boolean)=>{const z=sampleFoot(motion.current.distance,.96,opposite).z*.96;return Math.max(-.18,Math.min(.18,(groundHeight(s.pos.x+Math.sin(s.face)*z,s.pos.z+Math.cos(s.face)*z)-y)/.96));};
-    motion.current.footL=footOffset(false);motion.current.footR=footOffset(true);
+    const footOffset = (opposite: boolean) => {
+      const z = sampleFoot(motion.current.distance, 0.96, opposite).z * 0.96;
+      return Math.max(
+        -0.18,
+        Math.min(
+          0.18,
+          (groundHeight(
+            s.pos.x + Math.sin(s.face) * z,
+            s.pos.z + Math.cos(s.face) * z,
+          ) -
+            y) /
+            0.96,
+        ),
+      );
+    };
+    motion.current.footL = footOffset(false);
+    motion.current.footR = footOffset(true);
     if (isCamp && !worldTravel.blocked)
       camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
     motion.current.talking = isCamp && !!camp.conversation;
@@ -246,7 +248,7 @@ export function Player({
     if (root.current) root.current.userData.locomotion = motion.current;
     if (heading.current) heading.current.rotation.y = s.face;
 
-    if(environment.cameraLocked?.())return;
+    if (environment.cameraLocked?.()) return;
     const cameraStart = performance.now();
     const t = tools;
     t.target.set(s.pos.x, y + 1.5, s.pos.z);
@@ -296,7 +298,13 @@ export function Player({
       s.initialized = true;
     }
     t.camera.lerp(t.desired, 1 - Math.exp(-dt * 9));
-    const safeDistance=envelope.resolve(scene,t.target,t.camera,groundHeight,dt);
+    const safeDistance = envelope.resolve(
+      scene,
+      t.target,
+      t.camera,
+      groundHeight,
+      dt,
+    );
     camera.position.copy(t.camera);
     t.smoothLook.lerp(t.look, ease(dt, 9));
     camera.lookAt(t.smoothLook);

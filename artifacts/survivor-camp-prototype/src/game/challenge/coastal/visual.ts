@@ -9,3 +9,13 @@ export function runnerVisual(r:Runner,activeHeat:number){
  if(r.stage==='sprint')lift=.32*Math.max(0,Math.min(1,(r.z+47)/.5,(-42.5-r.z)/.5));
  return {x:r.x,z:r.z,y:heightAt(r.x,r.z)+lift,scaleY:1,lean:r.stage==='crawl'?.5:r.stage==='beam'?r.balance*.35:0,working:r.stage==='net'||r.stage==='puzzle'};
 }
+
+/** Race speed selection is automatic: open lanes run; authored obstacles set their gait. */
+export function challengeGait(stage:Runner['stage'],speed:number){
+ if(stage==='crawl')return 'crawl' as const;
+ if(stage==='beam')return 'balance' as const;
+ if(stage==='net')return 'climb' as const;
+ if(stage==='puzzle')return 'interact' as const;
+ if(speed<.08)return 'idle' as const;
+ return 'run' as const;
+}
