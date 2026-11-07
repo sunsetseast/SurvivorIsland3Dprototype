@@ -1,6 +1,6 @@
 {
-  "gameplayTestedSource": "629bb366bfdadb336e0bb772c10d517aaf9005a5",
-  "note": "Current code includes foliage readiness metadata and stage backtracking guard; screenshots/forward-path gameplay verified at 72cf39e. Final tested checkpoint SHA is recorded in PR body.",
+  "gameplayTestedSource": "fcbb8751de85a5c1aeea4561a7cd46b597f2d700",
+  "note": "Final implementation source. Dedicated Coastal WebGL/touch job 128268050668 passed on this exact commit; final reports/evidence are documentation-only additions. All source hashes checked before final save.",
   "sha256": {
     ".github/workflows/stillwater-balance.yml": "d0c0e95585a30b274b204d18f7a97b6c438a790c11e3e3ebaa1bd70fe99bbe26",
     "artifacts/survivor-camp-prototype/scripts/challenge-testing-qa.mjs": "e3ef58cf36c9fd5190ca5244ce3493b3e29f316b21839e9b87b39e7a9106a77d",
