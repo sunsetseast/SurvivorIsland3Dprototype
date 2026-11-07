@@ -186,9 +186,9 @@ export function Contestant({
     );
   });
   const arm = (side: number, upper: typeof upperL, elbow: typeof elbowL) => (
-    <group ref={upper} position={[side * p.shoulder, 0.5, 0]}>
+    <group name="joint-upper" ref={upper} position={[side * p.shoulder, 0.5, 0]}>
       {mesh(p.armU)}
-      <group ref={elbow} position={[0, -0.285, 0]}>
+      <group name="joint-elbow" ref={elbow} position={[0, -0.285, 0]}>
         <group scale={[side, 1, 1]}>{mesh(p.forearm)}</group>
       </group>
     </group>
@@ -199,11 +199,11 @@ export function Contestant({
     knee: typeof kneeL,
     ankle: typeof ankleL,
   ) => (
-    <group ref={thigh} position={[side * 0.105 * p.look.width, -0.01, 0]}>
+    <group name="joint-thigh" ref={thigh} position={[side * 0.105 * p.look.width, -0.01, 0]}>
       {mesh(p.thigh)}
-      <group ref={knee} position={[0, -0.43, 0]}>
+      <group name="joint-knee" ref={knee} position={[0, -0.43, 0]}>
         {mesh(p.shin)}
-        <group ref={ankle} position={[0, -0.405, 0]}>
+        <group name="joint-ankle" ref={ankle} position={[0, -0.405, 0]}>
           {mesh(p.foot, `hero-foot-${side}`)}
         </group>
       </group>
@@ -216,9 +216,9 @@ export function Contestant({
       userData={{ contestantId: npc.id, visualVersion: 2, hero: true }}
     >
       <group scale={p.look.height}>
-        <group ref={hips} position={[0, 0.92, 0]}>
+        <group name="joint-hips" ref={hips} position={[0, 0.92, 0]}>
           {mesh(p.pelvis)}
-          <group ref={spine} position={[0, 0.045, 0]}>
+          <group name="joint-spine" ref={spine} position={[0, 0.045, 0]}>
             {mesh(p.torso)}
             <group
               ref={head}

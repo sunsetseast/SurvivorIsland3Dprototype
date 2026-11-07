@@ -458,43 +458,43 @@ export function Survivor({
 
   return (
     <group scale={0.96}>
-      <group ref={hips} position={[0, 0.98, 0]}>
+      <group name="joint-hips" ref={hips} position={[0, 0.98, 0]}>
         <Part g={p.pelvis} mat={mat} />
-        <group ref={spine} position={[0, 0.06, 0]}>
+        <group name="joint-spine" ref={spine} position={[0, 0.06, 0]}>
           <Part g={p.torso} mat={mat} />
-          <group ref={head} position={[0, 0.65, 0]} scale={[.84,.85,.87]}>
+          <group name="joint-head" ref={head} position={[0, 0.65, 0]} scale={[.84,.85,.87]}>
             <Part g={p.head} mat={mat} />
             <group ref={tail} position={[0, 0.3, -0.17]}>
               <Part g={p.tail} mat={mat} />
             </group>
           </group>
-          <group ref={armL} position={[0.26, 0.54, 0]}>
+          <group name="joint-armL" ref={armL} position={[0.26, 0.54, 0]}>
             <Part g={p.armU} mat={mat} />
-            <group ref={elL} position={[0, -0.3, 0]}>
+            <group name="joint-elL" ref={elL} position={[0, -0.3, 0]}>
               <Part g={p.forearm} mat={mat} />
             </group>
           </group>
-          <group ref={armR} position={[-0.26, 0.54, 0]}>
+          <group name="joint-armR" ref={armR} position={[-0.26, 0.54, 0]}>
             <Part g={p.armU} mat={mat} />
-            <group ref={elR} position={[0, -0.3, 0]}>
+            <group name="joint-elR" ref={elR} position={[0, -0.3, 0]}>
               <Part g={p.forearm} mat={mat} />
             </group>
           </group>
         </group>
-        <group ref={legL} position={[0.1, -0.02, 0]}>
+        <group name="joint-legL" ref={legL} position={[0.1, -0.02, 0]}>
           <Part g={p.thigh} mat={mat} />
-          <group ref={knL} position={[0, -0.47, 0]}>
+          <group name="joint-knL" ref={knL} position={[0, -0.47, 0]}>
             <Part g={p.shin} mat={mat} />
-            <group ref={ankL} position={[0, -0.41, 0]}>
+            <group name="joint-ankL" ref={ankL} position={[0, -0.41, 0]}>
               <Part g={p.foot} mat={mat} />
             </group>
           </group>
         </group>
-        <group ref={legR} position={[-0.1, -0.02, 0]}>
+        <group name="joint-legR" ref={legR} position={[-0.1, -0.02, 0]}>
           <Part g={p.thigh} mat={mat} />
-          <group ref={knR} position={[0, -0.47, 0]}>
+          <group name="joint-knR" ref={knR} position={[0, -0.47, 0]}>
             <Part g={p.shin} mat={mat} />
-            <group ref={ankR} position={[0, -0.41, 0]}>
+            <group name="joint-ankR" ref={ankR} position={[0, -0.41, 0]}>
               <Part g={p.foot} mat={mat} />
             </group>
           </group>

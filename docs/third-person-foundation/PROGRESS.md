@@ -12,7 +12,7 @@ Branch: `feat/third-person-foundation`; base: `af9c61cda4b998a775af6e91fc009f2d3
 | 6 Beam | Complete: displacement-driven supported legs, spread arms, torso instability without tipping the feet; visible fall/drop, checkpoint return and rise over the existing two-second penalty. Deterministic rules unchanged. 9 targeted tests + TypeScript pass. |
 | 7 Net | Complete: authored slope-aware two-link arm/leg poses, alternating hands/feet, blended crest orientation and original grip timing/continuous progress. No course rebuild. 10 targeted tests + TypeScript pass. |
 | 8 Cross-scene | Complete: all Player worlds share analog/camera changes; displacement-based planted gait and sampled slope contact added to player. Stillwater/inspection camera ownership preserved. Legacy crawl assertion now rejects scaling. 25 targeted tests and TypeScript pass (11 foundation +14 Coastal). |
-| 9 Touch browser | Pending; emulated touch only, no physical iPhone access |
+| 9 Touch browser | Test implementation saved: trusted CDP simultaneous joystick/orbit; rendered crawl envelope and consecutive captures; beam/net contact; puzzle restoration and full race/retry/results/camp preservation. Local Chromium blocked by socket policy; GitHub CI execution pending. |
 | 10 Performance/regression | Pending |
 | 11 Evidence/reports | Pending |
 
