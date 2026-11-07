@@ -10,3 +10,7 @@
 - Stillwater and Tribal intentionally use staged cameras; they must retain their ownership. Challenge exploration Player is hidden but still updates behind Stillwater (legacy); Coastal unmounts it. Explicit suppression of Player camera updates avoids simultaneous writers.
 
 Scope: reuse existing assets, displacement-driven gait, deterministic race rules, input pointer capture/epoch/focus cleanup and world lifecycle. Add shared input math, follow math/modes, joint pose blending and lightweight camera envelope. Preserve camp/social/season state and all environment art.
+
+Additional integration finding: two joystick gestures can end and begin between render frames. A controller that detects release only by sampling a zero axis misses that boundary and keeps an obsolete camera basis. Joystick acquisition/release now increments a gesture epoch consumed by both controllers. A held gesture stays stable through orbit; a new gesture rebases even without an intervening simulation frame.
+
+Net crest contact must sample the actual A-frame support at the hand/foot target, including the opposite slope. Extrapolating only the body's current slope produced hovering hands when reaching over the crest. Targets now use the actual piecewise support profile and a continuous forward body transition.

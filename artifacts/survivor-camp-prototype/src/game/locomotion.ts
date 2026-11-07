@@ -11,7 +11,7 @@ export function analog(x: number, y: number) {
     pressure,
   };
 }
-export type Drive = { vx: number; vz: number; basis: number; held: boolean };
+export type Drive = { vx: number; vz: number; basis: number; held: boolean; epoch?:number };
 export const createDrive = (basis = 0): Drive => ({
   vx: 0,
   vz: 0,
@@ -27,9 +27,14 @@ export function drive(
   run: boolean,
   rawDt: number,
   maxSpeed?: number,
+  gestureEpoch?: number,
 ) {
   const dt = Math.min(0.05, Math.max(0, rawDt)),
     a = analog(x, y);
+  if (gestureEpoch !== undefined && s.epoch !== gestureEpoch) {
+    s.held = false;
+    s.epoch = gestureEpoch;
+  }
   if (a.pressure && !s.held) s.basis = yaw;
   s.held = a.pressure > 0;
   const v = movementVector(a.x, a.y, s.basis),
@@ -61,7 +66,8 @@ export function courseAxes(
   y: number,
   yaw: number,
   dt: number,
+  gestureEpoch?: number,
 ) {
-  drive(s, x, y, yaw, false, dt, 1);
+  drive(s, x, y, yaw, false, dt, 1, gestureEpoch);
   return { x: s.vx, forward: s.vz };
 }

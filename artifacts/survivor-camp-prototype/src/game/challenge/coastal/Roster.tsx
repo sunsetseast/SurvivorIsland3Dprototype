@@ -1,3 +1,4 @@
+import { heightAt } from "../surface";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as T from "three";
@@ -106,6 +107,8 @@ function Actor({
     m.posture = 1;
     m.balance = r.balance;
     const crest = Math.max(0, Math.min(1, (r.z + 5.3) / 0.6));
+    m.climbZ = r.z;
+    m.supportOffset = heightAt(r.x, -5) - heightAt(r.x, r.z) - r.lift;
     m.climbSlope = 0.95 * (1 - 2 * crest * crest * (3 - 2 * crest));
     m.state = !active ? "idle" : challengeGait(r.stage, speed);
     m.running = m.state === "run";

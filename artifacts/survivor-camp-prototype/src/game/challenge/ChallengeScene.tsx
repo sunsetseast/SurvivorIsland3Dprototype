@@ -146,7 +146,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
     const coastNear=m?.id==="beach-obstacle"&&rehearsalActive();if(coastal.near!==coastNear){coastal.near=!!coastNear;coastal.notify();}
     const keys=coastal.keys;
     if(!coastal.ownsControls||coastal.engine?.state.phase!=='racing')cancelDrive(raceDrive.current);
-    const axes=courseAxes(raceDrive.current,input.joyX+Number(keys.has("d")||keys.has("arrowright"))-Number(keys.has("a")||keys.has("arrowleft")),input.joyY+Number(keys.has("w")||keys.has("arrowup"))-Number(keys.has("s")||keys.has("arrowdown")),input.yaw,dt);
+    const axes=courseAxes(raceDrive.current,input.joyX+Number(keys.has("d")||keys.has("arrowright"))-Number(keys.has("a")||keys.has("arrowleft")),input.joyY+Number(keys.has("w")||keys.has("arrowup"))-Number(keys.has("s")||keys.has("arrowdown")),input.yaw,dt,input.joyEpoch);
     // Balance corrections stay in the beam frame so inspection never reverses them.
     coastal.engine?.axis(coastal.engine.player.stage==='beam'?-input.joyX-Number(keys.has('d')||keys.has('arrowright'))+Number(keys.has('a')||keys.has('arrowleft')):axes.x,axes.forward);
     if(!document.hidden)coastal.advance(Math.min(dt,.1));

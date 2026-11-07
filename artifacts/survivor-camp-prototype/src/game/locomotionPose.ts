@@ -20,6 +20,8 @@ export type LocomotionMotion = {
   posture?: number;
   balance?: number;
   climbSlope?: number;
+  climbZ?: number;
+  supportOffset?: number;
   recovery?: number;
 };
 export const locomotionState = (m: LocomotionMotion): LocomotionState =>
@@ -129,20 +131,27 @@ export function sampleTraversalPose(
   }
   if (state === "climb") {
     const slope = m.climbSlope ?? 0.95,
-      downhill=Math.max(0,Math.min(1,(.2-slope)/.4)),
-      blend=downhill*downhill*(3-2*downhill),
-      hip = .48-.16*blend,
-      spine = .78+1.42*blend,
+      downhill = Math.max(0, Math.min(1, m.climbZ===undefined?(0.2-slope)/.4:(m.climbZ+5.9)/.8)),
+      blend = downhill * downhill * (3 - 2 * downhill),
+      hip = 0.48 - 0.16 * blend,
+      spine = 0.78 + 1.42 * blend,
       upper = rigHeight === 0.98 ? 0.47 : 0.43,
       lower = rigHeight === 0.98 ? 0.41 : 0.405;
+    const support = (z: number) => {
+      if (m.climbZ === undefined) return slope * z;
+      const t = Math.max(0, Math.min(1, (m.climbZ + z * 0.96 + 8.1) / 6.2));
+      return (
+        (0.1 + 2.95 * (1 - Math.abs(2 * t - 1)) + (m.supportOffset ?? 0)) / 0.96
+      );
+    };
     const leg = (z: number) =>
-      solveLeg(0.065 + slope * z - hip, z, upper, lower);
+      solveLeg(0.065 + support(z) - hip, z, upper, lower);
     const a = leg(-0.14 + s * 0.1),
       b = leg(-0.14 - s * 0.1);
     const arm = (z: number) => {
       const sy = hip + 0.06 + 0.54 * Math.cos(spine),
         sz = 0.54 * Math.sin(spine),
-        dy = slope * z + 0.04 - sy,
+        dy = support(z) + 0.04 - sy,
         dz = z - sz;
       const y = Math.cos(spine) * dy + Math.sin(spine) * dz,
         forward = -Math.sin(spine) * dy + Math.cos(spine) * dz,
@@ -157,8 +166,9 @@ export function sampleTraversalPose(
         elbow: -acos((d * d - u * u - l * l) / (2 * u * l)),
       };
     };
-    const l = arm(0.64 + s * 0.08),
-      r = arm(0.64 - s * 0.08);
+    const reach=.64-.12*blend;
+    const l = arm(reach + s * 0.06),
+      r = arm(reach - s * 0.06);
     Object.assign(out, {
       hipY: hip,
       spine,

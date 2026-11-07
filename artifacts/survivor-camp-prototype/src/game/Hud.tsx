@@ -105,6 +105,7 @@ export function Joystick() {
   const pointer = useControlPointer(() => {
     setK({ x: 0, y: 0 });
     input.joyX = input.joyY = 0;
+    input.joyEpoch++;
   }, upd);
   return (
     <div
@@ -120,7 +121,7 @@ export function Joystick() {
         zIndex: 5,
       }}
       onPointerDown={(e) => {
-        if (pointer.acquire(e)) upd(e, e.currentTarget);
+        if (pointer.acquire(e)){input.joyEpoch++;upd(e, e.currentTarget);}
       }}
       onPointerUp={pointer.end}
       onPointerCancel={pointer.end}

@@ -256,6 +256,7 @@ try {
         q.io.dbg.teleportRequested = { x, z };
         q.io.input.yaw = yaw;
         q.io.input.pitch = 0.34;
+        q.io.input.lookGrace = 1.6; // Fixture explicitly authors an inspected starting yaw.
       },
       { x, z, yaw },
     );

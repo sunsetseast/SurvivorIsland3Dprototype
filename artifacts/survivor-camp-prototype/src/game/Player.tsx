@@ -172,7 +172,16 @@ export function Player({
     }
     if (locked) cancelDrive(driveState.current);
     const wantsRun = !!(input.run || keys.run);
-    const d = drive(driveState.current, ix, iy, input.yaw, wantsRun, dt);
+    const d = drive(
+      driveState.current,
+      ix,
+      iy,
+      input.yaw,
+      wantsRun,
+      dt,
+      undefined,
+      input.joyEpoch,
+    );
     let traveled = 0;
     if (d.speed > 0.01) {
       const next = environment.move(s.pos, d.dx, d.dz);
@@ -248,7 +257,12 @@ export function Player({
     if (root.current) root.current.userData.locomotion = motion.current;
     if (heading.current) heading.current.rotation.y = s.face;
 
-    Object.assign(dbg,{controlsLocked:locked,moving:actualSpeed>.08,running:motion.current.running,speed:actualSpeed});
+    Object.assign(dbg, {
+      controlsLocked: locked,
+      moving: actualSpeed > 0.08,
+      running: motion.current.running,
+      speed: actualSpeed,
+    });
     if (environment.cameraLocked?.()) return;
     const cameraStart = performance.now();
     const t = tools;
