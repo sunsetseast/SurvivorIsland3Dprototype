@@ -81,7 +81,7 @@ export class CameraEnvelope {
         if ((m as T.InstancedMesh).isInstancedMesh) {
           const instances = m as T.InstancedMesh,
             transform = new T.Matrix4();
-          m.geometry.computeBoundingBox();
+          if (!m.geometry.boundingBox) m.geometry.computeBoundingBox();
           for (let i = 0; i < instances.count; i++) {
             instances.getMatrixAt(i, transform);
             transform.premultiply(m.matrixWorld);
@@ -94,7 +94,7 @@ export class CameraEnvelope {
           }
           return;
         }
-        m.geometry.computeBoundingSphere();
+        if (!m.geometry.boundingSphere) m.geometry.computeBoundingSphere();
         const sphere = m.geometry.boundingSphere!;
         this.blockers.push({
           mesh: m,

@@ -12,6 +12,7 @@ import { heightAt } from "./surface";
 import { Assembly, beam, box, sphere, WOOD, CUT, ROPE, TEAL, type Piece } from "./meshKit";
 
 function Limestone({low}:{low:boolean}) {
+  const cameraPieces=useMemo(()=>KARSTS.map(k=>box([k.x,heightAt(k.x,k.z)+k.h*.45,k.z],[k.rx*1.9,k.h*.9,k.rz*1.9],WOOD)),[]);
   const material=useMemo(()=>{const m=limestoneMaterial();m.color.setRGB(1.35,1.33,1.25);return m;},[]);
   useEffect(()=>()=>material.dispose(),[material]);
   const g=useMemo(()=>{
@@ -41,7 +42,7 @@ function Limestone({low}:{low:boolean}) {
     const g=new T.BufferGeometry();g.setAttribute("position",new T.Float32BufferAttribute(positions,3));g.setAttribute("color",new T.Float32BufferAttribute(colors,3));g.setIndex(indices);g.computeVertexNormals();return g;
   },[low]);
   useEffect(()=>()=>g.dispose(),[g]);
-  return <mesh name="challenge-krabi-karsts" geometry={g} material={material} userData={{cameraBlocker:true}}/>;
+  return <mesh name="challenge-krabi-karsts" geometry={g} material={material} userData={{cameraBlocker:true,cameraPieces}}/>;
 }
 
 function BotanicalInstances({geometry,material,plants}:{geometry:T.BufferGeometry;material:T.Material;plants:Array<(typeof TREES)[number]&{y?:number}>}) {

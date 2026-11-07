@@ -62,7 +62,10 @@ export function CoastalCamera() {
       dt,
     );
     if (!input.looking && input.lookGrace <= 0)
-      input.pitch += ((r.stage==="crawl"?.09:.34) - input.pitch) * ease(dt, 4);
+      input.pitch +=
+        ((r.stage === "crawl" ? 0.09 : r.stage === "net" ? 0.85 : 0.34) -
+          input.pitch) *
+        ease(dt, 4);
     if (mode === "cinematic-introduction") {
       v.goal.set(-42, h + 30, -72);
       v.look.set(-20, h + 1, -8);
@@ -78,8 +81,12 @@ export function CoastalCamera() {
       v.goal.set(r.x - 5, h + 4.2, 12);
       v.look.set(r.x, h + 1.8, 19.2);
     } else {
-      const distance = r.stage === "crawl" ? 5.2 : 6.2;
-      v.look.set(visual.x, h + (r.stage === "crawl" ? 0.65 : 1.25), visual.z);
+      const distance = r.stage === "crawl" ? 5.2 : r.stage === "net" ? 7 : 6.2;
+      v.look.set(
+        visual.x,
+        h + (r.stage === "crawl" || r.stage === "net" ? 0.65 : 1.25),
+        visual.z,
+      );
       v.goal.set(
         v.look.x + Math.sin(input.yaw) * Math.cos(input.pitch) * distance,
         v.look.y + Math.sin(input.pitch) * distance,
