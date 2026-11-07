@@ -18,6 +18,7 @@ function Actor({r,engine,material}:{r:Runner;engine:CoastalEngine;material:T.Mat
   if(recovering){const t=1-(r.recoverUntil-engine.elapsed)/2,k=Math.min(1,Math.max(0,(t-.12)/.55)),smooth=k*k*(3-2*k),from=recovery.current;x=from.x+(v.x-from.x)*smooth;z=from.z+(v.z-from.z)*smooth;y=v.y+Math.max(0,from.y-v.y)*(1-Math.min(1,t/.18));}
   r.facing=face.current;group.current.position.set(x,y,z);group.current.rotation.set(0,face.current,0);
   const m=motion.current;m.speed=speed;m.running=speed>3.6;m.distance+=travel;m.posture=1;m.balance=r.balance;
+  const crest=Math.max(0,Math.min(1,(r.z+5.3)/.6));m.climbSlope=.95*(1-2*crest*crest*(3-2*crest));
   m.state=!active?'idle':r.stage==='crawl'?'crawl':r.stage==='beam'?'balance':r.stage==='net'?'climb':r.stage==='puzzle'?'interact':undefined;
   if(recovering){m.state='recover';m.recovery=Math.max(0,1-(r.recoverUntil-engine.elapsed)/.7);m.speed=0;}
   group.current.userData.locomotion=m;

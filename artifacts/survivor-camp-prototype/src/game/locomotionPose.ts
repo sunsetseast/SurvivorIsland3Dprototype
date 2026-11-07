@@ -19,6 +19,18 @@ export function sampleTraversalPose(out:JointPose,m:LocomotionMotion,rigHeight=.
   const a=solveLeg(.07-rigHeight+.02+l.lift,l.z,upper,lower),b=solveLeg(.07-rigHeight+.02+r.lift,r.z,upper,lower);
   Object.assign(out,{hipY:.98,spine:.04,head:-.03,roll:(m.balance??0)*.28,armsOut:1.28,armL:-.1+s*.08,armR:-.1-s*.08,elbowL:-.25,elbowR:-.25,legL:a.hip,legR:b.hip,kneeL:a.knee,kneeR:b.knee,ankleL:a.ankle,ankleR:b.ankle});
  }
+ if(state==='climb'){
+  const slope=m.climbSlope??.95,hip=slope>=0?.48:.32,spine=slope>=0?.78:2.2,upper=rigHeight===.98?.47:.43,lower=rigHeight===.98?.41:.405;
+  const leg=(z:number)=>solveLeg(.065+slope*z-hip,z,upper,lower);
+  const a=leg(-.14+s*.1),b=leg(-.14-s*.1);
+  const arm=(z:number)=>{
+   const sy=hip+.06+.54*Math.cos(spine),sz=.54*Math.sin(spine),dy=slope*z+.04-sy,dz=z-sz;
+   const y=Math.cos(spine)*dy+Math.sin(spine)*dz,forward=-Math.sin(spine)*dy+Math.cos(spine)*dz,u=.3,l=.32,d=Math.min(u+l-.001,Math.max(.1,Math.hypot(y,forward))),acos=(v:number)=>Math.acos(Math.max(-1,Math.min(1,v)));
+   return {upper:-Math.atan2(forward,-y)+acos((u*u+d*d-l*l)/(2*u*d)),elbow:-acos((d*d-u*u-l*l)/(2*u*l))};
+  };
+  const l=arm(.64+s*.08),r=arm(.64-s*.08);
+  Object.assign(out,{hipY:hip,spine,head:-spine+.12,armL:l.upper,armR:r.upper,elbowL:l.elbow,elbowR:r.elbow,legL:a.hip,legR:b.hip,kneeL:a.knee,kneeR:b.knee,ankleL:a.ankle,ankleR:b.ankle,armsOut:.06});
+ }
  if(state==='recover'){const k=m.recovery??0;Object.assign(out,{hipY:.48+.5*k,spine:.7*(1-k),head:-.5*(1-k),legL:-.8*(1-k),legR:-.8*(1-k),kneeL:1.6*(1-k),kneeR:1.6*(1-k),elbowL:-.9,elbowR:-.9,armsOut:.55*(1-k)});}
  return state;
 }
