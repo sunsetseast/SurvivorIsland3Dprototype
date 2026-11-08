@@ -1,6 +1,6 @@
 # Railay Visual Renaissance
 
-Current checkpoint: 1 of 4 — targeted inspection and first atmosphere implementation.
+Current checkpoint: 1 of 4 complete — atmosphere and regression correction.
 Base: main `816ac6912be1c61fe5a03416c726d8bf60c3cc18` (merged PR #27).
 
 Diagnosis (three causes):
@@ -14,7 +14,7 @@ Completed: inspected camp environment, material/loading ownership, southern clif
 
 Baseline: unchanged main build retained locally. Local Chromium profile sockets and shared browser localhost access are restricted. The dedicated CI benchmark captures main and branch with the same 932x430 DPR1 views, golden preset, static NPC stage and fixed time. Images must be reviewed before claiming visual success.
 
-Latest verified remote SHA: base `816ac6912be1c61fe5a03416c726d8bf60c3cc18`; first checkpoint push pending.
+Resumed from remote `992e789d0925264f939b3f2fe148c810104213b7`. Reviewed the first successful CI comparison (run 42505657837). Corrected the stale midday assertion to require golden by default and retain developer-gated preset overrides, including an ungated midday rejection.
 
 Remaining: authored hero geometry/material and selective foreground foliage; image review/refinement; final performance, cleanup/navigation and CI verification.
 

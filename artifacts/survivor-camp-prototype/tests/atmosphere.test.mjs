@@ -9,16 +9,17 @@ import {
   sunDirection,
 } from "../src/game/environment/atmosphere.ts";
 
-test("daytime remains the default; art presets require the developer gate and own names", () => {
+test("golden remains the default; art presets require the developer gate and own names", () => {
   for (const query of [
     "",
     "?atmosphere=golden",
+    "?atmosphere=midday",
     "?devTravel=0&atmosphere=afternoon",
     "?devTravel=1&atmosphere=constructor",
     "?devTravel=1&atmosphere=toString",
     "?devTravel=1&atmosphere=unknown",
   ])
-    assert.equal(atmosphereName(query), "midday", query);
+    assert.equal(atmosphereName(query), "golden", query);
   for (const name of Object.keys(ATMOSPHERES))
     assert.equal(atmosphereName(`?devTravel=1&atmosphere=${name}`), name);
 });
