@@ -605,6 +605,20 @@ try {
       for (const c of candidates)
         await go("Hiding approach " + c.id, [c.p], true);
     }
+    // Leave the spring's work slots clear while the NPC physically approaches.
+    // The player also reaches this observation point through the real controller.
+    const waterObservation = await page.evaluate(() => {
+      const q=window.campQA, spots=q.spots.waterWell;
+      const avoid=q.camp.npcs.map(n=>({x:n.x,z:n.z,radius:.95}));
+      const candidates=[6,8].flatMap(radius=>Array.from({length:16},(_,j)=>({
+        x:107+Math.cos(j*Math.PI/8)*radius,z:36+Math.sin(j*Math.PI/8)*radius,
+      }))).filter(p=>q.world.isWalkable(p.x,p.z)&&spots.every(s=>Math.hypot(s.x-p.x,s.z-p.z)>=4)
+        &&avoid.every(n=>Math.hypot(n.x-p.x,n.z-p.z)>=1.5))
+        .sort((a,b)=>Math.hypot(a.x-q.io.dbg.x,a.z-q.io.dbg.z)-Math.hypot(b.x-q.io.dbg.x,b.z-q.io.dbg.z));
+      return candidates.find(p=>q.camp.navigation.route(q.io.dbg,p,avoid))??null;
+    });
+    assert.ok(waterObservation,'No reachable observation point clear of the spring work slots');
+    await go('Water chore observation approach',[waterObservation],true);
     await page.evaluate(() => {
       const q = window.campQA;
       // The long hiding-site expedition advances the living camp for many
@@ -647,7 +661,9 @@ try {
         !q.camp.request(n, {
           activity: "collect_water",
           place: "waterWell",
-          duration: 30,
+          // Keep the requested chore active while the player physically approaches.
+          // A 30s chore expired and autonomous decisions sent the NPC back to camp.
+          duration: 600,
           reason: "Water chore browser validation",
         })
       )
@@ -658,13 +674,18 @@ try {
       q.followDistance = n.distance;
       // Advance the real NPC movement solver while the player waits. No actor
       // positions/routes are written, and no rendering claims derive from this.
-      for (let i = 0; i < 3600; i++)
+      let waterTicks=0;
+      for (; waterTicks < 24000 && n.traveling; waterTicks++)
         q.camp.step(1 / 60, {
           x: q.io.dbg.x,
           z: q.io.dbg.z,
           y: q.io.dbg.y,
           moving: false,
         });
+      q.npcWaterArrival={x:n.x,z:n.z,place:n.place,traveling:n.traveling,
+        seconds:waterTicks/60,distanceAdvanced:n.distance-q.followDistance};
+      if(n.place!=='waterWell'||n.traveling||n.distance-q.followDistance<=60)
+        throw Error('NPC did not physically arrive at the remote spring: '+JSON.stringify(q.npcWaterArrival));
     });
     for (let i = 0; i < 6; i++) {
       const n = await page.evaluate(() => {
@@ -693,10 +714,19 @@ try {
       assert.ok(approach, "No reachable ground beside the physically moving water NPC");
       await go("Follow water-collecting NPC " + i, [approach], true);
     }
+    const waterVisit=await page.evaluate(()=>{
+      const q=window.campQA,n=q.camp.npc(q.followId);
+      return {place:n.place,activity:n.activity,distanceToPlayer:Math.hypot(n.x-q.io.dbg.x,n.z-q.io.dbg.z)};
+    });
+    assert.equal(waterVisit.place,'waterWell');
+    assert.equal(waterVisit.activity,'collect_water');
+    assert.ok(waterVisit.distanceToPlayer<5,'Player must physically approach the working NPC');
+    report.npcWaterArrival=await page.evaluate(()=>window.campQA.npcWaterArrival);
+    report.npcWaterVisit=waterVisit;
     await page.evaluate(() => {
       const q = window.campQA,
         n = q.camp.npc(q.followId);
-      // A completed collection trip is valid; observe its physical return leg.
+      // The verified collection trip is complete; observe its physical return leg.
       if (
         !n.traveling &&
         !q.camp.request(n, {

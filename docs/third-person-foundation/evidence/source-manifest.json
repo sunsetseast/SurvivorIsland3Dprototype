@@ -46,7 +46,7 @@
   "finalFiles": {
     ".github/workflows/third-person-foundation.yml": "83a0dabaf2b1d30643bcc991191e24209528f18c40e3f21f27278971a6c266f0",
     "artifacts/survivor-camp-prototype/scripts/coastal-qa.mjs": "4402dab065d07f3b3bd0cfcb22e7ae9500b6fe87827e5ce7dc7ca257376e23e1",
-    "artifacts/survivor-camp-prototype/scripts/expansion-qa.mjs": "0e46b56445f850957c626745728d9e3fec7a5be40154525db12bf1839c3e63ba",
+    "artifacts/survivor-camp-prototype/scripts/expansion-qa.mjs": "2662f8a8fb562e3e52c8540e0d2509c6c13855e473ce92f5a78d3d5295b4c5ba",
     "artifacts/survivor-camp-prototype/scripts/living-camp-qa.mjs": "b28371c3344d6dd3fb46a01aeaa64ed8c1cfe9a2f5e3a8affb708ffdf9421166",
     "artifacts/survivor-camp-prototype/scripts/mobile-sprint-qa.mjs": "4618d95ac8ef062c62453a948357dca86832ca2262237df67eddba2e93f045b6",
     "artifacts/survivor-camp-prototype/scripts/third-person-before-qa.mjs": "3279b581dbe3968c418306da92b7fed0ace83b2963369df771c879b20eb9331a",
@@ -92,7 +92,7 @@
     "browser-report.json": "abff8e349dd87e8756c94a8069d4daa5523bef685085e7e060b14cd3577fdf53",
     "camp-run.jpg": "c5eaf20316093ebc4b8c616edc2c9677e36009e7e148cf40a1cd532fa3d5e221",
     "camp-walk.jpg": "ec1787cc8eeeff71a23f69bdfb77aa9d47f74efa2d492e0a44afbad1242996e1",
-    "ci-results.json": "b9ab761f2266e7f86fabf177effbc2ec260c28a2774935c283c9b274d0a16d02",
+    "ci-results.json": "16b41db22a2897efa4224b70794bf5bb6e8cd554ebddde5cb463f1f4a5a3ba54",
     "cpu-only-benchmark.json": "b6a78ce73bcc25461de12579fbc96576addc13f4b459ad0dfb63c8d165f184a5",
     "crawl-0.jpg": "994854c7471dfddcd7d371ecf9832b2415328609e4f8440b0573380d5ead837e",
     "crawl-1.jpg": "b60e7d30fd7ede94f1ea0898b36dd47973d5a97e6b430d257bf2cd8a7673295e",

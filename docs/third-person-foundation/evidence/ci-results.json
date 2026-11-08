@@ -74,5 +74,13 @@
     "correction": "Initialize the complete owned scene before comparing GPU counters, then restore all original flags and view. Equality assertions retained.",
     "passingRun": 42491846301
   },
-  "physicalIPhoneTested": false
+  "physicalIPhoneTested": false,
+  "finalHeadRepetition": {
+    "source": "37bc0893de6270548de24569d8df872e53e88d12",
+    "passedWorkflows": 6,
+    "failedRun": 42492333638,
+    "failure": "Water-chore observation outlived the 30-second requested activity; autonomous NPC had returned to camp. All physical camp/hiding routes completed.",
+    "correction": "Physically clear the spring work slots, verify real NPC arrival, retain a 600-second requested chore during physical player approach, then explicitly request/observe return. Existing distance/expanded-territory/traveling assertions retained; arrival/work/proximity checks added.",
+    "finalStatus": "See PR #27 checks and validation summary for the subsequent final head."
+  }
 }
