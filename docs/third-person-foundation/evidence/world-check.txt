@@ -1,0 +1,11 @@
+Solid collision checks: 294
+{
+  "passed": [
+    "Spawn is unobstructed",
+    "Shared organic shoreline contains the player",
+    "Substeps prevent tunnelling into solid props and vegetation",
+    "Shelter ramp enters and exits the visible raised floor",
+    "Deck cannot be entered by walking through its raised side",
+    "Landmark path centres remain connected"
+  ]
+}
