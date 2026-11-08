@@ -42,3 +42,17 @@ export function movementVector(ix: number, iy: number, basis: number) {
     z: -Math.cos(basis) * iy - Math.sin(basis) * ix,
   };
 }
+
+export type ThirdPersonMode='exploration-follow'|'challenge-follow'|'obstacle-interaction'|'puzzle-inspection'|'cinematic-introduction'|'results-presentation';
+export const LOOK_IDLE_SECONDS=1.6;
+export function cameraMode(phase:string,stage:string):ThirdPersonMode {
+ if(phase==='results')return 'results-presentation';
+ if(['introduction','tutorial','countdown'].includes(phase))return 'cinematic-introduction';
+ if(stage==='puzzle')return 'puzzle-inspection';
+ if(['crawl','beam','net'].includes(stage))return 'obstacle-interaction';
+ return 'challenge-follow';
+}
+export function recenterYaw(yaw:number,face:number,manual:boolean,grace:number,dt:number){
+ const delta=angleDelta(face+Math.PI,yaw);
+ return manual||grace>0||Math.abs(delta)<.015?yaw:yaw+delta*ease(dt,3.2);
+}

@@ -12,6 +12,7 @@ import { heightAt } from "./surface";
 import { Assembly, beam, box, sphere, WOOD, CUT, ROPE, TEAL, type Piece } from "./meshKit";
 
 function Limestone({low}:{low:boolean}) {
+  const cameraPieces=useMemo(()=>KARSTS.map(k=>box([k.x,heightAt(k.x,k.z)+k.h*.45,k.z],[k.rx*1.9,k.h*.9,k.rz*1.9],WOOD)),[]);
   const material=useMemo(()=>{const m=limestoneMaterial();m.color.setRGB(1.35,1.33,1.25);return m;},[]);
   useEffect(()=>()=>material.dispose(),[material]);
   const g=useMemo(()=>{
@@ -41,7 +42,7 @@ function Limestone({low}:{low:boolean}) {
     const g=new T.BufferGeometry();g.setAttribute("position",new T.Float32BufferAttribute(positions,3));g.setAttribute("color",new T.Float32BufferAttribute(colors,3));g.setIndex(indices);g.computeVertexNormals();return g;
   },[low]);
   useEffect(()=>()=>g.dispose(),[g]);
-  return <mesh name="challenge-krabi-karsts" geometry={g} material={material} userData={{cameraBlocker:true}}/>;
+  return <mesh name="challenge-krabi-karsts" geometry={g} material={material} userData={{cameraBlocker:true,cameraPieces}}/>;
 }
 
 function BotanicalInstances({geometry,material,plants}:{geometry:T.BufferGeometry;material:T.Material;plants:Array<(typeof TREES)[number]&{y?:number}>}) {
@@ -62,6 +63,7 @@ function FallbackForest({low}:{low:boolean}) {
   return <group name="challenge-botany-fallback"><Assembly pieces={pieces} low={low} name="challenge-fallback-trees"/></group>;
 }
 function CoastalForest({low}:{low:boolean}) {
+  const cameraCylinders=useMemo(()=>TREES.map(p=>({x:p.x,y:heightAt(p.x,p.z),z:p.z,r:.28*p.scale+.12,h:10*p.scale})),[]);
   const [kit,setKit]=useState<T.Group|null>(null);
   const resources=useMemo(()=>{
     const leaf=new T.MeshStandardMaterial({color:"#d5e2bb",vertexColors:true,roughness:0.95,side:T.DoubleSide,alphaTest:0.42});
@@ -87,8 +89,8 @@ function CoastalForest({low}:{low:boolean}) {
   },[kit]);
   useEffect(()=>()=>crowns?.geometry.dispose(),[crowns]);
   const palms=useMemo(()=>TREES.filter(p=>p.kind==="palm"),[]),broad=useMemo(()=>TREES.filter(p=>p.kind==="canopy"),[]);
-  if(!kit)return <FallbackForest low={low}/>;
-  return <group name="challenge-botany-ready">{crowns && <BotanicalInstances geometry={crowns.geometry} material={resources.leaf} plants={crowns.plants}/>} {(["palm","canopy"] as const).flatMap(kind=>[0,1,2].flatMap(variant=>(["wood","leaves"] as const).map(part=>{
+  if(!kit)return <group userData={{cameraCylinders}}><FallbackForest low={low}/></group>;
+  return <group name="challenge-botany-ready" userData={{cameraCylinders}}>{crowns && <BotanicalInstances geometry={crowns.geometry} material={resources.leaf} plants={crowns.plants}/>} {(["palm","canopy"] as const).flatMap(kind=>[0,1,2].flatMap(variant=>(["wood","leaves"] as const).map(part=>{
     const source=kit.getObjectByName(`${kind}-${variant}-${low?"far":"near"}-${part}`) as T.Mesh|undefined;
     return source?<BotanicalInstances key={`${kind}-${variant}-${part}-${low}`} geometry={source.geometry} material={part==="wood"?resources.wood:kind==="canopy"?resources.leaf:resources.plain} plants={(kind==="palm"?palms:broad).filter((_,i)=>i%3===variant)}/>:null;
   })))}</group>;

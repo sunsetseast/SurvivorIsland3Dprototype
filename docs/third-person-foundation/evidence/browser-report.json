@@ -1,0 +1,1586 @@
+{
+  "method": "Real Chromium software WebGL; emulated mobile landscape 932x430 DPR1; trusted touchscreen/CDP events, manual 60Hz player simulation and 100ms spectator advancement. No actual Replit access or physical iPhone certification.",
+  "browser": "156.0.8078.4",
+  "checks": [
+    {
+      "name": "Production hub remains inaccessible"
+    },
+    {
+      "name": "Trusted orbit respects both pitch limits"
+    },
+    {
+      "name": "Trusted simultaneous joystick and right-thumb orbit without input theft",
+      "detail": {
+        "before": {
+          "tribalFrames": 0,
+          "calls": 0,
+          "triangles": 0,
+          "teleportRequested": null,
+          "x": -5.999999566915309,
+          "y": 0.8456289274366074,
+          "z": -18.6881790656947,
+          "cx": -4.938218676586069,
+          "cy": 4.420166576960712,
+          "cz": -25.036178022129995,
+          "location": "Campfire clearing",
+          "moving": true,
+          "running": true,
+          "fps": 60,
+          "resetRequested": false,
+          "face": 6.283184816104668,
+          "cameraOwner": "follow",
+          "votingBlend": 0,
+          "cameraCpuMs": 0,
+          "speed": 6.396490393987085,
+          "cameraDistance": 6.762261150625946,
+          "cameraBlocked": false,
+          "controlsLocked": false,
+          "yaw": 3.0163716755517314
+        },
+        "after": {
+          "tribalFrames": 0,
+          "calls": 0,
+          "triangles": 0,
+          "teleportRequested": null,
+          "x": -5.999999087676057,
+          "y": 0.7803856276425041,
+          "z": -15.701775616764337,
+          "cx": -9.439766513131012,
+          "cy": 3.329856304457366,
+          "cz": -20.792025541934724,
+          "location": "Jungle clearing",
+          "moving": true,
+          "running": true,
+          "fps": 60,
+          "resetRequested": false,
+          "face": 6.283185467075359,
+          "cameraOwner": "manual-look",
+          "votingBlend": 0,
+          "cameraCpuMs": 0.20000000001164153,
+          "speed": 6.399987021955267,
+          "cameraDistance": 6.232498130237375,
+          "cameraBlocked": false,
+          "controlsLocked": false,
+          "yaw": 3.9963716755517313,
+          "joy": 0.7200318373007835
+        }
+      }
+    },
+    {
+      "name": "Trusted orbit respects both pitch limits"
+    },
+    {
+      "name": "Trusted simultaneous joystick and right-thumb orbit without input theft",
+      "detail": {
+        "before": {
+          "tribalFrames": 0,
+          "calls": 0,
+          "triangles": 0,
+          "teleportRequested": null,
+          "x": -27.00000012796934,
+          "y": 1.44,
+          "z": -48.392276946297365,
+          "cx": -27.086624807068535,
+          "cy": 4.7576266539188135,
+          "cz": -54.797555578214286,
+          "location": "Main Challenge Beach",
+          "moving": false,
+          "running": false,
+          "fps": 60,
+          "resetRequested": false,
+          "face": -7.927133898923927e-8,
+          "cameraOwner": "challenge-follow",
+          "votingBlend": 0,
+          "cameraCpuMs": 0.10000000000582077,
+          "speed": 0,
+          "cameraDistance": 6.731283545321506,
+          "cameraBlocked": false,
+          "controlsLocked": true,
+          "yaw": 3.156412668962749,
+          "basis": 3.156412668962749
+        },
+        "after": {
+          "tribalFrames": 0,
+          "calls": 0,
+          "triangles": 0,
+          "teleportRequested": null,
+          "x": -27.000000331864253,
+          "y": 1.76,
+          "z": -45.83067463010917,
+          "cx": -30.848842974516476,
+          "cy": 3.6571598187703778,
+          "cz": -50.496426174400554,
+          "location": "Main Challenge Beach",
+          "moving": false,
+          "running": false,
+          "fps": 60,
+          "resetRequested": false,
+          "face": -7.959633401935537e-8,
+          "cameraOwner": "challenge-follow",
+          "votingBlend": 0,
+          "cameraCpuMs": 0.1999999999825377,
+          "speed": 0,
+          "cameraDistance": 6.082897581908351,
+          "cameraBlocked": false,
+          "controlsLocked": true,
+          "yaw": 4.136412668962749,
+          "joy": 0.9998901844025159,
+          "basis": 3.156412668962749
+        }
+      }
+    },
+    {
+      "name": "Behind follow and idle recenter",
+      "detail": 0.01822076561871855
+    },
+    {
+      "name": "Direct real intro/Ready/countdown, pause/resume and focus-loss cleanup"
+    },
+    {
+      "name": "Rendered crawl aperture crawl-0",
+      "detail": {
+        "z": -35.85303162917328,
+        "height": 1.0160063642236938,
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "joints": {
+          "joint-hips": {
+            "rotation": [
+              0,
+              -1.564798010937968e-10,
+              -4.470851459822765e-11,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-spine": {
+            "rotation": [
+              1.2499999919008373,
+              2.2354257299113828e-10,
+              4.470851466820136e-11,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-head": {
+            "rotation": [
+              -1.119999992557296,
+              -1.1177129591939474e-10,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              0.84,
+              0.85,
+              0.87
+            ]
+          },
+          "joint-armL": {
+            "rotation": [
+              -1.4117644310076238,
+              0,
+              0.0799999999346135,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elL": {
+            "rotation": [
+              -0.5870092471280621,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-armR": {
+            "rotation": [
+              -1.0882355518841984,
+              0,
+              -0.0799999999346135,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elR": {
+            "rotation": [
+              -0.250000000405123,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legL": {
+            "rotation": [
+              -1.0786766653126199,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knL": {
+            "rotation": [
+              2.0988972167868005,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankL": {
+            "rotation": [
+              -0.899999997339036,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legR": {
+            "rotation": [
+              -1.321323325162974,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knR": {
+            "rotation": [
+              2.301102767957361,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankR": {
+            "rotation": [
+              -0.8999999982981852,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Rendered crawl aperture crawl-1",
+      "detail": {
+        "z": -35.17030169947598,
+        "height": 0.9978694440385656,
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "joints": {
+          "joint-hips": {
+            "rotation": [
+              0,
+              2.2853785771206266e-14,
+              6.529653077487504e-15,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-spine": {
+            "rotation": [
+              1.2499999999958553,
+              -3.264826538743752e-14,
+              -6.529716004011199e-15,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-head": {
+            "rotation": [
+              -1.1199999999961818,
+              -6.298218120904951e-14,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              0.84,
+              0.85,
+              0.87
+            ]
+          },
+          "joint-armL": {
+            "rotation": [
+              -1.1181844475890519,
+              0,
+              0.08000000000001702,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elL": {
+            "rotation": [
+              -0.24999999999975028,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-armR": {
+            "rotation": [
+              -1.3818155524023865,
+              0,
+              -0.08000000000001702,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elR": {
+            "rotation": [
+              -0.5246157341798696,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legL": {
+            "rotation": [
+              -1.2988616643013984,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knL": {
+            "rotation": [
+              2.282384720247739,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankL": {
+            "rotation": [
+              -0.8999999999974926,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legR": {
+            "rotation": [
+              -1.1011383356912645,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knR": {
+            "rotation": [
+              2.117615279739085,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankR": {
+            "rotation": [
+              -0.8999999999973533,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Rendered crawl aperture crawl-2",
+      "detail": {
+        "z": -34.95324182945598,
+        "height": 0.9972132858128391,
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "joints": {
+          "joint-hips": {
+            "rotation": [
+              0,
+              2.458167009983484e-15,
+              7.023334314238524e-16,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-spine": {
+            "rotation": [
+              1.2499999999999505,
+              -3.511667157119263e-15,
+              -7.008282842946301e-16,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-head": {
+            "rotation": [
+              -1.1199999999999541,
+              1.5875430820118089e-15,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              0.84,
+              0.85,
+              0.87
+            ]
+          },
+          "joint-armL": {
+            "rotation": [
+              -1.3581903545264655,
+              0,
+              0.0800000000000004,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elL": {
+            "rotation": [
+              -0.4753965719302843,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-armR": {
+            "rotation": [
+              -1.141809645473429,
+              0,
+              -0.0800000000000004,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elR": {
+            "rotation": [
+              -0.2500000000000002,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legL": {
+            "rotation": [
+              -1.1188572341050718,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knL": {
+            "rotation": [
+              2.132381028420851,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankL": {
+            "rotation": [
+              -0.8999999999999668,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legR": {
+            "rotation": [
+              -1.2811427658948564,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knR": {
+            "rotation": [
+              2.2676189715790276,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankR": {
+            "rotation": [
+              -0.8999999999999921,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Rendered crawl aperture crawl-3",
+      "detail": {
+        "z": -34.35937138772964,
+        "height": 1.0187949722103604,
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "joints": {
+          "joint-hips": {
+            "rotation": [
+              0,
+              -3.707370999656946e-17,
+              -1.0592488570448414e-17,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-spine": {
+            "rotation": [
+              1.2499999999999993,
+              5.296244285224208e-17,
+              1.0408340855860843e-17,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-head": {
+            "rotation": [
+              -1.1199999999999994,
+              -2.6513354531241635e-17,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              0.84,
+              0.85,
+              0.87
+            ]
+          },
+          "joint-armL": {
+            "rotation": [
+              -1.2031741624592727,
+              0,
+              0.08,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elL": {
+            "rotation": [
+              -0.25,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-armR": {
+            "rotation": [
+              -1.296825837540726,
+              0,
+              -0.08,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-elR": {
+            "rotation": [
+              -0.3475538282098479,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legL": {
+            "rotation": [
+              -1.2351193781555445,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knL": {
+            "rotation": [
+              2.229266148462954,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankL": {
+            "rotation": [
+              -0.8999999999999999,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-legR": {
+            "rotation": [
+              -1.1648806218444543,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-knR": {
+            "rotation": [
+              2.170733851537045,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "joint-ankR": {
+            "rotation": [
+              -0.8999999999999996,
+              0,
+              0,
+              "XYZ"
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "Actual net hand contact",
+      "detail": {
+        "z": -5.465,
+        "hand": [
+          -26.895889216626568,
+          4.404685814126584,
+          -4.8655420011461405
+        ],
+        "surface": 4.3620480333487475,
+        "error": 0.0426377807778362
+      }
+    },
+    {
+      "name": "Actual net hand contact",
+      "detail": {
+        "z": -3.357,
+        "hand": [
+          -26.87726329679152,
+          2.546384499753509,
+          -2.902470491035688
+        ],
+        "surface": 2.493963854372671,
+        "error": 0.052420645380837794
+      }
+    },
+    {
+      "name": "Puzzle camera restores follow ownership"
+    },
+    {
+      "name": "Continuous sprint/crawl/beam fall recovery/net/collection, actual touch mosaic wrong/cancel/multitouch/reset, comeback win"
+    },
+    {
+      "name": "Input-driven puzzle loss, Retry and three full completed races; stable repeat ownership/listeners"
+    },
+    {
+      "name": "Stillwater, both previews, High mode, Welcome and exact original camp resume"
+    },
+    {
+      "name": "No uncaught or shader/WebGL errors"
+    }
+  ],
+  "screenshots": [
+    "camp-walk.jpg",
+    "camp-run.jpg",
+    "free-look-camp.jpg",
+    "01-introduction.jpg",
+    "free-look-race.jpg",
+    "behind-follow.jpg",
+    "02-crawl.jpg",
+    "crawl-0.jpg",
+    "crawl-1.jpg",
+    "crawl-2.jpg",
+    "crawl-3.jpg",
+    "crawl-exit.jpg",
+    "02-beam.jpg",
+    "beam-supported.jpg",
+    "02-net.jpg",
+    "net-0.jpg",
+    "net-1.jpg",
+    "03-karst-mosaic.jpg",
+    "puzzle-to-follow.jpg",
+    "04-real-results.jpg",
+    "05-high-course.jpg"
+  ],
+  "samples": [
+    {
+      "label": "race-low",
+      "sceneGeometryCount": 89,
+      "quality": "low",
+      "configuration": "beach-obstacle",
+      "calls": 82,
+      "triangles": 225650,
+      "geometries": 66,
+      "textures": 10,
+      "activeGeometryBytes": 8873244,
+      "programs": 11,
+      "listeners": 38,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "cpu-low",
+      "frames": 180,
+      "cameraMeanMs": 0.057222222222480926,
+      "cameraP95Ms": 0.10000000000582077,
+      "contestantMeanMs": 0.01277777777767268,
+      "quality": "low",
+      "configuration": "beach-obstacle",
+      "calls": 70,
+      "triangles": 215054,
+      "geometries": 66,
+      "textures": 10,
+      "activeGeometryBytes": 8873244,
+      "programs": 11
+    },
+    {
+      "label": "repeat-active-0",
+      "sceneGeometryCount": 89,
+      "quality": "low",
+      "configuration": "beach-obstacle",
+      "calls": 82,
+      "triangles": 225650,
+      "geometries": 68,
+      "textures": 11,
+      "activeGeometryBytes": 8873244,
+      "programs": 13,
+      "listeners": 38,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "coastal-hub-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "repeat-active-1",
+      "sceneGeometryCount": 89,
+      "quality": "low",
+      "configuration": "beach-obstacle",
+      "calls": 82,
+      "triangles": 225650,
+      "geometries": 65,
+      "textures": 9,
+      "activeGeometryBytes": 8873244,
+      "programs": 11,
+      "listeners": 38,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "coastal-hub-return",
+      "listeners": 27,
+      "canvases": 0,
+      "activeScenes": 0,
+      "ownership": 0,
+      "geometries": 0,
+      "textures": 1,
+      "contextLost": true
+    },
+    {
+      "label": "race-high",
+      "sceneGeometryCount": 89,
+      "quality": "high",
+      "configuration": "beach-obstacle",
+      "calls": 82,
+      "triangles": 603182,
+      "geometries": 65,
+      "textures": 9,
+      "activeGeometryBytes": 10601204,
+      "programs": 11,
+      "listeners": 38,
+      "ownership": 127,
+      "activeScenes": 1,
+      "peakActive": 1,
+      "contextLost": false
+    },
+    {
+      "label": "cpu-high",
+      "frames": 180,
+      "cameraMeanMs": 0.02888888888911525,
+      "cameraP95Ms": 0.10000000000582077,
+      "contestantMeanMs": 0.00555555555543429,
+      "quality": "high",
+      "configuration": "beach-obstacle",
+      "calls": 82,
+      "triangles": 603182,
+      "geometries": 65,
+      "textures": 9,
+      "activeGeometryBytes": 10601204,
+      "programs": 11
+    }
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:5220/src/game/challenge/ChallengeScene.tsx"
+  ],
+  "puzzleArrival": {
+    "phase": "racing",
+    "resume": "racing",
+    "clock": 44.06666666666545,
+    "heat": 0,
+    "heatStart": 0,
+    "countdown": 5.655198531684391e-15,
+    "notice": "You: puzzle",
+    "result": null,
+    "runners": [
+      {
+        "id": 0,
+        "name": "You",
+        "physical": 0.5,
+        "dexterity": 0.5,
+        "focus": 0.5,
+        "lane": 0,
+        "heat": 0,
+        "stage": "puzzle",
+        "x": -26.518500624249295,
+        "z": 15.959157215423156,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 1,
+        "balance": 0.2868153977484178,
+        "stability": 1,
+        "mistakes": 1,
+        "recoverUntil": 20.016666666666925,
+        "stageStarted": 44.06666666666545,
+        "splits": [
+          {
+            "stage": "sprint",
+            "time": 9.783333333333399,
+            "duration": 9.783333333333399
+          },
+          {
+            "stage": "crawl",
+            "time": 15.36666666666701,
+            "duration": 5.583333333333611
+          },
+          {
+            "stage": "to-beam",
+            "time": 16.25000000000036,
+            "duration": 0.8833333333333488
+          },
+          {
+            "stage": "beam",
+            "time": 25.916666666666476,
+            "duration": 9.666666666666117
+          },
+          {
+            "stage": "to-net",
+            "time": 28.266666666666342,
+            "duration": 2.3499999999998664
+          },
+          {
+            "stage": "net",
+            "time": 33.61666666666604,
+            "duration": 5.349999999999699
+          },
+          {
+            "stage": "collection",
+            "time": 44.06666666666545,
+            "duration": 10.449999999999406
+          }
+        ],
+        "finishTime": null,
+        "bundles": [
+          true,
+          true,
+          true
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": 1,
+        "handAt": 33.34999999999939,
+        "nextAction": 0
+      },
+      {
+        "id": 4,
+        "name": "Boston Rob",
+        "physical": 0.65,
+        "dexterity": 0.8,
+        "focus": 0.7,
+        "lane": 1,
+        "heat": 0,
+        "stage": "puzzle",
+        "x": -14.075912262023861,
+        "z": 16.1,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 1,
+        "balance": -0.007602183532184397,
+        "stability": 0.9567906579304507,
+        "mistakes": 1,
+        "recoverUntil": 0,
+        "stageStarted": 24.633333333333216,
+        "splits": [
+          {
+            "stage": "sprint",
+            "time": 1.9666666666666646,
+            "duration": 1.9666666666666646
+          },
+          {
+            "stage": "crawl",
+            "time": 6.5333333333333155,
+            "duration": 4.56666666666665
+          },
+          {
+            "stage": "to-beam",
+            "time": 7.333333333333313,
+            "duration": 0.7999999999999972
+          },
+          {
+            "stage": "beam",
+            "time": 13.550000000000253,
+            "duration": 6.21666666666694
+          },
+          {
+            "stage": "to-net",
+            "time": 15.066666666666995,
+            "duration": 1.516666666666742
+          },
+          {
+            "stage": "net",
+            "time": 21.366666666666735,
+            "duration": 6.29999999999974
+          },
+          {
+            "stage": "collection",
+            "time": 24.633333333333216,
+            "duration": 3.266666666666481
+          }
+        ],
+        "finishTime": null,
+        "bundles": [
+          true,
+          true,
+          true
+        ],
+        "slots": [
+          0,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": 1,
+        "handAt": 21.11666666666675,
+        "nextAction": 44.1465103681614
+      },
+      {
+        "id": 11,
+        "name": "Sandra",
+        "physical": 0.6,
+        "dexterity": 0.7,
+        "focus": 0.5,
+        "lane": 0,
+        "heat": 1,
+        "stage": "sprint",
+        "x": -27,
+        "z": -50,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 0,
+        "balance": 0,
+        "stability": 1,
+        "mistakes": 0,
+        "recoverUntil": 0,
+        "stageStarted": 0,
+        "splits": [],
+        "finishTime": null,
+        "bundles": [
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": -1,
+        "handAt": -100,
+        "nextAction": 0
+      },
+      {
+        "id": 13,
+        "name": "Parvati",
+        "physical": 0.65,
+        "dexterity": 0.6,
+        "focus": 0.6,
+        "lane": 1,
+        "heat": 1,
+        "stage": "sprint",
+        "x": -14,
+        "z": -50,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 0,
+        "balance": 0,
+        "stability": 1,
+        "mistakes": 0,
+        "recoverUntil": 0,
+        "stageStarted": 0,
+        "splits": [],
+        "finishTime": null,
+        "bundles": [
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": -1,
+        "handAt": -100,
+        "nextAction": 0
+      },
+      {
+        "id": 18,
+        "name": "Russell",
+        "physical": 0.85,
+        "dexterity": 0.7,
+        "focus": 0.7,
+        "lane": 0,
+        "heat": 2,
+        "stage": "sprint",
+        "x": -27,
+        "z": -50,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 0,
+        "balance": 0,
+        "stability": 1,
+        "mistakes": 0,
+        "recoverUntil": 0,
+        "stageStarted": 0,
+        "splits": [],
+        "finishTime": null,
+        "bundles": [
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": -1,
+        "handAt": -100,
+        "nextAction": 0
+      }
+    ]
+  },
+  "win": [
+    {
+      "id": 0,
+      "name": "You",
+      "time": 44.233333333333334,
+      "place": 1,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 9.783333333333399,
+          "duration": 9.783333333333399
+        },
+        {
+          "stage": "crawl",
+          "time": 15.36666666666701,
+          "duration": 5.583333333333611
+        },
+        {
+          "stage": "to-beam",
+          "time": 16.25000000000036,
+          "duration": 0.8833333333333488
+        },
+        {
+          "stage": "beam",
+          "time": 25.916666666666476,
+          "duration": 9.666666666666117
+        },
+        {
+          "stage": "to-net",
+          "time": 28.266666666666342,
+          "duration": 2.3499999999998664
+        },
+        {
+          "stage": "net",
+          "time": 33.61666666666604,
+          "duration": 5.349999999999699
+        },
+        {
+          "stage": "collection",
+          "time": 44.06666666666545,
+          "duration": 10.449999999999406
+        },
+        {
+          "stage": "puzzle",
+          "time": 44.233333333332105,
+          "duration": 0.1666666666666572
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 2
+    },
+    {
+      "id": 18,
+      "name": "Russell",
+      "time": 67.5,
+      "place": 2,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 1.8000000000014325,
+          "duration": 1.8000000000014325
+        },
+        {
+          "stage": "crawl",
+          "time": 6.000000000004775,
+          "duration": 4.200000000003342
+        },
+        {
+          "stage": "to-beam",
+          "time": 6.750000000005372,
+          "duration": 0.7500000000005969
+        },
+        {
+          "stage": "beam",
+          "time": 12.900000000010266,
+          "duration": 6.150000000004894
+        },
+        {
+          "stage": "to-net",
+          "time": 14.30000000001138,
+          "duration": 1.4000000000011141
+        },
+        {
+          "stage": "net",
+          "time": 21.15000000001683,
+          "duration": 6.850000000005451
+        },
+        {
+          "stage": "collection",
+          "time": 24.15000000001922,
+          "duration": 3.0000000000023874
+        },
+        {
+          "stage": "puzzle",
+          "time": 67.50000000005372,
+          "duration": 43.3500000000345
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 0
+    },
+    {
+      "id": 13,
+      "name": "Parvati",
+      "time": 80.83333333333333,
+      "place": 3,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 1.9666666666665549,
+          "duration": 1.9666666666665549
+        },
+        {
+          "stage": "crawl",
+          "time": 6.533333333332962,
+          "duration": 4.566666666666407
+        },
+        {
+          "stage": "to-beam",
+          "time": 7.3333333333329165,
+          "duration": 0.7999999999999545
+        },
+        {
+          "stage": "beam",
+          "time": 13.54999999999923,
+          "duration": 6.216666666666313
+        },
+        {
+          "stage": "to-net",
+          "time": 15.06666666666581,
+          "duration": 1.5166666666665805
+        },
+        {
+          "stage": "net",
+          "time": 22.283333333332067,
+          "duration": 7.2166666666662564
+        },
+        {
+          "stage": "collection",
+          "time": 25.549999999998548,
+          "duration": 3.266666666666481
+        },
+        {
+          "stage": "puzzle",
+          "time": 80.833333333363,
+          "duration": 55.28333333336445
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 1
+    },
+    {
+      "id": 4,
+      "name": "Boston Rob",
+      "time": 87.36666666666666,
+      "place": 4,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 1.9666666666666646,
+          "duration": 1.9666666666666646
+        },
+        {
+          "stage": "crawl",
+          "time": 6.5333333333333155,
+          "duration": 4.56666666666665
+        },
+        {
+          "stage": "to-beam",
+          "time": 7.333333333333313,
+          "duration": 0.7999999999999972
+        },
+        {
+          "stage": "beam",
+          "time": 13.550000000000253,
+          "duration": 6.21666666666694
+        },
+        {
+          "stage": "to-net",
+          "time": 15.066666666666995,
+          "duration": 1.516666666666742
+        },
+        {
+          "stage": "net",
+          "time": 21.366666666666735,
+          "duration": 6.29999999999974
+        },
+        {
+          "stage": "collection",
+          "time": 24.633333333333216,
+          "duration": 3.266666666666481
+        },
+        {
+          "stage": "puzzle",
+          "time": 87.366666666663,
+          "duration": 62.73333333332978
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 2
+    },
+    {
+      "id": 11,
+      "name": "Sandra",
+      "time": 88.76666666666667,
+      "place": 5,
+      "splits": [
+        {
+          "stage": "sprint",
+          "time": 2.016666666666552,
+          "duration": 2.016666666666552
+        },
+        {
+          "stage": "crawl",
+          "time": 6.683333333332953,
+          "duration": 4.666666666666401
+        },
+        {
+          "stage": "to-beam",
+          "time": 7.516666666666239,
+          "duration": 0.833333333333286
+        },
+        {
+          "stage": "beam",
+          "time": 13.66666666666589,
+          "duration": 6.14999999999965
+        },
+        {
+          "stage": "to-net",
+          "time": 15.216666666665802,
+          "duration": 1.549999999999912
+        },
+        {
+          "stage": "net",
+          "time": 22.066666666665412,
+          "duration": 6.849999999999611
+        },
+        {
+          "stage": "collection",
+          "time": 25.399999999998556,
+          "duration": 3.333333333333144
+        },
+        {
+          "stage": "puzzle",
+          "time": 88.76666666670265,
+          "duration": 63.36666666670409
+        }
+      ],
+      "puzzle": 6,
+      "mistakes": 1
+    }
+  ]
+}

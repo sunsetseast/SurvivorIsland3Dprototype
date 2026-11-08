@@ -256,6 +256,7 @@ try {
         q.io.dbg.teleportRequested = { x, z };
         q.io.input.yaw = yaw;
         q.io.input.pitch = 0.34;
+        q.io.input.lookGrace = 1.6; // Fixture explicitly authors an inspected starting yaw.
       },
       { x, z, yaw },
     );
@@ -370,7 +371,10 @@ try {
     // The idle, walk and sprint poses must actually differ in the animated rig.
     assert.ok(run.rig.elbow < walk.rig.elbow - 0.4);
     assert.ok(run.rig.spine > walk.rig.spine + 0.1);
-    assert.ok(Math.abs(idle.rig.leg) < 0.01);
+    // Planted-foot IK retains a small anatomical knee bend at rest.
+    // Stationary means the gait stops advancing, not that every joint is zero.
+    const stoppedA=await snapshot();await advance(60);const stoppedB=await snapshot();
+    assert.equal(stoppedB.speed,0);assert.ok(Math.abs(stoppedA.rig.leg-stoppedB.rig.leg)<.001);
     check("Actual Survivor rig transitions walk → run → slowing → idle", {
       walk: walk.rig,
       run: run.rig,
@@ -799,6 +803,10 @@ try {
       .evaluate(() => ({
         input: { ...window.sprintQA?.io.input },
         position: { ...window.__CAMP_DEBUG__?.position },
+        buttons:[...document.querySelectorAll('[data-testid="button-run"]')].map(b=>b.outerHTML),
+        travel:window.__WORLD_RENDER__?.state?.scene?.name,
+        conversation:window.__CAMP_DEBUG__?.camp?.conversation,
+        panels:[...document.querySelectorAll('[role="dialog"],.conversation-panel,.world-transition')].map(b=>b.outerHTML.slice(0,500)),
       }))
       .catch(() => null);
   report.failure = error.stack;

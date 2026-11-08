@@ -1,0 +1,18 @@
+{
+  "method": "Local Node CPU-only: 600 frames, full authored course collision primitives, eight traversal poses/frame; excludes WebGL, DOM and device frame rate.",
+  "node": "v24.22.1",
+  "platform": "linux",
+  "pieces": 416,
+  "camera": {
+    "samples": 539,
+    "meanMs": 0.04574575139146636,
+    "p95Ms": 0.11814900000001671,
+    "maxMs": 0.9229139999999916
+  },
+  "eightPoseUpdates": {
+    "samples": 539,
+    "meanMs": 0.01686499443413758,
+    "p95Ms": 0.03229899999999475,
+    "maxMs": 0.2866220000000226
+  }
+}

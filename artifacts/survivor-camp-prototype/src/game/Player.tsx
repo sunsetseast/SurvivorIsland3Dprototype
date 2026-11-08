@@ -1,3 +1,5 @@
+import { sampleFoot } from "./characterMotion";
+import { CameraEnvelope } from "./cameraEnvelope";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useKeyboardControls } from "@react-three/drei";
@@ -16,12 +18,8 @@ import { worldTravel } from "./locations/travel";
 import type { LocationId, Pose } from "./locations/registry";
 import { distance as physicalDistance } from "./navigation";
 
-import {
-  followYaw,
-  movementVector,
-  votingZone,
-  ease,
-} from "./cameraController";
+import { recenterYaw, votingZone, ease } from "./cameraController";
+import { createDrive, drive, cancelDrive, turnHeading } from "./locomotion";
 import { VOTING } from "./tribal/votingAnchors";
 
 /** Locomotion and camera are independent from the art/rig and simulation. */
@@ -32,6 +30,7 @@ export type ExplorationWorld = {
   voting?: { suppressed: () => boolean; release: () => void };
   standFrom?: Point & { facing: number };
   controlsLocked?: () => boolean;
+  cameraLocked?: () => boolean;
   spawn: Point;
   resetSpawn?: Point;
   yaw: number;
@@ -67,7 +66,10 @@ export function Player({
     distance: 0,
     talking: false,
     seated: !!environment.standFrom,
+    footL: 0,
+    footR: 0,
   });
+  const driveState = useRef(createDrive(yaw));
   const state = useRef({
     pos: { ...(environment.standFrom || spawn) },
     face:
@@ -76,40 +78,38 @@ export function Player({
       environment.facing ??
       Math.PI,
     entryTime: 0,
-    velocity: 0,
     initialized: false,
     firstFrame: true,
     fpsTime: 0,
     fpsFrames: 0,
-    obstacleTime: 10,
-    obstacles: [] as THREE.Object3D[],
-    moving: false,
     locked: false,
-    moveYaw: yaw,
     voting: false,
     blend: 0,
   });
   const [, getKeys] = useKeyboardControls();
+  const envelope = useMemo(() => new CameraEnvelope(), []);
   const tools = useMemo(
     () => ({
       target: new THREE.Vector3(),
       look: new THREE.Vector3(),
       smoothLook: new THREE.Vector3(),
       desired: new THREE.Vector3(),
-      direction: new THREE.Vector3(),
-      camera: new THREE.Vector3(),
       probe: new THREE.Vector3(),
-      offset: new THREE.Vector3(),
-      ray: new THREE.Raycaster(),
-      hits: [] as THREE.Intersection[],
+      camera: new THREE.Vector3(),
     }),
     [],
   );
 
+  useEffect(() => {
+    const cancel = () => cancelDrive(driveState.current);
+    window.addEventListener("survivor-input-clear", cancel);
+    return () => window.removeEventListener("survivor-input-clear", cancel);
+  }, []);
   useEffect(
     () => () => {
       clearInput();
       dbg.votingBlend = 0;
+      envelope.clear();
     },
     [],
   );
@@ -125,7 +125,7 @@ export function Player({
       s.pos = { ...dbg.teleportRequested };
       s.entryTime = 1;
       dbg.teleportRequested = null;
-      s.velocity = 0;
+      cancelDrive(driveState.current);
       s.voting = false;
       s.blend = 0;
       s.initialized = false;
@@ -135,10 +135,9 @@ export function Player({
       clearInput();
       s.voting = false;
       s.blend = 0;
-      s.moving = false;
       s.entryTime = 1;
       s.pos = { ...(environment.resetSpawn || environment.spawn) };
-      s.velocity = 0;
+      cancelDrive(driveState.current);
       s.initialized = false;
       input.yaw = yaw;
       input.pitch = 0.34;
@@ -171,42 +170,26 @@ export function Player({
       ix = 0;
       iy = 0;
     }
-    const magnitude = Math.hypot(ix, iy);
-    if (magnitude > 1) {
-      ix /= magnitude;
-      iy /= magnitude;
-    }
-    const pressure = magnitude < 0.12 ? 0 : Math.min(1, magnitude);
-    const wantsRun = (input.run || keys.run) && pressure > 0;
-    const targetSpeed = pressure * (wantsRun ? 6.4 : 3.25);
-    s.velocity = THREE.MathUtils.damp(
-      s.velocity,
-      targetSpeed,
-      pressure ? 12 : 18,
+    if (locked) cancelDrive(driveState.current);
+    const wantsRun = !!(input.run || keys.run);
+    const d = drive(
+      driveState.current,
+      ix,
+      iy,
+      input.yaw,
+      wantsRun,
       dt,
+      undefined,
+      input.joyEpoch,
     );
-    // Freeze the movement basis for one continuous stick/key gesture. Auto-follow
-    // and right-thumb inspection cannot feed their yaw back into diagonal/backwards travel.
-    if (pressure > 0 && !s.moving) s.moveYaw = input.yaw;
-    s.moving = pressure > 0;
-    const { x: wx, z: wz } = movementVector(ix, iy, s.moveYaw);
     let traveled = 0;
-    if (pressure > 0 && s.velocity > 0.02) {
-      const len = Math.hypot(wx, wz) || 1;
-      const next = environment.move(
-        s.pos,
-        (wx / len) * s.velocity * dt,
-        (wz / len) * s.velocity * dt,
-      );
+    if (d.speed > 0.01) {
+      const next = environment.move(s.pos, d.dx, d.dz);
       if (!isCamp || !camp.npcs.some((n) => physicalDistance(next, n) < 0.78)) {
         traveled = Math.hypot(next.x - s.pos.x, next.z - s.pos.z);
+        if (traveled > 0.0001)
+          s.face = turnHeading(s.face, next.x - s.pos.x, next.z - s.pos.z, dt);
         s.pos = next;
-      }
-      if (traveled > 0.0001) {
-        const angle = Math.atan2(wx, wz);
-        s.face +=
-          Math.atan2(Math.sin(angle - s.face), Math.cos(angle - s.face)) *
-          (1 - Math.exp(-dt * 15));
       }
     }
     // Actual displacement, not requested input, controls gait and animation.
@@ -220,6 +203,23 @@ export function Player({
     motion.current.running = wantsRun && actualSpeed > 3.6;
     motion.current.distance += traveled;
     const y = groundHeight(s.pos.x, s.pos.z);
+    const footOffset = (opposite: boolean) => {
+      const z = sampleFoot(motion.current.distance, 0.96, opposite).z * 0.96;
+      return Math.max(
+        -0.18,
+        Math.min(
+          0.18,
+          (groundHeight(
+            s.pos.x + Math.sin(s.face) * z,
+            s.pos.z + Math.cos(s.face) * z,
+          ) -
+            y) /
+            0.96,
+        ),
+      );
+    };
+    motion.current.footL = footOffset(false);
+    motion.current.footR = footOffset(true);
     if (isCamp && !worldTravel.blocked)
       camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
     motion.current.talking = isCamp && !!camp.conversation;
@@ -231,14 +231,14 @@ export function Player({
         (1 - Math.exp(-dt * 8));
     }
     input.lookGrace = Math.max(0, input.lookGrace - dt);
-    input.yaw = followYaw(
+    input.yaw = recenterYaw(
       input.yaw,
       s.face,
-      actualSpeed > 0.08,
       input.looking,
       input.lookGrace,
       dt,
     );
+    if(!input.looking&&input.lookGrace<=0)input.pitch+=(.34-input.pitch)*ease(dt,3);
     const voting = environment.voting;
     if (voting) {
       if (
@@ -258,19 +258,17 @@ export function Player({
     if (root.current) root.current.userData.locomotion = motion.current;
     if (heading.current) heading.current.rotation.y = s.face;
 
+    Object.assign(dbg, {
+      controlsLocked: locked,
+      moving: actualSpeed > 0.08,
+      running: motion.current.running,
+      speed: actualSpeed,
+    });
+    if (environment.cameraLocked?.()) return;
     const cameraStart = performance.now();
-    s.obstacleTime += dt;
-    if (s.obstacleTime > 1) {
-      s.obstacles = [];
-      scene.traverse((object) => {
-        if (object.userData.cameraBlocker && (object as THREE.Mesh).isMesh)
-          s.obstacles.push(object);
-      });
-      s.obstacleTime = 0;
-    }
     const t = tools;
     t.target.set(s.pos.x, y + 1.5, s.pos.z);
-    const distance = 7.4,
+    const distance = 6.2,
       pitch = input.pitch;
     t.desired.set(
       t.target.x + sy * Math.cos(pitch) * distance,
@@ -316,42 +314,14 @@ export function Player({
       s.initialized = true;
     }
     t.camera.lerp(t.desired, 1 - Math.exp(-dt * 9));
-    t.direction.subVectors(t.camera, t.target);
-    let safeDistance = t.direction.length();
-    t.direction.normalize();
-    // Five parallel rays provide a collision envelope around the lens.
-    for (const [lateral, vertical] of [
-      [-0.24, 0],
-      [0, 0],
-      [0.24, 0],
-      [0, 0.24],
-      [0, -0.24],
-    ]) {
-      t.offset.set(cy * lateral!, vertical!, -sy * lateral!);
-      t.probe.copy(t.target).add(t.offset);
-      t.ray.set(t.probe, t.direction);
-      t.ray.far = safeDistance + 0.3;
-      t.hits.length = 0;
-      t.ray.intersectObjects(s.obstacles, false, t.hits);
-      if (t.hits.length)
-        safeDistance = Math.min(
-          safeDistance,
-          Math.max(0.7, t.hits[0]!.distance - 0.4),
-        );
-    }
-    // Sample the whole boom against hills, not just its far endpoint.
-    for (let d = 0.8; d <= safeDistance; d += 0.25) {
-      t.probe.copy(t.target).addScaledVector(t.direction, d);
-      if (t.probe.y < groundHeight(t.probe.x, t.probe.z) + 0.3) {
-        safeDistance = Math.max(0.7, d - 0.3);
-        break;
-      }
-    }
-    camera.position.copy(t.target).addScaledVector(t.direction, safeDistance);
-    camera.position.y = Math.max(
-      camera.position.y,
-      groundHeight(camera.position.x, camera.position.z) + 0.3,
+    const safeDistance = envelope.resolve(
+      scene,
+      t.target,
+      t.camera,
+      groundHeight,
+      dt,
     );
+    camera.position.copy(t.camera);
     t.smoothLook.lerp(t.look, ease(dt, 9));
     camera.lookAt(t.smoothLook);
     // Portrait uses the live viewport aspect, including visualViewport/keyboard resize.

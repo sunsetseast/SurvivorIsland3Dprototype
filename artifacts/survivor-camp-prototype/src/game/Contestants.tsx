@@ -1,3 +1,4 @@
+import { TraversalBlend, type LocomotionMotion } from "./locomotionPose";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -20,7 +21,7 @@ export const characterAnimationMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
 export type StagedPerson = Pick<
   NpcState,
   "id" | "x" | "y" | "z" | "animation" | "speed" | "distance" | "facing"
-> & { seatHeight?: number };
+> & { seatHeight?: number; locomotion?: LocomotionMotion };
 export function Contestant({
   npc,
   terrain = groundHeight,
@@ -64,6 +65,8 @@ export function Contestant({
     kneeR = useRef<THREE.Group>(null),
     ankleL = useRef<THREE.Group>(null),
     ankleR = useRef<THREE.Group>(null);
+  const traversal=useMemo(()=>new TraversalBlend(),[]);
+  const rig=useMemo(()=>({hips,spine,head,armL:upperL,armR:upperR,elbowL,elbowR,legL:thighL,legR:thighR,kneeL,kneeR,ankleL,ankleR}),[]);
   const smooth = useRef({
     move: 0,
     sit: npc.animation === "sit" ? 1 : 0,
@@ -87,8 +90,9 @@ export function Contestant({
     if (root.current) root.current.rotation.y = s.facing;
     const presence = samplePresence(npc.id, t, s.sit);
     const seatedLeg = solveSeatedLeg(p.look.height, npc.seatHeight ?? 0.535);
-    const ph = (npc.distance / (1.2 * p.look.height)) * Math.PI * 2,
-      gait = 0.35 * s.move,
+    const running=npc.locomotion?.running??npc.speed>3.6;
+    const ph = (npc.distance / ((running?1.8:1.2) * p.look.height)) * Math.PI * 2,
+      gait = (running?.6:.35) * s.move,
       idle = Math.sin(t * 1.55 + npc.id) * 0.012;
     const set = (
       ref: React.RefObject<THREE.Group | null>,
@@ -100,7 +104,7 @@ export function Contestant({
       [thighL, kneeL, ankleL, false],
       [thighR, kneeR, ankleR, true],
     ] as const) {
-      const foot = sampleFoot(npc.distance, p.look.height, opposite);
+      const foot = sampleFoot(npc.distance, p.look.height*(running?1.5:1), opposite);
       const z = foot.z * s.move;
       const terrainOffset =
         (terrain(
@@ -158,7 +162,7 @@ export function Contestant({
     }
     set(
       spine,
-      presence.lean + s.move * 0.035 + s.work * 0.1 + s.sit * idle,
+      presence.lean + s.move * (running?.2:.035) + s.work * 0.1 + s.sit * idle,
       Math.sin(ph) * -0.04 * s.move,
       presence.tilt + idle * 0.4,
     );
@@ -173,6 +177,7 @@ export function Contestant({
       -presence.lean * 0.65 + presence.nod + s.talk * Math.sin(t * 2.1) * 0.025,
       presence.glance * (1 - s.move) * (1 - s.talk),
     );
+    if(npc.locomotion)traversal.apply(rig,npc.locomotion,dt,.92);
     const cost = performance.now() - animationStart;
     characterAnimationMetrics.updates++;
     characterAnimationMetrics.totalMs += cost;
@@ -182,9 +187,9 @@ export function Contestant({
     );
   });
   const arm = (side: number, upper: typeof upperL, elbow: typeof elbowL) => (
-    <group ref={upper} position={[side * p.shoulder, 0.5, 0]}>
+    <group name="joint-upper" ref={upper} position={[side * p.shoulder, 0.5, 0]}>
       {mesh(p.armU)}
-      <group ref={elbow} position={[0, -0.285, 0]}>
+      <group name="joint-elbow" ref={elbow} position={[0, -0.285, 0]}>
         <group scale={[side, 1, 1]}>{mesh(p.forearm)}</group>
       </group>
     </group>
@@ -195,11 +200,11 @@ export function Contestant({
     knee: typeof kneeL,
     ankle: typeof ankleL,
   ) => (
-    <group ref={thigh} position={[side * 0.105 * p.look.width, -0.01, 0]}>
+    <group name="joint-thigh" ref={thigh} position={[side * 0.105 * p.look.width, -0.01, 0]}>
       {mesh(p.thigh)}
-      <group ref={knee} position={[0, -0.43, 0]}>
+      <group name="joint-knee" ref={knee} position={[0, -0.43, 0]}>
         {mesh(p.shin)}
-        <group ref={ankle} position={[0, -0.405, 0]}>
+        <group name="joint-ankle" ref={ankle} position={[0, -0.405, 0]}>
           {mesh(p.foot, `hero-foot-${side}`)}
         </group>
       </group>
@@ -212,9 +217,9 @@ export function Contestant({
       userData={{ contestantId: npc.id, visualVersion: 2, hero: true }}
     >
       <group scale={p.look.height}>
-        <group ref={hips} position={[0, 0.92, 0]}>
+        <group name="joint-hips" ref={hips} position={[0, 0.92, 0]}>
           {mesh(p.pelvis)}
-          <group ref={spine} position={[0, 0.045, 0]}>
+          <group name="joint-spine" ref={spine} position={[0, 0.045, 0]}>
             {mesh(p.torso)}
             <group
               ref={head}

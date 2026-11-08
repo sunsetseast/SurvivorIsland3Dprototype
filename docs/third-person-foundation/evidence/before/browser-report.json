@@ -1,0 +1,76 @@
+{
+  "method": "Real Chromium software WebGL; emulated mobile landscape 932x430 DPR1; trusted touchscreen/CDP events, manual 60Hz player simulation and 100ms spectator advancement. No actual Replit access or physical iPhone certification.",
+  "browser": "156.0.8078.4",
+  "checks": [
+    {
+      "name": "Fresh main before captures from original touch-driven implementation"
+    }
+  ],
+  "screenshots": [
+    "camp-before.jpg",
+    "diagonal-camera-before.jpg",
+    "squashed-crawl-before.jpg"
+  ],
+  "samples": [
+    {
+      "bodyScale": [
+        1,
+        0.43,
+        1
+      ],
+      "camera": [
+        -32.00001326006994,
+        6.240033415428878,
+        -44.61861460540834
+      ],
+      "runner": {
+        "id": 0,
+        "name": "You",
+        "physical": 0.5,
+        "dexterity": 0.5,
+        "focus": 0.5,
+        "lane": 0,
+        "heat": 0,
+        "stage": "crawl",
+        "x": -27,
+        "z": -36.21249999999978,
+        "lift": 0,
+        "progress": 0,
+        "gripTarget": 0,
+        "balance": 0,
+        "stability": 1,
+        "mistakes": 0,
+        "recoverUntil": 0,
+        "stageStarted": 2.28333333333333,
+        "splits": [
+          {
+            "stage": "sprint",
+            "time": 2.28333333333333,
+            "duration": 2.28333333333333
+          }
+        ],
+        "finishTime": null,
+        "bundles": [
+          false,
+          false,
+          false
+        ],
+        "slots": [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "lastHand": -1,
+        "handAt": -100,
+        "nextAction": 0
+      }
+    }
+  ],
+  "errors": [],
+  "requests": [
+    "http://127.0.0.1:5220/src/game/challenge/ChallengeScene.tsx"
+  ]
+}

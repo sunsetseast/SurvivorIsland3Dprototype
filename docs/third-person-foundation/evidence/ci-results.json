@@ -1,0 +1,86 @@
+{
+  "recorded": "2026-11-08",
+  "note": "Passing matrix for identical runtime/assets across the recorded revisions. Later revisions change test fixtures only. A documentation-only final commit can trigger redundant CI; its status is available on PR #27. Source fingerprints and capture provenance are in source-manifest.json.",
+  "unit": {
+    "passed": 192,
+    "failed": 0,
+    "typescript": "pass",
+    "productionBuild": "pass",
+    "collisionChecks": 294,
+    "worldChecks": 6
+  },
+  "workflows": [
+    {
+      "name": "Third-person foundation",
+      "id": 42420790718,
+      "status": "completed",
+      "conclusion": "success",
+      "source": "db026b35dc1c5976f4d2426270a3eb2d83c2089d",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42420790718"
+    },
+    {
+      "name": "Connected island journeys",
+      "id": 42420790736,
+      "status": "completed",
+      "conclusion": "success",
+      "source": "db026b35dc1c5976f4d2426270a3eb2d83c2089d",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42420790736"
+    },
+    {
+      "name": "Stillwater Balance playable rehearsal",
+      "id": 42420790788,
+      "status": "completed",
+      "conclusion": "success",
+      "source": "db026b35dc1c5976f4d2426270a3eb2d83c2089d",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42420790788"
+    },
+    {
+      "name": "Mobile gameplay controls",
+      "id": 42420790753,
+      "status": "completed",
+      "conclusion": "success",
+      "source": "db026b35dc1c5976f4d2426270a3eb2d83c2089d",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42420790753"
+    },
+    {
+      "name": "Living camp checks",
+      "id": 42420790565,
+      "status": "completed",
+      "conclusion": "success",
+      "source": "db026b35dc1c5976f4d2426270a3eb2d83c2089d",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42420790565"
+    },
+    {
+      "name": "Flagship camp visual and gameplay checks",
+      "id": 42420790839,
+      "status": "completed",
+      "conclusion": "success",
+      "source": "db026b35dc1c5976f4d2426270a3eb2d83c2089d",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42420790839"
+    },
+    {
+      "name": "Challenge Beach rehearsal and WebGL",
+      "id": 42491846301,
+      "status": "completed",
+      "conclusion": "success",
+      "source": "86a9d053e3e91e48757b8173fcdb594c7a5e3e8a",
+      "url": "https://github.com/sunsetseast/SurvivorIsland3Dprototype/actions/runs/42491846301"
+    }
+  ],
+  "correctedFailure": {
+    "source": "db026b35dc1c5976f4d2426270a3eb2d83c2089d",
+    "run": 42420790734,
+    "reason": "Strict lazy GPU residency differed by one submitted geometry after camera/NPC changes.",
+    "correction": "Initialize the complete owned scene before comparing GPU counters, then restore all original flags and view. Equality assertions retained.",
+    "passingRun": 42491846301
+  },
+  "physicalIPhoneTested": false,
+  "finalHeadRepetition": {
+    "source": "37bc0893de6270548de24569d8df872e53e88d12",
+    "passedWorkflows": 6,
+    "failedRun": 42492333638,
+    "failure": "Water-chore observation outlived the 30-second requested activity; autonomous NPC had returned to camp. All physical camp/hiding routes completed.",
+    "correction": "Physically clear the spring work slots, verify real NPC arrival, retain a 600-second requested chore during physical player approach, then explicitly request/observe return. Existing distance/expanded-territory/traveling assertions retained; arrival/work/proximity checks added.",
+    "finalStatus": "See PR #27 checks and validation summary for the subsequent final head."
+  }
+}

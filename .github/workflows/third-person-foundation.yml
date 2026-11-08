@@ -1,0 +1,69 @@
+name: Third-person foundation
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/game/**'
+      - 'artifacts/survivor-camp-prototype/scripts/third-person-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/scripts/third-person-before-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/tests/**'
+      - '.github/workflows/third-person-foundation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: third-person-${{ github.sha }}
+  cancel-in-progress: true
+jobs:
+  release-obsolete-checkpoints:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr || pr.head.repo.full_name !== context.repo.owner + '/' + context.repo.repo) return;
+            const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
+              ...context.repo, branch: pr.head.ref, per_page: 100
+            });
+            for (const run of runs) {
+              if (run.event !== 'pull_request' || run.head_branch !== pr.head.ref ||
+                  run.head_sha === pr.head.sha || run.status === 'completed' ||
+                  run.head_repository?.full_name !== pr.head.repo.full_name) continue;
+              try {
+                await github.rest.actions.cancelWorkflowRun({...context.repo, run_id: run.id});
+                core.info('Released obsolete checkpoint run ' + run.id);
+              } catch (error) {
+                if (![409, 422].includes(error.status)) throw error;
+              }
+            }
+  touch-webgl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - run: pnpm exec tsc -b lib/api-client-react
+      - run: pnpm --filter @workspace/survivor-camp-prototype typecheck
+      - run: pnpm --filter @workspace/survivor-camp-prototype test
+      - run: PORT=5220 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
+      - run: pnpm --filter @workspace/survivor-camp-prototype exec node scripts/third-person-qa.mjs
+      - uses: actions/checkout@v4
+        with:
+          ref: af9c61cda4b998a775af6e91fc009f2d393ca785
+          path: baseline
+      - run: |
+          ln -s "$GITHUB_WORKSPACE/node_modules" baseline/node_modules
+          ln -s "$GITHUB_WORKSPACE/artifacts/survivor-camp-prototype/node_modules" baseline/artifacts/survivor-camp-prototype/node_modules
+          BASELINE_ROOT="$GITHUB_WORKSPACE/baseline" pnpm --filter @workspace/survivor-camp-prototype exec node scripts/third-person-before-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: third-person-touch-webgl
+          path: docs/third-person-foundation/evidence/

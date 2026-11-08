@@ -55,7 +55,21 @@ async function select(id){await page.getByTestId("challenge-selector").selectOpt
   assert.equal(detail.names.length,1);assert.equal(detail.names[0],"challenge-equipment-"+id);return detail;
 }
 // Advance through at least one ownership collection after asynchronous R3F disposal settles.
-async function sample(label){await advance(12,true);const s=await page.evaluate(label=>({label,...(window.__CHALLENGE__?.stats()??window.__WORLD_RENDER__.stats()),trackedResources:window.__WORLD_RENDER__.stats().trackedResources,listeners:window.challengeListenerCount(),activeScenes:window.__WORLD_RENDER__.lifecycle.active}),label);report.samples.push(s);assert.equal(s.activeScenes,1);return s;}
+async function sample(label){
+ if(label.startsWith('camp-high'))await page.waitForLoadState('networkidle');
+ await advance(12,true);
+ if(label.startsWith('camp-high'))await page.evaluate(()=>{
+  const q=window.challengeQA,scene=q.s.scene,previous=[];
+  // Renderer residency is lazy: a small camera/actor change can submit one more
+  // geometry without adding any resource. Warm the complete owned scene before
+  // the strict repeat-residency comparison, then restore the exact visible view.
+  scene.traverse(o=>{previous.push([o,o.visible,o.frustumCulled]);o.visible=true;o.frustumCulled=false;});
+  try{q.render(scene,q.s.camera);}finally{for(const [o,visible,culled] of previous){o.visible=visible;o.frustumCulled=culled;}}
+  q.render(scene,q.s.camera);
+ });
+ const s=await page.evaluate(label=>({label,gpuWarmup:label.startsWith('camp-high')?'complete-owned-scene':'normal-view',...(window.__CHALLENGE__?.stats()??window.__WORLD_RENDER__.stats()),trackedResources:window.__WORLD_RENDER__.stats().trackedResources,listeners:window.challengeListenerCount(),activeScenes:window.__WORLD_RENDER__.lifecycle.active}),label);
+ report.samples.push(s);assert.equal(s.activeScenes,1);return s;
+}
 async function listenerCount(){let previous=-1,stable=0;for(let i=0;i<12 && stable<2;i++){await page.waitForTimeout(170);const n=await page.evaluate(()=>window.challengeListenerCount());stable=n===previous?stable+1:0;previous=n;}assert.ok(stable>=2);return previous;}
 const views={
  "beach-obstacle":{position:[-3,9,-26],target:[-22,2,-3]},

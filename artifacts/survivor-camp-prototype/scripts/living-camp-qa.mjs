@@ -268,6 +268,7 @@ try {
   await advance(40);
   await ev(() => {
     window.__qa.io.input.yaw = -Math.PI / 2;
+    window.__qa.io.input.lookGrace = 1.6; // Authored inspection held before next movement gesture.
   });
   await advance(12);
   const joy = await page.getByTestId("joystick").boundingBox(),
@@ -278,7 +279,7 @@ try {
   const startPos = await ev(() => ({ ...window.__CAMP_DEBUG__.position }));
   await cdp.send("Input.dispatchTouchEvent", {
     type: "touchStart",
-    touchPoints: [{ id: 1, x, y: y - 25 }],
+    touchPoints: [{ id: 1, x, y: y - 44 }],
   });
   await advance(15);
   const afterTouch = await ev(() => ({
@@ -290,7 +291,7 @@ try {
     type: "touchEnd",
     touchPoints: [],
   });
-  await advance(12);
+  await advance(30); // Allow the shared physical deceleration to settle.
   assert(afterTouch.moving);
   assert(afterTouch.running);
   assert(

@@ -1,16 +1,18 @@
+import { TraversalBlend, type LocomotionMotion } from "./locomotionPose";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { M, V, limb, merge, mk, type Geo } from "./geo";
-import { solveSeatedLeg } from "./characterMotion";
+import { solveSeatedLeg, solveLeg, sampleFoot } from "./characterMotion";
 
-type Motion = {
+type Motion = LocomotionMotion & {
   speed: number;
   running: boolean;
   distance: number;
   talking?: boolean;
   seated?: boolean;
   seatHeight?: number;
+  footL?:number; footR?:number;
 };
 const SKIN = "#c98d62",
   SKIN_L = "#dba074",
@@ -330,6 +332,8 @@ export function Survivor({
     knR = useRef<THREE.Group>(null);
   const ankL = useRef<THREE.Group>(null),
     ankR = useRef<THREE.Group>(null);
+  const traversal=useMemo(()=>new TraversalBlend(),[]);
+  const rig=useMemo(()=>({hips,spine,head,armL,armR,elbowL:elL,elbowR:elR,legL,legR,kneeL:knL,kneeR:knR,ankleL:ankL,ankleR:ankR}),[]);
   const st = useRef({
     phase: 0,
     last: 0,
@@ -354,7 +358,7 @@ export function Survivor({
     const runK = clamp((m.running ? 1 : 0) * clamp(m.speed / 4.5, 0, 1), 0, 1);
     s.run += (runK - s.run) * (1 - Math.exp(-dt * 8));
     s.move += (clamp(m.speed / 0.9, 0, 1) - s.move) * (1 - Math.exp(-dt * 12));
-    s.phase += dd * ((Math.PI * 2) / (2.5 + s.run * 1.2));
+    s.phase += dd * ((Math.PI * 2) / (1.2 + s.run * .65));
     const ph = s.phase,
       A = (0.5 + 0.38 * s.run) * s.move,
       mv = s.move,
@@ -373,12 +377,11 @@ export function Survivor({
     ) => {
       if (g.current) g.current.rotation.set(x, y, z);
     };
-    set(legL, -sinL * A * 0.95);
-    set(legR, -sinR * A * 0.95);
-    set(knL, kn(cosL) * A * 1.4);
-    set(knR, kn(cosR) * A * 1.4);
-    set(ankL, sinL * A * 0.35 - kn(cosL) * 0.15);
-    set(ankR, sinR * A * 0.35 - kn(cosR) * 0.15);
+    const hipHeight=.98-.09*mv;
+    for(const [leg,knee,ankle,opposite,terrain] of [[legL,knL,ankL,false,m.footL??0],[legR,knR,ankR,true,m.footR??0]] as const){
+      const f=sampleFoot(m.distance,.96,opposite),pose=solveLeg(.072-hipHeight+.02+f.lift*mv+terrain,f.z*mv,.47,.41);
+      set(leg,pose.hip);set(knee,pose.knee);set(ankle,pose.ankle);
+    }
     const idle = Math.sin(t * 1.3) * 0.02;
     const gesture = m.talking
       ? Math.max(0, Math.sin(t * 1.2)) * Math.max(0, Math.sin(t * 0.5)) * 0.2
@@ -396,7 +399,7 @@ export function Survivor({
     if (hips.current) {
       hips.current.position.set(
         Math.sin(ph) * 0.02 * A,
-        0.98 + Math.cos(ph * 2) * 0.03 * A * (1 + rn) - mv * 0.02,
+        hipHeight + Math.cos(ph * 2) * 0.008 * mv,
         0,
       );
       hips.current.rotation.set(
@@ -436,7 +439,7 @@ export function Survivor({
         -Math.sin(ph) * 0.2 * A,
         -Math.sin(ph) * 0.04 * A,
       );
-      spine.current.scale.y = 1 + Math.sin(t * 1.6) * 0.006;
+      spine.current.scale.set(1,1,1);
     }
     if (head.current)
       head.current.rotation.set(
@@ -444,6 +447,7 @@ export function Survivor({
         Math.sin(ph) * 0.1 * A + Math.sin(t * 0.5) * 0.05 * (1 - mv),
         0,
       );
+    traversal.apply(rig,m,dt);
     if (tail.current)
       tail.current.rotation.set(
         0.35 + Math.sin(ph * 2) * 0.22 * A * (1 + rn) + rn * 0.4 * mv,
@@ -454,43 +458,43 @@ export function Survivor({
 
   return (
     <group scale={0.96}>
-      <group ref={hips} position={[0, 0.98, 0]}>
+      <group name="joint-hips" ref={hips} position={[0, 0.98, 0]}>
         <Part g={p.pelvis} mat={mat} />
-        <group ref={spine} position={[0, 0.06, 0]}>
+        <group name="joint-spine" ref={spine} position={[0, 0.06, 0]}>
           <Part g={p.torso} mat={mat} />
-          <group ref={head} position={[0, 0.65, 0]} scale={[.84,.85,.87]}>
+          <group name="joint-head" ref={head} position={[0, 0.65, 0]} scale={[.84,.85,.87]}>
             <Part g={p.head} mat={mat} />
             <group ref={tail} position={[0, 0.3, -0.17]}>
               <Part g={p.tail} mat={mat} />
             </group>
           </group>
-          <group ref={armL} position={[0.26, 0.54, 0]}>
+          <group name="joint-armL" ref={armL} position={[0.26, 0.54, 0]}>
             <Part g={p.armU} mat={mat} />
-            <group ref={elL} position={[0, -0.3, 0]}>
+            <group name="joint-elL" ref={elL} position={[0, -0.3, 0]}>
               <Part g={p.forearm} mat={mat} />
             </group>
           </group>
-          <group ref={armR} position={[-0.26, 0.54, 0]}>
+          <group name="joint-armR" ref={armR} position={[-0.26, 0.54, 0]}>
             <Part g={p.armU} mat={mat} />
-            <group ref={elR} position={[0, -0.3, 0]}>
+            <group name="joint-elR" ref={elR} position={[0, -0.3, 0]}>
               <Part g={p.forearm} mat={mat} />
             </group>
           </group>
         </group>
-        <group ref={legL} position={[0.1, -0.02, 0]}>
+        <group name="joint-legL" ref={legL} position={[0.1, -0.02, 0]}>
           <Part g={p.thigh} mat={mat} />
-          <group ref={knL} position={[0, -0.47, 0]}>
+          <group name="joint-knL" ref={knL} position={[0, -0.47, 0]}>
             <Part g={p.shin} mat={mat} />
-            <group ref={ankL} position={[0, -0.41, 0]}>
+            <group name="joint-ankL" ref={ankL} position={[0, -0.41, 0]}>
               <Part g={p.foot} mat={mat} />
             </group>
           </group>
         </group>
-        <group ref={legR} position={[-0.1, -0.02, 0]}>
+        <group name="joint-legR" ref={legR} position={[-0.1, -0.02, 0]}>
           <Part g={p.thigh} mat={mat} />
-          <group ref={knR} position={[0, -0.47, 0]}>
+          <group name="joint-knR" ref={knR} position={[0, -0.47, 0]}>
             <Part g={p.shin} mat={mat} />
-            <group ref={ankR} position={[0, -0.41, 0]}>
+            <group name="joint-ankR" ref={ankR} position={[0, -0.41, 0]}>
               <Part g={p.foot} mat={mat} />
             </group>
           </group>

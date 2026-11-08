@@ -1,3 +1,4 @@
+import { createDrive, courseAxes, cancelDrive } from "../locomotion";
 import {coastal} from "./coastal/session";
 import {CoastalRoster} from "./coastal/Roster";
 import {MosaicBoards} from "./coastal/Boards";
@@ -74,9 +75,10 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   const {scene,camera,gl}=useThree();
   const hostMotion=useRef({speed:0,running:false,distance:0,talking:true});
   const autoStarted=useRef<string|null>(null);
+  const raceDrive=useRef(createDrive(Math.PI));
   const coastalReturn=useRef<Pose|null>(null);
   selected.current=model;
-  const environment=useMemo(()=>({...WORLD,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls||coastal.ownsControls,
+  const environment=useMemo(()=>({...WORLD,cameraLocked:()=>!!inspection.current||stillwater.ownsControls||coastal.ownsControls,controlsLocked:()=>switching||!!inspection.current||stillwater.ownsControls||coastal.ownsControls,
     move:(p:{x:number;z:number},dx:number,dz:number)=>moveOnTerrain(p,dx,dz,model?.solids??[])}),[model,switching]);
   useEffect(()=>{
     return stillwater.configure({
@@ -90,11 +92,11 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   useEffect(()=>coastal.configure({
     admit:()=>rehearsalActive()&&selected.current?.id==="beach-obstacle",
     roster:()=>camp.npcs.slice(0,7).map(n=>{const p=CONTESTANTS.find(p=>p.id===n.id);return {id:n.id,name:p?.firstName??`Contestant ${n.id}`,...traits(p??{})};}),
-    capture:()=>({x:dbg.x,z:dbg.z,yaw:input.yaw,pitch:input.pitch,facing:dbg.face}),
+    capture:()=>{const pose={x:dbg.x,z:dbg.z,yaw:input.yaw,pitch:input.pitch,facing:dbg.face};input.yaw=Math.PI;input.pitch=.34;cancelDrive(raceDrive.current);return pose;},
     restore:p=>{coastalReturn.current={...p};dbg.teleportRequested={x:p.x,z:p.z};input.yaw=p.yaw;input.pitch=p.pitch;},release:clearInput,
   }),[]);
   useEffect(()=>{
-   const down=(e:KeyboardEvent)=>{if(!coastal.ownsControls)return;const k=e.key.toLowerCase();if(k===' '&&e.target instanceof Element&&e.target.closest('button,input,select,textarea'))return;if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','q','e','escape'].includes(k)){e.preventDefault();coastal.keys.add(k);if(!e.repeat){if(k===' ')coastal.action();if(k==='q')coastal.grip(0);if(k==='e')coastal.grip(1);if(k==='escape')coastal.pause();}}},up=(e:KeyboardEvent)=>coastal.keys.delete(e.key.toLowerCase()),reset=()=>coastal.keys.clear();
+   const down=(e:KeyboardEvent)=>{if(!coastal.ownsControls)return;const k=e.key.toLowerCase();if(k===' '&&e.target instanceof Element&&e.target.closest('button,input,select,textarea'))return;if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','q','e','escape'].includes(k)){e.preventDefault();coastal.keys.add(k);if(!e.repeat){if(k===' ')coastal.action();if(k==='q')coastal.grip(0);if(k==='e')coastal.grip(1);if(k==='escape')coastal.pause();}}},up=(e:KeyboardEvent)=>coastal.keys.delete(e.key.toLowerCase()),reset=()=>{coastal.keys.clear();cancelDrive(raceDrive.current);};
    window.addEventListener('keydown',down);window.addEventListener('keyup',up);window.addEventListener('survivor-input-clear',reset);return()=>{window.removeEventListener('keydown',down);window.removeEventListener('keyup',up);window.removeEventListener('survivor-input-clear',reset);};
   },[]);
   useEffect(()=>{
@@ -126,6 +128,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
     if(!challengeRehearsalEnabled()&&!challengeTestingEnabled())return;
     const w=window as any;
     w.__CHALLENGE__={
+      get drive(){return raceDrive.current;},
       get configuration(){return selected.current?.id??null;},
       get setup(){return selected.current;},
       select:requestPreview,
@@ -142,7 +145,11 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
     const m=selected.current;
     const near=m?.id==="individual-balance"&&rehearsalActive()&&Math.min(...[m.view,...m.starts].map(p=>Math.hypot(dbg.x-p.x,dbg.z-p.z)))<5;
     const coastNear=m?.id==="beach-obstacle"&&rehearsalActive();if(coastal.near!==coastNear){coastal.near=!!coastNear;coastal.notify();}
-    const keys=coastal.keys;coastal.engine?.axis(input.joyX+Number(keys.has("d")||keys.has("arrowright"))-Number(keys.has("a")||keys.has("arrowleft")),input.joyY+Number(keys.has("w")||keys.has("arrowup"))-Number(keys.has("s")||keys.has("arrowdown")));
+    const keys=coastal.keys;
+    if(!coastal.ownsControls||coastal.engine?.state.phase!=='racing')cancelDrive(raceDrive.current);
+    const axes=courseAxes(raceDrive.current,input.joyX+Number(keys.has("d")||keys.has("arrowright"))-Number(keys.has("a")||keys.has("arrowleft")),input.joyY+Number(keys.has("w")||keys.has("arrowup"))-Number(keys.has("s")||keys.has("arrowdown")),input.yaw,dt,input.joyEpoch);
+    // Balance corrections stay in the beam frame so inspection never reverses them.
+    coastal.engine?.axis(coastal.engine.player.stage==='beam'?-input.joyX-Number(keys.has('d')||keys.has('arrowright'))+Number(keys.has('a')||keys.has('arrowleft')):axes.x,axes.forward);
     if(!document.hidden)coastal.advance(Math.min(dt,.1));
     stillwater.proximity(!!near);if(!document.hidden)stillwater.advance(Math.min(dt,.1));
     const request=worldTravel.challengeTesting;

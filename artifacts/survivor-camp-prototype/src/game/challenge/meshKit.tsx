@@ -31,5 +31,5 @@ export function geometryFor(pieces:Piece[],low:boolean) {
 export function Assembly({pieces,low,name,blocker=false}:{pieces:Piece[];low:boolean;name:string;blocker?:boolean}) {
   const g=useMemo(()=>geometryFor(pieces,low),[pieces,low]);
   useEffect(()=>()=>g.dispose(),[g]);
-  return <mesh name={name} geometry={g} userData={{cameraBlocker:blocker}} receiveShadow><meshStandardMaterial vertexColors roughness={0.92}/></mesh>;
+  return <mesh name={name} geometry={g} userData={{cameraBlocker:blocker,cameraPieces:blocker?pieces:undefined}} receiveShadow><meshStandardMaterial vertexColors roughness={0.92}/></mesh>;
 }
