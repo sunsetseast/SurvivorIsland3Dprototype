@@ -1,6 +1,6 @@
 # Railay Visual Renaissance
 
-Current checkpoint: 1 of 4 complete — atmosphere and regression correction.
+Current checkpoint: 2 of 4 — authored limestone and corrected visual comparison.
 Base: main `816ac6912be1c61fe5a03416c726d8bf60c3cc18` (merged PR #27).
 
 Diagnosis (three causes):
@@ -16,6 +16,8 @@ Baseline: unchanged main build retained locally. Local Chromium profile sockets 
 
 Resumed from remote `992e789d0925264f939b3f2fe148c810104213b7`. Reviewed the first successful CI comparison (run 42505657837). Corrected the stale midday assertion to require golden by default and retain developer-gated preset overrides, including an ungated midday rejection.
 
-Remaining: authored hero geometry/material and selective foreground foliage; image review/refinement; final performance, cleanup/navigation and CI verification.
+Checkpoint 2: broadened the asymmetric crown and fractured shoulders, deepened upper erosion ledges, and added continuous chalk/oxide/seepage material masks. Both GLBs regenerated without increasing topology or file sizes. Six targeted geometry tests pass, including the 2,299-point walkable body-clearance grid in both shipped LODs. Initial full suite: 192/192 pass. Local Chromium launch was tried once and is blocked by process singleton socket permissions; reuse CI captures. Corrected the benchmark to exercise actual High on two-core CI hosts, anchor the player at each inspection position, and pair native cameras against merged PR #27 rather than its obsolete pre-camera base.
+
+Remaining: selective rooted foreground/crown vegetation and coastal material refinement; CI image review; final performance, navigation and all workflow verification.
 
 Continuation: check this branch's draft PR and latest Actions run; download `railay-renaissance` artifact; inspect three baseline views and corresponding branch views. Continue checkpoint 2 in `environment/limestone.ts`, `Landmarks.tsx`, `Environment.tsx`, `assets.ts` and existing offline GLB authoring. Do not change controls or collision geography. Commit/push at each of the remaining three major checkpoints.

@@ -60,18 +60,26 @@ export function NaturalLandmarks({
         mineral=mix(mineral,fine,.32);
         float strata=sin(vNaturalRock.y*.37+sin(vNaturalRock.x*.19)*2.+sin(vNaturalRock.z*.13));
         float runnel=sin(vNaturalRock.x*.7+sin(vNaturalRock.y*.13)*1.3+vNaturalRock.z*.21);
-        mineral*=.94+.055*strata+.035*runnel;
+        // Broad chalk, orange mineral wash and dark vertical seepage interrupt
+        // the repeated photograph. All masks are continuous world-space fields.
+        float chalk=smoothstep(-.35,.7,sin(vNaturalRock.x*.17+vNaturalRock.z*.12)+sin(vNaturalRock.y*.083));
+        float seep=smoothstep(.64,.96,runnel)*smoothstep(3.,15.,vNaturalRock.y);
+        float oxide=smoothstep(.3,.85,sin(vNaturalRock.x*.24-vNaturalRock.z*.11+sin(vNaturalRock.y*.08)))*(1.-seep);
+        float luma=dot(mineral,vec3(.25,.6,.15));
+        mineral=mix(mineral,vec3(luma*.91+.18,luma*.98+.19,luma+ .18),chalk*.58);
+        mineral=mix(mineral,mineral*vec3(1.2,.81,.58),oxide*.34);
+        mineral*= (.96+.045*strata)*(1.-seep*.29);
         diffuseColor.rgb*=mineral;
       #endif`,
         );
     };
-    rock.customProgramCacheKey = () => "natural-karst-fractured-mineral-v4";
+    rock.customProgramCacheKey = () => "natural-karst-chalk-seepage-v5";
     // A UV-space normal map cannot follow the triplanar diffuse axes.
     // Real mesh relief supplies correctly oriented normals without three more taps.
     rock.normalMap = null;
     rock.vertexColors = true;
     rock.side = T.DoubleSide;
-    rock.color.setRGB(1.35, 1.33, 1.25);
+    rock.color.setRGB(1.48, 1.49, 1.43);
     const wood = ((Array.isArray(barkMaterial)
       ? barkMaterial[0]
       : barkMaterial
