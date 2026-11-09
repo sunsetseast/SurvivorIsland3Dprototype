@@ -12,7 +12,7 @@ const before = await load("before"),
   after = await load("after");
 for (const report of [before, after]) {
   assert.equal(report.result, "PASS");
-  assert.equal(report.captureContract, "static-camp-v3", "recapture both refs with the same static camp fixture");
+  assert.equal(report.captureContract, "static-camp-v4", "recapture both refs with the same static camp fixture");
   assert.ok(["midday", "afternoon", "golden"].includes(report.lightingPreset), "explicit light preset");
   assert.deepEqual(report.errors, []);
   assert.equal(

@@ -23,6 +23,14 @@ const instrument = {
       '\nif(typeof window!=="undefined"){window.__ART_QA__??={};' +
       code +
       "}";
+    if (id.endsWith("/src/App.tsx")) {
+      // Start the actual R3F callbacks on a fixed clock after asset decoding.
+      // Pausing an already-running canvas leaves batch/boom timers in a
+      // startup-dependent phase even when the next frames use fixed deltas.
+      const canvas = /(<Canvas\s+)frameloop=\{[^}]+\}/;
+      assert.ok(canvas.test(src), "native capture canvas fixture");
+      return src.replace(canvas, '$1frameloop="never"');
+    }
     if (id.endsWith("/game/Player.tsx")) {
       // Each test teleport starts with a fresh broadphase cache. The real
       // Player boom and its collision resolution still place the camera.
@@ -94,10 +102,10 @@ const browser = await chromium.launch({
 });
 const report = {
   label,
-  captureContract: "static-camp-v3",
+  captureContract: "static-camp-v4",
   lightingPreset: preset,
   method:
-    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static NPC staging, held manual orbit, fresh teleport cache and fixed 60Hz settling. Host timings are not device/FPS measurements.",
+    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static NPC staging, manual orbit and fresh teleport cache. Fixed 60Hz from the first scene frame. Host timings are not device/FPS measurements.",
   browser: browser.version(),
   errors: [],
   samples: [],
@@ -177,7 +185,6 @@ try {
     await page.waitForFunction(
       () =>
         window.__WORLD_RENDER__?.scene.getObjectByName("camp-assets-ready") &&
-        window.__CAMP_DEBUG__?.position.y > 0 &&
         (!window.__WORLD_RENDER__.scene.getObjectByName(
           "andaman-tropical-sky",
         ) ||
@@ -198,6 +205,8 @@ try {
         render: s.gl.render.bind(s.gl),
       });
     });
+    await advance(3);
+    await page.getByTestId("button-menu").waitFor({ state: "visible" });
     await page.evaluate(() => {
       const q = window.__ART_QA__;
       q.io.clearInput();

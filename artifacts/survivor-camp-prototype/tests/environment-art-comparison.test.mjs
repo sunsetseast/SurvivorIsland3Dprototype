@@ -11,7 +11,7 @@ const saved = JSON.parse(readFileSync(new URL('../../../docs/tonsai-art/evidence
 function compare(change = () => {}) {
   const root = mkdtempSync(join(tmpdir(), 'art-comparison-'));
   const before = structuredClone(saved);
-  before.captureContract = 'static-camp-v3';
+  before.captureContract = 'static-camp-v4';
   before.lightingPreset = 'midday';
   // Historical fixtures grant no fallback-removal allowance; real paired captures measure it explicitly.
   before.samples.forEach(s => { s.fallbackTextureBytesEstimate = 0; s.npcSnapshot = [{id:11,x:0,y:0,z:0,animation:'sit'}]; });
