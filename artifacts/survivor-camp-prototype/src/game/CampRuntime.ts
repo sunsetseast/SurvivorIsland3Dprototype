@@ -1,3 +1,4 @@
+import { assignAiSurvivors, DEMO_AI_IDS } from "./character/cast";
 import {
   groundHeight,
   isWalkable,
@@ -8,7 +9,6 @@ import {
 } from "./world.ts";
 import { CampNavigation, clearSegment, distance } from "./navigation.ts";
 import {
-  CONTESTANTS,
   DemoCampProvider,
   personName,
 } from "./simulation/DemoProvider.ts";
@@ -153,6 +153,7 @@ export class CampRuntime {
     readonly provider: CampDecisionProvider = new DemoCampProvider(),
     seed = 7141,
     nav?: CampNavigation,
+    participants: readonly number[] = DEMO_AI_IDS,
   ) {
     this.navigation = nav ?? new CampNavigation();
     this.random = rng(seed);
@@ -165,10 +166,11 @@ export class CampRuntime {
       4: { p: { x: -8.7, z: -27.5 }, activity: "socialize", facing: -1.4 },
       18: { p: { x: -2, z: -29 }, activity: "observe", facing: -1.8 },
     };
-    this.npcs = CONTESTANTS.map((c) => {
-      const start = initial[c.id]!;
+    this.npcs = participants.map((id, index) => {
+      const slot = DEMO_AI_IDS[index]!;
+      const start = initial[slot]!;
       return {
-        id: c.id,
+        id,
         ...start.p,
         y: groundHeight(start.p.x, start.p.z),
         place: "campfire",
@@ -179,14 +181,14 @@ export class CampRuntime {
         destination: null,
         destinationPlace: null,
         movement: "idle",
-        animation: c.id === 11 ? "sit" : "idle",
+        animation: slot === 11 ? "sit" : "idle",
         facing: start.facing,
         speed: 0,
         distance: 0,
         route: [],
         routeIndex: 0,
         intent: { ...idleIntent("campfire"), activity: start.activity },
-        until: c.id === 11 ? 31 : c.id === 18 ? 8 : 23,
+        until: slot === 11 ? 31 : slot === 18 ? 8 : 23,
         decisionAt: 0,
         approachCooldown: 18 + this.random() * 30,
         blockedFor: 0,
@@ -199,7 +201,8 @@ export class CampRuntime {
       } satisfies NpcState;
     });
     // A starting social context, never replayed by the decision provider.
-    this.formGroup(this.npc(4)!, this.npc(13)!, "public", 23);
+    const [robSlot, , parvatiSlot] = this.npcs;
+    if (robSlot && parvatiSlot) this.formGroup(robSlot, parvatiSlot, "public", 23);
     this.ui.mode = provider.mode;
   }
   npc = (id: number) => this.npcs.find((n) => n.id === id);
@@ -848,4 +851,8 @@ export class CampRuntime {
   }
 }
 
-export const camp = new CampRuntime();
+export let camp = new CampRuntime();
+export function resetCampForSelection(survivorId: number) {
+  const ids = assignAiSurvivors(DEMO_AI_IDS, survivorId);
+  camp = new CampRuntime(new DemoCampProvider(undefined, undefined, ids), undefined, undefined, ids);
+}

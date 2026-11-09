@@ -1,4 +1,4 @@
-import records from "./contestants.json";
+import { castMember, DEMO_AI_IDS, PLAYER_SLOT } from "../character/cast";
 import { conversationCharacter } from "./reference/systems/ConversationCharacter.js";
 import referenceMemory from "./reference/systems/SocialMemorySystem.js";
 import type {
@@ -16,9 +16,9 @@ import type {
   Topic,
 } from "./contracts.ts";
 
-export const CONTESTANTS = records;
+export const CONTESTANTS = DEMO_AI_IDS.map((id) => castMember(id)!.source);
 export const personName = (id: number) =>
-  id === 0 ? "You" : (records.find((p) => p.id === id)?.firstName ?? "Someone");
+  id === PLAYER_SLOT ? "You" : (castMember(id)?.source.firstName ?? "Someone");
 export const ACTIVITY_LABEL: Record<Activity, string> = {
   observe: "Watching camp",
   rest: "Taking a breather",
@@ -44,10 +44,11 @@ export class DemoCampProvider implements CampDecisionProvider {
   constructor(
     private random = Math.random,
     private social = UNKNOWN_SOCIAL,
+    private participants: readonly number[] = DEMO_AI_IDS,
   ) {}
 
   decide(c: CampContext): Intent {
-    const actor = records.find((p) => p.id === c.self.id)!;
+    const actor = castMember(c.self.id)!.source;
     const p = conversationCharacter(actor);
     const recent = this.knowledge(actor.id).filter(
       (e) => c.now - e.campTime < 95,
@@ -143,7 +144,7 @@ export class DemoCampProvider implements CampDecisionProvider {
   wantsPlayer(c: CampContext) {
     if (!c.playerAvailable || !c.visibleIds.includes(0)) return false;
     const profile = conversationCharacter(
-      records.find((p) => p.id === c.self.id)!,
+      castMember(c.self.id)!.source,
     );
     return (
       this.random() <
@@ -184,7 +185,7 @@ export class DemoCampProvider implements CampDecisionProvider {
     subjectId?: PersonId,
     nearbyIds: PersonId[] = [],
   ): Dialogue {
-    const p = conversationCharacter(records.find((p) => p.id === id)!);
+    const p = conversationCharacter(castMember(id)!.source);
     const name = personName(id),
       observations = this.knowledge(id);
     const shadow = p.style.includes("shadow"),
@@ -261,8 +262,9 @@ export class DemoCampProvider implements CampDecisionProvider {
         label: "Could we help each other out?",
         topic: "cooperate",
       },
-      ...records
-        .filter((r) => r.id !== id)
+      ...this.participants
+        .filter((personId) => personId !== id)
+        .map((personId) => castMember(personId)!.source)
         .map((r) => ({
           id: `person-${r.id}`,
           label: `What have you noticed about ${r.firstName}?`,

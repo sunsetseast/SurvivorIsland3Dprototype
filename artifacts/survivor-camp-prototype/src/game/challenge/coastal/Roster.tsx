@@ -1,3 +1,6 @@
+import { PLAYER_SLOT, survivorIdForSlot } from "../../character/cast";
+import { castModel } from "../../character/survivorModels";
+import { worldTravel } from "../../locations/travel";
 import { heightAt } from "../surface";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
@@ -114,7 +117,7 @@ function Actor({
     m.climbSlope = 0.95 * (1 - 2 * crest * crest * (3 - 2 * crest));
     m.state = !active ? "idle" : challengeGait(r.stage, speed);
     m.running = m.state === "run";
-    if (r.id === 0 && active) {
+    if (r.id === PLAYER_SLOT && active) {
       if (r.stage === "crawl" && engine.elapsed - r.stageStarted < 0.23)
         m.state = "crouch";
       if (!onObstacle && m.running && Math.abs(turn) > 0.8 && speed < 3.2)
@@ -142,8 +145,8 @@ function Actor({
   return (
     <group ref={group} name={`coastal-runner-${r.id}`}>
       <group name="proportional-articulated-body">
-        {r.id === 0 ? (
-          <PlayableSurvivor motion={motion} />
+        {r.id === PLAYER_SLOT ? (
+          <PlayableSurvivor motion={motion} model={castModel(survivorIdForSlot(r.id, worldTravel.session.participant.survivorId))} />
         ) : (
           <Contestant
             npc={npc}

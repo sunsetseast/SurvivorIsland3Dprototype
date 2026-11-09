@@ -1,3 +1,5 @@
+import { castMember } from "../character/cast";
+import { loadLocalSurvivor } from "../character/selectionSave";
 import { challengeRehearsalEnabled, challengeTestingEnabled } from "../challenge/development";
 import { CONFIGURATIONS, isChallengeId, validateSetup, type ChallengeId } from "../challenge/configurations";
 import { clearInput } from "../state";
@@ -27,12 +29,14 @@ export type WorldSession = {
   returnTo?: { locationId: LocationId; instance: LocationInstance; pose?: Pose };
 };
 /** No invented season/inventory/relationship data. CampRuntime + its provider own existing gameplay data. */
-export function createSession(): WorldSession {
+export function createSession(survivorId: number | null = null): WorldSession {
   const instance = localInstance("camp_tribe_a");
+  const identity = castMember(survivorId)?.source.id;
   return {
     version: 1,
     participant: {
       id: "local-player",
+      ...(identity !== undefined ? { survivorId: identity } : {}),
       tribeId: "tonsai",
       instanceId: instance.id,
     },
@@ -61,7 +65,7 @@ export type TravelState = {
 type Load = (id: LocationId) => Promise<unknown>;
 export type ChallengeTestingRequest = Readonly<{ configuration:ChallengeId; play:boolean; eventId:string; instanceId:string }>;
 export class TravelManager {
-  private normalSession = createSession();
+  private normalSession: WorldSession;
   private testing: { request:ChallengeTestingRequest; session:WorldSession } | null = null;
   /** Keep the normal session untouched while the same scene host runs a temporary rehearsal. */
   get session() { return this.testing?.session ?? this.normalSession; }
@@ -99,7 +103,16 @@ export class TravelManager {
     private fadeMs = 280,
     private allowChallengeRehearsal: () => boolean = () => false,
     private allowChallengeTesting: () => boolean = () => false,
-  ) {}
+    savedSurvivorId: number | null = null,
+  ) {
+    this.normalSession = createSession(savedSurvivorId);
+  }
+  beginSurvivorSession(survivorId: number): boolean {
+    if (this.state.phase !== "menu" || this.testing || !castMember(survivorId)) return false;
+    this.normalSession = createSession(survivorId);
+    this.last = null;
+    return true;
+  }
   subscribe = (f: () => void) => {
     this.listeners.add(f);
     return () => {
@@ -366,5 +379,5 @@ export const worldTravel = new TravelManager(async (id) => {
     default:
       throw Error("This location is planned, and has no scene yet.");
   }
-}, clearInput, 280, challengeRehearsalEnabled, challengeTestingEnabled);
+}, clearInput, 280, challengeRehearsalEnabled, challengeTestingEnabled, loadLocalSurvivor());
 

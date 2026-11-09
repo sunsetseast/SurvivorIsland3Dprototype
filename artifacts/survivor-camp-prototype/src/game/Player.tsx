@@ -11,6 +11,7 @@ import {
   SPAWN,
   type Point,
 } from "./world";
+import { castModel } from "./character/survivorModels";
 import { Survivor } from "./Survivor";
 import { PlayableSurvivor, type PlayableMotion } from "./character/PlayableSurvivor";
 import { dbg, input, clearInput } from "./state";
@@ -56,6 +57,7 @@ export function Player({
   arrival?: Pose;
 }) {
   const isCamp = environment.camp === true;
+  const selectedModel = castModel(worldTravel.session.participant.survivorId);
   const spawn = arrival ?? environment.spawn;
   const yaw = arrival?.yaw ?? environment.yaw;
   const groundHeight = environment.height;
@@ -390,7 +392,9 @@ export function Player({
   return (
     <group ref={root} name="exploration-player">
       <group ref={heading}>
-        {isCamp ? <PlayableSurvivor motion={motion} height={groundHeight} /> : <Survivor motion={motion} />}
+        {isCamp || selectedModel
+          ? <PlayableSurvivor motion={motion} height={groundHeight} model={selectedModel} />
+          : <Survivor motion={motion} />}
       </group>
     </group>
   );

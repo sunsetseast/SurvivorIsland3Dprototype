@@ -1,7 +1,7 @@
 import { AnimationMixer, LoopOnce, type AnimationAction, type AnimationClip, type Object3D } from "three";
 import type { LocomotionState } from "../locomotionPose";
 
-export type CharacterAction = Exclude<LocomotionState, "cinematic"> | "talk" | "turn_right";
+export type CharacterAction = Exclude<LocomotionState, "cinematic"> | "talk" | "turn_right" | "sit";
 export type ClipMap = Partial<Record<CharacterAction, string>> & { idle: string };
 const singlePlay = new Set<CharacterAction>(["turn", "turn_right", "recover", "interact"]);
 const gait = new Set<CharacterAction>(["walk", "run"]);
