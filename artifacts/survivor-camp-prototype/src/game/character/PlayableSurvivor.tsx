@@ -1,0 +1,142 @@
+import { useEffect, useRef, useState, type MutableRefObject } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Group, MathUtils, type Object3D, SkinnedMesh, Vector3 } from "three";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { Survivor } from "../Survivor";
+import { disposeAsset } from "../environment/assets";
+import { locomotionState, type LocomotionMotion } from "../locomotionPose";
+import { SkeletalPlayback, type CharacterAction } from "./SkeletalPlayback";
+import { tonsaiSurvivor, type SurvivorModel } from "./survivorModels";
+
+export type PlayableMotion = LocomotionMotion & { talking?: boolean; rigged?: boolean };
+type Props = {
+  motion: MutableRefObject<PlayableMotion>;
+  height?: (x: number, z: number) => number;
+  model?: SurvivorModel;
+};
+
+type Actor = {
+  root: Group;
+  playback: SkeletalPlayback;
+  feet: [Object3D, Object3D];
+  sample: Vector3;
+  origin: Vector3;
+};
+function releaseModel(root: Group) {
+  const skeletons = new Set<SkinnedMesh["skeleton"]>();
+  root.traverse((object) => {
+    if (object instanceof SkinnedMesh) skeletons.add(object.skeleton);
+  });
+  skeletons.forEach((skeleton) => skeleton.dispose());
+  disposeAsset(root);
+}
+
+export const skeletalMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
+
+export function PlayableSurvivor({ model = tonsaiSurvivor, ...props }: Props) {
+  return <SkinnedActor key={model.url} model={model} {...props} />;
+}
+
+function SkinnedActor({ motion, height, model }: Props & { model: SurvivorModel }) {
+  const [actor, setActor] = useState<Actor>();
+  const pivot = useRef<Group>(null);
+  useEffect(() => {
+    let active = true;
+    let owned: Actor | undefined;
+    new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(model.url).then(({ scene, animations }) => {
+      if (!active) {
+        releaseModel(scene);
+        return;
+      }
+      try {
+        const left = scene.getObjectByName(model.supportBones[0]);
+        const right = scene.getObjectByName(model.supportBones[1]);
+        if (!left || !right) throw new Error("Survivor GLB is missing its toe joints");
+        scene.name = "skinned-survivor";
+        scene.traverse((object) => {
+          if (object instanceof SkinnedMesh) {
+            // The bind-pose bounds cannot enclose every pose on the net.
+            object.frustumCulled = false;
+            object.castShadow = true;
+          }
+        });
+        const playback = new SkeletalPlayback(scene, animations, model.clips);
+        playback.update("idle", 1, 0);
+        owned = { root: scene, playback, feet: [left, right], sample: new Vector3(), origin: new Vector3() };
+        setActor(owned);
+      } catch (error) {
+        releaseModel(scene);
+        throw error;
+      }
+    }).catch((error: unknown) => {
+      if (active) console.warn("Unable to load the playable survivor GLB", error);
+    });
+    return () => {
+      active = false;
+      owned?.playback.dispose();
+      if (owned) releaseModel(owned.root);
+    };
+  }, [model]);
+
+  useEffect(() => {
+    if (!actor) return;
+    const current = motion.current;
+    current.rigged = true;
+    return () => { current.rigged = false; };
+  }, [actor, motion]);
+
+  useFrame((_, rawDt) => {
+    if (!actor || !pivot.current) return;
+    const start = performance.now();
+    const m = motion.current;
+    const dt = Math.min(rawDt, 0.05);
+    const state = locomotionState(m);
+    let action: CharacterAction = state === "cinematic" ? "idle" : state;
+    if (action === "idle" && m.talking) action = "talk";
+    if (action === "turn" && (m.turnDirection ?? 0) < 0) action = "turn_right";
+    const referenceSpeed = model.referenceSpeeds[action];
+    const rate = referenceSpeed
+      ? MathUtils.clamp(m.speed / referenceSpeed, 0, 2.4)
+      : 1;
+    const blend = action === "crawl" || action === "climb" ? 0.21 : 0.16;
+    actor.playback.update(action, rate, dt, blend);
+    const body = pivot.current;
+    body.userData.action = action;
+    const pitch = action === "climb" ? -Math.atan(m.climbSlope ?? 0) : 0;
+    body.rotation.x = MathUtils.damp(body.rotation.x, pitch, 10, dt);
+    const roll = action === "balance" ? -(m.balance ?? 0) * 0.12 : 0;
+    body.rotation.z = MathUtils.damp(body.rotation.z, roll, 9, dt);
+
+    // Correct support height at the animated toe closest to the floor.
+    // The terrain query is read-only and never changes the gameplay collider.
+    let offset = 0;
+    if (height && (action === "walk" || action === "run" || action === "idle" || action === "turn" || action === "turn_right")) {
+      body.parent?.getWorldPosition(actor.origin);
+      const base = height(actor.origin.x, actor.origin.z);
+      let lowest = Infinity;
+      for (const toe of actor.feet) {
+        toe.getWorldPosition(actor.sample);
+        if (actor.sample.y < lowest) {
+          lowest = actor.sample.y;
+          offset = MathUtils.clamp(
+            height(actor.sample.x, actor.sample.z) - base,
+            -0.09, 0.12,
+          );
+        }
+      }
+    }
+    body.position.y = MathUtils.damp(body.position.y, offset, 16, dt);
+    const elapsed = performance.now() - start;
+    skeletalMetrics.updates++;
+    skeletalMetrics.totalMs += elapsed;
+    skeletalMetrics.maxMs = Math.max(skeletalMetrics.maxMs, elapsed);
+  });
+
+  if (!actor) return <Survivor motion={motion} />;
+  return (
+    <group ref={pivot} name="survivor-visual-offset">
+      <primitive object={actor.root} dispose={null} />
+    </group>
+  );
+}
