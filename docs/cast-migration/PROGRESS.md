@@ -9,7 +9,7 @@
 | Batch production | 18 of 18 generated and visually reviewed. [Full WebGL contact sheet](evidence/cast-contact-sheet.jpg). All 18 pass identity, 66-joint skin, 13-clip, geometry, texture and size validation. Total GLB payload is 8,662,908 bytes across separately loaded assets. |
 | Selection | Verified Sandra, Jeremy and Carolyn using the landscape picker, original attributes, touch locomotion, unique camp slots and reloading the saved identity. All 18 models are selectable. |
 | Shared NPC renderer | Camp, Coastal Traverse, Stillwater, challenge previews, Council and jury consume the same character assets and animation player. Camp, both playable challenges, Council attendance, seated jury and post-ceremony exploration were verified in WebGL. |
-| Final verification | Local suite 200 passed, TypeScript and Vite production build passed. The [pull request checks](https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/30/checks) track CI on the latest branch head. |
+| Final verification | Local suite 200 passed, TypeScript and Vite production build passed. Production camp refinement QA enters through the survivor picker when no identity is saved and times loading from confirmation. The [pull request checks](https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/30/checks) track CI on the latest branch head. |
 
 Original portraits provided the character cues. Lower-body wardrobe is expedition styling where portraits end. Models are stylized interpretations. Source photographs and illustrated portraits are references only. Asset and clip notices are recorded in the [PR #29 source report](../character-renaissance/FINAL_REPORT.md).
 

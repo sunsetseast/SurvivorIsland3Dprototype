@@ -144,10 +144,18 @@ try {
     : ["low", "high"]) {
     const navigationStart = Date.now();
     await page.goto(`http://127.0.0.1:5197/?quality=${quality}&devTravel=1`);
-    await page.getByTestId("explore-island").waitFor({ state: "visible" });
+    let campEntry = page.getByTestId("explore-island");
+    await campEntry.waitFor({ state: "visible" });
     const documentToMenuMs = Date.now() - navigationStart;
+    if (await campEntry.and(page.getByRole("button", { name: /^New Game/ })).count()) {
+      await campEntry.click();
+      // Tony is outside the default camp roster, keeping the four AI fixtures.
+      await page.getByTestId("select-survivor-9").click();
+      campEntry = page.getByTestId("confirm-survivor").and(page.locator(":enabled"));
+      await campEntry.waitFor({ state: "visible" });
+    }
     const start = Date.now();
-    await page.getByTestId("explore-island").click();
+    await campEntry.click();
     await page.waitForFunction(
       () =>
         window.__WORLD_RENDER__?.scene.getObjectByName("camp-assets-ready") &&
