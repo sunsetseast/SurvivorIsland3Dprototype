@@ -1,3 +1,6 @@
+import { PlayableSurvivor } from "../character/PlayableSurvivor";
+import { castModel } from "../character/survivorModels";
+import { worldTravel } from "../locations/travel";
 import {
   useEffect,
   useMemo,
@@ -28,8 +31,22 @@ import { TRIBAL, COUNCIL, tribalHeight } from "./layout";
 import { councilAttendance } from "./attendance";
 
 const time = () => tribalIntro.ceremonyTime;
+
+function JuryRoster() {
+  const ids = useSyncExternalStore(councilAttendance.subscribeJury, councilAttendance.jurySnapshot);
+  const selectedId = worldTravel.session.participant.survivorId;
+  const jurors = useMemo(() => ids.filter((id) => id !== selectedId).map((id, index): StagedPerson => {
+    const seat = TRIBAL.jurors[index]!;
+    const [x, y, z] = seat.position;
+    const ground = tribalHeight(x, z);
+    return { id, x, y: ground, z, facing: seat.facing, seatHeight: y - ground + 0.06, speed: 0, distance: 0, animation: "sit" };
+  }), [ids, selectedId]);
+  return <group name="council-jurors">{jurors.map((npc) => <Contestant key={npc.id} npc={npc} terrain={tribalHeight} time={time} />)}</group>;
+}
+
 function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
   const root = useRef<T.Group>(null);
+  const model = castModel(worldTravel.session.participant.survivorId);
   const npc = useMemo<StagedPerson>(
     () => ({
       id: CAST[index]!,
@@ -77,7 +94,7 @@ function ArrivalActor({ index, visible }: { index: number; visible: boolean }) {
     >
       {index === PLAYER_INDEX ? (
         <group ref={root}>
-          <Survivor motion={motion} />
+          {model ? <PlayableSurvivor motion={motion} model={model} /> : <Survivor motion={motion} />}
         </group>
       ) : (
         <Contestant npc={npc} terrain={tribalHeight} time={time} />
@@ -290,6 +307,7 @@ export function TribalIntro({
         <Contestant npc={jeff} terrain={tribalHeight} time={time} />
       </group>
       <CeremonyTorch />
+      <JuryRoster />
       {CAST.map((id, i) => (
         <ArrivalActor
           key={id}

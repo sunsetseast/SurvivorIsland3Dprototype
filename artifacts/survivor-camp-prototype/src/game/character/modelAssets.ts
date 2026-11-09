@@ -22,7 +22,6 @@ function trimIdle() {
   for (const [url, entry] of idle.slice(0, Math.max(0, idle.length - idleLimit))) {
     assets.delete(url);
     disposeSkeletons(entry.loaded!.scene);
-    disposeAsset(entry.loaded!.scene);
   }
 }
 
@@ -68,6 +67,8 @@ export function acquireSurvivorAsset(url: string) {
       if (released) return;
       released = true;
       owned.users--;
+      // Keep parsed data for a warm reload while releasing renderer allocations.
+      if (owned.users === 0 && owned.loaded) disposeAsset(owned.loaded.scene);
       trimIdle();
     },
   };

@@ -1,3 +1,7 @@
+import { PLAYER_SLOT } from "../../character/cast";
+import { PlayableSurvivor, type PlayableMotion } from "../../character/PlayableSurvivor";
+import { castModel } from "../../character/survivorModels";
+import { worldTravel } from "../../locations/travel";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as T from "three";
@@ -13,19 +17,22 @@ function Participant({entrant,engine,material}:{entrant:Entrant;engine:()=>Still
   const group=useRef<T.Group>(null);
   const destination=useMemo(()=>new T.Vector3(),[]);
   const npc=useMemo<StagedPerson>(()=>({id:entrant.id,x:0,y:0,z:0,facing:Math.PI,animation:"idle",speed:0,distance:0}),[entrant.id]);
-  const motion=useRef({speed:0,running:false,distance:0,talking:false});
+  const motion=useRef<PlayableMotion>({speed:0,running:false,distance:0,talking:false});
+  const model = castModel(worldTravel.session.participant.survivorId);
   useFrame((_,dt)=>{
     const e=engine(),c=e?.state.competitors.find(c=>c.id===entrant.id);if(!c||!group.current)return;
     const s=STILLWATER_STATIONS[c.station]!,v=stationVisual(c,e!.state.elapsed);
     const spectator=c.eliminatedAt!==null;
     const x=spectator?30:s.x,z=spectator?55+c.station*2.2:s.z,y=heightAt(x,z)+(spectator?0:.42);
     group.current.position.lerp(destination.set(x,y,z),1-Math.exp(-Math.min(dt,.05)*6));
-    group.current.rotation.set(0,entrant.id===0?Math.PI:0,spectator?0:v.lean);
+    group.current.rotation.set(0,entrant.id===PLAYER_SLOT?Math.PI:0,spectator?0:v.lean);
     npc.animation=spectator?"idle":"work";
+    motion.current.state = spectator ? "idle" : "balance";
+    motion.current.balance = v.lean;
   },-.2);
   const c=engine()?.state.competitors.find(c=>c.id===entrant.id),s=STILLWATER_STATIONS[c?.station??0]!;
   return <group ref={group} name={`stillwater-contestant-${entrant.id}`} position={[s.x,heightAt(s.x,s.z)+.42,s.z]}>
-    {entrant.id===0?<Survivor motion={motion}/>:<Contestant npc={npc} terrain={flat} time={()=>engine()?.state.elapsed??0} material={material}/>}
+    {entrant.id===PLAYER_SLOT?(model ? <PlayableSurvivor motion={motion} model={model} /> : <Survivor motion={motion}/>):<Contestant npc={npc} terrain={flat} time={()=>engine()?.state.elapsed??0} material={material}/>}
   </group>;
 }
 export function StillwaterRoster({engine,roster}:{engine:()=>StillwaterEngine|null;roster:readonly Entrant[]}) {
