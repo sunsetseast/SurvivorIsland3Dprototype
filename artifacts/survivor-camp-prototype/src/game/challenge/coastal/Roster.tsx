@@ -8,6 +8,7 @@ import { createCharacterMaterial } from "../../characterSurface";
 import { runnerVisual, challengeGait, runnerPresentations } from "./visual";
 import type { CoastalEngine, Runner } from "./engine";
 import type { LocomotionMotion } from "../../locomotionPose";
+import { angleDelta } from "../../cameraController";
 import { turnHeading } from "../../locomotion";
 const flat = () => 0;
 function Actor({
@@ -59,9 +60,10 @@ function Actor({
       speed = dt > 0 ? Math.min(6.5, travel / dt) : 0;
     last.current.x = v.x;
     last.current.z = v.z;
-    if (travel > 0.0001) face.current = turnHeading(face.current, dx, dz, dt);
-    if (["crawl", "beam", "net"].includes(r.stage))
-      face.current = turnHeading(face.current, 0, 1, dt);
+    const onObstacle = r.stage === "crawl" || r.stage === "beam" || r.stage === "net";
+    const turn = travel > 0.0001 ? angleDelta(Math.atan2(dx, dz), face.current) : 0;
+    if (onObstacle) face.current = turnHeading(face.current, 0, 1, dt);
+    else if (travel > 0.0001) face.current = turnHeading(face.current, dx, dz, dt);
     const recovering = active && engine.elapsed < r.recoverUntil;
     if (recovering && recovery.current.until !== r.recoverUntil) {
       recovery.current = {
@@ -112,6 +114,13 @@ function Actor({
     m.climbSlope = 0.95 * (1 - 2 * crest * crest * (3 - 2 * crest));
     m.state = !active ? "idle" : challengeGait(r.stage, speed);
     m.running = m.state === "run";
+    if (r.id === 0 && active) {
+      if (r.stage === "crawl" && engine.elapsed - r.stageStarted < 0.23)
+        m.state = "crouch";
+      if (!onObstacle && m.running && Math.abs(turn) > 0.8 && speed < 3.2)
+        m.state = "turn";
+      m.turnDirection = turn;
+    }
     if (recovering) {
       m.state = "recover";
       m.recovery = Math.max(0, 1 - (r.recoverUntil - engine.elapsed) / 0.7);

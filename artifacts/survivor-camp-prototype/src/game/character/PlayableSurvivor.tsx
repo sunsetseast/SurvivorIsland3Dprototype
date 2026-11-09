@@ -6,22 +6,15 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { Survivor } from "../Survivor";
 import { disposeAsset } from "../environment/assets";
 import { locomotionState, type LocomotionMotion } from "../locomotionPose";
-import { SkeletalPlayback, type CharacterAction, type ClipMap } from "./SkeletalPlayback";
-import survivorUrl from "../../assets/characters/tonsai-survivor.glb?url";
+import { SkeletalPlayback, type CharacterAction } from "./SkeletalPlayback";
+import { tonsaiSurvivor, type SurvivorModel } from "./survivorModels";
 
-type Motion = LocomotionMotion & { talking?: boolean };
-type Props = { motion: MutableRefObject<Motion>; height?: (x: number, z: number) => number };
-const playerModel = {
-  url: survivorUrl,
-  clips: {
-    idle: "idle", walk: "walk", run: "run", turn: "turn", turn_right: "turn_right",
-    crouch: "crouch", crawl: "crawl", climb: "climb", balance: "balance",
-    recover: "recover", interact: "interact", talk: "talk",
-  } satisfies ClipMap,
-  referenceSpeeds: { walk: 1.39, run: 3.45, crawl: 0.51, balance: 0.62, climb: 0.62 },
+export type PlayableMotion = LocomotionMotion & { talking?: boolean; rigged?: boolean };
+type Props = {
+  motion: MutableRefObject<PlayableMotion>;
+  height?: (x: number, z: number) => number;
+  model?: SurvivorModel;
 };
-const speedStates = playerModel.referenceSpeeds;
-type SpeedAction = keyof typeof speedStates;
 
 type Actor = {
   root: Group;
@@ -41,20 +34,24 @@ function releaseModel(root: Group) {
 
 export const skeletalMetrics = { updates: 0, totalMs: 0, maxMs: 0 };
 
-export function PlayableSurvivor({ motion, height }: Props) {
+export function PlayableSurvivor({ model = tonsaiSurvivor, ...props }: Props) {
+  return <SkinnedActor key={model.url} model={model} {...props} />;
+}
+
+function SkinnedActor({ motion, height, model }: Props & { model: SurvivorModel }) {
   const [actor, setActor] = useState<Actor>();
   const pivot = useRef<Group>(null);
   useEffect(() => {
     let active = true;
     let owned: Actor | undefined;
-    new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(playerModel.url).then(({ scene, animations }) => {
+    new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(model.url).then(({ scene, animations }) => {
       if (!active) {
         releaseModel(scene);
         return;
       }
       try {
-        const left = scene.getObjectByName("LeftToeBase");
-        const right = scene.getObjectByName("RightToeBase");
+        const left = scene.getObjectByName(model.supportBones[0]);
+        const right = scene.getObjectByName(model.supportBones[1]);
         if (!left || !right) throw new Error("Survivor GLB is missing its toe joints");
         scene.name = "skinned-survivor";
         scene.traverse((object) => {
@@ -64,7 +61,7 @@ export function PlayableSurvivor({ motion, height }: Props) {
             object.castShadow = true;
           }
         });
-        const playback = new SkeletalPlayback(scene, animations, playerModel.clips);
+        const playback = new SkeletalPlayback(scene, animations, model.clips);
         playback.update("idle", 1, 0);
         owned = { root: scene, playback, feet: [left, right], sample: new Vector3(), origin: new Vector3() };
         setActor(owned);
@@ -80,7 +77,14 @@ export function PlayableSurvivor({ motion, height }: Props) {
       owned?.playback.dispose();
       if (owned) releaseModel(owned.root);
     };
-  }, []);
+  }, [model]);
+
+  useEffect(() => {
+    if (!actor) return;
+    const current = motion.current;
+    current.rigged = true;
+    return () => { current.rigged = false; };
+  }, [actor, motion]);
 
   useFrame((_, rawDt) => {
     if (!actor || !pivot.current) return;
@@ -91,7 +95,7 @@ export function PlayableSurvivor({ motion, height }: Props) {
     let action: CharacterAction = state === "cinematic" ? "idle" : state;
     if (action === "idle" && m.talking) action = "talk";
     if (action === "turn" && (m.turnDirection ?? 0) < 0) action = "turn_right";
-    const referenceSpeed = speedStates[action as SpeedAction];
+    const referenceSpeed = model.referenceSpeeds[action];
     const rate = referenceSpeed
       ? MathUtils.clamp(m.speed / referenceSpeed, 0, 2.4)
       : 1;

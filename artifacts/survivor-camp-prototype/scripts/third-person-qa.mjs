@@ -1,13 +1,17 @@
 /** Trusted touch + actual WebGL testing. Local emulation is not physical iPhone/Replit verification. */
 import assert from 'node:assert/strict';
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,mkdtemp,rm,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import {chromium} from 'playwright';
 import {createServer,preview} from 'vite';
 import {captureCharacter} from './character-evidence.mjs';
 const out=process.env.CHARACTER_EVIDENCE ?? '../../docs/third-person-foundation/evidence';await mkdir(out,{recursive:true});
 const devPort=Number(process.env.THIRD_PERSON_DEV_PORT ?? 5220), prodPort=Number(process.env.THIRD_PERSON_PROD_PORT ?? 5221);
 process.env.PORT=String(devPort);process.env.BASE_PATH='/';
-const server=await createServer({configFile:'vite.config.ts',server:{host:'127.0.0.1',hmr:false,watch:null}});await server.listen();
+const cacheDir=await mkdtemp(join(tmpdir(),'survivor-qa-vite-'));
+const optimizeDeps=process.env.CHARACTER_BASELINE?{}:{include:['three/addons/loaders/GLTFLoader.js','three/addons/libs/meshopt_decoder.module.js']};
+const server=await createServer({configFile:'vite.config.ts',cacheDir,optimizeDeps,server:{host:'127.0.0.1',hmr:false,watch:null}});await server.listen();
 const production=await preview({configFile:'vite.config.ts',preview:{host:'127.0.0.1',port:prodPort,strictPort:true}});
 const browser=await chromium.launch({executablePath:process.env.CAMP_CHROMIUM,headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--single-process','--no-zygote']});
 const context=await browser.newContext({viewport:{width:932,height:430},hasTouch:true,isMobile:true,deviceScaleFactor:1});
@@ -106,7 +110,7 @@ try{
  await drive(0,1);await advance(30,true);await capture('camp-walk');if(process.env.CHARACTER_EVIDENCE)await sequence('walk',1.2);await release();await page.getByTestId('button-run').tap();await drive(0,1);await advance(24,true);await capture('camp-run');
  if(process.env.CHARACTER_EVIDENCE){
    await sequence('run',1.25);
-   await drive(1,0);await sequence('turn',.9);await release();
+   await release();await advance(8);await drive(1,0);await sequence('turn',.9);await release();
  }await multiLook();await release();await advance(60);await page.getByTestId('button-menu').tap();await page.getByTestId('challenge-testing').waitFor();await snapshotOriginal();console.log('Camp preserved');await hub();console.log('Hub selected');await openRace();console.log('Race intro ready');await advance(90);await capture('01-introduction');
  assert.equal((await state()).runners.length,5);assert.equal(await page.evaluate(()=>window.__WORLD_RENDER__.lifecycle.peakActive),1);await raceStart();console.log('Race active');await sample('race-low');await drive(0,1);await advance(22);await multiLook();await release();await advance(160,true);await capture('behind-follow');const behind=await page.evaluate(()=>{const {dbg}=window.hubQA.io;return Math.abs(Math.atan2(Math.sin(window.hubQA.io.input.yaw-dbg.face-Math.PI),Math.cos(window.hubQA.io.input.yaw-dbg.face-Math.PI)));});assert.ok(behind<.04);check('Behind follow and idle recenter',behind);await cpuSample('low');
  await tap('coastal-pause');const frozen=await state();await advance(180);assert.deepEqual(await state(),frozen);await tap('coastal-resume');
@@ -125,4 +129,4 @@ try{
  await openRace();await raceStart();await sample('race-high');await cpuSample('high');await capture('05-high-course');await tap('coastal-welcome');await page.getByTestId('challenge-testing').waitFor();await unchanged();await page.getByTestId('explore-island').tap();await ready('camp_tribe_a');
  const restored=await page.evaluate(()=>{const q=window.hubQA,o=window.hubOriginal;return {same:q.travel.session===o.session,pose:Math.hypot(q.io.dbg.x-o.pose.x,q.io.dbg.z-o.pose.z),input:[q.io.input.joyX,q.io.input.joyY],temporary:q.travel.challengeTesting,engine:q.co.engine};});assert.ok(restored.same&&restored.pose<.05);assert.deepEqual(restored.input,[0,0]);assert.equal(restored.temporary,null);assert.equal(restored.engine,null);check('Stillwater, both previews, High mode, Welcome and exact original camp resume');assert.deepEqual(report.errors,[]);check('No uncaught or shader/WebGL errors');
 }catch(e){report.failure=e.stack;console.error(e);await page.screenshot({path:out+'/FAILURE.jpg'}).catch(()=>{});process.exitCode=1;}
-finally{await writeFile(out+'/browser-report.json',JSON.stringify(report,null,2));await browser.close();await server.close();await new Promise(r=>production.httpServer.close(r));}
+finally{await writeFile(out+'/browser-report.json',JSON.stringify(report,null,2));await browser.close();await server.close();await new Promise(r=>production.httpServer.close(r));await rm(cacheDir,{recursive:true,force:true});}

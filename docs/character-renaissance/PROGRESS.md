@@ -1,6 +1,6 @@
 # Survivor character rebuild
 
-Checkpoint 2 of 4. Base is main at `760460f679159d42ab241eebe211739a50538a2a`, the merge of PR #28. The working branch is `feat/survivor-character-renaissance`.
+Checkpoint 3 of 4. Base is main at `760460f679159d42ab241eebe211739a50538a2a`, the merge of PR #28. The working branch is `feat/survivor-character-renaissance`.
 
 ## Diagnosis
 
@@ -15,8 +15,11 @@ Checkpoint 2 of 4. Base is main at `760460f679159d42ab241eebe211739a50538a2a`, t
 - Added a Three.js clip playback layer with explicit states, transition blending and mixer cleanup. No gameplay path changes in this checkpoint.
 - The new GLB is in Tonsai Camp and Coastal Traverse as participant 0, “You.” Compared matching WebGL front, side and back views against the primitive version. The fitted tank, cargo shorts, ponytail and boots preserve the existing character design.
 - The 652 KB GLB contains 14,172 triangles, 66 bones and 12 baked clips. It uses embedded textures capped at 512 px and a bundled Meshopt decoder.
-- Checkpoint 1 was verified remotely at `cac29dd8368349d64cc82539f713618609afaa9e`. [Draft PR #29](https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/29) tracks the branch.
+- Checkpoint 2 was verified remotely at `f3248ab3597288184bce2e86e76702e4b3461c0f`.
+- Tuned partial-stick drive, directional response and stopping while keeping full-stick speed and gesture ownership. Coastal framing is closer, with smoother obstacle alignment.
+- Integrated crawl entry, crawl, beam balance, cargo net and recovery states without changing the race engine. A browser rehearsal completed the course and puzzle, Retry, a loss, and camp restoration. Four crawl poses were below 0.83 m under the 1.05 m frame. Two net wrist samples were within 0.22 m of the rope plane.
+- Added focused checks for interrupted clip blending, cleanup and the bundled GLB budget. [Draft PR #29](https://github.com/sunsetseast/SurvivorIsland3Dprototype/pull/29) tracks the branch.
 
 ## Resume
 
-Read the branch tip with `git ls-remote origin refs/heads/feat/survivor-character-renaissance`. The tip containing this file is the latest checkpoint. Next, tune joystick and motion transitions, inspect crawling and net contact, then run the full final suite.
+Read the branch tip with `git ls-remote origin refs/heads/feat/survivor-character-renaissance`. The tip containing this file is the latest checkpoint. Next, run the final suite, publish matching frame sequences and record CI results.

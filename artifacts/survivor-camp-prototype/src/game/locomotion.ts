@@ -39,9 +39,13 @@ export function drive(
   s.held = a.pressure > 0;
   const v = movementVector(a.x, a.y, s.basis),
     speed = maxSpeed ?? (run ? 6.4 : 3.25),
-    k = ease(dt, a.pressure ? 12 : 18);
-  s.vx += (v.x * speed - s.vx) * k;
-  s.vz += (v.z * speed - s.vz) * k;
+    // Preserve precise partial-stick control and full-stick speed. Direction
+    // changes need less inertia than straight acceleration, especially near walls.
+    gain = 1.2 - 0.2 * a.pressure,
+    sharpTurn = s.vx * v.x + s.vz * v.z <= 0 && Math.hypot(s.vx, s.vz) > 0.01,
+    k = ease(dt, !a.pressure ? 27 : sharpTurn ? 22 : 16);
+  s.vx += (v.x * speed * gain - s.vx) * k;
+  s.vz += (v.z * speed * gain - s.vz) * k;
   if (!a.pressure && Math.hypot(s.vx, s.vz) < 0.01) s.vx = s.vz = 0;
   return {
     dx: s.vx * dt,
@@ -57,7 +61,7 @@ export function cancelDrive(s: Drive) {
 export function turnHeading(face: number, dx: number, dz: number, dt: number) {
   if (Math.hypot(dx, dz) < 0.00001) return face;
   const delta = angleDelta(Math.atan2(dx, dz), face);
-  return face + Math.max(-8 * dt, Math.min(8 * dt, delta * ease(dt, 15)));
+  return face + Math.max(-8 * dt, Math.min(8 * dt, delta * ease(dt, 20)));
 }
 /** Shared world-space locomotion adapted to the course's +Z lane frame. */
 export function courseAxes(

@@ -51,10 +51,7 @@ export function CoastalCamera() {
       owned.current = true;
     }
     input.lookGrace = Math.max(0, input.lookGrace - dt);
-    const facing =
-      r.stage === "beam" || r.stage === "net" || r.stage === "crawl"
-        ? 0
-        : (runnerPresentations.get(r)?.facing ?? 0);
+    const facing = runnerPresentations.get(r)?.facing ?? 0;
     input.yaw = recenterYaw(
       input.yaw,
       facing,
@@ -82,10 +79,10 @@ export function CoastalCamera() {
       v.goal.set(r.x - 5, h + 4.2, 12);
       v.look.set(r.x, h + 1.8, 19.2);
     } else {
-      const distance = r.stage === "crawl" ? 5.2 : r.stage === "net" ? 7 : 6.2;
+      const distance = r.stage === "crawl" ? 4.65 : r.stage === "net" ? 6.3 : 5.4;
       v.look.set(
         visual.x,
-        h + (r.stage === "crawl" || r.stage === "net" ? 0.65 : 1.25),
+        h + (r.stage === "crawl" || r.stage === "net" ? 0.56 : 1.08),
         visual.z,
       );
       v.goal.set(
@@ -108,7 +105,7 @@ export function CoastalCamera() {
       cameraOwner: mode,
       cameraCpuMs: performance.now() - start,
       cameraDistance: safe,
-      cameraBlocked: follows && safe < 5,
+      cameraBlocked: follows && safe < v.goal.distanceTo(v.look) - 0.55,
       x: r.x,
       y: h,
       z: r.z,

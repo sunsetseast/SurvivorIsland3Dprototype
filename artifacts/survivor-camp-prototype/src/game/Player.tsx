@@ -12,14 +12,14 @@ import {
   type Point,
 } from "./world";
 import { Survivor } from "./Survivor";
-import { PlayableSurvivor } from "./character/PlayableSurvivor";
+import { PlayableSurvivor, type PlayableMotion } from "./character/PlayableSurvivor";
 import { dbg, input, clearInput } from "./state";
 import { camp } from "./CampRuntime";
 import { worldTravel } from "./locations/travel";
 import type { LocationId, Pose } from "./locations/registry";
 import { distance as physicalDistance } from "./navigation";
 
-import { recenterYaw, votingZone, ease } from "./cameraController";
+import { angleDelta, recenterYaw, votingZone, ease } from "./cameraController";
 import { createDrive, drive, cancelDrive, turnHeading } from "./locomotion";
 import { VOTING } from "./tribal/votingAnchors";
 
@@ -61,7 +61,7 @@ export function Player({
   const groundHeight = environment.height;
   const root = useRef<THREE.Group>(null);
   const heading = useRef<THREE.Group>(null);
-  const motion = useRef({
+  const motion = useRef<PlayableMotion & { talking: boolean; seated: boolean; footL: number; footR: number }>({
     speed: 0,
     running: false,
     distance: 0,
@@ -184,12 +184,15 @@ export function Player({
       input.joyEpoch,
     );
     let traveled = 0;
+    let headingError = 0;
     if (d.speed > 0.01) {
       const next = environment.move(s.pos, d.dx, d.dz);
       if (!isCamp || !camp.npcs.some((n) => physicalDistance(next, n) < 0.78)) {
         traveled = Math.hypot(next.x - s.pos.x, next.z - s.pos.z);
-        if (traveled > 0.0001)
+        if (traveled > 0.0001) {
+          headingError = angleDelta(Math.atan2(next.x - s.pos.x, next.z - s.pos.z), s.face);
           s.face = turnHeading(s.face, next.x - s.pos.x, next.z - s.pos.z, dt);
+        }
         s.pos = next;
       }
     }
@@ -202,6 +205,9 @@ export function Player({
       dt,
     );
     motion.current.running = wantsRun && actualSpeed > 3.6;
+    motion.current.state =
+      isCamp && Math.abs(headingError) > 0.8 && actualSpeed < 3.2 ? "turn" : undefined;
+    motion.current.turnDirection = headingError;
     motion.current.distance += traveled;
     const y = groundHeight(s.pos.x, s.pos.z);
     const footOffset = (opposite: boolean) => {
@@ -219,8 +225,10 @@ export function Player({
         ),
       );
     };
-    motion.current.footL = footOffset(false);
-    motion.current.footR = footOffset(true);
+    if (!motion.current.rigged) {
+      motion.current.footL = footOffset(false);
+      motion.current.footR = footOffset(true);
+    }
     if (isCamp && !worldTravel.blocked)
       camp.step(dt, { ...s.pos, y, moving: actualSpeed > 0.12 });
     motion.current.talking = isCamp && !!camp.conversation;
