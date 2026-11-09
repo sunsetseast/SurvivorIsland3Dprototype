@@ -304,12 +304,18 @@ if (process.argv[3]) {
   const manifest = JSON.parse(readFileSync(process.argv[3], "utf8"));
   const looks = JSON.parse(readFileSync(process.argv[4], "utf8")).people as Record<string, Appearance>;
   const ids = new Set(process.argv.slice(5).map(Number));
+  const foundationFile = process.env.SURVIVOR_BLENDER_FOUNDATIONS;
+  const foundations = foundationFile
+    ? JSON.parse(readFileSync(foundationFile, "utf8")).people as Record<string, { foundation?: Partial<HumanParams> }>
+    : undefined;
   registerWardrobe();
   for (const { source } of manifest.survivors) {
     if (ids.size && !ids.has(source.id)) continue;
     const look = looks[source.id];
     if (!look) throw new Error(`Missing appearance for survivor ${source.id}`);
-    await bake(`${destination}/survivor-${source.id}.glb`, `Survivor_${source.id}`, parameters(source, look), true);
+    const foundation = foundations?.[source.id]?.foundation;
+    if (foundations && !foundation) throw new Error(`Missing Blender foundation for survivor ${source.id}`);
+    await bake(`${destination}/survivor-${source.id}.glb`, `Survivor_${source.id}`, { ...parameters(source, look), ...foundation }, true);
   }
 } else {
   await bake(destination, "Tonsai_Survivor", showcase, false);

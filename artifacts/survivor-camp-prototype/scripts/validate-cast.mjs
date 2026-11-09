@@ -4,6 +4,7 @@ import { readdir, readFile } from "node:fs/promises";
 
 const manifest = JSON.parse(await readFile(new URL("../src/game/character/cast.json", import.meta.url)));
 const appearances = JSON.parse(await readFile(new URL("../../../tools/character/appearances.json", import.meta.url)));
+const candidate = process.env.CAST_CANDIDATE;
 const assetDir = new URL("../src/assets/characters/cast/", import.meta.url);
 const expectedClips = ["idle", "walk", "run", "turn", "turn_right", "crouch", "crawl", "climb", "balance", "recover", "interact", "talk", "sit"];
 const ids = new Set(), avatars = new Set(), files = new Set(), hashes = new Set();
@@ -27,7 +28,7 @@ for (const { source, appearance, model, status } of manifest.survivors) {
   assert.ok(["generated", "webgl-reviewed"].includes(status));
   assert.ok(!files.has(model));
   files.add(model);
-  const bytes = await readFile(new URL(model, assetDir));
+  const bytes = await readFile(id === 1 && candidate ? candidate : new URL(model, assetDir));
   const hash = createHash("sha256").update(bytes).digest("hex");
   assert.ok(!hashes.has(hash), `Duplicate model payload ${model}`);
   hashes.add(hash);

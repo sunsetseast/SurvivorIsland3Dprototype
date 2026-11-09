@@ -1,18 +1,24 @@
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 import { createServer } from "vite";
+import { castCandidatePlugin } from "./cast-candidate.mjs";
 
 const out = process.env.CAST_EVIDENCE ?? "../../docs/cast-migration/evidence";
 const port = Number(process.env.CAST_QA_PORT ?? 5227);
 process.env.PORT = String(port);
 process.env.BASE_PATH = "/";
 const url = `http://127.0.0.1:${port}/?quality=low`;
+const candidate = process.env.CAST_CANDIDATE;
+const selectedId = candidate ? 1 : 17;
+const selectedName = candidate ? "Ozzy" : "Carolyn";
+const competingIds = [4, 11, 13, selectedId, 18].sort((a, b) => a - b);
 const councilOnly = process.argv.includes("--council");
 const scenesOnly = councilOnly || process.argv.includes("--scenes");
 await mkdir(out, { recursive: true });
 const server = await createServer({
   server: { host: "127.0.0.1", port, strictPort: true, hmr: false, watch: null },
+  plugins: candidate ? [castCandidatePlugin(candidate, "/src/assets/characters/cast/survivor-1.glb")] : [],
   optimizeDeps: { include: ["three/addons/loaders/GLTFLoader.js", "three/addons/libs/meshopt_decoder.module.js", "three/addons/utils/SkeletonUtils.js"] },
 });
 await server.listen();
@@ -145,44 +151,49 @@ async function sample(quality) {
 
 async function stillwaterRound() {
   await tap("hub-individual-balance");
-  await ready("challenge_main", 17);
+  await ready("challenge_main", selectedId);
   await waitForCast("stillwater-competing-roster", 5);
-  assert.deepEqual(await castIds("stillwater-competing-roster"), [4, 11, 13, 17, 18]);
+  assert.deepEqual(await castIds("stillwater-competing-roster"), competingIds);
   await tap("stillwater-rules");
   await tap("stillwater-ready");
   await page.locator('[data-testid="stillwater-hud"][data-phase="active"]').waitFor();
 }
 
 try {
-  if (scenesOnly) await page.addInitScript(() => {
-    localStorage.setItem("survivor-island-3d:selected-survivor", JSON.stringify({ version: 1, survivorId: 17 }));
-  });
+  if (scenesOnly) await page.addInitScript((survivorId) => {
+    localStorage.setItem("survivor-island-3d:selected-survivor", JSON.stringify({ version: 1, survivorId }));
+  }, selectedId);
   await page.goto(url);
   if (!scenesOnly) {
     await choose(11);
     await tap("button-menu");
     await choose(6);
     await tap("button-menu");
-    await choose(17, true);
+    await choose(selectedId, true);
     report.requests = await page.evaluate(() => performance.getEntriesByType("resource")
       .filter((entry) => /survivor-\d+\.glb$/.test(entry.name))
       .map(({ name, encodedBodySize, transferSize }) => ({ file: name.split("/").at(-1), encodedBodySize, transferSize })));
+    if (candidate) {
+      const { length } = await readFile(candidate);
+      assert.ok(report.requests.some((r) => r.file === "survivor-1.glb" && r.encodedBodySize === length),
+        "The test build did not load the Blender candidate payload");
+    }
     await tap("button-menu");
     await page.reload();
   }
   if (!councilOnly) {
-    await page.getByTestId("explore-island").filter({ hasText: "Continue as Carolyn" }).waitFor();
+    await page.getByTestId("explore-island").filter({ hasText: `Continue as ${selectedName}` }).waitFor();
     await tap("explore-island");
-    await ready("camp_tribe_a", 17);
+    await ready("camp_tribe_a", selectedId);
     await waitForCast(undefined, 5);
     await framed("tonsai-camp-cast", [-8, 2.65, -33.3], [-7.8, 0.95, -27.5]);
     await tap("button-menu");
     if (!scenesOnly) check("Saved selection reloads to the same survivor");
     await tap("challenge-testing");
     await tap("hub-beach-obstacle");
-    await ready("challenge_main", 17);
+    await ready("challenge_main", selectedId);
     await waitForCast("coastal-competing-roster", 5);
-    assert.deepEqual(await castIds("coastal-competing-roster"), [4, 11, 13, 17, 18]);
+    assert.deepEqual(await castIds("coastal-competing-roster"), competingIds);
     await tap("coastal-rules");
     await tap("coastal-ready");
     await page.locator('[data-testid="coastal-hud"][data-phase="racing"]').waitFor();
@@ -193,7 +204,7 @@ try {
     await shot("stillwater-balance");
     await tap("stillwater-hub");
     await tap("hub-ocean-relay");
-    await ready("challenge_main", 17);
+    await ready("challenge_main", selectedId);
     await tap("challenge-quality");
     await page.getByTestId("challenge-quality").filter({ hasText: "High" }).waitFor();
     await tap("testing-hub");
@@ -203,7 +214,7 @@ try {
     check("Both playable challenges keep the selected human slot and four rigged AI opponents");
   }
   await tap("explore-tribal");
-  await ready("tribal_council", 17);
+  await ready("tribal_council", selectedId);
   await tap("skip-tribal-intro");
   await waitForCast(undefined, 5);
   await seated(undefined, 5);
@@ -217,16 +228,16 @@ try {
   assert.deepEqual(await castIds("council-jurors"), [7, 10, 16]);
   await framed("tribal-jury", [-12.8, 2.6, 0.3], [-17.8, 1.6, -2.7]);
   await tap("stand-and-explore");
-  await page.waitForFunction(() => {
+  await page.waitForFunction((id) => {
     const player = window.__WORLD_RENDER__.scene.getObjectByName("exploration-player");
-    return player?.getObjectByName("skinned-survivor")?.userData.survivorId === 17;
-  });
+    return player?.getObjectByName("skinned-survivor")?.userData.survivorId === id;
+  }, selectedId);
   check("Council, staged jury and post-ceremony exploration use original cast IDs");
-  const assetTest = await page.evaluate(async () => {
+  const assetTest = await page.evaluate(async (id) => {
     const { acquireSurvivorAsset } = await import("/src/game/character/modelAssets.ts");
     const { castModel } = await import("/src/game/character/survivorModels.ts");
     const { SkeletalPlayback } = await import("/src/game/character/SkeletalPlayback.ts");
-    const model = castModel(17);
+    const model = castModel(id);
     const a = acquireSurvivorAsset(model.url), b = acquireSurvivorAsset(model.url);
     try {
       const [left, right] = await Promise.all([a.instantiate(), b.instantiate()]);
@@ -245,7 +256,7 @@ try {
       a.release();
       b.release();
     }
-  });
+  }, selectedId);
   assert.equal(assetTest, true);
   check("Model instances share meshes, materials and clips with isolated poses");
   assert.deepEqual(errors, []);

@@ -1,0 +1,262 @@
+{
+  "version": 1,
+  "source": {
+    "repository": "sunsetseast/SurvivorIsland2025",
+    "revision": "cf894e578d77fce1e588d793dfc8d14f61ec7628",
+    "identityManifest": "artifacts/survivor-camp-prototype/src/game/character/cast.json"
+  },
+  "rights": {
+    "referenceImages": "CBS stills and original project avatars are for observation only. No reference pixels are distributed in the benchmark or game.",
+    "likeness": "Contestant likeness clearance for publication and commercial use remains unverified.",
+    "assetProvenance": "docs/character-renaissance/FINAL_REPORT.md"
+  },
+  "people": {
+    "1": {
+      "name": "Ozzy Lusth",
+      "season": "Cook Islands",
+      "avatar": "Assets/Avatars/ozzy.jpeg",
+      "status": "benchmark; pending likeness approval",
+      "references": [
+        {"url": "https://www.truedorktimes.com/s13/images/e3/e3tv88.jpg", "view": "Ep. 3 Aitu confessional, near-front face and pendant"},
+        {"url": "https://www.truedorktimes.com/s13/images/e5/e5tv25.jpg", "view": "Ep. 5 Aitu confessional, three-quarter face and dry curl texture"},
+        {"url": "https://www.truedorktimes.com/s13/images/e7/e7tv59.jpg", "view": "Ep. 7 challenge lineup, center, full silhouette and charcoal shorts"}
+      ],
+      "face": {
+        "shape": "Oval upper face with a narrower lower jaw and rounded chin. Modestly pronounced cheekbone below the outer eye.",
+        "forehead": "Moderate exposed forehead with irregular curls, more covered at the temples.",
+        "eyesAndBrows": "Dark, moderately spaced almond-shaped eyes beneath substantial brows. Outer brow tapers. Upper lids sit closer to the iris than in the illustrated avatar.",
+        "nose": "Defined, mostly straight bridge with a gently rounded tip and modestly flared nostrils.",
+        "mouthAndChin": "Medium-width mouth, defined upper-lip peaks and fuller lower lip. Narrow sparse mustache and patch below the lower lip with scattered jaw stubble.",
+        "ears": "Largely hidden by hair. Use base anatomy under the side curls."
+      },
+      "hair": "Dark brown with sun-lightened tips, unruly curls, asymmetric loose part, full at the temples and down to the nape. The illustrated avatar has longer, straighter hair and heavier facial hair.",
+      "body": "Lean swimmer build with defined shoulders and chest, relatively narrow waist and long limbs.",
+      "clothing": "Shirtless challenge look, charcoal board shorts and small round pendant on a thin dark cord. No marks or typography.",
+      "priorities": [
+        "Short layered curls with an irregular hairline",
+        "Reduced lower-face width and heavy beard",
+        "Defined cheek and brow planes",
+        "Charcoal shorts and cord pendant"
+      ],
+      "uncertainties": [
+        "Full orthographic profile and unobstructed ears unavailable in inspected frames",
+        "Hair changes with moisture",
+        "Accessory colors and footwear vary across episodes"
+      ],
+      "foundation": {
+        "detail": "medium",
+        "hair": "none",
+        "facialHair": "none",
+        "top": "none",
+        "accessories": [],
+        "garmentStyles": {
+          "boardshorts": {
+            "pattern": "solid",
+            "color": "#343839"
+          }
+        }
+      },
+      "sculpt": {
+        "style": "cook-islands-ozzy",
+        "seed": 1326,
+        "center": [0, 0.02, 0.083],
+        "radii": [0.1, 0.101, 0.103],
+        "strokes": [
+          {"center": [0.056, -0.084, -0.014], "radius": [0.036, 0.055, 0.058], "delta": [-0.003, -0.002, 0.002], "mirror": true},
+          {"center": [0.022, -0.114, -0.051], "radius": [0.036, 0.046, 0.032], "delta": [0, -0.004, 0.002], "mirror": true},
+          {"center": [0.049, -0.086, 0.037], "radius": [0.041, 0.044, 0.038], "delta": [0.005, -0.006, 0.002], "mirror": true},
+          {"center": [0.028, -0.095, 0.067], "radius": [0.03, 0.036, 0.019], "delta": [0, -0.004, 0.003], "mirror": true},
+          {"center": [0.031, -0.09, 0.053], "radius": [0.025, 0.03, 0.019], "delta": [0.001, -0.001, 0.004], "mirror": true},
+          {"center": [0, -0.111, 0.049], "radius": [0.019, 0.04, 0.042], "delta": [0, -0.01, 0.004]},
+          {"center": [0.012, -0.107, 0.02], "radius": [0.018, 0.04, 0.02], "delta": [0.001, -0.003, 0], "mirror": true},
+          {"center": [0.021, -0.11, -0.018], "radius": [0.023, 0.04, 0.015], "delta": [0.002, -0.002, 0.001], "mirror": true},
+          {"center": [0.002, -0.11, -0.028], "radius": [0.025, 0.04, 0.014], "delta": [0, -0.003, 0]},
+          {"center": [0.008, -0.085, 0.11], "radius": [0.077, 0.046, 0.04], "delta": [0, 0.004, 0]},
+          {"center": [0.119, -0.091, -0.229], "radius": [0.078, 0.092, 0.112], "delta": [0, -0.008, 0.001], "mirror": true},
+          {"center": [0.172, -0.042, -0.211], "radius": [0.054, 0.078, 0.068], "delta": [0.005, -0.003, 0.002], "mirror": true},
+          {"center": [0.113, -0.054, -0.422], "radius": [0.046, 0.101, 0.123], "delta": [-0.005, 0, 0], "mirror": true},
+          {"center": [0.1, -0.082, -0.664], "radius": [0.027, 0.03, 0.07], "delta": [0, -0.006, 0], "shorts": true},
+          {"center": [-0.111, -0.084, -0.74], "radius": [0.044, 0.038, 0.022], "delta": [0, -0.006, 0], "shorts": true},
+          {"center": [-0.112, -0.078, -0.8], "radius": [0.041, 0.037, 0.018], "delta": [0, 0.004, 0], "shorts": true},
+          {"center": [0.032, -0.1, 0.04], "radius": [0.024, 0.017, 0.009], "delta": [0, 0, -0.0018], "mirror": true},
+          {"center": [0.031, -0.096, 0.05], "radius": [0.022, 0.022, 0.01], "delta": [0, 0, 0.0035], "mirror": true}
+        ],
+        "hairlineLocks": [
+          [-0.58, 0.34, 1.39, 0.016, -1, 0.91],
+          [-0.34, 0.29, 1.29, 0.019, 1, 0.82],
+          [-0.15, 0.42, 1.3, 0.017, -1, 0.92],
+          [0.09, 0.27, 1.14, 0.018, 1, 0.51],
+          [0.32, 0.31, 1.44, 0.019, 1, 0.95],
+          [0.58, 0.3, 1.54, 0.02, -1, 0.86],
+          [0.8, 0.53, 1.72, 0.018, 1, 0.57],
+          [-0.96, 0.63, 1.8, 0.017, -1, 0.54]
+        ],
+        "facialHair": [
+          [-0.014, -0.009000000000000001, 0.015680000000000003, 0.0065, 105, 0.0029],
+          [0.013, -0.009000000000000001, 0.015680000000000003, 0.0065, 105, 0.0029],
+          [0, -0.042, 0.013, 0.011, 100, 0.003],
+          [-0.032, -0.037, 0.013, 0.01, 48, 0.0021],
+          [0.032, -0.037, 0.013, 0.01, 48, 0.0021]
+        ]
+      }
+    },
+    "3": {
+      "name": "Natalie Anderson",
+      "season": "San Juan del Sur",
+      "avatar": "Assets/Avatars/natalie.jpeg",
+      "status": "researched; sculpt pending Ozzy gate",
+      "references": [
+        {"url": "https://www.truedorktimes.com/s29/images/e1/e1tv58.jpg", "view": "Ep. 1 confessional, blue head buff, brows and hair texture"},
+        {"url": "https://www.truedorktimes.com/s29/images/e3/e3tv13.jpg", "view": "Ep. 3 confessional, near frontal face, hair and shoulders"},
+        {"url": "https://www.truedorktimes.com/s29/images/e9/e9tv9.jpg", "view": "Ep. 9 lineup, natural smile and released hair"},
+        {"url": "https://www.truedorktimes.com/s29/images/e2/e2tv30.jpg", "view": "Season intro, profile and athletic top"}
+      ],
+      "face": {
+        "shape": "Broad cheek region, softly tapered lower face and rounded chin.",
+        "forehead": "Moderate height. Dark, slightly off-center part where visible.",
+        "eyesAndBrows": "Dark almond eyes and substantial arched brows. Strong lower lid and cheek lift in the smile.",
+        "nose": "Moderate bridge and rounded tip. Front view is clearer than the wet intro profile.",
+        "mouthAndChin": "Full lips, wide smile and compact chin.",
+        "ears": "Mostly concealed by hair."
+      },
+      "hair": "Long dark roots with light brown and honey lengths. Wavy when dry, looser strands after water. Blue forehead buff is a verified option.",
+      "body": "Athletic shoulders and upper arms, compact silhouette.",
+      "clothing": "Turquoise athletic top and blue cloth buff appear together in the intro. Violet shirt also appears in early episodes.",
+      "priorities": [
+        "Dark-rooted waves with warm lengths",
+        "Broad cheek plane and natural smile",
+        "Distinct athletic shoulder silhouette"
+      ],
+      "uncertainties": ["Ear shape and lower-body tailoring are not resolved in the selected close-ups"]
+    },
+    "4": {
+      "name": "Boston Rob Mariano",
+      "season": "Marquesas",
+      "avatar": "Assets/Avatars/bostonrob.jpeg",
+      "status": "researched; sculpt pending Ozzy gate",
+      "references": [
+        {"url": "https://www.truedorktimes.com/s4/images/e0/e0tv34.jpg", "view": "Season intro, left-facing side angle"},
+        {"url": "https://www.truedorktimes.com/s4/images/e1/e1tv32.jpg", "view": "Hometown intro, frontal facial proportions"},
+        {"url": "https://www.truedorktimes.com/s4/images/e1/e1tv49.jpg", "view": "Ep. 1 Maraamu confessional, three-quarter face, hair and chain"}
+      ],
+      "face": {
+        "shape": "Broad upper face with cheek fullness, a defined jaw and a rounded square chin.",
+        "forehead": "Low natural irregular hairline with a short forward fringe.",
+        "eyesAndBrows": "Dark eyes with a slightly hooded upper lid and full brows with a gradual arch.",
+        "nose": "Defined bridge and moderately broad, rounded tip; visible projection in intro side view.",
+        "mouthAndChin": "Medium mouth with a distinct lower lip and understated smile. Clean-shaven or faint shadow in these shots.",
+        "ears": "Outer silhouette partly visible in three-quarter view."
+      },
+      "hair": "Short dark hair, loosely wavy, brushed forward at the front.",
+      "body": "Broad neck and shoulders in early camp footage.",
+      "clothing": "Shirtless camp appearance with a thin gold-tone chain. The later red cap and goatee in the original illustrated avatar are secondary cues.",
+      "priorities": ["Marquesas short textured hair", "Full cheeks and defined jaw", "Subtle chain and clean-shaven appearance"],
+      "uncertainties": ["Exact chain links and lower-body wardrobe are unresolved in inspected stills"]
+    },
+    "2": {
+      "name": "Jay Starrett",
+      "season": "Millennials vs. Gen X",
+      "avatar": "Assets/Avatars/jay.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "5": {
+      "name": "Andrea Boehlke",
+      "season": "Redemption Island",
+      "avatar": "Assets/Avatars/andrea.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "6": {
+      "name": "Jeremy Collins",
+      "season": "San Juan del Sur",
+      "avatar": "Assets/Avatars/jeremy.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "7": {
+      "name": "Yul Kwon",
+      "season": "Cook Islands",
+      "avatar": "Assets/Avatars/yul.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "8": {
+      "name": "Kim Spradlin",
+      "season": "One World",
+      "avatar": "Assets/Avatars/kim.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "9": {
+      "name": "Tony Vlachos",
+      "season": "Cagayan",
+      "avatar": "Assets/Avatars/tony.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "10": {
+      "name": "Cirie Fields",
+      "season": "Panama",
+      "avatar": "Assets/Avatars/cirie.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "11": {
+      "name": "Sandra Diaz-Twine",
+      "season": "Pearl Islands",
+      "avatar": "Assets/Avatars/sandra.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "12": {
+      "name": "Kelley Wentworth",
+      "season": "San Juan del Sur",
+      "avatar": "Assets/Avatars/kelley.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "13": {
+      "name": "Parvati Shallow",
+      "season": "Cook Islands",
+      "avatar": "Assets/Avatars/parvati.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "14": {
+      "name": "Michele Fitzgerald",
+      "season": "Kaôh Rōng",
+      "avatar": "Assets/Avatars/michele.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "15": {
+      "name": "Wendell Holland",
+      "season": "Ghost Island",
+      "avatar": "Assets/Avatars/wendell.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "16": {
+      "name": "Tyson Apostol",
+      "season": "Tocantins",
+      "avatar": "Assets/Avatars/tyson.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "17": {
+      "name": "Carolyn Wiger",
+      "season": "Survivor 44",
+      "avatar": "Assets/Avatars/carolyn.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    },
+    "18": {
+      "name": "Russell Hantz",
+      "season": "Samoa",
+      "avatar": "Assets/Avatars/russell.jpeg",
+      "status": "unresearched; existing model retained",
+      "references": []
+    }
+  }
+}
