@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 import { createServer } from "vite";
+import { castCandidatePlugin } from "./cast-candidate.mjs";
 
 const out = process.env.CAST_EVIDENCE ?? "../../docs/cast-migration/evidence";
 const args = process.argv.slice(2).map(Number);
@@ -13,15 +14,10 @@ const characters = manifest.survivors.filter(({ source }) => candidate ? source.
 }));
 if (candidate) characters.push({ id: 1, name: "Blender Ozzy candidate", url: candidateUrl });
 else if (pilot) characters.unshift({ id: 0, name: "PR #29", url: "/src/assets/characters/tonsai-survivor.glb" });
-const server = await createServer({ server: { host: "127.0.0.1", port: 5226, strictPort: true }, logLevel: "error" });
-if (candidate) {
-  const bytes = await readFile(candidate);
-  server.middlewares.use((req, res, next) => {
-    if (req.url !== candidateUrl) return next();
-    res.setHeader("Content-Type", "model/gltf-binary");
-    res.end(bytes);
-  });
-}
+const server = await createServer({
+  server: { host: "127.0.0.1", port: 5226, strictPort: true }, logLevel: "error",
+  plugins: candidate ? [castCandidatePlugin(candidate, candidateUrl)] : [],
+});
 await server.listen();
 try {
   const browser = await chromium.launch({

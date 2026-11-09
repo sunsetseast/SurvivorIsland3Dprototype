@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { chromium } from "playwright";
 import { createServer } from "vite";
+import { castCandidatePlugin } from "./cast-candidate.mjs";
 
 const out = process.env.CAST_EVIDENCE ?? "../../docs/cast-migration/evidence";
 const port = Number(process.env.CAST_QA_PORT ?? 5227);
@@ -17,17 +18,9 @@ const scenesOnly = councilOnly || process.argv.includes("--scenes");
 await mkdir(out, { recursive: true });
 const server = await createServer({
   server: { host: "127.0.0.1", port, strictPort: true, hmr: false, watch: null },
+  plugins: candidate ? [castCandidatePlugin(candidate, "/src/assets/characters/cast/survivor-1.glb")] : [],
   optimizeDeps: { include: ["three/addons/loaders/GLTFLoader.js", "three/addons/libs/meshopt_decoder.module.js", "three/addons/utils/SkeletonUtils.js"] },
 });
-if (candidate) {
-  const bytes = await readFile(candidate);
-  server.middlewares.use((req, res, next) => {
-    if (req.url !== "/src/assets/characters/cast/survivor-1.glb") return next();
-    res.setHeader("Content-Type", "model/gltf-binary");
-    res.setHeader("Content-Length", bytes.length);
-    res.end(bytes);
-  });
-}
 await server.listen();
 const browser = await chromium.launch({
   executablePath: process.env.CAMP_CHROMIUM,
