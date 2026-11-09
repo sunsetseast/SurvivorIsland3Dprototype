@@ -259,28 +259,28 @@ async function bake(file: string, name: string, params: Partial<HumanParams>, se
   for (const material of character.mesh.materials) {
     // The fabric colors and weave stay in the diffuse maps. Mobile does not need
     // a separate normal and roughness texture for every piece of clothing.
-    delete material.normal;
+    delete material.normalMap;
     delete material.roughnessMap;
-    if (material.name === "Hair" && material.diffuse && params.hairTint &&
+    if (material.name === "Hair" && material.map && params.hairTint &&
         Number.parseInt(params.hairTint.slice(1, 3), 16) >= 150) {
-      const name = material.diffuse.replace(/\.png$/, "-light.png");
+      const name = material.map.replace(/\.png$/, "-light.png");
       if (!library.hasTexture(name)) {
-        const { data, info } = await sharp(await library.texture(material.diffuse))
+        const { data, info } = await sharp(await library.texture(material.map))
           .resize({ width: 384, height: 384, fit: "inside" }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
         for (let i = 0; i < data.length; i += 4) {
           const luminance = (data[i] * 0.22 + data[i + 1] * 0.70 + data[i + 2] * 0.08) / 255;
-          data[i] = data[i + 1] = data[i + 2] = 108 + 147 * Math.sqrt(luminance);
+          data[i] = data[i + 1] = data[i + 2] = 166 + 89 * Math.sqrt(luminance);
         }
         library.registerTexture(name, await sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } }).png().toBuffer());
       }
-      material.diffuse = name;
+      material.map = name;
     }
-    if (material.diffuse?.endsWith(".png") && material.alpha === "opaque") {
-      const name = material.diffuse.replace(/\.png$/, ".jpg");
-      library.registerTexture(name, await sharp(await library.texture(material.diffuse))
+    if (material.map?.endsWith(".png") && material.alpha === "opaque") {
+      const name = material.map.replace(/\.png$/, ".jpg");
+      library.registerTexture(name, await sharp(await library.texture(material.map))
         .resize({ width: 512, height: 512, fit: "inside", withoutEnlargement: true })
         .jpeg({ quality: 84 }).toBuffer());
-      material.diffuse = name;
+      material.map = name;
     }
   }
   const textures = new Map<string, Uint8Array>();

@@ -37,6 +37,23 @@ export async function renderCast(entries: Entry[], pilot: boolean) {
       scene.add(root);
       const mixer = new AnimationMixer(actor);
       const box = new Box3();
+      const modelHead = actor.getObjectByName("Head")!;
+      actor.traverse((node) => {
+        if (!("isSkinnedMesh" in node) || !node.isSkinnedMesh) return;
+        const { geometry } = node as import("three").SkinnedMesh;
+        const position = geometry.getAttribute("position");
+        const skin = geometry.getAttribute("skinWeight");
+        const indices = geometry.index!;
+        for (let i = 0; i < indices.count; i++) {
+          if (indices.getX(i) >= position.count) throw new Error(`${entry.name} has an invalid triangle index`);
+        }
+        for (let i = 0; i < position.count; i++) {
+          if (![position.getX(i), position.getY(i), position.getZ(i)].every(Number.isFinite)) throw new Error(`${entry.name} has a nonfinite vertex`);
+          if (Math.abs(skin.getX(i) + skin.getY(i) + skin.getZ(i) + skin.getW(i) - 1) > 0.04) {
+            throw new Error(`${entry.name} has a malformed skin weight`);
+          }
+        }
+      });
       const views = pilot
         ? [["Front", 0, "idle"], ["Profile", Math.PI / 2, "idle"], ["Three-quarter", 0.52, "idle"],
            ["Walk", -0.62, "walk"], ["Run", 0.68, "run"], ["Sit", -0.54, "sit"]] as const
@@ -64,10 +81,19 @@ export async function renderCast(entries: Entry[], pilot: boolean) {
         renderer.render(scene, camera);
         const tile = pilot ? index * columns + j : index;
         const x = tile % columns * width, y = Math.floor(tile / columns) * (height + labelHeight);
-        ctx.drawImage(renderer.domElement, x, y, width, height);
+        if (j === 0) metrics.push({ id: entry.id, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, height: box.max.y - box.min.y });
+        if (pilot) ctx.drawImage(renderer.domElement, x, y, width, height);
+        else {
+          ctx.drawImage(renderer.domElement, 46, 0, 128, height, x, y, 123, height);
+          const head = modelHead.getWorldPosition(new Vector3());
+          head.y += 0.07;
+          camera.position.set(head.x + 0.34, head.y + 0.045, head.z + 1.20);
+          camera.lookAt(head);
+          renderer.render(scene, camera);
+          ctx.drawImage(renderer.domElement, 43, 45, 134, 179, x + 124, y + 25, 94, 126);
+        }
         ctx.fillStyle = "#e9dfc8";
         ctx.fillText(pilot ? `${entry.name} · ${label}` : `${entry.id} · ${entry.name}`, x + 9, y + height + 21, width - 18);
-        if (j === 0) metrics.push({ id: entry.id, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, height: box.max.y - box.min.y });
       }
       mixer.stopAllAction();
       mixer.uncacheRoot(actor);

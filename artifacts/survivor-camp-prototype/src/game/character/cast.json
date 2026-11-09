@@ -68,9 +68,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/1",
+      "model": "survivor-1.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -134,9 +134,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/2",
+      "model": "survivor-2.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -200,9 +200,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/3",
+      "model": "survivor-3.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -266,9 +266,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/4",
+      "model": "survivor-4.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -332,9 +332,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/5",
+      "model": "survivor-5.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -464,9 +464,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/7",
+      "model": "survivor-7.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -530,9 +530,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/8",
+      "model": "survivor-8.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -596,9 +596,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/9",
+      "model": "survivor-9.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -728,9 +728,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/11",
+      "model": "survivor-11.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -794,9 +794,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/12",
+      "model": "survivor-12.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -860,9 +860,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/13",
+      "model": "survivor-13.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -926,9 +926,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/14",
+      "model": "survivor-14.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -992,9 +992,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/15",
+      "model": "survivor-15.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -1058,9 +1058,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/16",
+      "model": "survivor-16.glb",
+      "status": "webgl-reviewed"
     },
     {
       "source": {
@@ -1190,9 +1190,9 @@
         "extraVotes": 0,
         "suspicion": 0
       },
-      "appearance": null,
-      "model": null,
-      "status": "pending"
+      "appearance": "tools/character/appearances.json#people/18",
+      "model": "survivor-18.glb",
+      "status": "webgl-reviewed"
     }
   ]
 }
