@@ -7,8 +7,8 @@ import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 
 type Entry = { id: number; name: string; url: string };
 
-export async function renderCast(entries: Entry[], pilot: boolean) {
-  const columns = pilot ? 6 : Math.min(entries.length, 6);
+export async function renderCast(entries: Entry[], pilot: boolean, benchmark = false) {
+  const columns = benchmark ? 7 : pilot ? 6 : Math.min(entries.length, 6);
   const width = 220, height = 282, labelHeight = 34;
   const sheet = document.createElement("canvas");
   sheet.width = width * columns;
@@ -54,7 +54,11 @@ export async function renderCast(entries: Entry[], pilot: boolean) {
           }
         }
       });
-      const views = pilot
+      const views = benchmark
+        ? [["Front portrait", 0, "idle"], ["Profile portrait", Math.PI / 2, "idle"],
+           ["Three-quarter portrait", 0.52, "idle"], ["Body front", 0, "idle"],
+           ["Body side", Math.PI / 2, "idle"], ["Walk", -0.62, "walk"], ["Run", 0.68, "run"]] as const
+        : pilot
         ? [["Front", 0, "idle"], ["Profile", Math.PI / 2, "idle"], ["Three-quarter", 0.52, "idle"],
            ["Walk", -0.62, "walk"], ["Run", 0.68, "run"], ["Sit", -0.54, "sit"]] as const
         : [["Three-quarter", 0.35, "idle"]] as const;
@@ -76,12 +80,19 @@ export async function renderCast(entries: Entry[], pilot: boolean) {
         root.updateMatrixWorld(true);
         box.setFromObject(root, true);
         const target = box.getCenter(new Vector3());
-        camera.position.set(Math.sin(angle) * 4.35, target.y + 0.08, Math.cos(angle) * 4.35);
-        camera.lookAt(0, target.y, 0);
+        if (benchmark && j < 3) {
+          const head = modelHead.getWorldPosition(new Vector3());
+          head.y += 0.07;
+          camera.position.set(head.x + Math.sin(angle) * 0.78, head.y + 0.025, head.z + Math.cos(angle) * 0.78);
+          camera.lookAt(head);
+        } else {
+          camera.position.set(Math.sin(angle) * 4.35, target.y + 0.08, Math.cos(angle) * 4.35);
+          camera.lookAt(0, target.y, 0);
+        }
         renderer.render(scene, camera);
         const tile = pilot ? index * columns + j : index;
         const x = tile % columns * width, y = Math.floor(tile / columns) * (height + labelHeight);
-        if (j === 0) metrics.push({ id: entry.id, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, height: box.max.y - box.min.y });
+        if (j === 0) metrics.push({ id: entry.id, name: entry.name, textures: renderer.info.memory.textures, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, height: box.max.y - box.min.y });
         if (pilot) ctx.drawImage(renderer.domElement, x, y, width, height);
         else {
           ctx.drawImage(renderer.domElement, 46, 0, 128, height, x, y, 123, height);

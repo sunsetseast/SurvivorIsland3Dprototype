@@ -31,8 +31,25 @@ jobs:
           pnpm exec playwright install --with-deps chromium
           PORT=5226 BASE_PATH=/ CAST_EVIDENCE=cast-evidence node scripts/cast-model-qa.mjs
           CAST_EVIDENCE=cast-evidence node scripts/cast-gameplay-qa.mjs
+      - name: Review isolated Blender candidate
+        working-directory: artifacts/survivor-camp-prototype
+        env:
+          CAST_CANDIDATE: ../../tools/character/blender/candidates/survivor-1.glb
+          CAST_EVIDENCE: blender-candidate-evidence
+        run: |
+          if [ -f "$CAST_CANDIDATE" ]; then
+            node scripts/validate-cast.mjs
+            PORT=5226 BASE_PATH=/ node scripts/cast-model-qa.mjs
+            node scripts/cast-gameplay-qa.mjs
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cast-landscape-webgl
           path: artifacts/survivor-camp-prototype/cast-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: blender-ozzy-landscape-webgl
+          path: artifacts/survivor-camp-prototype/blender-candidate-evidence
+          if-no-files-found: ignore
