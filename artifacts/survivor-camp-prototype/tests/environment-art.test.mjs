@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import * as T from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { southernCliffGeometry } from "../src/game/environment/limestone.ts";
+import { SOUTHERN_LEDGE_PLANTS } from "../src/game/environment/southernPlanting.ts";
 import { isWalkable, groundHeight } from "../src/game/world.ts";
 const load = async (name) => {
   const b = readFileSync(
@@ -93,5 +94,31 @@ test("actual exported near/far rock leaves all reachable southern body samples c
           `exported body intersection ${x},${z}`,
         );
     }
-  assert.equal(count, 2299, "only the 12 cave-wall body-envelope samples are removed");
+  assert.equal(
+    count,
+    2299,
+    "only the 12 cave-wall body-envelope samples are removed",
+  );
+});
+
+test("southern crown and shelf plants have solid contacts in both shipped LODs", () => {
+  for (const [x, y, z] of SOUTHERN_LEDGE_PLANTS) {
+    const ray = new T.Raycaster(
+      new T.Vector3(x, y + 1, z),
+      new T.Vector3(0, -1, 0),
+      0,
+      1,
+    );
+    for (const mesh of meshes) {
+      const hit = ray.intersectObject(mesh, false)[0];
+      assert.ok(
+        hit?.face && hit.face.normal.y > 0.45,
+        `root must meet an upward ledge at ${x},${y},${z}`,
+      );
+      assert.ok(
+        hit.point.y - y < 0.8,
+        "both profiles keep the root near the surface",
+      );
+    }
+  }
 });

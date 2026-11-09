@@ -52,7 +52,8 @@ export function NaturalLandmarks({
         .replace(
           "#include <map_fragment>",
           `#ifdef USE_MAP
-        vec3 blend=pow(abs(normalize(cross(dFdx(vNaturalRock),dFdy(vNaturalRock)))),vec3(3.));blend/=max(.001,blend.x+blend.y+blend.z);
+        vec3 faceNormal=normalize(cross(dFdx(vNaturalRock),dFdy(vNaturalRock)));
+        vec3 blend=pow(abs(faceNormal),vec3(3.));blend/=max(.001,blend.x+blend.y+blend.z);
         vec3 mineral=texture2D(map,vNaturalRock.yz*.11).rgb*blend.x+texture2D(map,vNaturalRock.xz*.11).rgb*blend.y+texture2D(map,vNaturalRock.xy*.11).rgb*blend.z;
         // A second, rotated scale breaks the enlarged scan repeat without new maps.
         vec2 q=vec2(vNaturalRock.x*.83-vNaturalRock.z*.56,vNaturalRock.y+vNaturalRock.z*.22);
@@ -69,11 +70,18 @@ export function NaturalLandmarks({
         mineral=mix(mineral,vec3(luma*.91+.18,luma*.98+.19,luma+ .18),chalk*.58);
         mineral=mix(mineral,mineral*vec3(1.2,.81,.58),oxide*.34);
         mineral*= (.96+.045*strata)*(1.-seep*.29);
+        // Mineral faces stay exposed. Moss collects in broken pockets on
+        // damp, upward-facing southern ledges and at the forest contact.
+        float southern=smoothstep(96.,105.,vNaturalRock.z);
+        float ledge=smoothstep(.28,.76,faceNormal.y)*smoothstep(.18,.82,strata);
+        float dampFoot=(1.-smoothstep(4.,17.,vNaturalRock.y))*.52;
+        float moss=southern*clamp(ledge*.7+dampFoot,0.,.78)*smoothstep(.23,.74,chalk*.55+seep*.7+runnel*.26);
+        mineral=mix(mineral,mineral*vec3(.47,.69,.29)+vec3(.012,.023,.005),moss);
         diffuseColor.rgb*=mineral;
       #endif`,
         );
     };
-    rock.customProgramCacheKey = () => "natural-karst-chalk-seepage-v5";
+    rock.customProgramCacheKey = () => "natural-karst-mineral-moss-v6";
     // A UV-space normal map cannot follow the triplanar diffuse axes.
     // Real mesh relief supplies correctly oriented normals without three more taps.
     rock.normalMap = null;

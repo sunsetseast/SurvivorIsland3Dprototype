@@ -1,6 +1,6 @@
 # Railay Visual Renaissance
 
-Current checkpoint: 2 of 4 — authored limestone and corrected visual comparison.
+Current checkpoint: 3 of 4 — rooted southern planting and mineral finish.
 Base: main `816ac6912be1c61fe5a03416c726d8bf60c3cc18` (merged PR #27).
 
 Diagnosis (three causes):
@@ -24,3 +24,6 @@ Continuation: check this branch's draft PR and latest Actions run; download `rai
 
 
 Checkpoint 2 follow-up. Inspected run 42529254861 and its paired reports. The Low jungle camera differed by 0.000045 m in x. Capture v1 inherited warm-up camera and collision-cache state and let auto-recenter override the requested orbit. Capture v2 resets the test-only cache at teleport, clears input, holds manual look and settles 300 fixed frames after asset requests finish. The native boom and 1e-6 camera tolerance remain in use, along with the existing draw, triangle and exact resident-resource guards. Added negative camera/orbit regression coverage. Reviewed run 42529254789. The cliff now shows clearer chalk and mineral relief, with foliage and coastal finish still pending. Local Chromium hit process-singleton socket EPERM, so CI provides the WebGL renders.
+
+
+Checkpoint 3. Added 17 authored upper-rim and shelf contacts checked against the shipped Low and High limestone. Kept the roots shared between profiles and reused the existing instanced shrub material and geometry. Varied and lowered southern ferns along the cliff approach, with a few new clustered accents outside the trail and cave. Added broken moss and damp mineral shading to the southern rock. Foliage keeps its existing nonblocking behavior. Shoreline finish and exact-head CI evidence are next.
