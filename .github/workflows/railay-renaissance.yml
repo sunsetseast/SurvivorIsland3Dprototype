@@ -4,7 +4,7 @@ on:
     paths:
       - 'artifacts/survivor-camp-prototype/src/game/environment/**'
       - 'artifacts/survivor-camp-prototype/src/assets/camp/**'
-      - 'artifacts/survivor-camp-prototype/scripts/renaissance-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/scripts/renaissance-*.mjs'
       - '.github/workflows/railay-renaissance.yml'
   workflow_dispatch:
 permissions:
@@ -39,6 +39,11 @@ jobs:
       - name: Capture changed scene
         run: ART_PHASE=after node scripts/renaissance-qa.mjs
         working-directory: change/artifacts/survivor-camp-prototype
+      - name: Verify paired views and render costs
+        run: |
+          node change/artifacts/survivor-camp-prototype/scripts/renaissance-compare.mjs \
+            baseline/docs/railay-renaissance/evidence/before/report.json \
+            change/docs/railay-renaissance/evidence/after/report.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

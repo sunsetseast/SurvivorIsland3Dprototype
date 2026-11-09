@@ -5,6 +5,7 @@ import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 import {
   SPAWN,
+  rng,
   isWalkable,
   movePlayer,
   groundHeight,
@@ -26,6 +27,7 @@ import {
   HIDING_CANDIDATES,
   eligibleHidingCandidates,
 } from "../src/game/environment/hidingSpots.ts";
+import { DemoCampProvider } from "../src/game/simulation/DemoProvider.ts";
 import { CampRuntime, SPOTS } from "../src/game/CampRuntime.ts";
 const t = performance.now(),
   nav = new CampNavigation();
@@ -119,7 +121,8 @@ test("39 future hiding candidates have stable IDs, grounded reachable approaches
   assert.equal(NATURAL_LANDMARKS.length, 12);
 });
 test("an NPC physically completes the remote water trip and returns without expiring its intent en route", () => {
-  const rt = new CampRuntime(undefined, 7141, nav),
+  // Keep surrounding actors active while making their route encounters repeatable.
+  const rt = new CampRuntime(new DemoCampProvider(rng(7141)), 7141, nav),
     n = rt.npcs[0];
   assert.ok(
     rt.request(n, {

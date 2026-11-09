@@ -65,15 +65,24 @@ export function CoastalWater({
      vec3 N=normalize(vec3(slope.x,1.,slope.y));
      vec3 V=normalize(cameraPosition-vCoast);float fresnel=.025+.52*pow(1.-max(0.,dot(V,N)),4.);
      vec3 shallow=uShallow,deep=uDeep,sky=tropicalSky(reflect(-V,N));
-     float depth=1.-exp(-max(0.,d)*.043);vec3 color=mix(shallow,deep,depth);color*=.95+.09*medium;
-     float sandLight=pow(.5+.5*sin(q.x*.63+q.y*.29+medium*3.),5.)*exp(-max(0.,d)*.19);
-     color+=shallow*sandLight*.07; color=mix(color,sky,fresnel);
+     // The sand shelf stays warm and visible through the first few metres;
+     // the shallows shift to turquoise before the deeper Andaman blue.
+     float depth=max(0.,d);
+     float absorption=1.-exp(-depth*.046);
+     vec3 color=mix(shallow,deep,absorption);
+     float sandShelf=exp(-depth*.17);
+     color=mix(color,shallow*.78+vec3(.095,.078,.035),sandShelf*.48);
+     color*=.89+.20*medium;
+     float lightNet=pow(1.-abs(waves.x-capillary.x),12.);
+     color+=vec3(.13,.24,.17)*lightNet*sandShelf*.28;
+     color=mix(color,sky,fresnel*(1.-sandShelf*.25));
      float glint=pow(max(0.,dot(normalize(V+uSun),N)),96.);color+=vec3(1.,.90,.68)*glint*.34;
-     float crest=sin(d*.78-uTime*.78+medium*2.1);float broken=smoothstep(.48,.76,small*.65+medium*.35);
-     float foam=smoothstep(.88,1.,crest)*broken*(1.-smoothstep(.7,4.4,d))*.28;
-     float edge=(1.-smoothstep(.06,.5,abs(d+motion-.25)))*(.20+.80*small)*.28;
-     color=mix(color,vec3(.69,.77,.73),clamp(foam+edge,0.,.65));
-     gl_FragColor=vec4(color,water*mix(.40,.96,smoothstep(0.,10.,d)));
+     float crest=sin(d*.78+uTime*.78+medium*2.1);
+     float broken=smoothstep(.44,.76,small*.65+medium*.35);
+     float foam=smoothstep(.86,1.,crest)*broken*(1.-smoothstep(1.3,5.5,d))*.36;
+     float edge=(1.-smoothstep(.04,.48,abs(d+motion-.25)))*(.12+.88*broken)*.42;
+     color=mix(color,vec3(.77,.83,.76),clamp(foam+edge,0.,.65));
+     gl_FragColor=vec4(color,water*clamp(mix(.34,.96,smoothstep(0.,9.,d))+foam*.3+edge*.4,0.,1.));
      #include <tonemapping_fragment>
      #include <colorspace_fragment>
     }`,
