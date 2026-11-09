@@ -242,7 +242,10 @@ try {
             }
         }
       });
-      const sun = s.scene.children.find((o) => o.isDirectionalLight);
+      let sun;
+      s.scene.traverse((object) => {
+        if (object.isDirectionalLight) sun = object;
+      });
       if (!sun) throw Error("Missing camp sun in the paired capture");
       return {
         ...window.__WORLD_RENDER__.stats(),
