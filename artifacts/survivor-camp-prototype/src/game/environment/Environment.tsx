@@ -356,18 +356,20 @@ export function Environment({ low }: { low: boolean }) {
           });
       }
     });
-    SOUTHERN_LEDGE_PLANTS.forEach(([x, y, z, scale], i) => {
-      out.push({
-        x,
-        y,
-        z,
-        scale,
-        rotation: i * 2.399,
-        tint: i % 3 === 0 ? "#a5cb8d" : "#d3e6a0",
+    // A failed or pending landmark load cannot support the ledge plants.
+    if (kit.landmarks)
+      SOUTHERN_LEDGE_PLANTS.forEach(([x, y, z, scale], i) => {
+        out.push({
+          x,
+          y,
+          z,
+          scale,
+          rotation: i * 2.399,
+          tint: i % 3 === 0 ? "#a5cb8d" : "#d3e6a0",
+        });
       });
-    });
     return out;
-  }, [kit.rock, low]);
+  }, [kit.rock, kit.landmarks, low]);
   const rock = meshPart(kit.rock, low ? "limestone-far" : "limestone-near");
   const rubble = useMemo(() => {
     const m = meshPart(kit.rock, "limestone-far");
