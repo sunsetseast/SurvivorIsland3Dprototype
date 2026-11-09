@@ -10,6 +10,8 @@ const label = process.env.ART_PHASE || "after",
   );
 await mkdir(out, { recursive: true });
 const port = Number(process.env.ART_PORT || "5202");
+const preset = process.env.ART_PRESET || "midday";
+assert.ok(["midday", "afternoon", "golden"].includes(preset), "known paired light preset");
 process.env.PORT = String(port);
 process.env.BASE_PATH = "/";
 const instrument = {
@@ -92,7 +94,8 @@ const browser = await chromium.launch({
 });
 const report = {
   label,
-  captureContract: "static-camp-v2",
+  captureContract: "static-camp-v3",
+  lightingPreset: preset,
   method:
     "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static NPC staging, held manual orbit, fresh teleport cache and fixed 60Hz settling. Host timings are not device/FPS measurements.",
   browser: browser.version(),
@@ -165,7 +168,7 @@ try {
     : ["low", "high"]) {
     const navigationStart = Date.now();
     await page.goto(
-      `http://127.0.0.1:${port}/?quality=${quality}&devTravel=1${process.env.ART_PRESET ? "&atmosphere=" + process.env.ART_PRESET : ""}`,
+      `http://127.0.0.1:${port}/?quality=${quality}&devTravel=1&atmosphere=${preset}`,
     );
     await page.getByTestId("explore-island").waitFor({ state: "visible" });
     const documentToMenuMs = Date.now() - navigationStart;
@@ -239,6 +242,8 @@ try {
             }
         }
       });
+      const sun = s.scene.children.find((o) => o.isDirectionalLight);
+      if (!sun) throw Error("Missing camp sun in the paired capture");
       return {
         ...window.__WORLD_RENDER__.stats(),
         npcSnapshot: window.__ART_QA__.camp.npcs.map(({id,x,y,z,animation}) => ({id,x,y,z,animation})),
@@ -247,6 +252,14 @@ try {
           exposure: s.gl.toneMappingExposure,
           outputColorSpace: s.gl.outputColorSpace,
           msaa: s.gl.getContext().getParameter(s.gl.getContext().SAMPLES),
+          shadows: s.gl.shadowMap.enabled,
+          sun: {
+            position: sun.position.toArray(),
+            target: sun.target.position.toArray(),
+            color: sun.color.getHex(),
+            intensity: sun.intensity,
+            shadowProjection: sun.shadow.camera.projectionMatrix.toArray(),
+          },
         },
         geometryBytes,
         shelterCompletionBytes,

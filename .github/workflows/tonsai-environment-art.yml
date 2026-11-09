@@ -19,6 +19,10 @@ jobs:
   limestone:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Compare the legacy native art poses under the original common sun.
+      # The Railay workflow separately exercises the changed golden lighting.
+      ART_PRESET: midday
     defaults:
       run:
         working-directory: artifacts/survivor-camp-prototype
