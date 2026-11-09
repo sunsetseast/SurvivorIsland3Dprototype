@@ -23,6 +23,7 @@ export type LocationInstance = {
 };
 export type Participant = {
   id: string;
+  survivorId?: number;
   tribeId: string;
   instanceId: InstanceId;
 };

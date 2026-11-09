@@ -34,7 +34,7 @@ import { StillwaterHud } from "./stillwater/Hud";
 import { stillwater } from "./stillwater/session";
 import { rehearsalAbility } from "./stillwater/engine";
 import { camp } from "../CampRuntime";
-import { CONTESTANTS } from "../simulation/DemoProvider";
+import { castMember, PLAYER_SLOT } from "../character/cast";
 import { Survivor } from "../Survivor";
 import { StillwaterCamera } from "./stillwater/Camera";
 import { worldTravel } from "../locations/travel";
@@ -65,6 +65,16 @@ function Ground({ low }: { low: boolean }) {
   useEffect(() => () => geometry.dispose(), [geometry]);
   return <mesh name="challenge-ground-ready" geometry={geometry} material={material} receiveShadow/>;
 }
+function challengeCast() {
+  const selected = castMember(worldTravel.session.participant.survivorId)?.source;
+  const opponents = camp.npcs.slice(0, 7).map(({ id }) => {
+    const attributes = castMember(id)!.source;
+    return { id, name: attributes.firstName, attributes };
+  });
+  return selected
+    ? [{ id: PLAYER_SLOT, name: `${selected.firstName} (You)`, attributes: selected }, ...opponents]
+    : opponents;
+}
 export function ChallengeScene({ low, arrival, initialConfiguration="beach-obstacle" }: { low: boolean; arrival?: Pose; initialConfiguration?:ChallengeId }) {
   useSyncExternalStore(stillwater.subscribe,()=>stillwater.ownsControls);
   useSyncExternalStore(coastal.subscribe,coastal.snapshot);
@@ -83,7 +93,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   useEffect(()=>{
     return stillwater.configure({
       admit:()=>rehearsalActive()&&selected.current?.id==="individual-balance",
-      roster:()=>camp.npcs.slice(0,7).map(n=>{const p=CONTESTANTS.find(p=>p.id===n.id);return {id:n.id,name:p?.firstName??`Contestant ${n.id}`,ability:rehearsalAbility(p??{})};}),
+      roster: () => challengeCast().map(({ id, name, attributes }) => ({ id, name, ability: rehearsalAbility(attributes) })),
       capture:()=>{inspection.current=null;return {x:dbg.x,z:dbg.z,yaw:input.yaw,pitch:input.pitch,facing:dbg.face};},
       restore:p=>{dbg.teleportRequested={x:p.x,z:p.z};input.yaw=p.yaw;input.pitch=p.pitch;},
       release:clearInput,
@@ -91,7 +101,7 @@ export function ChallengeScene({ low, arrival, initialConfiguration="beach-obsta
   },[]);
   useEffect(()=>coastal.configure({
     admit:()=>rehearsalActive()&&selected.current?.id==="beach-obstacle",
-    roster:()=>camp.npcs.slice(0,7).map(n=>{const p=CONTESTANTS.find(p=>p.id===n.id);return {id:n.id,name:p?.firstName??`Contestant ${n.id}`,...traits(p??{})};}),
+    roster: () => challengeCast().map(({ id, name, attributes }) => ({ id, name, ...traits(attributes) })),
     capture:()=>{const pose={x:dbg.x,z:dbg.z,yaw:input.yaw,pitch:input.pitch,facing:dbg.face};input.yaw=Math.PI;input.pitch=.34;cancelDrive(raceDrive.current);return pose;},
     restore:p=>{coastalReturn.current={...p};dbg.teleportRequested={x:p.x,z:p.z};input.yaw=p.yaw;input.pitch=p.pitch;},release:clearInput,
   }),[]);

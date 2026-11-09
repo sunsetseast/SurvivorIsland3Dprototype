@@ -1,0 +1,38 @@
+name: Survivor cast migration
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/App.tsx'
+      - 'artifacts/survivor-camp-prototype/src/assets/characters/**'
+      - 'artifacts/survivor-camp-prototype/src/game/character/**'
+      - 'artifacts/survivor-camp-prototype/scripts/*cast*'
+      - 'tools/character/**'
+      - '.github/workflows/cast-migration.yml'
+permissions:
+  contents: read
+concurrency:
+  group: cast-migration-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  cast-webgl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+      - working-directory: artifacts/survivor-camp-prototype
+        run: |
+          node scripts/validate-cast.mjs
+          node --import tsx --test tests/cast.test.mjs
+          pnpm exec playwright install --with-deps chromium
+          PORT=5226 BASE_PATH=/ CAST_EVIDENCE=cast-evidence node scripts/cast-model-qa.mjs
+          CAST_EVIDENCE=cast-evidence node scripts/cast-gameplay-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cast-landscape-webgl
+          path: artifacts/survivor-camp-prototype/cast-evidence

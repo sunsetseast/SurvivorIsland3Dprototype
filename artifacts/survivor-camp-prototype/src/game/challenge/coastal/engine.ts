@@ -1,3 +1,4 @@
+import { PLAYER_SLOT } from "../../character/cast";
 import { snap } from './mosaic';
 import { movementVector } from '../../cameraController';
 export const STEP=1/60, LANES=[-27,-14] as const, HEAT_LIMIT=240;
@@ -21,7 +22,10 @@ export class CoastalEngine {
  private accumulator=0;
  input={x:0,forward:0};
  constructor(entrants:readonly Entrant[],readonly seed=1){
-  const seen=new Set([0]);const roster=[{id:0,name:'You',physical:.5,dexterity:.5,focus:.5},...entrants.filter(p=>p.id!==0&&!seen.has(p.id)&&!!seen.add(p.id)).slice(0,7)];
+  const seen = new Set([PLAYER_SLOT]);
+  const human = entrants.find((entrant) => entrant.id === PLAYER_SLOT);
+  const roster = [{ id: PLAYER_SLOT, name: 'You', physical: .5, dexterity: .5, focus: .5, ...human },
+    ...entrants.filter((p) => !seen.has(p.id) && !!seen.add(p.id)).slice(0, 7)];
   this.state={phase:'introduction',resume:'racing',clock:0,heat:0,heatStart:0,countdown:3,notice:'Two lanes. Overall ranking uses each heat’s personal time.',result:null,runners:roster.map((p,i)=>({...p,lane:i%2,heat:Math.floor(i/2),stage:'sprint',x:LANES[i%2]!,z:-50,lift:0,progress:0,gripTarget:0,balance:0,stability:1,mistakes:0,recoverUntil:0,stageStarted:0,splits:[],finishTime:null,bundles:[false,false,false],slots:Array(6).fill(-1),lastHand:-1,handAt:-100,nextAction:0}))};
  }
  get player(){return this.state.runners[0]!;}

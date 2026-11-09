@@ -1,3 +1,5 @@
+import { PlayableSurvivor, type PlayableMotion } from "./character/PlayableSurvivor";
+import { castModel, type SurvivorModel } from "./character/survivorModels";
 import { TraversalBlend, type LocomotionMotion } from "./locomotionPose";
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
@@ -22,17 +24,55 @@ export type StagedPerson = Pick<
   NpcState,
   "id" | "x" | "y" | "z" | "animation" | "speed" | "distance" | "facing"
 > & { seatHeight?: number; locomotion?: LocomotionMotion };
-export function Contestant({
-  npc,
-  terrain = groundHeight,
-  time,
-  material: stagedMaterial,
-}: {
+type ContestantProps = {
   npc: StagedPerson;
   terrain?: typeof groundHeight;
   time?: () => number;
   material?: THREE.Material;
-}) {
+};
+export function Contestant(props: ContestantProps) {
+  const model = castModel(props.npc.id);
+  return model ? <RiggedContestant {...props} model={model} /> : <ProceduralContestant {...props} />;
+}
+
+function RiggedContestant({ npc, terrain = groundHeight, model }: ContestantProps & { model: SurvivorModel }) {
+  const root = useRef<THREE.Group>(null);
+  const motion = useRef<PlayableMotion>({ speed: 0, running: false, distance: 0 });
+  useFrame((_, rawDt) => {
+    if (!root.current) return;
+    const start = performance.now();
+    const dt = Math.min(rawDt, 0.05);
+    root.current.position.set(npc.x, npc.y, npc.z);
+    root.current.rotation.y = turnToward(root.current.rotation.y, npc.facing, dt);
+    Object.assign(motion.current, {
+      ...npc.locomotion,
+      speed: npc.speed,
+      distance: npc.distance,
+      running: npc.locomotion?.running ?? npc.speed > 3.6,
+      state: npc.locomotion?.state ?? (npc.animation === "work" ? "interact" : undefined),
+      seated: npc.animation === "sit",
+      seatHeight: npc.seatHeight,
+      talking: npc.animation === "talk",
+    });
+    const elapsed = performance.now() - start;
+    characterAnimationMetrics.updates++;
+    characterAnimationMetrics.totalMs += elapsed;
+    characterAnimationMetrics.maxMs = Math.max(characterAnimationMetrics.maxMs, elapsed);
+  }, -0.1);
+  return (
+    <group ref={root} name={`contestant-${npc.id}`} position={[npc.x, npc.y, npc.z]} rotation={[0, npc.facing, 0]}
+      userData={{ contestantId: npc.id, visualVersion: 3, hero: true }}>
+      <PlayableSurvivor motion={motion} height={terrain} model={model} supporting />
+    </group>
+  );
+}
+
+function ProceduralContestant({
+  npc,
+  terrain = groundHeight,
+  time,
+  material: stagedMaterial,
+}: ContestantProps) {
   const mesh = (g: Geo, name?: string) => <mesh name={name} geometry={g} material={stagedMaterial ?? material} castShadow />;
   const p = useMemo(() => buildContestant(npc.id), [npc.id]);
   useEffect(

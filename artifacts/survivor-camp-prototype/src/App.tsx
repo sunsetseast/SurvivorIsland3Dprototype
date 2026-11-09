@@ -1,3 +1,6 @@
+import { castMember, PLAYER_SLOT } from "@/game/character/cast";
+import { saveSurvivorSelection } from "@/game/character/selectionSave";
+import { councilAttendance } from "@/game/tribal/attendance";
 import {coastal} from "@/game/challenge/coastal/session";
 import {
   lazy,
@@ -12,7 +15,7 @@ import { Scene } from "@/game/Scene";
 import { Hud, TouchButton } from "@/game/Hud";
 import { dbg, input, clearInput as releaseInput } from "@/game/state";
 import { TribalOverlay } from "@/game/tribal/TribalIntro";
-import { camp } from "@/game/CampRuntime";
+import { camp, resetCampForSelection } from "@/game/CampRuntime";
 import { worldTravel } from "@/game/locations/travel";
 import { LOCATIONS } from "@/game/locations/registry";
 import { challengeTestingEnabled } from "@/game/challenge/development";
@@ -25,6 +28,16 @@ import {
   LocationErrorBoundary,
   waitForSceneRelease,
 } from "@/game/locations/SceneLifecycle";
+
+const SurvivorSelection = lazy(() => import("@/game/character/SurvivorSelection").then((module) => ({ default: module.SurvivorSelection })));
+
+function stageSelectedCast(survivorId: number) {
+  resetCampForSelection(survivorId);
+  councilAttendance.setJury([]);
+  councilAttendance.setParticipants([...camp.npcs.map((person) => person.id), PLAYER_SLOT]);
+}
+const savedSurvivorId = worldTravel.session.participant.survivorId;
+if (savedSurvivorId !== undefined) stageSelectedCast(savedSurvivorId);
 
 const IslandScene = lazy(() =>
   import("@/game/railay/IslandScene").then((m) => ({ default: m.IslandScene })),
@@ -74,6 +87,9 @@ function App() {
   );
   const [overview, setOverview] = useState(false);
   const [testingHub,setTestingHub]=useState(false);
+  const [selecting, setSelecting] = useState(false);
+  const chosen = castMember(worldTravel.session.participant.survivorId)?.source;
+  const canContinue = !!chosen || import.meta.env.DEV;
   const [islandControlsLocked, setIslandControlsLocked] = useState(false);
   const [islandReady, setIslandReady] = useState(false);
   useEffect(() => {
@@ -91,11 +107,20 @@ function App() {
     input.pitch = 0.34;
     dbg.resetRequested = false;
     dbg.teleportRequested = null;
-    if (next === "menu") {setTestingHub(false);worldTravel.menu();}
+    if (next === "menu") {setSelecting(false);setTestingHub(false);worldTravel.menu();}
     else if (next === "camp")
       worldTravel.enter("camp_tribe_a", developerTravel && worldTravel.session.locationId !== "challenge_main");
     else if (next === "tribal") worldTravel.enter("tribal_council", true);
     else if (developerTravel) worldTravel.enter("railay_trails", true);
+  };
+  const confirmSurvivor = (survivorId: number) => {
+    if (!worldTravel.beginSurvivorSession(survivorId)) return;
+    stillwater.exit();
+    coastal.exit();
+    stageSelectedCast(survivorId);
+    try { saveSurvivorSelection(window.localStorage, survivorId); } catch { /* Private storage may be unavailable. */ }
+    setSelecting(false);
+    enter("camp");
   };
   const leaveTesting=(hub:boolean)=>{stillwater.exit();coastal.exit();enter("menu");setTestingHub(hub);};
   useEffect(() => {
@@ -281,7 +306,11 @@ function App() {
             <Hud onMenu={() => enter("menu")} />
           ))}
         <TravelHud blocked={mode === "railay" && islandControlsLocked} />
-        {mode === "menu" && testingHub && challengeTestingEnabled() ? <ChallengeTestingHub onSelect={id=>{releaseInput();dbg.teleportRequested=null;dbg.resetRequested=false;worldTravel.enterChallengeTesting(id);}} onWelcome={()=>{releaseInput();setTestingHub(false);}}/> : mode === "menu" && (
+        {mode === "menu" && selecting ? (
+          <Suspense fallback={<div className="island-loading">Preparing the cast…</div>}>
+            <SurvivorSelection initial={chosen?.id} onConfirm={confirmSurvivor} onBack={() => setSelecting(false)} />
+          </Suspense>
+        ) : mode === "menu" && testingHub && challengeTestingEnabled() ? <ChallengeTestingHub onSelect={id=>{releaseInput();dbg.teleportRequested=null;dbg.resetRequested=false;worldTravel.enterChallengeTesting(id);}} onWelcome={()=>{releaseInput();setTestingHub(false);}}/> : mode === "menu" && (
           <main className="sanctuary-menu">
             <div className="sanctuary-menu-inner">
               <p className="sanctuary-eyebrow">
@@ -298,12 +327,15 @@ function App() {
                 Your tribe is waiting at camp.
               </p>
               <TouchButton
-                data-testid="explore-island"
+                data-testid={canContinue ? "new-survivor" : "explore-island"}
                 className="sanctuary-primary"
-                onActivate={() => enter("camp")}
+                onActivate={() => { releaseInput(); setSelecting(true); }}
               >
-                Continue Survivor Session <span>→</span>
+                New Game <span>→</span>
               </TouchButton>
+              {canContinue && <TouchButton data-testid="explore-island" className="sanctuary-secondary" onActivate={() => enter("camp")}>
+                {chosen ? `Continue as ${chosen.firstName}` : "Continue Prototype Session"} <span>→</span>
+              </TouchButton>}
               {challengeTestingEnabled()&&<TouchButton data-testid="challenge-testing" className="sanctuary-secondary testing-welcome-action" onActivate={()=>{releaseInput();setTestingHub(true);}}>Challenge Testing <span>→</span></TouchButton>}
               <TouchButton
                 data-testid="explore-tribal"

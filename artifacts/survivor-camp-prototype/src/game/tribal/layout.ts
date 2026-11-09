@@ -119,13 +119,13 @@ export const TRIBAL = {
   },
   jurors: Array.from({ length: 12 }, (_, i) => {
     const tier = Math.floor(i / 4),
-      x = -17 - tier * 2.2,
+      x = -17 - tier * 2.2 + 0.18,
       z = -5.8 + (i % 4) * 1.75;
     return anchor(
       `juror-${i + 1}`,
       x,
       z,
-      0.75 + tier * 0.42 + 0.45,
+      0.75 + tier * 0.42 + 0.53, // Top of the bench plank.
       Math.PI / 2,
     );
   }),

@@ -1,3 +1,4 @@
+import { PLAYER_SLOT } from "../../character/cast";
 /** Pure 60 Hz rehearsal simulation. No DOM, renderer, camp or season authority. */
 export const STEP = 1 / 60;
 export const RULES = { duration: 90, countdown: 3, placementInterval: 10, placementGrace: 7, maxStrikes: 3 } as const;
@@ -28,7 +29,8 @@ export function opponentInput(c: Competitor, t: number) {
 }
 export function assignEntrants(roster: readonly Entrant[], stationCount = 8): Competitor[] {
   if (!Number.isInteger(stationCount) || stationCount < 1 || stationCount > 8) throw Error("Invalid station capacity");
-  const unique = [ { id: 0, name: "You" }, ...roster.filter(p => p.id !== 0) ].filter((p, i, all) => all.findIndex(q => q.id === p.id) === i).slice(0, stationCount);
+  const human = roster.find((person) => person.id === PLAYER_SLOT) ?? { id: PLAYER_SLOT, name: "You" };
+  const unique = [human, ...roster.filter(p => p.id !== PLAYER_SLOT)].filter((p, i, all) => all.findIndex(q => q.id === p.id) === i).slice(0, stationCount);
   return unique.map((p, station) => ({ ...p, ability: clamp(p.ability ?? .65, .2, .95), station, balance: 0, velocity: 0, control: 0, stability: 1, placed: 0, strikes: 0, nextPlacement: 8, eliminatedAt: null, placementFlash: 0, lastPlacement: "none", phase: 0 }));
 }
 export class StillwaterEngine {
