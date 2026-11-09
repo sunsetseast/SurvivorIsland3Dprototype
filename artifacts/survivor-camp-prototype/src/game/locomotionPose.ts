@@ -17,6 +17,7 @@ export type LocomotionMotion = {
   running: boolean;
   distance: number;
   state?: LocomotionState;
+  turnDirection?: number;
   posture?: number;
   balance?: number;
   climbSlope?: number;

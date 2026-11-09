@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as T from "three";
 import { Contestant, type StagedPerson } from "../../Contestants";
-import { Survivor } from "../../Survivor";
+import { PlayableSurvivor } from "../../character/PlayableSurvivor";
 import { createCharacterMaterial } from "../../characterSurface";
 import { runnerVisual, challengeGait, runnerPresentations } from "./visual";
 import type { CoastalEngine, Runner } from "./engine";
@@ -134,7 +134,7 @@ function Actor({
     <group ref={group} name={`coastal-runner-${r.id}`}>
       <group name="proportional-articulated-body">
         {r.id === 0 ? (
-          <Survivor motion={motion} />
+          <PlayableSurvivor motion={motion} />
         ) : (
           <Contestant
             npc={npc}

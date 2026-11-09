@@ -12,6 +12,7 @@ import {
   type Point,
 } from "./world";
 import { Survivor } from "./Survivor";
+import { PlayableSurvivor } from "./character/PlayableSurvivor";
 import { dbg, input, clearInput } from "./state";
 import { camp } from "./CampRuntime";
 import { worldTravel } from "./locations/travel";
@@ -381,7 +382,7 @@ export function Player({
   return (
     <group ref={root} name="exploration-player">
       <group ref={heading}>
-        <Survivor motion={motion} />
+        {isCamp ? <PlayableSurvivor motion={motion} height={groundHeight} /> : <Survivor motion={motion} />}
       </group>
     </group>
   );
