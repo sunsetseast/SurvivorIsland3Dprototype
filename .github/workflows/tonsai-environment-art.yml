@@ -19,6 +19,10 @@ jobs:
   limestone:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Compare the legacy native art poses under the original common sun.
+      # The Railay workflow separately exercises the changed golden lighting.
+      ART_PRESET: midday
     defaults:
       run:
         working-directory: artifacts/survivor-camp-prototype
@@ -41,7 +45,9 @@ jobs:
         run: |
           baseline="$RUNNER_TEMP/tonsai-art-baseline"
           evidence="$GITHUB_WORKSPACE/docs/tonsai-art/evidence/before"
-          git worktree add --detach "$baseline" 7b93d5444946217a6c5a59acb93ada563e6c1288
+          # PR #27 changed the native follow camera. Pair with merged PR #27 so
+          # camera parity measures this art change against its actual base.
+          git worktree add --detach "$baseline" 816ac6912be1c61fe5a03416c726d8bf60c3cc18
           trap 'git worktree remove --force "$baseline"' EXIT
           ln -s "$GITHUB_WORKSPACE/node_modules" "$baseline/node_modules"
           app=artifacts/survivor-camp-prototype

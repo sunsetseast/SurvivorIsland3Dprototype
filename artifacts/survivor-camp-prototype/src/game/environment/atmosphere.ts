@@ -38,21 +38,21 @@ export const ATMOSPHERES = {
     waterDeep: "#254e62",
   },
   golden: {
-    sun: [-0.95, 0.23, -0.2],
-    zenith: "#548bb8",
-    horizon: "#e2c8a9",
-    haze: "#bdb6ae",
-    sunlight: "#ffd092",
-    ambient: "#b9c7df",
-    bounce: "#6f634f",
-    sunIntensity: 2.4,
-    ambientIntensity: 1.15,
+    sun: [-0.86, 0.39, -0.33],
+    zenith: "#145ca6",
+    horizon: "#c3d9df",
+    haze: "#8eb1bd",
+    sunlight: "#ffe0ae",
+    ambient: "#a3c4de",
+    bounce: "#68684a",
+    sunIntensity: 3.05,
+    ambientIntensity: 0.92,
     exposure: 0.96,
-    cloudLight: "#ffdcab",
-    cloudShade: "#a6adbd",
+    cloudLight: "#ffe4bd",
+    cloudShade: "#7d9fb8",
     cloudCoverage: 1,
-    waterShallow: "#587f73",
-    waterDeep: "#344f61",
+    waterShallow: "#1aab9e",
+    waterDeep: "#125075",
   },
 } as const;
 export type AtmosphereName = keyof typeof ATMOSPHERES;
@@ -64,7 +64,7 @@ export function atmosphereName(search = ""): AtmosphereName {
     value &&
     Object.hasOwn(ATMOSPHERES, value)
     ? (value as AtmosphereName)
-    : "midday";
+    : "golden";
 }
 export const sunDirection = (a: Atmosphere) =>
   new T.Vector3(...a.sun).normalize();

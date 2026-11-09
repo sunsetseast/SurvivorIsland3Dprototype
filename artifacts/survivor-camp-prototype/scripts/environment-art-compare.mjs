@@ -12,7 +12,8 @@ const before = await load("before"),
   after = await load("after");
 for (const report of [before, after]) {
   assert.equal(report.result, "PASS");
-  assert.equal(report.captureContract, "static-camp-v1", "recapture both refs with the same static camp fixture");
+  assert.equal(report.captureContract, "static-camp-v4", "recapture both refs with the same static camp fixture");
+  assert.ok(["midday", "afternoon", "golden"].includes(report.lightingPreset), "explicit light preset");
   assert.deepEqual(report.errors, []);
   assert.equal(
     report.poses.length,
@@ -20,9 +21,11 @@ for (const report of [before, after]) {
     "12 native and 2 inspection poses per quality",
   );
 }
+assert.equal(after.lightingPreset, before.lightingPreset, "paired light preset");
 const summary = {
   method:
     "Paired production WebGL reports from the same runner and static NPC fixture; timings are excluded from budget assertions.",
+  lightingPreset: before.lightingPreset,
   nativePairs: 0,
   inspectionPairs: 0,
   maxCameraDifference: 0,
@@ -34,6 +37,10 @@ for (const a of before.poses) {
     (p) => p.quality === a.quality && p.name === a.name,
   );
   assert.ok(b, `missing ${a.quality}/${a.name}`);
+  assert.deepEqual(
+    [b.x, b.z, b.yaw, b.pitch], [a.x, a.z, a.yaw, a.pitch],
+    `requested pose changed ${a.quality}/${a.name}`,
+  );
   if (a.camera.inspection) {
     assert.deepEqual(b.camera, a.camera);
     summary.inspectionPairs++;

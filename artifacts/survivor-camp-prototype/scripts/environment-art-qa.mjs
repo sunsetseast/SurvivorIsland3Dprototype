@@ -10,6 +10,8 @@ const label = process.env.ART_PHASE || "after",
   );
 await mkdir(out, { recursive: true });
 const port = Number(process.env.ART_PORT || "5202");
+const preset = process.env.ART_PRESET || "midday";
+assert.ok(["midday", "afternoon", "golden"].includes(preset), "known paired light preset");
 process.env.PORT = String(port);
 process.env.BASE_PATH = "/";
 const instrument = {
@@ -21,6 +23,21 @@ const instrument = {
       '\nif(typeof window!=="undefined"){window.__ART_QA__??={};' +
       code +
       "}";
+    if (id.endsWith("/src/App.tsx")) {
+      // Start the actual R3F callbacks on a fixed clock after asset decoding.
+      // Pausing an already-running canvas leaves batch/boom timers in a
+      // startup-dependent phase even when the next frames use fixed deltas.
+      const canvas = /(<Canvas\s+)frameloop=\{[^}]+\}/;
+      assert.ok(canvas.test(src), "native capture canvas fixture");
+      return src.replace(canvas, '$1frameloop="never"');
+    }
+    if (id.endsWith("/game/Player.tsx")) {
+      // Each test teleport starts with a fresh broadphase cache. The real
+      // Player boom and its collision resolution still place the camera.
+      const signature = "if (dbg.teleportRequested) {";
+      assert.ok(src.includes(signature), "native player teleport fixture");
+      return src.replace(signature, signature + " envelope.clear();");
+    }
     if (id.endsWith("/game/world.ts"))
       return append(
         "window.__ART_QA__.world={SPAWN,groundHeight,isWalkable,movePlayer};",
@@ -85,9 +102,10 @@ const browser = await chromium.launch({
 });
 const report = {
   label,
-  captureContract: "static-camp-v1",
+  captureContract: "static-camp-v4",
+  lightingPreset: preset,
   method:
-    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static initial NPC staging, fixed 60Hz player/culling simulation. Host timings are not device/FPS measurements.",
+    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static NPC staging, manual orbit and fresh teleport cache. Fixed 60Hz from the first scene frame. Host timings are not device/FPS measurements.",
   browser: browser.version(),
   errors: [],
   samples: [],
@@ -158,7 +176,7 @@ try {
     : ["low", "high"]) {
     const navigationStart = Date.now();
     await page.goto(
-      `http://127.0.0.1:${port}/?quality=${quality}&devTravel=1${process.env.ART_PRESET ? "&atmosphere=" + process.env.ART_PRESET : ""}`,
+      `http://127.0.0.1:${port}/?quality=${quality}&devTravel=1&atmosphere=${preset}`,
     );
     await page.getByTestId("explore-island").waitFor({ state: "visible" });
     const documentToMenuMs = Date.now() - navigationStart;
@@ -167,7 +185,6 @@ try {
     await page.waitForFunction(
       () =>
         window.__WORLD_RENDER__?.scene.getObjectByName("camp-assets-ready") &&
-        window.__CAMP_DEBUG__?.position.y > 0 &&
         (!window.__WORLD_RENDER__.scene.getObjectByName(
           "andaman-tropical-sky",
         ) ||
@@ -175,6 +192,7 @@ try {
             .material.userData.cloudReady === true),
     );
     const readyMs = Date.now() - start;
+    await page.waitForLoadState("networkidle");
     await page.evaluate(() => {
       const q = window.__ART_QA__,
         s = window.__WORLD_RENDER__.state;
@@ -187,7 +205,15 @@ try {
         render: s.gl.render.bind(s.gl),
       });
     });
-    await advance(150, true);
+    await advance(3);
+    await page.getByTestId("button-menu").waitFor({ state: "visible" });
+    await page.evaluate(() => {
+      const q = window.__ART_QA__;
+      q.io.clearInput();
+      q.io.dbg.teleportRequested = { ...q.world.SPAWN };
+      Object.assign(q.io.input, { yaw: 0, pitch: 0.34, looking: true });
+    });
+    await advance(300, true);
     await page.evaluate(() => window.__ART_QA__.s.gl.getContext().finish());
     const stats = await page.evaluate(() => {
       const s = window.__ART_QA__.s,
@@ -225,6 +251,11 @@ try {
             }
         }
       });
+      let sun;
+      s.scene.traverse((object) => {
+        if (object.isDirectionalLight) sun = object;
+      });
+      if (!sun) throw Error("Missing camp sun in the paired capture");
       return {
         ...window.__WORLD_RENDER__.stats(),
         npcSnapshot: window.__ART_QA__.camp.npcs.map(({id,x,y,z,animation}) => ({id,x,y,z,animation})),
@@ -233,6 +264,14 @@ try {
           exposure: s.gl.toneMappingExposure,
           outputColorSpace: s.gl.outputColorSpace,
           msaa: s.gl.getContext().getParameter(s.gl.getContext().SAMPLES),
+          shadows: s.gl.shadowMap.enabled,
+          sun: {
+            position: sun.position.toArray(),
+            target: sun.target.position.toArray(),
+            color: sun.color.getHex(),
+            intensity: sun.intensity,
+            shadowProjection: sun.shadow.camera.projectionMatrix.toArray(),
+          },
         },
         geometryBytes,
         shelterCompletionBytes,
@@ -390,14 +429,17 @@ try {
           const q = window.__ART_QA__;
           if (!q.world.isWalkable(x, z))
             throw Error("Unwalkable fixed pose " + x + "," + z);
+          q.io.clearInput();
           q.io.dbg.teleportRequested = { x, z };
+          // Hold the requested manual orbit while the native boom settles.
+          q.io.input.looking = true;
           q.io.input.yaw = yaw;
           q.io.input.pitch = pitch;
         },
         { x, z, yaw, pitch },
       );
       console.log("RENDER", quality, name);
-      await advance(90, true);
+      await advance(300, true);
       report.poses.push({
         quality,
         name,

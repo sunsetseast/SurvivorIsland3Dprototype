@@ -183,7 +183,10 @@ export function campGroundMaterial() {
    float habitat=clamp(cw.r+(grain-.18)*.38*cw.r*(1.-cw.r)*4.,0.,1.);
    vec3 soil=mix(forest*1.07,mix(forest*.9,beach,.24),smoothstep(.15,.9,cw.g));
    vec3 albedo=mix(beach,soil,habitat);
-   albedo*=mix(vec3(.65,.70,.66),vec3(1.06,1.025,.94),cw.a)*mix(.82,1.,cw.b);
+   // Dry sunlit grains fade into a cooler, darker swash band. Use the
+   // existing shore mask and rotated sand sample, without another map.
+   float wet=(1.-smoothstep(.06,.96,cw.a+(sandBroad.r-.32)*.25))*(1.-habitat);
+   albedo*=mix(vec3(1.10,1.065,.98),vec3(.51,.62,.63),wet)*mix(.82,1.,cw.b);
    float sedimentNoise=sin(vCampGround.x*3.17+sin(vCampGround.z*2.3))*sin(vCampGround.z*2.1)*.14;
    float caveFloor=smoothstep(96.,100.,vCampGround.z)*(1.-smoothstep(110.5,112.,vCampGround.z))*smoothstep(6.8,7.8,vCampGround.x+sedimentNoise)*(1.-smoothstep(14.2,15.2,vCampGround.x+sedimentNoise));
    vec3 caveSediment=mix(vec3(.15,.128,.10),beach*.38,.50)*(1.+sedimentNoise*.75);
@@ -201,10 +204,10 @@ export function campGroundMaterial() {
     compile.call(mat, s, r);
     s.fragmentShader = s.fragmentShader.replace(
       "#include <roughnessmap_fragment>",
-      "#include <roughnessmap_fragment>\nroughnessFactor*=mix(.56,1.,cw.a);",
+      "#include <roughnessmap_fragment>\nroughnessFactor*=mix(1.,.52,wet);",
     );
   };
-  mat.customProgramCacheKey = () => "camp-ground-v4-macro-grain-wetness";
+  mat.customProgramCacheKey = () => "camp-ground-v5-andaman-swash";
   mat.addEventListener("dispose", () => {
     active = false;
     resources.forEach((t) => t.dispose());

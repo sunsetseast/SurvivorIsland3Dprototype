@@ -1,0 +1,53 @@
+name: Railay Renaissance comparison
+on:
+  pull_request:
+    paths:
+      - 'artifacts/survivor-camp-prototype/src/game/environment/**'
+      - 'artifacts/survivor-camp-prototype/src/assets/camp/**'
+      - 'artifacts/survivor-camp-prototype/scripts/renaissance-*.mjs'
+      - '.github/workflows/railay-renaissance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: change
+      - uses: actions/checkout@v4
+        with:
+          ref: 816ac6912be1c61fe5a03416c726d8bf60c3cc18
+          path: baseline
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --global pnpm@11.25.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+        working-directory: change
+      - run: pnpm install --frozen-lockfile --ignore-scripts --config.strict-dep-builds=false
+        working-directory: baseline
+      - run: pnpm exec playwright install --with-deps chromium
+        working-directory: change/artifacts/survivor-camp-prototype
+      - name: Capture unchanged main with identical benchmark
+        run: |
+          cp change/artifacts/survivor-camp-prototype/scripts/renaissance-qa.mjs baseline/artifacts/survivor-camp-prototype/scripts/
+          cd baseline/artifacts/survivor-camp-prototype
+          ART_PHASE=before node scripts/renaissance-qa.mjs
+      - name: Capture changed scene
+        run: ART_PHASE=after node scripts/renaissance-qa.mjs
+        working-directory: change/artifacts/survivor-camp-prototype
+      - name: Verify paired views and render costs
+        run: |
+          node change/artifacts/survivor-camp-prototype/scripts/renaissance-compare.mjs \
+            baseline/docs/railay-renaissance/evidence/before/report.json \
+            change/docs/railay-renaissance/evidence/after/report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: railay-renaissance
+          path: |
+            baseline/docs/railay-renaissance/evidence/before/
+            change/docs/railay-renaissance/evidence/after/

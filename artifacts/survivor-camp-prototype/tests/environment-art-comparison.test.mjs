@@ -11,7 +11,8 @@ const saved = JSON.parse(readFileSync(new URL('../../../docs/tonsai-art/evidence
 function compare(change = () => {}) {
   const root = mkdtempSync(join(tmpdir(), 'art-comparison-'));
   const before = structuredClone(saved);
-  before.captureContract = 'static-camp-v1';
+  before.captureContract = 'static-camp-v4';
+  before.lightingPreset = 'midday';
   // Historical fixtures grant no fallback-removal allowance; real paired captures measure it explicitly.
   before.samples.forEach(s => { s.fallbackTextureBytesEstimate = 0; s.npcSnapshot = [{id:11,x:0,y:0,z:0,animation:'sit'}]; });
   const after = structuredClone(before);
@@ -31,10 +32,10 @@ test('paired comparison still rejects a three-draw regression', () => {
   assert.match(result.stderr, /draw-call budget/);
 });
 test('paired comparison rejects changed NPC staging and renderer conditions', () => {
-  for (const change of [r => { r.samples[0].npcSnapshot[0].x++; }, r => { r.browser += '-other'; }]) {
+  for (const change of [r => { r.samples[0].npcSnapshot[0].x++; }, r => { r.browser += '-other'; }, r => { r.lightingPreset = 'golden'; }]) {
     const result = compare(change);
     assert.notEqual(result.status, 0);
-    assert.match(result.stderr, /NPC staging|same browser/);
+    assert.match(result.stderr, /NPC staging|same browser|paired light preset/);
   }
 });
 
@@ -49,4 +50,15 @@ test('paired comparison accepts only the measured shelter and bounded debris acc
   const result=compare(r=>{r.samples[0].groundDetailBytes=3457;r.samples[0].geometryBytes+=3457;});
   assert.notEqual(result.status,0);
   assert.match(result.stderr,/bounded cave ground-detail/);
+});
+
+test('paired comparison rejects camera and requested-orbit changes', () => {
+  for (const change of [
+    r => { r.poses.find(p => !p.camera.inspection).camera.x += 0.00001; },
+    r => { r.poses[0].yaw += 0.1; },
+  ]) {
+    const result = compare(change);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /camera changed|requested pose changed/);
+  }
 });

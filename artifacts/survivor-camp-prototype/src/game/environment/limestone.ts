@@ -15,9 +15,15 @@ function fractureSection(t: number, values: readonly number[]) {
   return values[i]! + (values[i + 1]! - values[i]!) * eased;
 }
 export function karstRimHeight(x: number, depth = 0) {
+  // Broad, unequal limestone shoulders instead of a single conical summit.
+  // The gently rolling rear crown provides real rooting surfaces in both LODs.
+  const shoulder = fractureSection(
+    (x + 40) / 82,
+    [38, 45, 52, 54, 57, 58, 54, 49, 50, 43, 35],
+  );
   return (
-    cliffTopHeight(x) * (1 - 0.23 * depth) +
-    fractureSection(depth, [0, 8, 10, 7, 10, 7, 3, 0]) *
+    (cliffTopHeight(x) * 0.48 + shoulder * 0.52) * (1 - 0.09 * depth) +
+    fractureSection(depth, [0, 2.5, 4.5, 3.5, 4, 2, 1, 0]) *
       (0.87 + 0.13 * Math.sin(x * 0.13 + 1))
   );
 }
@@ -34,8 +40,8 @@ export function southernCliffSurface(
     4.2 * (noise2(x * 0.085 + 3, h * 0.08) - 0.5) +
     2.3 * (noise2(x * 0.24 + 8, h * 0.19) - 0.5);
   const shelves =
-    2.4 * Math.exp(-(((h - 24 - x * 0.12) / 4) ** 2)) -
-    1.8 * Math.exp(-(((h - 39 + x * 0.15) / 5) ** 2));
+    3.8 * Math.exp(-(((h - 24 - x * 0.12) / 3.4) ** 2)) -
+    2.8 * Math.exp(-(((h - 39 + x * 0.15) / 4.2) ** 2));
   const front =
     cliffFaceZ(x, h) * (1 - high) +
     high *
@@ -60,10 +66,10 @@ export function southernCliffSurface(
   const outer = Math.pow(Math.abs(x) / 42, 3);
   const rounded =
     8.5 * g(d, 0.27, 0.17) + 5 * g(d, 0.71, 0.16) - 2.8 * g(d, 0.51, 0.06);
-  const fractured = fractureSection(d, [0, 3.2, 9.4, 2.9, -1.8, 7.8, 2.1, 0]);
+  const fractured = fractureSection(d, [0, 5.2, 10.8, 4.9, -1.8, 9.8, 4.1, 0]);
   const blend = smoothstep(7, 18, h);
   const lobes = rounded * (1 - blend) + fractured * blend;
-  const undercut = 3.5 * g(h, 5.5, 2.7) + 1.7 * g(h, 19 + d * 5, 2.2);
+  const undercut = 3.5 * g(h, 5.5, 2.7) + 3.4 * g(h, 19 + d * 5, 2.2);
   // The new western foot begins beyond z=105, outside the walkable beach end.
   const foot = (1 - smoothstep(0, 11, h)) * 3.4 * g(d, 0.7, 0.23);
   const side =
