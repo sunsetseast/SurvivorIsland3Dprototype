@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "source": {
+    "repository": "sunsetseast/SurvivorIsland2025",
+    "revision": "cf894e578d77fce1e588d793dfc8d14f61ec7628",
+    "identityManifest": "artifacts/survivor-camp-prototype/src/game/character/cast.json"
+  },
+  "rights": {
+    "referenceImages": "CBS stills and original project avatars are for observation only. No reference pixels are distributed in the benchmark or game.",
+    "likeness": "Contestant likeness clearance for publication and commercial use remains unverified.",
+    "assetProvenance": "docs/character-renaissance/FINAL_REPORT.md"
+  },
+  "people": {
+    "1": {
+      "name": "Ozzy Lusth",
+      "season": "Cook Islands",
+      "avatar": "Assets/Avatars/ozzy.jpeg",
+      "status": "researched",
+      "references": [
+        {"url": "https://www.truedorktimes.com/s13/images/e3/e3tv88.jpg", "view": "Ep. 3 Aitu confessional, near-front face and pendant"},
+        {"url": "https://www.truedorktimes.com/s13/images/e5/e5tv25.jpg", "view": "Ep. 5 Aitu confessional, three-quarter face and dry curl texture"},
+        {"url": "https://www.truedorktimes.com/s13/images/e7/e7tv59.jpg", "view": "Ep. 7 challenge lineup, center, full silhouette and charcoal shorts"}
+      ],
+      "face": {
+        "shape": "Oval upper face with a narrower lower jaw and rounded chin. Modestly pronounced cheekbone below the outer eye.",
+        "forehead": "Moderate exposed forehead with irregular curls, more covered at the temples.",
+        "eyesAndBrows": "Dark, moderately spaced almond-shaped eyes beneath substantial brows. Outer brow tapers. Upper lids sit closer to the iris than in the illustrated avatar.",
+        "nose": "Defined, mostly straight bridge with a gently rounded tip and modestly flared nostrils.",
+        "mouthAndChin": "Medium-width mouth, defined upper-lip peaks and fuller lower lip. Narrow sparse mustache and patch below the lower lip with scattered jaw stubble.",
+        "ears": "Largely hidden by hair. Use base anatomy under the side curls."
+      },
+      "hair": "Dark brown with sun-lightened tips, unruly curls, asymmetric loose part, full at the temples and down to the nape. The illustrated avatar has longer, straighter hair and heavier facial hair.",
+      "body": "Lean swimmer build with defined shoulders and chest, relatively narrow waist and long limbs.",
+      "clothing": "Shirtless challenge look, charcoal board shorts and small round pendant on a thin dark cord. No marks or typography.",
+      "priorities": ["Short layered curls with an irregular hairline", "Reduced lower-face width and heavy beard", "Defined cheek and brow planes", "Charcoal shorts and cord pendant"],
+      "uncertainties": ["Full orthographic profile and unobstructed ears unavailable in inspected frames", "Hair changes with moisture", "Accessory colors and footwear vary across episodes"],
+      "foundation": {
+        "detail": "medium",
+        "hair": "none",
+        "facialHair": "none",
+        "top": "none",
+        "accessories": [],
+        "garmentStyles": {"boardshorts": {"pattern": "solid", "color": "#343839"}}
+      }
+    }
+  }
+}
