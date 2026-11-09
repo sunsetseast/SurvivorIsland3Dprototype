@@ -4,6 +4,8 @@ on:
     paths:
       - 'artifacts/survivor-camp-prototype/src/game/**'
       - 'artifacts/survivor-camp-prototype/scripts/third-person-qa.mjs'
+      - 'artifacts/survivor-camp-prototype/scripts/character-evidence.mjs'
+      - 'artifacts/survivor-camp-prototype/src/assets/characters/**'
       - 'artifacts/survivor-camp-prototype/scripts/third-person-before-qa.mjs'
       - 'artifacts/survivor-camp-prototype/tests/**'
       - '.github/workflows/third-person-foundation.yml'
@@ -53,7 +55,8 @@ jobs:
       - run: pnpm --filter @workspace/survivor-camp-prototype test
       - run: PORT=5220 BASE_PATH=/ pnpm --filter @workspace/survivor-camp-prototype build
       - run: pnpm --filter @workspace/survivor-camp-prototype exec playwright install --with-deps chromium
-      - run: pnpm --filter @workspace/survivor-camp-prototype exec node scripts/third-person-qa.mjs
+      - name: Touch gameplay and skinned character evidence
+        run: CHARACTER_EVIDENCE=../../docs/character-renaissance/evidence/after pnpm --filter @workspace/survivor-camp-prototype exec node scripts/third-person-qa.mjs
       - uses: actions/checkout@v4
         with:
           ref: af9c61cda4b998a775af6e91fc009f2d393ca785
@@ -62,8 +65,23 @@ jobs:
           ln -s "$GITHUB_WORKSPACE/node_modules" baseline/node_modules
           ln -s "$GITHUB_WORKSPACE/artifacts/survivor-camp-prototype/node_modules" baseline/artifacts/survivor-camp-prototype/node_modules
           BASELINE_ROOT="$GITHUB_WORKSPACE/baseline" pnpm --filter @workspace/survivor-camp-prototype exec node scripts/third-person-before-qa.mjs
+      - uses: actions/checkout@v4
+        with:
+          ref: 760460f679159d42ab241eebe211739a50538a2a
+          path: character-baseline
+      - name: Capture matching merged-main character evidence
+        run: |
+          game=artifacts/survivor-camp-prototype
+          ln -s "$GITHUB_WORKSPACE/node_modules" character-baseline/node_modules
+          ln -s "$GITHUB_WORKSPACE/$game/node_modules" "character-baseline/$game/node_modules"
+          ln -s "$GITHUB_WORKSPACE/$game/dist" "character-baseline/$game/dist"
+          cp "$game/scripts/third-person-qa.mjs" "$game/scripts/character-evidence.mjs" "character-baseline/$game/scripts/"
+          cd "character-baseline/$game"
+          CHARACTER_BASELINE=1 CHARACTER_EVIDENCE="$GITHUB_WORKSPACE/docs/character-renaissance/evidence/before" node scripts/third-person-qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: third-person-touch-webgl
-          path: docs/third-person-foundation/evidence/
+          path: |
+            docs/third-person-foundation/evidence/
+            docs/character-renaissance/evidence/

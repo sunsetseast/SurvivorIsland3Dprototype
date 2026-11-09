@@ -1,6 +1,6 @@
 # Survivor character rebuild
 
-Checkpoint 3 of 4. Base is main at `760460f679159d42ab241eebe211739a50538a2a`, the merge of PR #28. The working branch is `feat/survivor-character-renaissance`.
+Checkpoint 4 of 4. Base is main at `760460f679159d42ab241eebe211739a50538a2a`, the merge of PR #28. The working branch is `feat/survivor-character-renaissance`.
 
 ## Diagnosis
 
@@ -22,4 +22,4 @@ Checkpoint 3 of 4. Base is main at `760460f679159d42ab241eebe211739a50538a2a`, t
 
 ## Resume
 
-Read the branch tip with `git ls-remote origin refs/heads/feat/survivor-character-renaissance`. The tip containing this file is the latest checkpoint. Next, run the final suite, publish matching frame sequences and record CI results.
+Read the branch tip with `git ls-remote origin refs/heads/feat/survivor-character-renaissance`. The tip containing this file is the latest checkpoint. Checkpoint 3 was verified remotely at `9098283ceca759d7984fe7c5345e1059e1cc1cd5`. The final branch head contains the evidence workflow and [verification report](FINAL_REPORT.md). To reproduce, install with the frozen workspace lockfile, run the camp prototype typecheck and tests, build with `PORT=5220 BASE_PATH=/`, and run `CHARACTER_EVIDENCE=/tmp/survivor-webgl node scripts/third-person-qa.mjs` from the game package. The draft's Actions runs collect the matched captures.

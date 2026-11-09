@@ -19,14 +19,19 @@ export async function captureCharacter(page, out, name, angle, rootName) {
       focus.z + Math.cos(azimuth) * distance,
     );
     camera.lookAt(focus);
+    const start = performance.now();
     q.render(scene, camera);
+    const renderSubmissionMs = performance.now() - start;
     camera.position.copy(position);
     camera.quaternion.copy(rotation);
     camera.updateMatrixWorld();
     const hand = model?.getObjectByName('LeftHand');
     const toe = model?.getObjectByName('LeftToeBase');
     return {
-      action, heading,
+      action, heading, renderSubmissionMs,
+      limbPose: ['LeftArm', 'RightArm', 'LeftLeg', 'RightLeg'].map(
+        (bone) => model?.getObjectByName(bone)?.quaternion.toArray(),
+      ),
       hand: hand?.getWorldPosition(camera.position.clone()).toArray(),
       toe: toe?.getWorldPosition(camera.position.clone()).toArray(),
       calls: q.s.gl.info.render.calls, triangles: q.s.gl.info.render.triangles,

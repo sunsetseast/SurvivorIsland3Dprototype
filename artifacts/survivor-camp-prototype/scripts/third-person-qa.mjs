@@ -38,8 +38,15 @@ async function character(name,angle,root='exploration-player'){
  report.character.push({name,...await captureCharacter(page,out,name,angle,root)});
 }
 async function sequence(name,angle,root){
- for(let i=0;i<4;i++){await advance(5);await character(name+'-'+i,angle,root);}
+ const start=report.character.length;
+ for(let i=0;i<4;i++){await advance(name==='turn'?3:5);await character(name+'-'+i,angle,root);}
+ if(process.env.CHARACTER_BASELINE)return;
+ const frames=report.character.slice(start);
+ assert.ok(frames.some(frame=>frame.action===name||(name==='turn'&&frame.action==='turn_right')),
+   name+' must use its skeletal action, got '+frames.map(frame=>frame.action).join(','));
+ assert.ok(new Set(frames.map(frame=>JSON.stringify(frame.limbPose))).size>1,name+' joints must advance');
 }
+
 async function state(){return await page.evaluate(()=>structuredClone(window.hubQA.co.engine?.state));}
 async function hub(){await page.getByTestId('challenge-testing').tap();await page.getByTestId('challenge-testing-hub').waitFor();}
 async function play(double=false){const b=await page.getByTestId('hub-individual-balance').boundingBox();await page.getByTestId('hub-individual-balance').tap();assert.ok(await page.getByTestId('world-transition').isVisible());if(double)await page.touchscreen.tap(b.x+b.width/2,b.y+b.height/2);await ready('challenge_main');await page.waitForFunction(()=>window.hubQA.co.engine?.state.phase==='introduction');}
@@ -61,8 +68,16 @@ async function runCourse({fall=false,delay=0,captures=false}={}){
  let fell=false,side=0,delayed=false,lastStage='',crawlFrames=0,beamShot=false,netShots=0;for(let n=0;n<900;n++){
   const s=await state(),r=s.runners[0];if(r.stage!==lastStage||n%50===0){console.log('Course',n,r.stage,r.x,r.z,r.balance,r.mistakes);if(captures&&r.stage==='to-beam')await capture('crawl-exit');lastStage=r.stage;}if(r.stage==='puzzle'){await release();return s;}
   if(captures&&r.stage==='crawl'&&r.z>-36.8&&crawlFrames<4){await drive(0,1);if(crawlFrames===0&&process.env.CHARACTER_EVIDENCE)await sequence('crawl',1.35,'coastal-runner-0');await advance(12);if(crawlFrames===1)await crawlLook();await inspectCrawl('crawl-'+crawlFrames++);continue;}
-  if(captures&&r.stage==='beam'&&!beamShot&&r.z>-23&&r.recoverUntil< s.clock-s.heatStart){await capture('beam-supported');await character('balance',.75,'coastal-runner-0');beamShot=true;}
-  if(r.stage==='net'){await release();await tap(side===0?'coastal-left':'coastal-right');side=1-side;await advance(25);if(captures&&netShots<2&&r.progress>(netShots===0?.3:.65)){await capture('net-'+netShots++);await inspectNet();if(netShots===1&&process.env.CHARACTER_EVIDENCE)await sequence('climb',1.5,'coastal-runner-0');}continue;}
+  if(captures&&r.stage==='beam'&&!beamShot&&r.z>-23&&r.recoverUntil< s.clock-s.heatStart){await capture('beam-supported');if(process.env.CHARACTER_EVIDENCE){await drive(-r.balance*2.5,1);await sequence('balance',.75,'coastal-runner-0');}beamShot=true;}
+  if(r.stage==='net'){
+    await release();await tap(side===0?'coastal-left':'coastal-right');side=1-side;
+    const sample=captures&&netShots<2&&r.progress>(netShots===0?.3:.65);
+    const captureGrip=sample&&netShots===0&&process.env.CHARACTER_EVIDENCE;
+    if(captureGrip)await sequence('climb',1.5,'coastal-runner-0');
+    await advance(captureGrip?5:25);
+    if(sample){await capture('net-'+netShots++);await inspectNet();}
+    continue;
+  }
   if(r.stage==='beam'){if(fall&&!fell){await drive(1,1);await advance(200);await release();assert.ok((await state()).runners[0].mistakes>0);fell=true;}else{await drive(-r.balance*2.5,1);await advance(12);}continue;}
   if((r.stage==='sprint'&&r.z>=-38)||(r.stage==='to-beam'&&r.z>=-25.6)||(r.stage==='to-net'&&r.z>=-8.8)){if(Math.abs(r.x+27)>.25){await drive(Math.sign(-27-r.x),0);await advance(3);continue;}await tap('coastal-action');if(captures)await capture('02-'+(await state()).runners[0].stage);continue;}
   if(r.stage==='collection'&&r.z>=15.7){await release();if(delay&&!delayed){await advance(delay*60);delayed=true;}const i=r.bundles.findIndex(v=>!v),goal=-27+[-1.1,-.3,.5][i];if(Math.abs(r.x-goal)>.18){await drive(Math.sign(goal-r.x),0);await advance(3);}else await tap('coastal-action');continue;}
@@ -105,7 +120,7 @@ try{
  // Move actual camp player with real touch before preserving a non-default departure.
  if(process.env.CHARACTER_EVIDENCE){
    if(!process.env.CHARACTER_BASELINE)await page.waitForFunction(()=>!!window.__WORLD_RENDER__.scene.getObjectByName('skinned-survivor'));
-   await character('front',0);await character('side',Math.PI/2);await character('back',Math.PI);
+   await character('front',0);await character('side',Math.PI/2);await character('back',Math.PI);await character('three-quarter',.68);
  }
  await drive(0,1);await advance(30,true);await capture('camp-walk');if(process.env.CHARACTER_EVIDENCE)await sequence('walk',1.2);await release();await page.getByTestId('button-run').tap();await drive(0,1);await advance(24,true);await capture('camp-run');
  if(process.env.CHARACTER_EVIDENCE){

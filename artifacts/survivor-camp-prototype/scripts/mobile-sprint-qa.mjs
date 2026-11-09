@@ -208,9 +208,11 @@ try {
       const actor = q.store
         .getState()
         .scene.getObjectByName("exploration-player");
+      const model = actor?.getObjectByName("skinned-survivor");
       const hips = actor?.children[0]?.children[0]?.children[0];
       const spine = hips?.children[1],
         leg = hips?.children[2];
+      const legacyElbow = spine?.children[3]?.children[1];
       return {
         input: { ...input },
         position: { x: dbg.x, y: dbg.y, z: dbg.z },
@@ -227,10 +229,15 @@ try {
           z: dbg.cz,
         },
         locomotion: actor?.userData.locomotion,
-        rig: hips && {
+        rigAction: model?.parent?.userData.action,
+        rig: model ? {
+          leg: model.getObjectByName("LeftUpLeg").rotation.x,
+          spine: model.getObjectByName("Spine").rotation.x,
+          elbow: model.getObjectByName("LeftForeArm").rotation.x,
+        } : legacyElbow && {
           leg: leg.rotation.x,
           spine: spine.rotation.x,
-          elbow: spine.children[3].children[1].rotation.x,
+          elbow: legacyElbow.rotation.x,
         },
       };
     });
@@ -720,6 +727,11 @@ try {
       await tap("stand-and-explore");
     }
     await connect();
+    if (scene === "camp" && process.env.SPRINT_BASELINE !== "1") {
+      await page.waitForFunction(() =>
+        !!window.sprintQA.store.getState().scene.getObjectByName("skinned-survivor"),
+      );
+    }
     await advance(90);
     await place(scene === "camp" ? -46 : 10, scene === "camp" ? -20 : 9);
     await enabled(false);
@@ -743,6 +755,11 @@ try {
       `${scene} finite running rig`,
     );
     assert.ok(r.speed > 6.1, `${scene} run ${r.speed}`);
+    if (scene === "camp" && process.env.SPRINT_BASELINE !== "1") {
+      assert.equal(w.rigAction, "walk");
+      assert.equal(r.rigAction, "run");
+      assert.notDeepEqual(w.rig, r.rig, "skinned bones must change with the gait");
+    }
     assert.equal(r.running, true);
     assert.equal(r.input.looking, true);
     await up(1);
