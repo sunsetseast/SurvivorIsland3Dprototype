@@ -21,6 +21,13 @@ const instrument = {
       '\nif(typeof window!=="undefined"){window.__ART_QA__??={};' +
       code +
       "}";
+    if (id.endsWith("/game/Player.tsx")) {
+      // Each test teleport starts with a fresh broadphase cache. The real
+      // Player boom and its collision resolution still place the camera.
+      const signature = "if (dbg.teleportRequested) {";
+      assert.ok(src.includes(signature), "native player teleport fixture");
+      return src.replace(signature, signature + " envelope.clear();");
+    }
     if (id.endsWith("/game/world.ts"))
       return append(
         "window.__ART_QA__.world={SPAWN,groundHeight,isWalkable,movePlayer};",
@@ -85,9 +92,9 @@ const browser = await chromium.launch({
 });
 const report = {
   label,
-  captureContract: "static-camp-v1",
+  captureContract: "static-camp-v2",
   method:
-    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static initial NPC staging, fixed 60Hz player/culling simulation. Host timings are not device/FPS measurements.",
+    "Minified production build with test-only read bridge; real Chromium ANGLE SwiftShader, 932x430 DPR1 touch viewport, native Player boom. Static NPC staging, held manual orbit, fresh teleport cache and fixed 60Hz settling. Host timings are not device/FPS measurements.",
   browser: browser.version(),
   errors: [],
   samples: [],
@@ -175,6 +182,7 @@ try {
             .material.userData.cloudReady === true),
     );
     const readyMs = Date.now() - start;
+    await page.waitForLoadState("networkidle");
     await page.evaluate(() => {
       const q = window.__ART_QA__,
         s = window.__WORLD_RENDER__.state;
@@ -187,7 +195,13 @@ try {
         render: s.gl.render.bind(s.gl),
       });
     });
-    await advance(150, true);
+    await page.evaluate(() => {
+      const q = window.__ART_QA__;
+      q.io.clearInput();
+      q.io.dbg.teleportRequested = { ...q.world.SPAWN };
+      Object.assign(q.io.input, { yaw: 0, pitch: 0.34, looking: true });
+    });
+    await advance(300, true);
     await page.evaluate(() => window.__ART_QA__.s.gl.getContext().finish());
     const stats = await page.evaluate(() => {
       const s = window.__ART_QA__.s,
@@ -390,14 +404,17 @@ try {
           const q = window.__ART_QA__;
           if (!q.world.isWalkable(x, z))
             throw Error("Unwalkable fixed pose " + x + "," + z);
+          q.io.clearInput();
           q.io.dbg.teleportRequested = { x, z };
+          // Hold the requested manual orbit while the native boom settles.
+          q.io.input.looking = true;
           q.io.input.yaw = yaw;
           q.io.input.pitch = pitch;
         },
         { x, z, yaw, pitch },
       );
       console.log("RENDER", quality, name);
-      await advance(90, true);
+      await advance(300, true);
       report.poses.push({
         quality,
         name,

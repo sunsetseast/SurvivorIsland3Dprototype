@@ -12,7 +12,7 @@ const before = await load("before"),
   after = await load("after");
 for (const report of [before, after]) {
   assert.equal(report.result, "PASS");
-  assert.equal(report.captureContract, "static-camp-v1", "recapture both refs with the same static camp fixture");
+  assert.equal(report.captureContract, "static-camp-v2", "recapture both refs with the same static camp fixture");
   assert.deepEqual(report.errors, []);
   assert.equal(
     report.poses.length,
@@ -34,6 +34,10 @@ for (const a of before.poses) {
     (p) => p.quality === a.quality && p.name === a.name,
   );
   assert.ok(b, `missing ${a.quality}/${a.name}`);
+  assert.deepEqual(
+    [b.x, b.z, b.yaw, b.pitch], [a.x, a.z, a.yaw, a.pitch],
+    `requested pose changed ${a.quality}/${a.name}`,
+  );
   if (a.camera.inspection) {
     assert.deepEqual(b.camera, a.camera);
     summary.inspectionPairs++;
