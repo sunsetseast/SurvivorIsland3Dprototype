@@ -1,0 +1,39 @@
+{
+  "browser": "153.0.8010.0",
+  "viewport": "932 × 430",
+  "defaultCast": [
+    {
+      "id": 10,
+      "sha256": "8580cc2a80ebb057004368befe5521e24ecc83ddef7279aa8a389022e5cfe04c"
+    },
+    {
+      "id": 17,
+      "sha256": "954a33b6c36a9a8268826fad5b250cb32a73bb996718fc38b5ed893b7b06bbf7"
+    }
+  ],
+  "previews": [
+    {
+      "id": 10,
+      "sha256": "ef59acbb1b6e3d86daa83f54dbb3974f6374baebeefef55acb67bc7fd38e4d77",
+      "standing": true,
+      "walk": true,
+      "run": true,
+      "calls": 217,
+      "triangles": 539014,
+      "textures": 125,
+      "dpr": 1
+    },
+    {
+      "id": 17,
+      "sha256": "b3d4b6c34f033009af6beec39bb5b247cb671e522b9d21f42b6f074b2121c443",
+      "standing": true,
+      "walk": true,
+      "run": true,
+      "calls": 223,
+      "triangles": 558111,
+      "textures": 129,
+      "dpr": 1
+    }
+  ],
+  "errors": []
+}

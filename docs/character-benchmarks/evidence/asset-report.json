@@ -1,0 +1,62 @@
+[
+  {
+    "id": 10,
+    "sha256": "ef59acbb1b6e3d86daa83f54dbb3974f6374baebeefef55acb67bc7fd38e4d77",
+    "bytes": 328164,
+    "triangles": 16927,
+    "vertices": 9846,
+    "primitives": 9,
+    "joints": 66,
+    "clips": [
+      "idle",
+      "walk",
+      "run",
+      "turn",
+      "turn_right",
+      "crouch",
+      "crawl",
+      "climb",
+      "balance",
+      "recover",
+      "interact",
+      "talk",
+      "sit"
+    ],
+    "comparedAnimationComponents": 28484,
+    "maxAnimationComponentDrift": 0.00003051850947599719,
+    "maxNormalizedWeightError": 5.21540641784668e-8,
+    "gltfErrors": 0,
+    "gltfWarnings": 0,
+    "gltfWarningCodes": []
+  },
+  {
+    "id": 17,
+    "sha256": "b3d4b6c34f033009af6beec39bb5b247cb671e522b9d21f42b6f074b2121c443",
+    "bytes": 367716,
+    "triangles": 20341,
+    "vertices": 11756,
+    "primitives": 11,
+    "joints": 66,
+    "clips": [
+      "idle",
+      "walk",
+      "run",
+      "turn",
+      "turn_right",
+      "crouch",
+      "crawl",
+      "climb",
+      "balance",
+      "recover",
+      "interact",
+      "talk",
+      "sit"
+    ],
+    "comparedAnimationComponents": 28519,
+    "maxAnimationComponentDrift": 0.00006103701895199438,
+    "maxNormalizedWeightError": 4.842877388000488e-8,
+    "gltfErrors": 0,
+    "gltfWarnings": 0,
+    "gltfWarningCodes": []
+  }
+]

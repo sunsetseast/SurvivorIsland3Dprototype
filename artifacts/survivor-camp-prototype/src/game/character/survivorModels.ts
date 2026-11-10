@@ -35,4 +35,18 @@ for (const { source, model } of cast) {
     clips: { ...tonsaiSurvivor.clips, sit: "sit" },
   });
 }
+// Vite serves these files only in development. The normal picker, actor loader
+// and save ID are shared with the production cast.
+if (import.meta.env.DEV && typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("cast-preview") === "benchmarks") {
+  for (const id of [10, 17]) {
+    const model = models.get(id);
+    if (model) {
+      models.set(id, {
+        ...model,
+        url: `${import.meta.env.BASE_URL}src/assets/characters/benchmarks/survivor-${id}.glb`,
+      });
+    }
+  }
+}
 export const castModel = (id: number | null | undefined) => id == null ? undefined : models.get(id);
