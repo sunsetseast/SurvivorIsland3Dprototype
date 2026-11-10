@@ -26,7 +26,7 @@ Tall and spare with long limbs, relatively narrow chest and hips and understated
 
 ## Clothing, Buff and footwear
 
-Gray-green camouflage scoop tank with vivid yellow-green neck and arm binding and a large lime horizontal lower panel. A shows blue denim beneath it. B shows the golden-yellow and black patterned Galang forehead Buff. Exact jeans shade and hem need a closer full-body shot. A and B are both opening sequence views with the same tank.
+Gray-green camouflage scoop tank with vivid yellow-green neck and arm binding and a large lime horizontal lower panel. A shows blue denim beneath it. E gives the full standing scale, with part of the trousers occluded. B shows the golden-yellow and black patterned Galang forehead Buff. Exact jeans shade and hem need a closer full-body shot. A and B are both opening sequence views with the same tank.
 
 ## Tattoos and accessories
 
@@ -43,5 +43,5 @@ Production uses a solid muted green sleeveless top, brown shorts and straight cu
 ## Evidence and confidence
 
 - **Verified** · Directly visible cues in the selected frames, including garment type and main color blocks, apparent hair arrangement and accessory placement where stated. [Annotated photo board](../references/16-tyson-apostol.md)
-- **Probable** · Relative facial planes, body masses, fabric behavior and perceived hues are artist readings of footage with perspective and color grading. Ages are season-era approximations. Use these cues alongside the frames during sculpt review. [A](https://www.truedorktimes.com/s27/images/e0/e0tv96.jpg) · [B](https://www.truedorktimes.com/s27/images/e1/e1tv23.jpg) · [C](https://www.truedorktimes.com/s27/images/e1/e1tv5.jpg) · [D](https://www.truedorktimes.com/s27/images/e0/e0tv27.jpg)
+- **Probable** · Relative facial planes, body masses, fabric behavior and perceived hues are artist readings of footage with perspective and color grading. Ages are season-era approximations. Use these cues alongside the frames during sculpt review. [A](https://www.truedorktimes.com/s27/images/e0/e0tv96.jpg) · [B](https://www.truedorktimes.com/s27/images/e1/e1tv23.jpg) · [C](https://www.truedorktimes.com/s27/images/e1/e1tv5.jpg) · [D](https://www.truedorktimes.com/s27/images/e0/e0tv27.jpg) · [E](https://www.truedorktimes.com/s27/images/e0/e0tv101.jpg)
 - **Unverified** · Follow the gaps in the hair, outfit and tattoo notes before completing obscured or low-resolution details. The board supplies episode and publication context. [Official cross-check](https://www.paramountpressexpress.com/cbs-entertainment/shows/historic-photo-archive-collection-survivor-seasons-149/photos/?page=13#photo-491bbe8ab8)

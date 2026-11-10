@@ -13,6 +13,7 @@ Long blonde hair, right-arm color sleeve, plum button tank and purple Tika Buff.
 - **C · Profile, hair tie and grid shirt.** Birdcage shot. Clear nose and chin profile plus rear length and actual windowpane shirt. [CBS broadcast via True Dork Times, S44 Episode 2](https://www.truedorktimes.com/s44/images/e2/e2tv17.jpg)
 - **D · Tattoo coverage and expression.** Cage confessional. Color sleeve on wearer’s right, thin dark markings on left. High knot is a separate state. [CBS broadcast via True Dork Times, S44 Episode 4](https://www.truedorktimes.com/s44/images/e4/e4tv4.jpg)
 - **E · Standing body and alternate challenge outfit.** Carolyn second from left. Pink shorts, patterned top and standing proportions. Verify leg details from separate clean views. [CBS broadcast via True Dork Times, S44 Episode 1](https://www.truedorktimes.com/s44/images/e1/e1tv71.jpg)
+- **F · Standing view of plum top and shorts.** Carolyn at left on the journey, barefoot and without the waist layer. Confirms shorts fit, natural stance and right arm ink placement. [CBS broadcast via True Dork Times, S44 Episode 5](https://www.truedorktimes.com/s44/images/e5/e5tv25.jpg)
 
 ## Compare a different state
 

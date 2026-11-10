@@ -12,6 +12,7 @@ Long sandy hair tied low, lime-trim camo tank and golden Galang Buff.
 - **B · Galang Buff and face.** Tyson behind Laura. Oblique brow, bridge, cheek and forehead Buff. [CBS broadcast via True Dork Times, S27 Episode 1](https://www.truedorktimes.com/s27/images/e1/e1tv23.jpg)
 - **C · Low tie in profile.** Tyson at left of Rachel. Tank, profile and hair gathered low. [CBS broadcast via True Dork Times, S27 Episode 1](https://www.truedorktimes.com/s27/images/e1/e1tv5.jpg)
 - **D · Front face and preseason tank.** CBS interview with Rachel. Use frontal head shape, same lime trim and visible hairline. [CBS broadcast via True Dork Times, S27 Preseason](https://www.truedorktimes.com/s27/images/e0/e0tv27.jpg)
+- **E · Standing proportions in the arrival set.** Tyson just right of center in the lime-panel tank, partly occluded. Use for full-height silhouette and trouser length only. [CBS broadcast via True Dork Times, S27 Preseason](https://www.truedorktimes.com/s27/images/e0/e0tv101.jpg)
 
 ## Compare a different state
 

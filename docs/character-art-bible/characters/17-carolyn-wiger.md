@@ -26,7 +26,7 @@ Lean natural adult frame, defined forearms, ordinary shoulder and thigh volume a
 
 ## Clothing, Buff and footwear
 
-A documents a fitted plum or berry sleeveless button-front top, dark short bottoms, white shirt with a blue grid tied at the waist and patterned purple Tika Buff at the forehead. C shows the grid shirt worn as a shirt. B shows a separate mauve long-sleeve Henley. E shows a separate pink-shorts challenge outfit. Keep the palette plum, purple, white and navy for the primary state.
+A documents a fitted plum or berry sleeveless button-front top, dark short bottoms, white shirt with a blue grid tied at the waist and patterned purple Tika Buff at the forehead. F confirms the plum top and dark shorts together in a standing view without the waist layer. C shows the grid shirt worn as a shirt. B shows a separate mauve long-sleeve Henley. E shows a separate pink-shorts challenge outfit. Keep the palette plum, purple, white and navy for the primary state.
 
 ## Tattoos and accessories
 
@@ -43,5 +43,5 @@ Production already has long blonde hair and plum forehead cloth but the groom is
 ## Evidence and confidence
 
 - **Verified** · Directly visible cues in the selected frames, including garment type and main color blocks, apparent hair arrangement and accessory placement where stated. [Annotated photo board](../references/17-carolyn-wiger.md)
-- **Probable** · Relative facial planes, body masses, fabric behavior and perceived hues are artist readings of footage with perspective and color grading. Ages are season-era approximations. Use these cues alongside the frames during sculpt review. [A](https://www.truedorktimes.com/s44/images/e1/e1tv52.jpg) · [B](https://www.truedorktimes.com/s44/images/e2/e2tv18.jpg) · [C](https://www.truedorktimes.com/s44/images/e2/e2tv17.jpg) · [D](https://www.truedorktimes.com/s44/images/e4/e4tv4.jpg) · [E](https://www.truedorktimes.com/s44/images/e1/e1tv71.jpg)
+- **Probable** · Relative facial planes, body masses, fabric behavior and perceived hues are artist readings of footage with perspective and color grading. Ages are season-era approximations. Use these cues alongside the frames during sculpt review. [A](https://www.truedorktimes.com/s44/images/e1/e1tv52.jpg) · [B](https://www.truedorktimes.com/s44/images/e2/e2tv18.jpg) · [C](https://www.truedorktimes.com/s44/images/e2/e2tv17.jpg) · [D](https://www.truedorktimes.com/s44/images/e4/e4tv4.jpg) · [E](https://www.truedorktimes.com/s44/images/e1/e1tv71.jpg) · [F](https://www.truedorktimes.com/s44/images/e5/e5tv25.jpg)
 - **Unverified** · Follow the gaps in the hair, outfit and tattoo notes before completing obscured or low-resolution details. The board supplies episode and publication context. [Official cross-check](https://www.paramountpressexpress.com/cbs-entertainment/shows/historic-photo-archive-collection-survivor-seasons-149/photos/?page=5#photo-3040bb84c6)
