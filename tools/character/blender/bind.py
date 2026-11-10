@@ -13,7 +13,7 @@ def read_glb(path):
         raise ValueError(f"Invalid GLB header: {path}")
     model = json.loads(data[20:20 + length])
     binary = bytearray(data[28 + length:])
-    if len(model["buffers"]) != 1 or model.get("extensionsUsed"):
+    if len(model["buffers"]) != 1 or set(model.get("extensionsUsed", ())) - {"EXT_texture_webp"}:
         raise ValueError("Binding expects an unpacked, uncompressed Blender export and foundation")
     return model, binary
 
@@ -68,8 +68,16 @@ def bind(foundation, authored, output, actor):
     for entry in [*art["accessors"], *art.get("images", [])]:
         entry["bufferView"] += offsets["bufferViews"]
     for texture in art.get("textures", []):
-        texture["source"] += offsets["images"]
-        texture["sampler"] += offsets["samplers"]
+        if "source" in texture:
+            texture["source"] += offsets["images"]
+        if "sampler" in texture:
+            texture["sampler"] += offsets["samplers"]
+        webp = texture.get("extensions", {}).get("EXT_texture_webp")
+        if webp is not None:
+            webp["source"] += offsets["images"]
+    for key in ("extensionsUsed", "extensionsRequired"):
+        if art.get(key):
+            target[key] = sorted(set(target.get(key, [])) | set(art[key]))
     for material in art["materials"]:
         for values in (material, material.get("pbrMetallicRoughness", {})):
             for key, texture in values.items():

@@ -4,6 +4,7 @@ from math import cos, radians, sin
 from pathlib import Path
 import sys
 
+import bmesh
 import bpy
 from mathutils import Vector
 
@@ -21,12 +22,21 @@ def light(name, xyz, energy, size, color, target):
     point_at(obj, target)
 
 
-def review(model, output, requested):
+def review(model, output, requested, bare_rest=False):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=str(model))
     scene = bpy.context.scene
     actor = next(obj for obj in scene.objects if obj.type == "MESH" and obj.name.startswith("Survivor_"))
     rig = actor.parent
+    if bare_rest:
+        rig.data.pose_position = "REST"
+        groom = {"Sunlit dark curls", "Brow and sparse stubble", "Eyebrows", "Eyelashes"}
+        mesh = bmesh.new()
+        mesh.from_mesh(actor.data)
+        bmesh.ops.delete(mesh, geom=[p for p in mesh.faces if actor.data.materials[p.material_index].name in groom],
+                         context="FACES")
+        mesh.to_mesh(actor.data)
+        mesh.free()
     animation = rig.animation_data
     actions = {track.name: track.strips[0].action for track in animation.nla_tracks if len(track.strips)}
     for track in animation.nla_tracks:
@@ -59,7 +69,7 @@ def review(model, output, requested):
     pose("idle", 0.13)
     head = rig.matrix_world @ rig.pose.bones["Head"].head
     hip = rig.matrix_world @ rig.pose.bones["Hips"].head
-    upper = head + Vector((0, -0.025, 0.067))
+    upper = head + Vector((0, -0.025, 0.052 if bare_rest else 0.067))
     full = hip + Vector((0, 0, 0.075))
     light("Warm daylight key", upper + Vector((-2, -4, 3)), 480, 3.0, (1, 0.87, 0.74), upper)
     light("Sky fill", upper + Vector((3, -1, 1)), 160, 3.0, (0.71, 0.85, 1), upper)
@@ -67,7 +77,7 @@ def review(model, output, requested):
 
     views = {
         "front": (0, True, "idle", 0.13), "profile": (90, True, "idle", 0.13),
-        "three-quarter": (34, True, "idle", 0.13),
+        "three-quarter": (34, True, "idle", 0.13), "back": (180, True, "idle", 0.13),
         "body-front": (0, False, "idle", 0.13), "body-side": (90, False, "idle", 0.13),
         "walk": (34, False, "walk", 0.21), "run": (65, False, "run", 0.36),
     }
@@ -77,8 +87,8 @@ def review(model, output, requested):
         pose(clip, time)
         target = upper if portrait else full
         angle = radians(degrees)
-        camera.location = target + Vector((3 * sin(angle), -3 * cos(angle), 0.035 if portrait else 0.10))
-        camera.data.ortho_scale = 0.37 if portrait else 2.12
+        camera.location = target + Vector((3 * sin(angle), -3 * cos(angle), (0 if bare_rest else 0.035) if portrait else 0.10))
+        camera.data.ortho_scale = (0.31 if bare_rest else 0.37) if portrait else 2.12
         point_at(camera, target)
         scene.render.filepath = str(output / f"{name}.jpg")
         bpy.ops.render.render(write_still=True)
@@ -86,4 +96,5 @@ def review(model, output, requested):
 
 if __name__ == "__main__":
     source, dest, *views = sys.argv[sys.argv.index("--") + 1:]
-    review(Path(source), Path(dest), views)
+    review(Path(source), Path(dest), [view for view in views if view != "--bare-rest"],
+           bare_rest="--bare-rest" in views)

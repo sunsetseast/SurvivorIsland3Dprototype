@@ -2,9 +2,16 @@
 
 Branch `feat/ozzy-likeness-sculpt` starts at `8726885379fd6dc3b359b94ed1dcf1470c7f368d` (merged PR #32). The [branch history](https://github.com/sunsetseast/SurvivorIsland3Dprototype/commits/feat/ozzy-likeness-sculpt/) records the latest pushed SHA.
 
-**Checkpoint** Reference study and bare-head baseline. PR #32 is the production control. Rendered the neutral bare head, profile and current clothed character. The eye sockets have little definition, the mouth is narrow with an even lip seam, and the forehead-to-nose transition is smooth and rounded. The high, close-cropped mass and broad clumps in the model give it a different silhouette from the season footage.
+**Baseline** Reference study and bare-head review. PR #32 is the production control. Rendered the neutral bare head, profile and current clothed character. The eye sockets have little definition, the mouth is narrow with an even lip seam, and the forehead-to-nose transition is smooth and rounded. The high, close-cropped mass and broad clumps in the model give it a different silhouette from the season footage.
 
-**Next** Build and review a hairless landmark sculpt before fitting the curl cards.
+**Checkpoint** Candidate built and reviewed in Blender. [Rebuild instructions](REBUILD.md) · [Candidate GLB](../../tools/character/blender/candidates/ozzy-cook-islands-v2.glb)
+
+- **A · Primary forms.** [Matched hairless study](evidence/anatomy.jpg). Sculpted the orbital shelf and cheekbone plane, reshaped the nasal bridge and alae, and widened the mouth and reshaped the chin. The first review exposed an abrupt inner brow, an angular tip and a level lip seam. Softened the orbital transition and nasal tip and added separate upper-lip peaks and slight asymmetry. The existing UVs and skinning carry through the sculpt.
+- **B · Groom.** Replaced broad opaque locks with curved alpha-masked strand cards and a textured underlayer. The first groom covered too much forehead and formed large flat clumps. Raised the central fringe, narrowed the cards, varied their lengths and checked front, side, back and three-quarter.
+- **C · Materials.** Painted new diffuse shading and fuller brows in the existing skin UVs, reduced the orange tint, adjusted eye roughness and fitted softly blended facial hair to the philtrum and chin. Retained the season-appropriate shorts, cord and footwear.
+- **D · Final comparison.** [Matched Blender portraits and body view](evidence/studio.jpg). Brow, profile and nape are closer to the references. Some curl edges still read as overlapping ribbons, and the lid contour and cheek-to-mouth transition still lack enough individual character for a strong likeness. Candidate ready for developer review. Production uses the PR #32 GLB.
+
+**Next** Finish the matched WebGL and camp review and record the validation results.
 
 ## Reference board
 
