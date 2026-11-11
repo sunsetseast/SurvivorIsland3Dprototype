@@ -13,6 +13,8 @@ Red pocket tank, orange-red Vanua Buff and dark waves.
 - **C · Camp face and shoulder volume.** Seated, bare shoulders, quieter face and tied-back hair. [CBS broadcast via True Dork Times, S33 Episode 1](https://www.truedorktimes.com/s33/images/e1/e1tv58.jpg)
 - **D · Back and lower-body camp view.** Jay in center, shirtless. Read waist, hair length and red shorts as a separate observed state. [CBS broadcast via True Dork Times, S33 Episode 1](https://www.truedorktimes.com/s33/images/e1/e1tv69.jpg)
 
+- **E · Clothed challenge silhouette.** Jay stands side-on in the red tank with dark bottoms. The shot supports the color pairing. The waistband and footwear are hard to read. [CBS broadcast via True Dork Times, S33 Episode 11](https://www.truedorktimes.com/s33/images/e11/e11tv29.jpg)
+
 ## Compare a different state
 
 Same season, boat arrival with the black beanie over the red tank. Keep it as a removable headwear state. [CBS broadcast via True Dork Times](https://www.truedorktimes.com/s33/images/e1/e1tv17.jpg)

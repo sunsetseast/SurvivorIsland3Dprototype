@@ -26,7 +26,7 @@ Lean, compact athletic outline with visible shoulder tone and a fairly narrow wa
 
 ## Clothing, Buff and footwear
 
-Use the red scoop-neck tank with pale binding and the light contrast patch pocket on the wearer’s left chest. The orange-red patterned Vanua Buff goes at the forehead in B. D verifies short red heather bottoms with a dark waistband in a shirtless camp state. The exact tank-and-bottoms pairing and pocket graphic are unverified. Use B for the locked upper body and verify a standing clothed frame before outfit approval.
+Use the red scoop-neck tank with pale binding and the light contrast patch pocket on the wearer’s left chest. The orange-red patterned Vanua Buff goes at the forehead in B. D verifies short red heather bottoms with a dark waistband in a shirtless camp state. B establishes the upper body. E pairs the red tank with dark bottoms. The exact shorts cut, footwear and pocket graphic remain unresolved.
 
 ## Tattoos and accessories
 
@@ -38,7 +38,7 @@ Prioritize red and light pocket contrast, the split outline of waves behind the 
 
 ## Existing model corrections
 
-The glossy one-sided black fringe blankets a brow, and the teal tank, neck wrap and khaki cargos repeat the stock camp outfit. Rebuild waved nape volume, dark brow and cheek shapes. Fit the red pocket tank and use forehead Buff. Gate bottoms on a clothed standing frame.
+The glossy one-sided black fringe blankets a brow, and the teal tank, neck wrap and khaki cargos repeat the stock camp outfit. Rebuild waved nape volume, dark brow and cheek shapes. Fit the red pocket tank and use forehead Buff. Use E for the dark bottoms color block and review garment construction before approval.
 
 ## Evidence and confidence
 
