@@ -1,5 +1,5 @@
 """Fit and render the Season 33 Jay appearance study in Blender 4.3."""
-from math import cos, radians, sin, sqrt, tau
+from math import atan2, cos, pi, radians, sin, tau
 from pathlib import Path
 import sys
 
@@ -7,7 +7,6 @@ import bpy
 import bmesh
 from mathutils import Quaternion, Vector
 from mathutils.bvhtree import BVHTree
-from mathutils.kdtree import KDTree
 
 
 def material(name, rgb, roughness):
@@ -45,145 +44,447 @@ def armature_for(obj, rig):
 
 def nearest_weights(obj, skin, rig):
     points = vertices(skin)
-    tree = KDTree(len(points))
-    for i, co in enumerate(points):
-        tree.insert(co, i)
-    tree.balance()
+    skin.data.calc_loop_triangles()
+    triangles = [tuple(face.vertices) for face in skin.data.loop_triangles]
+    surface = BVHTree.FromPolygons(points, triangles, all_triangles=True)
     for group in skin.vertex_groups:
         obj.vertex_groups.new(name=group.name)
     for v in obj.data.vertices:
-        _, idx, _ = tree.find(obj.matrix_world @ v.co)
-        for group in skin.data.vertices[idx].groups:
-            obj.vertex_groups[group.group].add([v.index], group.weight, "REPLACE")
+        hit, _, face, _ = surface.find_nearest(obj.matrix_world @ v.co)
+        indices = triangles[face]
+        a, b, c = (points[i] for i in indices)
+        ab, ac, ap = b - a, c - a, hit - a
+        aa, bb, cc = ab.dot(ab), ab.dot(ac), ac.dot(ac)
+        d, e = ap.dot(ab), ap.dot(ac)
+        determinant = aa * cc - bb * bb
+        u = (cc * d - bb * e) / determinant if determinant > 1e-16 else 0
+        w = (aa * e - bb * d) / determinant if determinant > 1e-16 else 0
+        weights = {}
+        for idx, blend in zip(indices, (1 - u - w, u, w)):
+            if blend <= 0:
+                continue
+            for group in skin.data.vertices[idx].groups:
+                weights[group.group] = weights.get(group.group, 0) + blend * group.weight
+        strongest = sorted(weights.items(), key=lambda pair: -pair[1])[:4]
+        total = sum(weight for _, weight in strongest)
+        for group, weight in strongest:
+            obj.vertex_groups[group].add([v.index], weight / total, "REPLACE")
     armature_for(obj, rig)
 
 
-def fit_tank(skin, rig, shorts):
-    """Use continuous cloth topology with pale rolled bindings and a raised pocket."""
-    source = bmesh.new()
-    source.from_mesh(skin.data)
-    for v in source.verts:
-        v.co = skin.matrix_world @ v.co
-    bmesh.ops.remove_doubles(source, verts=list(source.verts), dist=.00025)
-    # Sample the curved cut lines on a finer torso grid before making the openings.
-    torso = [edge for edge in source.edges if all(.75 < v.co.z < 1.64 for v in edge.verts)]
-    bmesh.ops.subdivide_edges(source, edges=torso, cuts=2, use_grid_fill=True)
-    source.normal_update()
-    source.verts.index_update()
-    source.verts.ensure_lookup_table()
-    points = [v.co.copy() for v in source.verts]
-    normals = [v.normal.copy() for v in source.verts]
-    skin_faces = [[v.index for v in f.verts] for f in source.faces]
-    source.free()
-    shoulder = rig.matrix_world @ rig.data.bones["LeftArm"].head_local
-    height = max(p.z for p in points)
-    waist = max(p.z for p in vertices(shorts))
-    scale = height / 1.78
-    hem = waist - .056 * scale
+def body_surface(skin):
+    points = vertices(skin)
+    return BVHTree.FromPolygons(points, [face.vertices for face in skin.data.polygons])
 
-    def distance(p):
-        front = max(0, min(1, (-p.y + .005) / .052))
-        neckline = shoulder.z - (.037 + .092 * front) * scale
-        x = abs(p.x) / scale
-        scoop = neckline + .130 * scale * min(1.65, x / .101) ** 2
-        outside = (.185 - .044 * max(0, min(1, (p.z - shoulder.z + .18) / .15))) * scale
-        return min(max(scoop - p.z, abs(p.x) - .099 * scale), outside - abs(p.x))
 
-    def cloth_offset(p, n):
-        near_waist = max(0, 1 - (p.z - hem) / .21)
-        front = max(0, min(1, (-p.y - .016) / .055))
-        fold = sin(29 * p.x + 25 * p.z) + .45 * sin(71 * p.x - 22 * p.z)
-        return p + n * (.008 + .015 * near_waist + .0026 * front * near_waist * fold)
+def sample_surface(surface, center, direction, clearance):
+    direction = Vector(direction).normalized()
+    hit, _, _, _ = surface.ray_cast(Vector(center), direction, .45)
+    if hit is None:
+        raise ValueError(f"Pattern sample missed skin from {center} along {direction}")
+    return hit + direction * clearance
 
-    def clip(poly, coordinate, threshold, sign=1):
-        result = []
-        for a, b in zip(poly, poly[1:] + poly[:1]):
-            fa, fb = (a[coordinate] - threshold) * sign, (b[coordinate] - threshold) * sign
-            if fa >= 0:
-                result.append(a)
-            if (fa >= 0) != (fb >= 0):
-                t = fa / (fa - fb)
-                result.append((a[0].lerp(b[0], t), a[1].lerp(b[1], t),
-                               a[2] + t * (b[2] - a[2]), a[3] + t * (b[3] - a[3])))
-        return result
 
-    # The binding and jersey occupy adjacent faces on the same surface.
-    # Material transitions and turned seams therefore follow skin weights together.
-    mesh_input = [(p, n, distance(p), p.z) for p, n in zip(points, normals)]
-    verts, faces, material_indices = [], [], []
-    for indices in skin_faces:
-        poly = clip(clip([mesh_input[i] for i in indices], 3, hem), 2, 0)
-        for mat_id, part in ((0, clip(poly, 2, .0065)), (1, clip(poly, 2, .0065, -1))):
-            if len(part) < 3:
-                continue
-            start = len(verts)
-            verts.extend(cloth_offset(p, n.normalized()) for p, n, _, _ in part)
-            faces.append(tuple(range(start, len(verts))))
-            material_indices.append(mat_id)
-    red = material("Washed red jersey", (.39, .022, .034), .79)
-    trim = material("Pale knitted binding", (.56, .51, .44), .84)
-    tank = mesh_object("Jay | red tank body", verts, faces, red)
-    tank.data.materials.append(trim)
-    for face, mat_id in zip(tank.data.polygons, material_indices):
-        face.material_index = mat_id
+def join_rows(faces, first, second, closed=False):
+    edges = list(zip(first, first[1:], second, second[1:]))
+    if closed:
+        edges.append((first[-1], first[0], second[-1], second[0]))
+    faces.extend((a, b, d, c) for a, b, c, d in edges)
 
+
+def finish_cloth(obj, skin, rig, thickness):
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    bmesh.ops.remove_doubles(bm, verts=list(bm.verts), dist=.0001)
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+    bm.to_mesh(obj.data)
+    bm.free()
+    nearest_weights(obj, skin, rig)
+    solid = obj.modifiers.new("Fabric thickness and turned edges", "SOLIDIFY")
+    solid.thickness = thickness
+    solid.offset = -.4
+
+
+def garment_material(name, color, roughness, scale):
+    mat = material(name, color, roughness)
+    nodes, links = mat.node_tree.nodes, mat.node_tree.links
+    noise = nodes.new("ShaderNodeTexNoise")
+    noise.inputs["Scale"].default_value = scale
+    noise.inputs["Detail"].default_value = 2
+    bump = nodes.new("ShaderNodeBump")
+    bump.inputs["Distance"].default_value = .0006
+    bump.inputs["Strength"].default_value = .15
+    links.new(noise.outputs["Fac"], bump.inputs["Height"])
+    links.new(bump.outputs["Normal"], nodes.get("Principled BSDF").inputs["Normal"])
+    return mat
+
+
+def add_tank_binding(tank, binding, hem, surface):
+    """Continue each neck and armhole edge into a narrow, single-surface binding."""
+    tank.data.materials.append(binding)
     bm = bmesh.new()
     bm.from_mesh(tank.data)
-    bmesh.ops.remove_doubles(bm, verts=list(bm.verts), dist=.00028)
     bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
-    for _ in range(3):
+    edges = [edge for edge in bm.edges if edge.is_boundary
+             and max(v.co.z for v in edge.verts) > hem + .06]
+    outline = {v for edge in edges for v in edge.verts}
+    for _ in range(5):
         changes = {}
-        for v in bm.verts:
-            edges = [e for e in v.link_edges if e.is_boundary]
-            if len(edges) == 2:
-                avg = sum((e.other_vert(v).co for e in edges), Vector()) / 2
-                changes[v] = v.co.lerp(avg, .21)
-        for v, co in changes.items():
-            v.co = co
+        for v in outline:
+            adjacent = [edge.other_vert(v) for edge in v.link_edges if edge.is_boundary]
+            if len(adjacent) != 2:
+                continue
+            average = (adjacent[0].co + adjacent[1].co) / 2
+            point = v.co.lerp(average, .39)
+            hit, normal, _, _ = surface.find_nearest(point)
+            separation = (point - hit).dot(normal)
+            changes[v] = point + max(0, .0068 - separation) * normal
+        for v, point in changes.items():
+            v.co = point
+    bm.normal_update()
+    directions = {}
+    for edge in edges:
+        face = edge.link_faces[0]
+        for v in edge.verts:
+            line = (edge.other_vert(v).co - v.co).normalized()
+            normal = v.normal.normalized()
+            out = normal.cross(line).normalized()
+            inward = face.calc_center_median() - v.co
+            directions.setdefault(v, []).append(-out if out.dot(inward) > 0 else out)
+    rim = {v: bm.verts.new(v.co + sum(axes, Vector()).normalized() * .0052 + v.normal * .0016)
+           for v, axes in directions.items()}
+    for edge in edges:
+        a, b = edge.verts
+        face = bm.faces.new((a, b, rim[b], rim[a]))
+        face.material_index = 1
+        face.smooth = True
+    bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
     bm.to_mesh(tank.data)
     bm.free()
-    nearest_weights(tank, skin, rig)
-    thickness = tank.modifiers.new("Turned hem and arm openings", "SOLIDIFY")
-    thickness.thickness = .0021
-    thickness.offset = -.45
 
-    tree = BVHTree.FromPolygons([v.co for v in tank.data.vertices], [f.vertices for f in tank.data.polygons])
-    pocket = material("Pocket cotton", (.31, .33, .35), .82)
+
+def fit_tank(skin, rig):
+    """Draft a torso panel and two shoulder straps with independent cloth topology."""
+    surface = body_surface(skin)
+    verts, faces = [], []
+    count = 112
+    hem = 1.004
+    half_profile = (
+        (0, 1.276), (4, 1.283), (8, 1.316), (11, 1.364), (13, 1.405),
+        (17, 1.405), (19, 1.359), (23, 1.303), (28, 1.282), (32, 1.303),
+        (36, 1.342), (38, 1.402), (42, 1.402), (44, 1.368), (48, 1.342), (56, 1.331),
+    )
+
+    def upper_edge(index):
+        index = min(index, count - index)
+        for (a, z0), (b, z1) in zip(half_profile, half_profile[1:]):
+            if index <= b:
+                t = (index - a) / (b - a)
+                return z0 + (z1 - z0) * (3 * t * t - 2 * t * t * t)
+        return half_profile[-1][1]
+
+    rows = []
+    for row in range(19):
+        t = row / 18
+        current = []
+        for i in range(count):
+            angle = tau * i / count
+            ripple = sin(angle * 7 + .5) * .003 + sin(angle * 3) * .0035
+            z = hem + (upper_edge(i) - hem) * t + ripple * (1 - t) ** 2
+            # Let the hem hang over the shorts and taper the cloth to its arm openings.
+            fold = (.006 * cos(angle * 7 + z * 24) + .002 * sin(angle * 13 - z * 45)) * (1 - t) ** 2
+            offset = .009 + .017 * (1 - t) ** 3 + fold
+            current.append(len(verts))
+            verts.append(sample_surface(surface, (0, .012, z), (sin(angle), -cos(angle), 0), offset))
+        if rows:
+            join_rows(faces, rows[-1], current, closed=True)
+        rows.append(current)
+
+    top = rows[-1]
+    for sign in (1, -1):
+        front = [top[(sign * i) % count] for i in range(13, 18)]
+        back = [top[(sign * i) % count] for i in range(42, 37, -1)]
+        prior = front
+        for row in range(1, 19):
+            t = row / 18
+            if row == 18:
+                current = back
+            else:
+                current = []
+                for a, b in zip(front, back):
+                    start, end = verts[a], verts[b]
+                    # Follow the shoulder itself across the crown of the strap.
+                    x = start.x * (1 - t) + end.x * t
+                    if abs(x) < .078:
+                        x = sign * (.078 + (abs(x) - .078) * abs(2 * t - 1))
+                    center = Vector((x, 0, 1.417))
+                    start_angle = atan2(start.z - center.z, -start.y)
+                    end_angle = pi - atan2(end.z - center.z, end.y)
+                    angle = start_angle + (end_angle - start_angle) * t
+                    p = sample_surface(surface, center, (0, -cos(angle), sin(angle)), .0105)
+                    current.append(len(verts))
+                    verts.append(p)
+            join_rows(faces, prior, current)
+            prior = current
+
+    red = garment_material("Washed red jersey", (.386, .027, .040), .84, 188)
+    trim = garment_material("Pale knitted binding", (.63, .55, .46), .89, 245)
+    tank = mesh_object("Jay | sewn red tank", verts, faces, red)
+    add_tank_binding(tank, trim, hem, surface)
+    finish_cloth(tank, skin, rig, .0022)
+
+    front_tree = BVHTree.FromPolygons(verts, faces)
+    pocket = garment_material("Pale cotton chest pocket", (.34, .37, .39), .86, 165)
+    seam = material("Pocket seam", (.26, .29, .31), .87)
     pocket_v, pocket_f = [], []
     for row in range(9):
         t = row / 8
         for col in range(9):
             u = col / 8
-            x = (.091 + (u - .5) * (.057 - .009 * (1 - t))) * scale
-            z = shoulder.z + (-.236 + .064 * t + .009 * (1 - t) * abs(u - .5)) * scale
-            hit, _, _, _ = tree.ray_cast(Vector((x, -1, z)), Vector((0, 1, 0)), 1.1)
+            x = .086 + (u - .5) * (.061 - .012 * (1 - t))
+            z = 1.168 + .066 * t + .010 * (1 - t) * abs(u - .5)
+            hit, _, _, _ = front_tree.ray_cast(Vector((x, -1, z)), Vector((0, 1, 0)), 1)
             if hit is None:
                 raise ValueError("Pocket pattern fell outside the tank front")
-            pocket_v.append((x, hit.y - .0032 - .0013 * sin(u * tau / 2), z))
+            bulge = .0022 * sin(pi * u) * sin(pi * t * .7)
+            pocket_v.append((x, hit.y - .0028 - bulge, z))
             if row and col:
                 k = row * 9 + col
                 pocket_f.append((k - 10, k - 9, k, k - 1))
-    obj = mesh_object("Jay | raised pale chest pocket", pocket_v, pocket_f, pocket)
-    nearest_weights(obj, skin, rig)
-    solid = obj.modifiers.new("Pocket turned seam", "SOLIDIFY")
-    solid.thickness = .0014
+    obj = mesh_object("Jay | pale patch pocket", pocket_v, pocket_f, pocket)
+    obj.data.materials.append(seam)
+    for face in obj.data.polygons:
+        row, col = divmod(face.index, 8)
+        if col in (0, 7) or row in (0, 7):
+            face.material_index = 1
+    finish_cloth(obj, skin, rig, .0011)
+    return tank
 
 
-def fit_hair(hair, skin):
-    """Shorten the licensed tied-back mesh toward the Season 33 camp look."""
+def fit_shorts(skin, rig):
+    """Join the two leg panels at a crotch curve and a fitted single waistband."""
+    surface = body_surface(skin)
+    slate = garment_material("Washed slate shorts", (.073, .086, .104), .86, 168)
+    seam = material("Slate seam and hem", (.054, .067, .083), .86)
+    waistband = garment_material("Slate waistband", (.060, .070, .084), .9, 210)
+    verts, faces, groups = [], [], []
+    half = 24
+    count = half * 2
+    hip = .887
+
+    def add_point(p):
+        verts.append(p)
+        return len(verts) - 1
+
+    def connect(a, b, group, closed=True):
+        start = len(faces)
+        join_rows(faces, a, b, closed=closed)
+        groups.extend([group] * (len(faces) - start))
+
+    prior = None
+    for row, z in enumerate((1.039, 1.035, 1.014, 1.011, .985, .954, .922, hip)):
+        ring = []
+        for i in range(count):
+            angle = i * tau / count
+            offset = .011 + .010 * (1 - (z - hip) / (1.039 - hip))
+            p = sample_surface(surface, (0, .010, z), (sin(angle), -cos(angle), 0), offset)
+            ring.append(add_point(p))
+        if prior is not None:
+            connect(prior, ring, 2 if row <= 3 else 0)
+        prior = ring
+    hip_ring = prior
+    center_front, center_back = verts[hip_ring[0]], verts[hip_ring[half]]
+    midline = []
+    for i in range(1, half):
+        t = i / half
+        p = center_back.lerp(center_front, t)
+        p.z -= .069 * sin(pi * t) ** .83
+        midline.append(add_point(p))
+
+    for sign in (1, -1):
+        outer = [hip_ring[(sign * i) % count] for i in range(half + 1)]
+        branch = outer + midline
+        prior = branch
+        for row, t in enumerate((.09, .18, .29, .42, .56, .69, .82, .94, .966, .987, 1.0)):
+            ring = []
+            for i, branch_index in enumerate(branch):
+                angle = i * tau / count
+                start = verts[branch_index]
+                pz = start.z * (1 - t) + (.666 + .004 * cos(angle)) * t
+                center = (sign * (.104 + (1 - pz) * .113), -.009 - (1 - pz) * .014, pz)
+                gather = .0017 * sin(7 * angle + row * .3) + .0013 * cos(12 * angle + row * .25)
+                offset = .012 + .003 * sin(pi * t) + gather
+                hit = sample_surface(surface, center, (sign * sin(angle), -cos(angle), 0), offset)
+                blend = min(1, t / .42)
+                panel = start.lerp(hit, blend)
+                panel.z = pz
+                if abs(cos(angle)) > .30:
+                    side = -1 if cos(angle) > 0 else 1
+                    probe, _, _, _ = surface.ray_cast(
+                        Vector((panel.x, .25 * side, pz)), Vector((0, -side, 0)), .31,
+                    )
+                    if probe and (probe.y + side * .010 - panel.y) * side > 0:
+                        panel.y = probe.y + side * .010
+                # Keep the inside of each leg on its own side of the inseam.
+                panel.x = sign * max(.0018, panel.x * sign)
+                ring.append(add_point(panel))
+            connect(prior, ring, 1 if row >= 8 else 0)
+            prior = ring
+
+    obj = mesh_object("Jay | cut slate shorts", verts, faces, slate)
+    obj.data.materials.append(seam)
+    obj.data.materials.append(waistband)
+    for face, group in zip(obj.data.polygons, groups):
+        face.material_index = group
+    finish_cloth(obj, skin, rig, .0022)
+    return obj
+
+
+def hide_covered_skin(skin, garments):
+    """Cull skin only where cloth fully encloses it and no opening is nearby."""
+    coverage = []
+    for garment in garments:
+        points = vertices(garment)
+        surface = BVHTree.FromPolygons(points, [face.vertices for face in garment.data.polygons])
+        edge_uses = {}
+        for face in garment.data.polygons:
+            for edge in face.edge_keys:
+                edge_uses[edge] = edge_uses.get(edge, 0) + 1
+        rim = [points[i] for edge, uses in edge_uses.items() if uses == 1 for i in edge]
+        coverage.append((surface, rim))
+
+    bm = bmesh.new()
+    bm.from_mesh(skin.data)
+    enclosed = {}
+    for v in bm.verts:
+        point = skin.matrix_world @ v.co
+        inside = False
+        for surface, rim in coverage:
+            hit, normal, _, distance = surface.find_nearest(point, .033)
+            if hit is None or (point - hit).dot(normal) >= 0:
+                continue
+            if all((hit - rim_point).length_squared > .014 ** 2 for rim_point in rim):
+                inside = True
+                break
+        enclosed[v] = inside
+    hidden = [face for face in bm.faces if all(enclosed[v] for v in face.verts)]
+    bmesh.ops.delete(bm, geom=hidden, context="FACES")
+    bm.to_mesh(skin.data)
+    bm.free()
+
+
+def fit_hair(hair, skin, rig):
+    """Refit the existing UV-mapped scalp and fold its tail into a high, compact tie."""
     h = max(p.z for p in vertices(skin))
-    inv = hair.matrix_world.inverted()
-    for v, co in zip(hair.data.vertices, vertices(hair)):
-        tail = max(0.0, h - .114 - co.z)
-        back = max(0, min(1, (co.y - .041) / .067))
-        crown = max(0, min(1, (co.z - (h - .055)) / .071))
-        co.z += tail * .91 * back + crown * .007 * cos(26 * (co.x + .012))
-        co.x *= 1 - .17 * back * min(1, tail / .12)
-        co.y += .006 * back * sin(43 * co.z)
-        v.co = inv @ co
+    to_world = hair.matrix_world
+    inv = to_world.inverted()
+    bm = bmesh.new()
+    bm.from_mesh(hair.data)
+    bmesh.ops.remove_doubles(bm, verts=list(bm.verts), dist=.00007)
+    remaining = set(bm.verts)
+    while remaining:
+        seed = remaining.pop()
+        component, queue = [seed], [seed]
+        while queue:
+            v = queue.pop()
+            for edge in v.link_edges:
+                neighbor = edge.other_vert(v)
+                if neighbor in remaining:
+                    remaining.remove(neighbor)
+                    component.append(neighbor)
+                    queue.append(neighbor)
+        positions = [to_world @ v.co for v in component]
+        is_tail = min(p.y for p in positions) > .038 and min(p.z for p in positions) < h - .27
+        for v, p in zip(component, positions):
+            if is_tail:
+                t = max(0, min(1, (h - .045 - p.z) / .315))
+                p.x = p.x * (.69 + .22 * sin(pi * t)) - .006 + .012 * sin(tau * t)
+                p.y = .035 + (p.y - .052) * .29 + .024 * sin(t * pi * .94)
+                crown_roll = .016 * min(1.4, abs(p.x + .005) / .032) ** 1.7
+                p.z = h - .045 + .069 * sin(pi * t) - crown_roll + .15 * (p.y - .058)
+            else:
+                crown = max(0, min(1, (p.z - h + .095) / .104))
+                hairline = max(0, 1 - abs(p.z - (h - .075)) / .026)
+                front = max(0, min(1, (-p.y - .077) / .036))
+                p.z += crown * (.003 + .004 * sin(75 * p.x + .8))
+                if len(component) < 220:
+                    lift = .0012 * crown * sin(57 * p.y + 43 * p.x)
+                    p.z += lift
+                p.z += front * hairline * .004 * sin(161 * p.x + 18 * p.z)
+            v.co = inv @ p
+    bm.to_mesh(hair.data)
+    bm.free()
+    indices = list(range(len(hair.data.vertices)))
+    for group in hair.vertex_groups:
+        group.remove(indices)
+    hair.vertex_groups["Head"].add(indices, 1.0, "REPLACE")
     shader = hair.data.materials[0].node_tree.nodes.get("Principled BSDF")
     shader.inputs["Roughness"].default_value = .74
-    shader.inputs["Specular IOR Level"].default_value = .22
+    shader.inputs["Specular IOR Level"].default_value = .17
+
+
+    add_hairline_accents(skin, rig, h)
+
+
+def add_hairline_accents(skin, rig, height):
+    """Add sparse, fine overlapping cards around the temples and swept hairline."""
+    surface = body_surface(skin)
+    center = Vector((0, -.031, height - .104))
+    verts, faces, uv = [], [], []
+    directions = (
+        (-.060, .015, -.012), (-.053, .028, -.009), (-.037, .041, .010),
+        (-.019, .051, .018), (.003, .057, .016), (.025, .048, .013),
+        (.048, .035, .010), (.057, .021, -.012), (.064, .014, -.011),
+    )
+    for index, (x, elevation, drift) in enumerate(directions):
+        prior = None
+        for row in range(11):
+            t = row / 10
+            direction = Vector((
+                x + drift * sin(t * pi * .76) + .0024 * sin(t * tau + index),
+                -.103 + t * .064,
+                elevation + t * .031 + .0029 * sin(t * tau * .9 + index),
+            ))
+            p = sample_surface(surface, center, direction, .0055 + .006 * sin(pi * t))
+            tangent = direction.cross(Vector((drift, .064, .031))).normalized()
+            width = .0015 * (1 - .73 * t) * (.75 + .28 * sin(index * 1.9) ** 2)
+            first = len(verts)
+            verts.extend((p - tangent * width, p + tangent * width))
+            uv.extend(((0, t), (1, t)))
+            current = [first, first + 1]
+            if prior is not None:
+                join_rows(faces, prior, current)
+            prior = current
+
+    mat = material("Directional temple and hairline strands", (.052, .028, .016), .68)
+    # Original atlas with soft edges and three narrow strands per card.
+    texture = bpy.data.images.new("Fine hairline strands", width=64, height=128, alpha=True)
+    pixels = []
+    for row in range(128):
+        v = row / 127
+        fade = min(1, v * 12, (1 - v) * 11)
+        for col in range(64):
+            u = col / 63
+            strand = max(max(0, 1 - abs(u - root - .042 * sin(tau * v + root * 8)) / .093)
+                         for root in (.27, .48, .70))
+            shade = .67 + .33 * strand
+            pixels.extend((.258 * shade, .174 * shade, .121 * shade, strand * fade))
+    texture.pixels.foreach_set(pixels)
+    texture.pack()
+    mat.surface_render_method = "DITHERED"
+    nodes, links = mat.node_tree.nodes, mat.node_tree.links
+    atlas = nodes.new("ShaderNodeTexImage")
+    atlas.image = texture
+    shader = nodes.get("Principled BSDF")
+    links.new(atlas.outputs["Color"], shader.inputs["Base Color"])
+    links.new(atlas.outputs["Alpha"], shader.inputs["Alpha"])
+    obj = mesh_object("Jay | fine hairline cards", verts, faces, mat)
+    layer = obj.data.uv_layers.new()
+    for corner in obj.data.loops:
+        layer.data[corner.index].uv = uv[corner.vertex_index]
+    group = obj.vertex_groups.new(name="Head")
+    group.add(list(range(len(verts))), 1.0, "REPLACE")
+    armature_for(obj, rig)
 
 
 def relax(rig):
@@ -249,8 +550,11 @@ def prepare(path, candidate):
                 name = o.data.materials[0].name.split(".")[0]
                 parts[name] = o
                 o.name = "Jay | " + name
-        fit_hair(parts["Hair"], parts["Skin"])
-        fit_tank(parts["Skin"], rig, parts["Boardshorts"])
+        fit_hair(parts["Hair"], parts["Skin"], rig)
+        skin = parts["Skin"]
+        tank = fit_tank(skin, rig)
+        shorts = fit_shorts(skin, rig)
+        hide_covered_skin(skin, (tank, shorts))
     relax(rig)
     return scene
 

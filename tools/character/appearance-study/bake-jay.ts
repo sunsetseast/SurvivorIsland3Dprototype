@@ -4,9 +4,6 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { promisify } from 'node:util';
 import { AssetLibrary } from '../src/core/assets';
-import { garmentById } from '../src/core/garments';
-import { cm, REGION } from '../src/core/garments/body';
-import { cloth, isTrunk, shellPart } from '../src/core/garments/kit';
 import { buildHuman } from '../src/core/human';
 import { DEFAULT_PARAMS, yearsToAge, type HumanParams } from '../src/core/params';
 import { exportCharacter } from '../src/export';
@@ -34,22 +31,6 @@ const library = await new AssetLibrary({
   },
 }).init();
 
-garmentById.set('jay_boardshorts', {
-  id: 'jay_boardshorts',
-  label: 'Boardshorts',
-  slot: 'bottom',
-  patterns: ['solid'],
-  color: '#64646a',
-  color2: '#606369',
-  build: (geometry, style) => shellPart(geometry, {
-    covers: vertex => (isTrunk(vertex) && vertex.t < .22)
-      || (vertex.region === REGION.upperleg && vertex.t < .78),
-    offset: vertex => cm(.92 + (vertex.region === REGION.upperleg ? .88 * vertex.t : 0)),
-    tile: .26,
-    relax: 5,
-  }, cloth(geometry, 'Boardshorts', style)).map(part => ({ ...part, hides: undefined })),
-});
-
 const appearance: HumanParams = {
   ...DEFAULT_PARAMS,
   name: 'Survivor_2',
@@ -67,12 +48,12 @@ const appearance: HumanParams = {
   skinTint: '#e2ba96',
   eyes: 'brown',
   eyebrows: 'eyebrow005',
-  eyelashes: 'none',
+  eyelashes: 'eyelashes01',
   hair: 'ponytail01',
   hairTint: '#897162',
   outfit: 'none',
   top: 'none',
-  bottom: 'jay_boardshorts',
+  bottom: 'none',
   underwear: false,
   shoes: 'none',
   detail: 'medium',
@@ -84,7 +65,6 @@ const appearance: HumanParams = {
   modifiers: {},
   expression: 'neutral',
   animations: false,
-  garmentStyles: { jay_boardshorts: { pattern: 'solid', color: '#646872' } },
 };
 
 const character = await buildHuman(library, appearance);

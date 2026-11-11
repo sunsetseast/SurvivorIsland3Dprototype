@@ -1,8 +1,10 @@
 # Phase 5 · Jay Starrett appearance gate
 
-**Visual decision · FAIL.** The fitted red pocket tank, visible eyes and relaxed pose improve the existing Jay. The loose hair still bunches like a wig. The tied-back version fits closer to the scalp, but its smooth crown and narrow tail miss the irregular texture and tied silhouette in the broadcast. The tank binding still lifts and breaks at the shoulder edges, and the shorts read as a padded shell. Together those issues keep the study below the cast benchmark.
+**Visual decision · FAIL after refit.** Separate tank and shorts patterns removed the obvious standing-pose intersections and gave the clothing cleaner hems and a fitted neckline. The folded high tie fits closer to Jay's Season 33 silhouette, and the pocket tank reads clearly at a distance. At portrait range the groom is still too smooth and uniform. In the crawl sample the tank binding buckles into the shoulder, so the wardrobe construction has yet to hold up in gameplay poses.
 
-[Current Jay vs. the study](evidence/jay-before-after.jpg) · [Front, three-quarter, rear and approximate gameplay distance](evidence/jay-views.jpg) · [Loose and tied-back hair trials](evidence/jay-hair-trials.jpg)
+[Shipping Jay vs. refit](evidence/jay-refit-comparison.jpg) · [Five review views](evidence/jay-refit-views.jpg) · [Idle, run and crawl samples](evidence/jay-refit-motion.jpg)
+
+[First-pass comparison](evidence/jay-before-after.jpg) · [First-pass views](evidence/jay-views.jpg) · [First-pass loose and tied-back hair trials](evidence/jay-hair-trials.jpg)
 
 ## Season 33 appearance
 
@@ -16,18 +18,18 @@ The Phase 4 Blender study and visual report supplied the posture and style bench
 
 | Check | Result |
 | --- | --- |
-| Blender 4.3.2 | Reopened the packed editable scene with ten skinned mesh objects, ten packed texture images, 66 bones and five review cameras. |
-| Scratch GLB | Rest-pose export passed glTF validation with zero errors. Validator warnings covered generated tangent space and parented skinned meshes. |
-| Production animation contract | All 66 joint names match. 64 local joint translations differ by more than 1 mm. The study GLB has no clips. Existing clip deformation and animation compatibility remain unverified. |
-| Mobile readiness | The unoptimized study is 6.0 MiB and 87,552 triangles. The shipping asset is 427 KiB and 9,004 triangles. Safari performance remains unverified. |
+| Blender 4.3.2 | Reopened the packed refit with 12 skinned mesh objects, 10 packed textures including the hairline atlas, 66 bones and five review cameras. |
+| Scratch GLB | Rest-pose export validated with zero errors and warnings for parented skinned meshes. |
+| Movement samples | Retargeted idle, run and crawl from the shipping Jay for a Blender preview. Applied the rest-orientation delta per joint and scaled hip translation to the new body. Five frames verified that the clips move the study rig. The crawl sample exposed armhole deformation. |
+| Mobile budget | The compact three-clip preview is 501,380 bytes and 20,332 triangles. It fits the repository's 650,000-byte and under-23,000-triangle limits. The full 13-clip export, optimized visual fidelity, in-game loading and iPhone Safari performance are unverified. |
 
-Jay is the only Phase 5 study. The other 17 contestants, their requested Phase 4 refinements and the cast lineup are pending at the gate. The source and renders in this draft leave the runtime registry, production assets, contestant IDs and animations intact.
+Jay is the only Phase 5 study. The other 17 contestants, Phase 4 refinements and the cast lineup are pending at the gate. The draft contains source and rendered evidence. Production models and game integration are outside the draft.
 
-The next step is a single Jay fitting trial with a properly textured tied-back groom and independently cut tank and shorts panels. Review the shoulder openings, waistband and hair from rear and close views before spending time binding the art. Keep the current natural face proportions as the starting point.
+The next step is to fit the armholes in both upright and crawl poses, using deliberate weight gradients at the clavicle and upper arm. Review the groom under portrait lighting using a broken-up hairline and the actual shape of the high tie. Keep the natural face proportions and use the same motion samples before expanding the cast.
 
 ## Reproduce the review
 
-The foundation uses Ara 3D Gen at commit `c0abe46261171ad3ec570b39beabe386669cae4d` and its MakeHuman-derived CC0 mesh, skin, eye, brow, teeth, tongue and ponytail assets. Ara source is MIT. Blender-authored tank geometry, materials and pose are included as source. CBS footage was used for visual reference. [Ara license](https://github.com/olatunde85/3d-gen/blob/c0abe46261171ad3ec570b39beabe386669cae4d/LICENSE) · [Asset provenance](https://github.com/olatunde85/3d-gen/blob/c0abe46261171ad3ec570b39beabe386669cae4d/scripts/ASSETS_LICENSE.txt)
+The foundation uses Ara 3D Gen at commit `c0abe46261171ad3ec570b39beabe386669cae4d` and its MakeHuman-derived CC0 mesh, skin, eye, brow, lash, teeth, tongue and ponytail assets. Ara source is MIT. The source also builds the tank, shorts, pocket, hairline atlas and studio pose. CBS footage was used for visual reference. [Ara license](https://github.com/olatunde85/3d-gen/blob/c0abe46261171ad3ec570b39beabe386669cae4d/LICENSE) · [Asset provenance](https://github.com/olatunde85/3d-gen/blob/c0abe46261171ad3ec570b39beabe386669cae4d/scripts/ASSETS_LICENSE.txt)
 
 Set `game`, `ara` and `output` to absolute paths for this repository, a checkout of the pinned Ara revision and a writable scratch directory. Use Node 20+, Blender 4.3 and glTF Transform CLI 4.5.
 
